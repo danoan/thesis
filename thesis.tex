@@ -1,0 +1,53 @@
+\documentclass[12pt]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[toc,page]{appendix}
+\usepackage{amstext,amsmath,amssymb,bm,mathtools}
+\usepackage{graphicx,wrapfig,xcolor}
+
+\usepackage{natbib}
+\bibliographystyle{abbrvnat}
+\setcitestyle{authoryear, open={(},close={)} }
+
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.875in}
+\addtolength{\textheight}{1.75in}
+
+\include{style/my-definitions}
+
+\begin{document}
+	\title{Thesis Sketch}
+	\author{Daniel Martins Antunes}
+	\date{}
+	\maketitle
+	
+	\newpage
+
+	\include{chapters/abstract-english}	
+	\newpage
+	\include{chapters/abstract-french}
+	
+	\tableofcontents	
+	
+	\include{chapters/introduction}	
+	\include{chapters/regularization}
+	\include{chapters/curvature-prior}
+	\include{chapters/digital-geometry}
+	\include{chapters/digital-flow}
+	\begin{appendices}
+		\include{chapters/appendix-optimization}		
+		\include{chapters/appendix-bayesian-network}	
+		\include{chapters/appendix-constraint-model}
+		\include{chapters/appendix-local-search-model}	
+		\include{chapters/appendix-glued-curve-model}		
+	\end{appendices}
+	
+	
+
+\nocite{*}
+%\bibliography{}
+	
+\end{document}
+
+

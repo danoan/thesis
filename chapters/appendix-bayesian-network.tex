@@ -1,0 +1,107 @@
+\chapter{Bayesian Networks}\label{chapter:appendix-bayesian-network}
+
+Let $G(V,\vec{E})$ be a direct graph with set of vertices $V$ and a set of edges $\vec{E}$, briefly represented as $\vec{G}$. We refer to $G$ as its undirected counterpart.
+
+\begin{definition}{Path}
+A path in $\vec{G}$ is any sequence $\vec{\pi}$ of connected vertices in $\vec{G}$.
+\end{definition}
+
+\begin{example}
+Every path $\vec{\pi}$ in $\vec{G}$ has a corresponding path $\pi$ in $G$, but the opposite is not true. The undirected path is also called a trail.
+\end{example}
+
+The graph $\vec{G}$ models causal relationships, the source of an edge being a possible cause of its target.
+
+\begin{example}
+In the graph 
+\begin{align*}
+A\rightarrow B \rightarrow C
+\end{align*}
+The vertex $C$ depends on $B$; the vertex $B$ depends on $A$; and the vertex $C$ depends indirectly from $A$.
+
+In the graph
+\begin{align*}
+A\rightarrow B \leftarrow C
+\end{align*}
+
+The vertex $B$ is a common effect of both $A$ and $C$.
+
+\end{example}
+
+\begin{definition}{Collider}
+A vertex $v$ is a collider in a graph $\vec{G}$ if it is the effect of two or more variables. In other words, $v$ is the target of two different edges.
+\end{definition}
+
+\begin{example}
+In the last graph of the previous example, the vertex $B$ is a collider.
+\end{example}
+
+\begin{definition}{Active Path}
+An \textbf{undirected} path $\pi$ in $\vec{G}$ is said to be active if for every triple of consecutive vertices $A,B,C \in \vec{\pi}$, vertex $B$ is not a collider.
+\end{definition}
+
+\begin{definition}{Active Path by $O$}
+An \textbf{undirected} path $\pi$ in $\vec{G}$ is said to be active by $O$, if for every triple of consecutive vertices $A,B,C \in \vec{\pi}$, one of the following is true.
+
+\begin{align*}
+	B \notin O & \rightarrow B \text{ is not a collider. }\\
+	B \in O & \rightarrow B \text{ is a collider. }
+\end{align*}
+
+\end{definition}
+
+Notice that active paths describe undirected paths. Nonetheless, the definition of active paths relays on its directed counterpart, where the definition of collider makes sense, as it will be clear in few paragraphs.
+
+We call $O$ the set of observed variables, i.e., those variables we know its values. Intuitively, an active path $\pi$ is a path that carries dependence information when we consider its directed counterpart. If the observable set is empty, the path $\pi$ is active if all its subpaths \textbf{contains no collider} vertex. However, things are little bit different when $O$ is not empty. Let's say that for a given subpath of $(A,B,C)$ of $\pi$, $B \in O$. Therefore, such subpath is an active path if $B$ \textbf{is a collider}.
+
+\begin{example}
+Consider the graphs
+\begin{align*}
+G1.& \quad A \rightarrow B \rightarrow C\\
+G2.& \quad A \rightarrow B \leftarrow C
+\end{align*}
+
+In G1, vertex $C$ depends indirectly from $A$. If the observable set is empty, the path $\pi(A,C)$ is active (indeed, $B$ is not a collider). However, if $B \in O$, then $A$ and $C$ are independent in G1, i.e., considering that the value of $B$ is known, acknowledging $A$ will bring no useful information to infer $C$. In this case, the path $\pi(A,C)$ is inactive.
+
+In G2, $B$ is a collider vertex. In the case that $B \notin O$, $A$ and $C$ are independent, but if $B \in O$ they are dependent.
+\end{example}
+
+\begin{example}
+Consider the following instance of G2.
+\begin{align*}
+	\text{ motor is broken } \rightarrow \text{ car doesn't start } \leftarrow \text{ gas tank is empty }
+\end{align*}
+
+If one knows that \textsf{car doesn't start}, one can infer that \textsf{gas tank is empty} if one knows that \textsf{motor is broken}. Therefore, events that were independent before knowing that \textsf{car doesn't start} become dependent after it.
+
+\end{example}
+
+\[ 
+	\begin{array}{ll}
+	\pi(X,Y) \text{ is active if } & \forall (A,B,C) \in \pi (X,Y)  \text{ then }
+	\begin{dcases*}
+    	B \notin O \rightarrow B  \text{ is not a collider, or}\\
+		B \in O \rightarrow B \text{ is a collider. }
+	\end{dcases*}\\[2em]	
+	\pi(X,Y) \text{ is inactive if } & \exists (A,B,C) \in \pi (X,Y)  \text{ then }
+	\begin{dcases*}
+    	B \notin O \rightarrow B  \text{ is a collider, or}\\
+		B \in O \rightarrow B \text{ is not a collider. }
+	\end{dcases*}		
+	\end{array}
+\]
+
+\begin{definition}{d-separation by O}
+A pair of vertex $X,Y$ is d-separated if all undirected paths connecting $X,Y$ are inactive by $O$.
+\end{definition}
+
+The d in d-separation holds for dependence. A pair of vertices are d-separated by $O$ if there is no dependence between them if we observe the variables in $O$. In other words, $X,Y$ are independent if $O$ is observed.
+
+
+
+
+\begin{enumerate}
+\item{https://www.andrew.cmu.edu/user/scheines/tutor/d-sep.html}
+\item{https://ermongroup.github.io/cs228-notes/}
+\item{Probabilistic Graph Models - Kohler, Friedman}
+\end{enumerate}

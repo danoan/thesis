@@ -1,0 +1,15 @@
+\newcounter{definition}[section]
+\newenvironment{definition}[1]{\refstepcounter{definition} \par\medskip \noindent  \textbf{Definition~\thedefinition(#1):}}{\medskip}
+
+\newcounter{example}[section]
+\newenvironment{example}{\refstepcounter{example} \par\medskip
+\noindent  \textbf{Example~\theexample :}}{\medskip}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+
+\newcommand{\sketch}[1]{{\color{red}{#1}}}
+
+\newcommand{\transp}{\mathbf{T}}
+\newenvironment{proof}{\noindent\ignorespaces\textit{Proof: }}{\hfill $\blacksquare$ \par\noindent\ignorespacesafterend\medskip}
