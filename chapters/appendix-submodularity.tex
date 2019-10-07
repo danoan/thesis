@@ -1,0 +1,53 @@
+\chapter{Submodularity}\label{chapter:submodularity}
+
+\textbf{Paper colllection}
+\begin{enumerate}
+	\item{Quadratic reformulation of nonlinear binary optimization problems}
+	\begin{itemize}
+		\item{A Pseudo-Boolean function (PBF) $f:\{0,1\}\rightarrow \mathbb{R}$.}
+		\item{It can be regarded as a set function; a PBF of any degree can be reduced to a quadratic PBF by adding enough variables.}
+		\item{An strategy for solving a PBF is to transform it in a linear programming. Monomials are replaced by single variables and these variables are forced to obey some linearization constraints. }
+	\end{itemize}
+	\item{Nonconvex mixed-integer nonlinear programming: a survey}
+	\begin{itemize}
+		\item{Pointed by item 1 as a reference for strategies involving linear programming formulations.}
+		\item{Convex MINLP are more tractable than nonconvex MINLP.}
+		\item{Strategy 1: Linearization constraints. For each quadratic monomial create a new varible and three additional constraints;}
+		\item{Strategy 2: Similar to above, but uses O(n) constraints instead of O($n^2$);}
+		\item{Strategy 3: Convex relaxation by adding or subtracting terms of the form $x_i^2-x_i$.}
+		\item{Strategy 4: Roof Dual (QPBO) }
+		\item{Strategy 5: Semidefinite relaxation}
+		\item{MINLP solvers: BARON, alpha-BB, Lindo-Global, Couenne.}
+	\end{itemize}
+	\item{Convex programming}
+	\begin{itemize}
+		\item{The item 2 made me review come definition in the book of Boyd.}
+		\item{Least-Squares: Analytical solution; necessary condition + newton root finding; gradient descent or similar.}
+	\end{itemize}
+	\item{ A tight bound for the boolean quadratic optimization
+problem and its use in a branch and bound algorithm.}
+	\begin{itemize}
+		\item{Description of strategy 3.}
+	\end{itemize}
+	\item{A reformulation-linearization technique for solving discrete and continuous nonconvex problems. 2013}
+	\item{Improving the performance of standard solvers for quadratic 0-1 programs by a tight convex reformulation: The QCR method. 2009}
+	\item{On quadratization of pseudo-Boolean functions.}
+	\item{An hypergraph-based reduction for higher-order Markov
+random fields.}
+	\item{A comparative study of modern inference techniques for discrete energy minimization problems.}
+	\item{Pseudo-Boolean optimization}
+	\begin{itemize}
+		\item{The costumes of PBF: Set function; posiform (literals and positive coefficients); multilinear polynomial.}
+		\item{The derivative, its residual residual and its size?}
+		\item{The min term representation. The unique posiform in which $f(0) = \min f$.}
+		\item{Let a PBF in its multilinear polynomial form. Moreover, relax the binary domain to accomodate the interval $[0,1]$. For any value of $r \in [0,1]^n$ there are binary vectors $x,y$ that lower and upper bounds $f(r)$. }
+		\item{Local search.}
+		\item{If the PBF is convex, we can apply standard continuous methods and use the roundup roundown procedures. Convex recognition [41,42,124]; Convexification [90,117].}
+		\item{Quadratic Optimization reduction: }
+	\end{itemize}
+	\item{Convex Analysis and Optimization with Submodular functions: a tutorial}
+	\begin{itemize}
+	\item{Lovasz extension: A function is submodular is and only if its Lovazs extension is convex.}
+	\item{Relation with total variation.}
+	\end{itemize}
+\end{enumerate}

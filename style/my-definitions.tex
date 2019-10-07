@@ -5,6 +5,10 @@
 \newenvironment{example}{\refstepcounter{example} \par\medskip
 \noindent  \textbf{Example~\theexample :}}{\medskip}
 
+
+\newcounter{claim}[section]
+\newenvironment{claim}[1]{\refstepcounter{claim} \par\medskip \noindent  \textbf{Claim~\theclaim(#1):}}{\medskip}
+
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}%
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}%
