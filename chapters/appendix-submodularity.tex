@@ -1,5 +1,143 @@
 \chapter{Submodularity}\label{chapter:submodularity}
 
+The contents of this chapter are strongly based on the manuscript \cite{} and is included here for completeness.
+
+Let $\mathbb{B} = \{0,1\}$. The function $f:\mathbb{B}^n\rightarrow\mathbb{R}$ is called a pseudo-boolean function.
+
+\textbf{Set function equivalence:} A set function maps subsets to values. Consider any enumerable set which elements are indexed by $\mathbf{V}$. The function $g:2^V\rightarrow \mathcal{R}$ is a set function to the reals. The pseudo-boolean function $f$ can be interpreted as a set function by defining $V=\{1,2,\cdots,n\}$. Each subset of $V$ is mapped to a vector $b \in \mathbb{B}^b$, e.g. the subset $\{1,5,7\}$ is mapped to vector $b$ where $b_i=1$ for $i \in \{1,5,7\}$ and $b_i=0$ otherwise.
+
+\textbf{Polynomial representation}
+
+\begin{align*}
+	f(x_1,\cdots, x_n) = \sum_{S \subset \mathbf{V}}{c_S\prod_{j \in S}{x_j}},
+\end{align*}
+
+where $c_S \in \mathbb{R}$. The largest subset of $V$ with non zero coefficient is called the degree of $f$. The size of $f$ is defined as $size(f) = \sum_{c_S \neq 0}{|S|}$, i.e. the number of variable occurrences. 
+
+The $i-th$ derivative of $f$ is defined as
+
+\begin{align*}
+	\Delta_i(x) &= f(x_1,\cdots, x_{i-1},1,x_{i+1},\cdots,x_n) - f(x_1,\cdots, x_{i-1},0,x_{i+1},\cdots,x_n) \\
+	&= \sum_{S \subset \mathbf{V} \setminus \{i\}}{c_{S \cup \{i\}}\prod_{j \in S}{x_j}}.
+\end{align*}
+
+Its $i-th$ residual is defined as
+
+\begin{align*}
+	\Theta_i(x) &= f(x) - x_i\Delta_i(x) \\
+	&= \sum_{S \subset \mathbf{V} \setminus \{i\}}{c_{S}\prod_{j \in S}{x_j}}.	
+\end{align*}
+
+We can also represent a PBF in its posiform representation. We identify each literal $x_i$ and $\overline{x_i}$ with a variable, and its coefficients are always non-negative.
+
+\textbf{Posiform representation}
+
+\begin{align*}
+	\phi(x_1,\cdots,x_n) = \sum_{T \subset L}{a_T}\prod_{u \in T}{u},
+\end{align*}
+
+where $a_T \geq 0$.
+
+\textbf{Example:} (Posiform and polynomial representation of same function)
+
+\begin{align*}
+	f(x) =& a_{\emptyset} + a_\ol{1} + a_\ol{2} + a_\ol{12} + \big(a_1 - a_\ol{1} + a_{1\ol{2}} - a_\ol{12}\big)x_1 \\
+	&+ \big(a_{2} - a_\ol{2} + a_{\ol{1}2} - a_{\ol{12}}\big)x_2\\ 
+	&+ \big(a_{12} - a_{\ol{1}2} - a_{1\ol{2}} + a_{\ol{12}}\big)x_1x_2 \\[1em]
+	\phi(x) =& a_{\emptyset} + a_1x_1 + a_\ol{1}\ol{x_1} + a_2x_2 + a_\ol{2}\ol{x_2} \\ 
+			&+ a_{12}x_1x_2 + a_{\ol{1}2}\ol{x_1}x_2 + a_{1\ol{2}}x_1\ol{x_2} + a_{\ol{12}}x_1\ol{x_2}
+\end{align*}
+
+The polynomial representation of a PBF is unique, but not its posiform.
+
+\begin{align*}
+	5x_1 + 4\ol{x_1}\ol{x_2}x_3 \Leftrightarrow 4\ol{x_2}x_3 + x_1 + 4x_1\ol{x_2}\ol{x_3} + 4x_1x_2.
+\end{align*}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+$x_1$ & $x_2$ & $x_3$ & $f(x)$\\
+\hline
+0 & 0 & 0 & 0 \\
+0 & 0 & 1 & 4 \\
+0 & 1 & 0 & 0 \\
+0 & 1 & 1 & 0 \\
+1 & 0 & 0 & 5 \\
+1 & 0 & 1 & 5 \\
+1 & 1 & 0 & 5 \\
+1 & 1 & 1 & 5 \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{align*}
+	f(x) &= 4\ol{x_1}\ol{x_2}x_3 + 5x_1\ol{x_2}\ol{x_3} + 5x_1\ol{x_2}x_3 + 5x_1x_2\ol{x_3} + 5x_1x_2x_3 \\
+		 &= \mathbf{ 4\ol{x_1}\ol{x_2}x_3 } + x_1 + 4x_1\ol{x_2}\ol{x_3} + \mathbf{4x_1\ol{x_2}x_3} + 4x_1x_2\ol{x_3} + 4x_1x_2x_3 \\	
+		 &= 4\ol{x_2}x_3 + x_1 + 4x_1\ol{x_2}\ol{x_3} + \mathbf{4x_1x_2\ol{x_3}} + \mathbf{4x_1x_2x_3} \\
+		 &= 4\ol{x_2}x_3 + x_1 + 4x_1\ol{x_2}\ol{x_3} + 4x_1x_2 		 			 	
+\end{align*}
+
+Nonetheless, the posiform of $f$ in which $a_{\emptyset} = \min{f(x)}$ is unique and its called the \emph{min-term} posiform. Every PBF has a min-term posiform.
+
+\begin{proposition}{Round-down}\label{prop:round-down}
+Let $f:\mathbb{B}^n \rightarrow \mathbb{R}$ be a pseudo-boolean function and $g:\mathbb{U}^n\rightarrow \mathbb{R}$ its continuous counterpart constrained in the interval $\mathbb{U} = [0,1]$. For any $r \in \mathbb{U}^n$ there exists $q \in \mathbb{B}^n$ such that $f(q) \leq g(r)$.
+\end{proposition}
+
+Therefore, we can always find a binary lower bound for $g$. It can be shown that binary upper bounds can also be found. From these propositions we conclude that
+
+\begin{align*}
+	\argmin{f} = \argmin{g}
+\end{align*}
+
+Notice,  that lower and upper bounds can be found with respect to a initial vector $r \in \mathbb{U}^n$. Therefore, rounding procedures can be used to return local optima at most. Moreover, the round-down procedure may not produce a local optimal even if we consider the $1$-hamming distance.
+
+\textbf{Example:}
+
+\begin{proposition}{Quadratic reduction}\label{prop:quadratic-reduction}
+	The optimization of a pseudo-boolean function of any order can always be restated as the optimization of a second order pseudo-boolean function.
+\end{proposition} 
+
+The proof is based in the following observation.
+
+\begin{align*}
+	xy = z &\Leftrightarrow xy - 2xz -2yz + 3z = 0 \\
+	xy \neq z &\Leftrightarrow xy -2xz - 2yz + 3z > 0	
+\end{align*}
+
+Therefore, one can substitute variable pair $x_ix_j$ by including a penalty term of the form $M(xy - 2xz -2yz + 3z)$, where $M=1 + 2\sum_{S \subset V}{|c_S|}$. The problem to find the minimum number of variable pairs to be substituted is in $NP$-complete (one can reduce vertex cover to this problem).
+
+
+\textbf{Basic algorithm}
+
+Optimize the posiform representation of $f$ with unary coefficients is equivalent to find an assignment in which the maximum number of terms of $f$ are canceled. Such problem can be reduced from \texttt{MAX-SAT} and therefore is NP-complete.
+
+However, there are some properties that help us to find optimal solutions. One of those is the persistency of a solution. We say that a $\mathbf(y) \subset \mathbb{B}^S$ is a partial assignment for $f$. For any assignment $\mathbf{x} \in \mathbb{B}^n$, we denote $\mathbf{x}[\leftarrow \mathbf{y}] $a relabeling by $\mathbf{y}$, that is
+
+\[
+	\mathbf{x}[\leftarrow \mathbf{y}]_i = \left\{ 
+	\begin{array}{ll}
+		\mathbf{x}_i & i \notin S\\
+		\mathbf{y}_i & i \in S
+	\end{array}\right.
+\]
+
+ We say that $\mathbf{y}$ is \emph{weak-persistent} if there exists optimal solutions in which $\mathbf{y}$ is part of it. In other words, there exists $\mathbf{x^\star}=\argmin f$ such that $\mathbf{x^\star}_i = \mathbf{y}_i \; \forall i \in S$. We say it is \emph{strong-persistent} if the partial assignment $\mathbf{y}$ is in every optimal solution.
+ 
+ 
+There exists a case in which is easy to say that a partial assignment is weak-persistent. We say that a partial assignment is a \emph{contractor} if a relabeling by it eliminates all terms in which a variable from the assignment belongs to. A contractor is the best one can do w.r.t. to the variables in $S$, therefore, there exists optimal solutions in which such assignment is present. Determine if a partial assignment is a contractor can be done in linear time to $size(f)$.
+
+\begin{proposition}{Necessary conditions for optimality}
+	\[
+		\forall i, \;	x_i = \left\{ \begin{array}{ll}
+			1, & \Delta_i(x) < 0 \\
+			0, & \Delta_i(x) > 0
+		\end{array}\right.
+	\]
+\end{proposition}
+
+From the necessary conditions there exists a naive algorithm that can be implemented. We start from a initial labeling, and the idea is to eliminate one variable at each iteration. At iteration $1$, the variable $x_1$ is eliminated. We replace $x_1$ by an boolean expression involving all other variables that evaluates to $1$ if and only if $\Delta_i(x)<0$ and evaluates to $0$ otherwise. Such algorithm is not used in practice because it has exponential complexity.
+
 \textbf{Paper colllection}
 \begin{enumerate}
 	\item{Quadratic reformulation of nonlinear binary optimization problems}
