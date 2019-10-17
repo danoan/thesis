@@ -1,2 +1,94 @@
 \chapter{Constraint Model}
 \label{chapter:appendix-constraint-model}
+
+In this chapter we describe a plenty of models that target to solve the third order energy. The basic strategies are convexification and linearization.
+
+\textbf{Outline:} 
+
+\begin{enumerate}
+	\item{Prove third order energy is non-convex.}
+	\item{Define two convexification strategies.}
+	\item{Be precise on how Lagrangian multipliers can help us.}
+\end{enumerate}
+
+\textbf{General Model:} 	Consider the standard cell grid model (Khalimsky space) with its $N$ cells and $L$ linels. Assume a clockwise orientation for cells; up orientation for vertical linels; and right orientation for horizontal linels. The orientation is arbitrary. 
+	
+	Pixel variables are denoted by $v \in \{0,1\}^N$. Linel variables by $w \in \{0,1\}^{2L}$. Note that each linel generates two binary variables, one for each direction. We called an oriented linel an edge.
+			
+	Further, we define incidence relations between cells and linels and between edges and linels.
+	
+	\[ \forall 0 \leq j < N, \quad
+			\alpha_{j,i} = \left\{ 		\begin{array}{ll}
+											+1&, \text{ if cell $j$ is positively incident to linel i }\\
+											-1&,\text{ if cell $j$ is negatively incident to linel i }\\
+											0&,\text{otherwise}.						
+										\end{array}\right.
+	\]
+	
+	\[\forall 0 \leq j < 2L, \quad
+			\beta_{j,i} = \left\{ 		\begin{array}{ll}
+											+1&, \text{ if edge $j$ is positively incident to linel i }\\
+											-1&,\text{ if edge $j$ is negatively incident to linel i }\\
+											0&,\text{otherwise}.						
+										\end{array}\right.
+	\]	
+
+	The set of consistent constraints is simply expressed as:
+	\begin{align*}
+		\sum_{}{\alpha_{j,i}v_i} + \sum_{}{\beta_{j,i}v_i} = 0
+	\end{align*}
+	
+	In words, the sum of cells incidences and edges incidences to some linel $v_i$ should be equal to zero. 
+	
+	We can wrap up the variables in one big variable $y \in \{0,1\}^{N+2L}$ and the incidence coefficients in a single matrix $A$. The problem formulation is finally written as
+
+
+	\begin{equation}
+	\begin{aligned}
+		y^\star &= \argmin_{y} \sum_{w_i \in \mathcal{L}}{ a^2 \cdot \left( C_0 + C_1 \cdot \sum_{v_j \in \mathcal{C}}{v_j} + 2 \cdot \sum_{ \substack{v_j,v_k \in \mathcal{C} \\ j<k} }{v_jv_k}  \right) } \cdot w_i,\\[1em]
+	&\quad \text{ subject to } Ay=0.
+	\end{aligned},
+	\label{eq:global-formulation}
+	\end{equation}
+	
+	with 
+	\begin{align*}
+		a &= 3/r^3 \\ 
+		b &= \pi r^2/2 \\ 
+		C_0 &= b^2 - 2b \cdot |F_r(w_i)| + |F_r(w_i)|^2 \\
+		C_1 &= 2\left( |F_r(w_i)| - b + 1/2 \right).
+	\end{align*}
+
+
+\section{General Optimization: BFGS}
+Since the problem is non-convex, this approach is expected to find a local minimum at most. However, if we have some stragegy that give us warm-starters, we can expect to find solutions not too far from optimal.
+
+\section{Cubics Linearization and Convexification}
+The strategy here is to quadrify the energy. A straightforward linearization of cubic terms is not sufficient because this leads to a quadratic energy with non-semidefinite positive matrix, which eliminates methods from convex optimization.
+
+We need to apply some sort of energy convexification as well, in the hope that the global optimium of the resulting convexification energy is not far away from the global optimal.
+	
+	\begin{equation}
+	\begin{aligned}
+		\min &\frac{1}{2} y^TPy + q^Ty\\
+		st \quad &Gy + s = h\\
+		&Ay = b \\
+		& s \geq 0
+		\label{eq:quadratic-formulation}
+	\end{aligned}
+	\end{equation}
+	
+	In order to do that, we need to choose a second order term to linearize. We can linearize $v_jv_k$ or $v_jw_i$. However, neither will lead to a semi-definite positive matrix $P$, in which case we could solve using techniques from convex optimization.
+
+	\textbf{Open question 1}: How far is the matrix $P$ from being semi-definite positive for the choice $v_jw_i$ (all coefficients positive)? What about the choice $v_jv_k$? \\
+		
+	\textbf{Open question 2}: Is there a way to compute an approximation from my energy that leads to a semi-definite positive matrix $P$?
+	
+	
+\section{Lagrangian Multipliers}
+
+	We can try variations of the model by including constraints as penalty terms in the objective function.
+	
+	
+\section{Augmented Lagrangian Multipliers}	
+
