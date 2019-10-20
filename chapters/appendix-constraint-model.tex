@@ -84,6 +84,14 @@ We need to apply some sort of energy convexification as well, in the hope that t
 		
 	\textbf{Open question 2}: Is there a way to compute an approximation from my energy that leads to a semi-definite positive matrix $P$?
 	
+	\textbf{Strategy 1:} Variable substituion plus constraint linearization.
+	
+	\textbf{Strategy 2:} Quadratic reduction by penalization (following Boros) + convexification.
+	
+	\textbf{Strategy 3:} Strategies 1 and 2 should be evaluated under estimation ball on linels model and estimation ball average over incident pixels models.
+	
+	\textbf{Strategy 4:} Use max-energy to define a global optimization energy (it is simply necessary to condition the estimation ball evaluations to boundary linels).
+	
 	
 \section{Lagrangian Multipliers}
 
