@@ -3,6 +3,23 @@
 
 In this chapter we describe a plenty of models that target to solve the third order energy. The basic strategies are convexification and linearization.
 
+\textbf{Obs:} The interpixel model is not the best choice for doing the global optimization. Think on the square and an estimation ball of radius $3$. In the interpixel mode, such ball would have radius $6$ and it would touch $8$ pixels in the trust foreground region. Summing up the pixels in the optimization region we get $14$ pixels. For the radius $3$ ball, equilibrium is reached with $14.5$. We can argue that $14$ is closer from the average than the $18$ we have in the pixel mode, but we can get $14.5$ exactly in the average pixel mode. Discussion should be done over the average pixel mode instead.
+
+
+\textbf{Obs:} While doing binary optimization, we can write $x^2$ as $x$, it doesn't change the final result. But if we wish to the some sort of relaxation and convex optimization, we need to properly count the squared term, as it has an influence on the pairwise matrix being semidefinite positive or not.
+
+
+\textbf{Obs:} Rewrite model using matrix notation. Let $x_i \in \mathbb{R}^n$ the active variables when ball is positioned at point $p_i$. Then,
+
+\begin{align*}
+	f(x) =& \sum_{p_i \in A}{ \big(C_i - x_i^Tx_i\big)^2} \\
+	=& \sum_{p_i \in A}{ C_i^2 - 2C_ix_i^Tx_i + x_i^Tx_ix_i^Tx_i } \\
+	=& q^tx + x^tQx + C 
+\end{align*}
+, where $\displaystyle C_i = \frac{\pi}{r^2} - F_i, \,q = \sum_{p_i \in A}{-2C_ix_i},\, Q = \sum_{p_i \in A}{x_ix_i^T}$.
+
+Such problem is convex, therefore, we can apply the round-down, round-up procedures in order to produce optimal binary solutions, given the optimal relaxed convex solution.
+
 \textbf{Outline:} 
 
 \begin{enumerate}
