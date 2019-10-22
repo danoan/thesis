@@ -138,6 +138,57 @@ There exists a case in which is easy to say that a partial assignment is weak-pe
 
 From the necessary conditions there exists a naive algorithm that can be implemented. We start from a initial labeling, and the idea is to eliminate one variable at each iteration. At iteration $1$, the variable $x_1$ is eliminated. We replace $x_1$ by an boolean expression involving all other variables that evaluates to $1$ if and only if $\Delta_i(x)<0$ and evaluates to $0$ otherwise. Such algorithm is not used in practice because it has exponential complexity.
 
+\textbf{Relation with stable sets}
+
+A stable set of a graph $G$ is defined as its maximum independent set of vertices. For a given weight function $w$ for its vertices, the stability number of $G$ is defined as
+
+\begin{align*}
+	\alpha_w(G) = \max_{I \in V}\sum_{v \in I} w(v),\, I \text{an independent set}.
+\end{align*} 
+
+\begin{theorem}{}
+For any posiform $\phi$, one can construct a graph $G$ such that
+\begin{align*}
+\max_{x \in \mathbb{B}^n}{\phi(x)} = a_{\emptyset} + \alpha_{a}(G).
+\end{align*}
+\end{theorem}
+
+In particular, the vertices of $G$ are mapped to terms of $\phi$ and its weight mapped to the terms' coefficient. Moreover,
+
+\begin{theorem}{}
+Given a graph $G = (V, E)$ and nonnegative weights $a_i \geq 0$
+associated to the vertices $i \in V$ , there exists a posiform $\phi_G$  in $n' < |V| $ variables, consisting of $|V|$ terms, and such that
+
+\begin{align*}
+	\alpha_a(G) = \max_{x \in \mathbb{B}^{n'} } \phi_G(x)
+\end{align*}
+\end{theorem}
+
+The theorems above says not only that posiform maximization is as difficult to solve as maximum independent sat, but points out that they are somehow equivalent. This connection allow us to extend some results regarding approximation algorithms to maximum independent set to posiform maximiztion, in particular, its likely that a polynomial time constant factor approximation algorithm for it doesn' exist unless $P=NP$. Nonetheless, for some class of graphs there exists approximation algorithms for any factor $c<1$ (a PTAS scheme) which raises questions as: for which class of graphs posiforms are mapped to? Depending on the answer, the minimization of a posiform might be feasbile, or at least we can get a good approximation.
+
+\textbf{Open question:} For the DGCI flow: To which class of graphs are mapped our posiforms? 
+
+\textbf{Obs:} In the DGCI flow, we invert the solution at the end. I ran the following experiment. I execute two different flows. 
+\begin{itemize}
+	\item{*}{F1: Minimize p and invert labels.}
+	\item{*}{F2: Minimize -p and keep labels.}	
+\end{itemize}
+
+The results are visually similar, though not equivalent. I've print the energy values at each iteration and they differ by a seemly bounded value. Such property is quite remarkable, because we don't expect that inverting the minimization problem solution we would get the solution of the maximization problem.
+
+\textbf{Obs:} The minimum vertex cover is equal to the complement of the maximum independent set. As we have seen, there exists a graph $G_{\phi}$ such that the minimization of $\phi$ equals the stability number of $G_{\phi}$. If we can prove that the minimum vertex cover of $\phi$ equals maximizing $\phi$, then we are done.
+
+
+
+
+Maximize or minimize a pbf in polynomial form are equivalent problems. Minimize a polynomial $p$ equals to maximize $-p$. With respect to posiforms, coeficients are always positive and such argument cannot be used.
+
+
+
+
+
+
+
 \textbf{Paper colllection}
 \begin{enumerate}
 	\item{Quadratic reformulation of nonlinear binary optimization problems}

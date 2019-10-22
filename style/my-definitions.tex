@@ -13,6 +13,10 @@
 \newcounter{proposition}[section]
 \newenvironment{proposition}[1]{\refstepcounter{proposition} \par\medskip \noindent  \textbf{Proposition~\theproposition(#1):}}{\medskip}
 
+\newcounter{theorem}[section]
+\newenvironment{theorem}[1]{\refstepcounter{theorem} \par\medskip \noindent  \textbf{Theorem~\thetheorem(#1):}}{\medskip}
+
+
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}%
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}%
