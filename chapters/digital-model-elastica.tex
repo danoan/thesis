@@ -1,0 +1,208 @@
+\chapter{Digital Model for Elastica}
+\label{chapter:digital-model-elastica}
+
+In this chapter we review the elastica energy and some of its properties. Next, we introduce the digital version of the elastica using multigrind convergent estimators of length and curvature. Finally, we describe a theoretical optimization model for the minimization of the digital elastica.
+
+\section{Continuous and Digital Elastica}
+
+	Given an Euclidean shape $X$, its digital elastica $\hat{E}$ is defined as
+	\begin{align*}
+	\hat{E}( D_h(X) ) = \sum_{\dot{\vec{e}} \in \partial D_h(X)}{ \hat{s}( \dot{\vec{e}})\left(\; \alpha + \beta \hat{\kappa}_{r}^2(D_h(X),\dot{\vec{e}},h) \; \right)},
+	\end{align*}
+	
+where $\dot{\vec{e}}$ denotes the center of the edge $\vec{e}$. In the
+expression above, we will substitute an arbitrary subset $Z$ of
+$\mathbb{Z}^2$ to $D_h(X)$ since the continuous shape $X$ is unknown.
+In the following we omit the grid step $h$ to simplify expressions
+(or, putting it differently, we assume that the shape of interest is
+rescaled by $1/h$ and we set $h=1$). 
+
+In the next section, we describe a combinatorial scheme that permit us to find the minimum digital shape with respect the digital elastica energy for some neighborhood of shapes of $S$. 
+
+\section{Local Combinatorial Scheme}
+
+Given a digital shape $S^{(0)}$ we describe a process that generates a
+sequence $S^{(i)}$ of shapes with non-increasing Elastica energy. The
+idea is to define a neighborhood of shapes $\mathcal{N}^{(i)}$ to the
+shape $S^{(i)}$ and choose the element of $\mathcal{N}^{(i)}$ with
+lowest energy.  The process is suited for the integral invariant
+estimator but also for other curvature estimators, for example, MDCA
+\cite{roussillon11mdca}. As a matter of fact, our experiments have
+shown that either estimators induce similar results.
+
+Let $S$ be a $2$-dimensional digital shape. We adopt the cellular-grid model to represent $S$, i.e., pixels and its lower dimensional counterparts, linels and pointels, are part of $S$. In particular, we denote by $\partial S$ the topological boundary of $S$, i.e., the connected sequence of linels such that for each linel we have one of its incident pixels in $S$ and the other not in $S$.
+
+
+Let $d_{S}:\Omega \rightarrow \mathcal{R}$ be the signed Euclidean distance transformation with respect to shape $S$. The value $d_S(x)$ gives the Euclidean distance between $x$ and the closest linel in $\partial S$. 
+
+\begin{definition}{m-Ring Set}
+Given a digital shape $S\in\Omega$, its distance transformation $d_S$ and natural number $m > 0$, the {\em $m$-ring set of $S$} is defined as
+\begin{align*}
+	\quad R_m(S) &:= R_m^-(S) \; \cup \; R_m^+(S) \\
+	&:= \left\{ x \in \Omega \; | \; -m \leq d_S(x) < -(m-1) \right\} \; \cup \;  \left\{ x \in \Omega \; | \; 	m-1 < d_{S}(x) \leq m \right\}.
+\end{align*}
+\end{definition}
+
+Consider the following set of neighbor candidates to $S$:
+\begin{align*}
+\mathcal{U}(S) = \{ D \; | D \subset R_1(S) \cup S \; \text{and} \; \text{$D$ is connected} \}.
+\end{align*}
+
+
+Such set can be extremely large and its complete exhaustion is prohibitively expensive.  Instead, we explore a subset of it with the help of $n$-glued curves.
+
+An oriented closed curve $C$ is a closed connected sequence of linels with a well-defined interior. A segment of $C$ is a connected subsequence $c \in C$ of its linels.
+
+%\begin{figure}[!h]
+%\center
+%	\subfloat[\label{}]{%
+%	\includegraphics[scale=0.2]{images/local_search/definitions/model-regions-square.eps}
+%	}\hspace{40pt}%
+%	\subfloat[\label{}]{%
+%	\includegraphics[scale=0.2]{images/local_search/definitions/glued-curve.eps}
+%	}%	
+%	\caption{The blue pixels in figure (a) illustrates a $2$-ring set, while the green pixels its inner-pixel boundary. In figure (b) we highlight an element of set $\mathcal{G}_{11}(C_1,C_2)$. The curve segments of $C_1$ and $C_2$ are colored in red and green, while the junction linels in blue.}
+%\end{figure}
+
+\begin{definition}{Glued Curve}
+Given closed curves $C_1,C_2$ agreeing with some orientation $q$, a glued curve is a closed curve  $(c_1,\ell_1,c_2,\ell_2)$ with orientation $q$ and $c_1 \in C_1, c_2 \in C_2$. The linels $\ell_1,\ell_2$ are called junction linels.
+\end{definition}
+
+\begin{definition}{$n$-Glued Curve Set}
+Given closed curves $C_1,C_2$ with same orientation, its set of $n$-glued curves is defined as
+\begin{align*}
+	\mathcal{G}_n(C_1,C_2) = \{ (c_1,\ell_1,c_2,\ell_2) \; | \; |c_2|=n \},
+\end{align*}
+\end{definition}
+
+Let $S_O = ( S \cup R_1^+(S) ) $ and $S_I = ( S \setminus R_1^-(S) ) $, the neighborhood set to shape $S$ is defined as
+\begin{align*}
+	\mathcal{N}(S,N) = \bigcup_{1 \leq n \leq N} int \big( \mathcal{G}_{n}(\partial S_O, \partial S) \; \big) \cup int \big( \;  \; \mathcal{G}_{n}(\partial S, \partial S_I) \; \big),
+\end{align*}
+
+where $int(C)$ is the interior of the shape bounded by the closed oriented curve $C$. Algorithm~\ref{alg:local-search} describes the local combinatorial process and Figure~\ref{fig:local-comb-square-results} presents the digital curve evolution when executing this algorithm for two different shapes with $N=20$.
+
+
+\begin{algorithm}[H]
+ \SetKwData{It}{i}
+ \SetKwData{MIt}{maxIt}
+ \SetKwData{Tol}{tolerance}
+ \SetKwData{Delta}{delta}
+ \SetKwData{Best}{best} 
+ \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+ 
+ \Input{A digital set $S$; the maximum length of glued curves $N$; the maximum number of iterations \MIt; and a stop condition \Tol}
+ \BlankLine
+ \Delta $\longleftarrow$ \Tol+1\;
+ \While{ \It $<$ \MIt \bf{and} \Delta $>$ \Tol  }{
+  	\For{$ X \in \mathcal{N}(S^{(i)},N) $}
+	{
+		\If{ $\hat{E}(X)$ $<$ $\hat{E}(X^\star)$ }
+		{
+			$X^\star \longleftarrow X$
+		}
+	}
+	\It $\longleftarrow$ \It $+1$\;
+	$S^{(i)} \longleftarrow X^\star$\;
+	\Delta $\longleftarrow$ $\hat{E}(S^{(i-1)}) - \hat{E}(S^{(i)})$\;	
+ }
+ \label{alg:local-search} 
+ \caption{Local combinatorial optimization for elastica minimization.}
+\end{algorithm}
+
+		
+%\begin{figure}[!h]
+%\center
+%	\subfloat[h=1.0\label{}]{%
+%	\includegraphics[scale=0.125]{images/local_search/square/h1/summary-flow.eps}
+%	}%
+%	\hspace{10pt}
+%	\subfloat[h=0.5\label{}]{%
+%	\includegraphics[scale=0.125]{images/local_search/square/h05/summary-flow.eps}
+%	}%
+%	\hspace{10pt}
+%	\subfloat[h=1.0\label{}]{%
+%	\includegraphics[scale=0.125]{images/local_search/flower/h1/summary-flow.eps}
+%	}%
+%	\hspace{10pt}
+%	\subfloat[h=0.5\label{}]{%
+%	\includegraphics[scale=0.125]{images/local_search/flower/h05/summary-flow.eps}
+%	}%
+%		\caption{Local combinatorial optimization process results for the square and flower shapes. Shapes displayed at every $2$ iterations for the square and $7$ iterations for the flower.}	
+%		\label{fig:local-comb-square-results}
+%\end{figure}
+
+A series of experiments  illustrates the potential of minimizing a purely digital Elastica energy. 
+
+
+The running time of algorithm \ref{alg:local-search} is summarized in table \ref{tab:summary-local-comb-rtime}. All the
+experiments in this paper were executed on a five-core $3.4Ghz$ CPU and the number of pixels in the triangle, square and
+flower shapes are respectively $841,1867,521$ for grid step $h=1.0$. Although its use in practical applications is
+limited, we demonstrate that digital estimators are effective in their measurements and the flows evolve as expected. We
+observe that it is a complete digital approach, and we do not suffer from discretization and rounding problems, a common
+issue in continuous models.  Furthermore we have checked that this approach works indifferently with Integral Invariant
+curvature estimator and Maximal Digital Circular Arc curvature estimator. So the convergence of the digital curvature
+estimator seems to be the cornerstone to get a digital curve behaving like a continuous Elastica.  
+
+
+\section{Global Optimization Model}
+
+Differently from the previous section, the model described here is designed for the integral invariant estimator only.
+
+As usual, let $Z \in \mathbb{Z}^2$ be the digitization of some shape $S \in \mathbb{R}^2$ using grid step $h$. Moreover, $Z$ is represented in the cellular-grid model and we denote $X$ its set of pixels and $Y$ its set of linels. Optimization variables are represented as vectors $x \in \mathbb{R}^{|X|},\, y \in \mathbb{R}^{|Y|}$.  We use  Let's expand the digital elastica:
+
+
+\begin{align}
+	\hat{E}(Y) =& \sum_{y_i \in y}{ \hat{s}(y_i)\left(\; \alpha + \beta \hat{\kappa}_{r}^2(Z,y_i) \; \right)}\\\nonumber
+			   =& \sum_{y_i \in y} \alpha \hat{s}(y_i) + \beta \big( \frac{9}{r^6}(\frac{\pi}{r^2} - |B_r(y_i)|)^2\big)\\\nonumber
+			   =& \sum_{y_i \in y} \alpha \hat{s}(y_i) + \frac{9}{r^6}\beta \big(c_i - |B_r(y_i)|\big)^2\\\nonumber
+			   =& \sum_{y_i \in Y} \alpha \hat{s}(y_i) + \frac{9}{r^6}\beta \big(c_i^2 - 2c_ia_i^Tx + x^Ta_ia_i^Tx\big)\\\nonumber			   
+			   =& \alpha \hat{s}(y) + \frac{9}{r^6}\beta \big(c_i^2 + q^Tx + x^TQx\big)
+	\end{align}
+	
+	It is easy to see that $Q$ is semidefinite positive. In order to enforce global optimization, we need to include information to where centered the estimation ball. We write
+	
+	\begin{align*}
+		\min \hat{E}(Y) \alpha y^T\hat{s}(y) + \frac{9}{r^6}\beta \big(c_i^2 + q^Tx + x^TQx\big)
+	\end{align*}
+	
+
+ As described in chapter \ref{chapter:digital-geometry}, the integral invariant estimator at some linel $\dot{\vec{e}} \in \partial Z$ is computed by centering an estimation ball of radius $r$ at $\dot{\vec{e}}$ and evaluating an expression over the number of pixels in the interior of the shape. Let's start 
+
+
+
+In order to propose a global optimization scheme we need to include pixels and linels in our set of optimization variables. 
+
+
+	\begin{align*}
+	\min_{Z \in \Omega} \sum_{\dot{\vec{e}} \in \partial Z}{ \hat{s}( \dot{\vec{e}})\left(\; \alpha + \beta \hat{\kappa}_{r}^2(Z,\dot{\vec{e}},h) \; \right)},
+	\end{align*}
+
+
+Moreover, a solution returned by the model must be consistent in its set of pixels and linels, .i.e., linels must form connected closed curves and the set of pixels must lie in the interior of those curves.
+
+
+
+%\begin{figure}[!h]
+%\begin{minipage}[b]{0.5\textwidth}
+%\center
+%\includegraphics[scale=0.35]{images/local_search/square-flower.eps}
+%\caption{Elastica computation along iterations of algorithm \ref{alg:local-search}}
+%\label{fig:plot-elastica-local-search}
+%\end{minipage}\hspace{40pt}%
+%\begin{minipage}[b]{0.45\textwidth}
+%\center
+%\captionsetup{type=table}
+%\begin{tabular}{|l|c|c|}
+%\hline
+%& $h=1.0$ & $h=0.5$\\
+%\hline
+%Square & 47s (5s/it) & 260s (12s/it)\\
+%\hline
+%Flower & 1235s (23s/it)  & 8516s (52s/it)\\
+%\hline
+%\end{tabular}
+%\caption{Running times for the local combinatorial optimization algorithm with $k=1,N=20$. Four threads were used.}
+%\label{tab:summary-local-comb-rtime}
+%\end{minipage}
+%\end{figure}

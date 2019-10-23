@@ -1,12 +1,12 @@
 \documentclass[12pt]{book}
 \usepackage[utf8]{inputenc}
 \usepackage[toc,page]{appendix}
-\usepackage{amstext,amsmath,amssymb,bm,mathtools}
+\usepackage{amstext,amsmath,amssymb,bm,bbm,mathtools}
 \usepackage{graphicx,wrapfig,xcolor,subfig}
+\usepackage{algorithm2e,float}
 
 \usepackage{natbib}
-\bibliographystyle{abbrvnat}
-\setcitestyle{authoryear, open={(},close={)} }
+\bibliographystyle{alpha}
 
 \addtolength{\oddsidemargin}{-0.5in}
 \addtolength{\evensidemargin}{-0.5in}
@@ -34,6 +34,7 @@
 	\include{chapters/regularization}
 	\include{chapters/curvature-prior}
 	\include{chapters/digital-geometry}
+	\include{chapters/digital-model-elastica}
 	\include{chapters/digital-flow}
 	\begin{appendices}
 		\include{chapters/appendix-optimization}		
@@ -47,8 +48,8 @@
 	
 	
 
-\nocite{*}
-%\bibliography{}
+%\nocite{*}
+\bibliography{thesis}
 	
 \end{document}
 
