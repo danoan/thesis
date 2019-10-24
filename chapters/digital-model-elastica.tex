@@ -4,7 +4,9 @@
 In this chapter we review the elastica energy and some of its properties. Next, we introduce the digital version of the elastica using multigrind convergent estimators of length and curvature. Finally, we describe a theoretical optimization model for the minimization of the digital elastica.
 
 \section{Continuous and Digital Elastica}
-
+	\sketch{To be developed...}
+	
+	
 	Given an Euclidean shape $X$, its digital elastica $\hat{E}$ is defined as
 	\begin{align*}
 	\hat{E}( D_h(X) ) = \sum_{\dot{\vec{e}} \in \partial D_h(X)}{ \hat{s}( \dot{\vec{e}})\left(\; \alpha + \beta \hat{\kappa}_{r}^2(D_h(X),\dot{\vec{e}},h) \; \right)},
@@ -147,24 +149,55 @@ estimator seems to be the cornerstone to get a digital curve behaving like a con
 
 \section{Global Optimization Model}
 
-Differently from the previous section, the model described here is designed for the integral invariant estimator only.
+Differently from the previous section, the model described here is designed for the integral invariant estimator only. As usual, let $Z \in \mathbb{Z}^2$ be the digitization of some shape $S \in \mathbb{R}^2$ using grid step $h$. Moreover, $Z$ is represented in the cellular-grid model and we denote $X$ its set of pixels and $Y$ its set of linels. Optimization variables are represented as vectors $x \in \mathbb{B}^{|X|},\, y \in \mathbb{B}^{|Y|}$ and its coefficients are references as $x_i,y_i$.  Further, let $A \in \mathbb{B}^{|X|\times |Y|}$ the matrix defined as
 
-As usual, let $Z \in \mathbb{Z}^2$ be the digitization of some shape $S \in \mathbb{R}^2$ using grid step $h$. Moreover, $Z$ is represented in the cellular-grid model and we denote $X$ its set of pixels and $Y$ its set of linels. Optimization variables are represented as vectors $x \in \mathbb{R}^{|X|},\, y \in \mathbb{R}^{|Y|}$.  We use  Let's expand the digital elastica:
+\[
+	a_{i,j} = \left\{ \begin{array}{ll}
+		1,\; x_j \in B_r(y_i)\\
+		0,\; \text{otherwise}.
+	\end{array}\right.
+\]
+
+In other words, the column vector $A_i$ of $A$ represents the pixels that are in the interior of  the disk $B_r(y_i)$ of radius $r$ centered at $y_i$.
 
 
 \begin{align}
-	\hat{E}(Y) =& \sum_{y_i \in y}{ \hat{s}(y_i)\left(\; \alpha + \beta \hat{\kappa}_{r}^2(Z,y_i) \; \right)}\\\nonumber
-			   =& \sum_{y_i \in y} \alpha \hat{s}(y_i) + \beta \big( \frac{9}{r^6}(\frac{\pi}{r^2} - |B_r(y_i)|)^2\big)\\\nonumber
-			   =& \sum_{y_i \in y} \alpha \hat{s}(y_i) + \frac{9}{r^6}\beta \big(c_i - |B_r(y_i)|\big)^2\\\nonumber
-			   =& \sum_{y_i \in Y} \alpha \hat{s}(y_i) + \frac{9}{r^6}\beta \big(c_i^2 - 2c_ia_i^Tx + x^Ta_ia_i^Tx\big)\\\nonumber			   
-			   =& \alpha \hat{s}(y) + \frac{9}{r^6}\beta \big(c_i^2 + q^Tx + x^TQx\big)
+	\hat{E}(x,y) =& \sum_{y_i \in y}{ \hat{s}_i\left(\; \alpha + \beta \hat{\kappa}_{r}^2(Z,y_i) \; \right)}\\\nonumber
+			   =& \sum_{y_i \in y}{ \hat{s}_i \left(\; \alpha  + \beta \big( \frac{3}{r^3}(\frac{\pi}{r^2} - |B_r(y_i)|)\big)^2\right)}\\\nonumber
+			   =& \sum_{y_i \in y}{ \hat{s}_i \left(\; \alpha + \frac{9}{r^6}\beta \big(c^2 - 2cA_i^T\vec{x} + \vec{x}^TA_iA_i^T\vec{x}\big)\right)},			   
 	\end{align}
+	
+where $c =  \pi r^2/2$. We remark that linels and pixels in the solution must be consistent, .i.e., linels must form connected closed curves and the pixels must lie in the interior of those curves. This restriction is encoded in a set of constraints $C(x,y)$ detailed later. So far we have
+
+\begin{align*}
+	\min_{x \in \mathbb{B}^{|X|}, y \in \mathbb{B}^{|Y|}}{\hat{E}(x,y)}, \quad \text{subject to } C(x,y). \quad (P0)
+\end{align*}
+
+The continuous counterpart of $P0$ has a very intuitive interpretation. We know that the shape that minimizes the integration of squared curvature is the ball of infinite radius. On the other hand, we know that the flow derived from perimeter minimization is the curvature flow. Therefore, we can expect that a flow for $P0$ will eventually form a disk. Hence, it is sufficient to analyze what it happens for the disk shape
+
+\begin{align*}
+	\frac{d}{dr}\big( \alpha 2\pi r + \pi/r \big) &= 0\\
+	r &= \alpha^{-1/2}.
+\end{align*}  
+
+We conclude that solution for problem $P0$ is the ball of radius $\alpha^{-1/2}$. In real applications involving the minimization of elastica, we have an additional set of constraints $R$ that plays the role of regularization. For example, we may force some of the pixels in the original shape to be part of the solution; for imaging problems, we may add a data attachment term, and so on. Finally, we can write the general optimization problem as
+
+\begin{align*}
+	\min_{x \in \mathbb{B}^{|X|}, y \in \mathbb{B}^{|Y|}}{\hat{E}(x,y)}, \quad \text{subject to } C(x,y), R(x,y) \quad (P1)
+\end{align*}
+
+	Formulation $P1$ is a binary non-convex third order problem and likely difficult to be solved optimally. Nonetheless, we can use standard optimization techniques to acquire some intuition on the model. In the next section we detail the consistency set of constraints $C(x,y)$ and in the section afterwards we describe experiments with relaxations of formulation $P1$.
+	
+\subsection{Consistency constraints set}
+
+\subsection{Relaxations of $P1$}
 	
 	It is easy to see that $Q$ is semidefinite positive. In order to enforce global optimization, we need to include information to where centered the estimation ball. We write
 	
 	\begin{align*}
 		\min \hat{E}(Y) \alpha y^T\hat{s}(y) + \frac{9}{r^6}\beta \big(c_i^2 + q^Tx + x^TQx\big)
 	\end{align*}
+	
 	
 
  As described in chapter \ref{chapter:digital-geometry}, the integral invariant estimator at some linel $\dot{\vec{e}} \in \partial Z$ is computed by centering an estimation ball of radius $r$ at $\dot{\vec{e}}$ and evaluating an expression over the number of pixels in the interior of the shape. Let's start 
