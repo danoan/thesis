@@ -30,7 +30,7 @@ estimator but also for other curvature estimators, for example, MDCA
 \cite{roussillon11mdca}. As a matter of fact, our experiments have
 shown that either estimators induce similar results.
 
-Let $S$ be a $2$-dimensional digital shape. We adopt the cellular-grid model to represent $S$, i.e., pixels and its lower dimensional counterparts, linels and pointels, are part of $S$. In particular, we denote by $\partial S$ the topological boundary of $S$, i.e., the connected sequence of linels such that for each linel we have one of its incident pixels in $S$ and the other not in $S$.
+Let $S \subset \Omega$ be a $2$-dimensional digital shape. We adopt the cellular-grid model to represent $S$, i.e., pixels and its lower dimensional counterparts, linels and pointels, are part of $S$. In particular, we denote by $\partial S$ the topological boundary of $S$, i.e., the connected sequence of linels such that for each linel we have one of its incident pixels in $S$ and the other not in $S$.
 
 
 Let $d_{S}:\Omega \rightarrow \mathcal{R}$ be the signed Euclidean distance transformation with respect to shape $S$. The value $d_S(x)$ gives the Euclidean distance between $x$ and the closest linel in $\partial S$. 
@@ -43,26 +43,16 @@ Given a digital shape $S\in\Omega$, its distance transformation $d_S$ and natura
 \end{align*}
 \end{definition}
 
-Consider the following set of neighbor candidates to $S$:
+Consider the following set of neighbor candidates to $S$ using the $1-Ring$ os $S$:
 \begin{align*}
 \mathcal{U}(S) = \{ D \; | D \subset R_1(S) \cup S \; \text{and} \; \text{$D$ is connected} \}.
 \end{align*}
 
 
-Such set can be extremely large and its complete exhaustion is prohibitively expensive.  Instead, we explore a subset of it with the help of $n$-glued curves.
+A shape with $n$ linels in its topological boundary has a neighborhood size of order $O(2^n)$, and its complete exhaustion is inconceivable.  Instead, we explore a subset of it with the help of $n$-glued curves.
 
 An oriented closed curve $C$ is a closed connected sequence of linels with a well-defined interior. A segment of $C$ is a connected subsequence $c \in C$ of its linels.
 
-%\begin{figure}[!h]
-%\center
-%	\subfloat[\label{}]{%
-%	\includegraphics[scale=0.2]{images/local_search/definitions/model-regions-square.eps}
-%	}\hspace{40pt}%
-%	\subfloat[\label{}]{%
-%	\includegraphics[scale=0.2]{images/local_search/definitions/glued-curve.eps}
-%	}%	
-%	\caption{The blue pixels in figure (a) illustrates a $2$-ring set, while the green pixels its inner-pixel boundary. In figure (b) we highlight an element of set $\mathcal{G}_{11}(C_1,C_2)$. The curve segments of $C_1$ and $C_2$ are colored in red and green, while the junction linels in blue.}
-%\end{figure}
 
 \begin{definition}{Glued Curve}
 Given closed curves $C_1,C_2$ agreeing with some orientation $q$, a glued curve is a closed curve  $(c_1,\ell_1,c_2,\ell_2)$ with orientation $q$ and $c_1 \in C_1, c_2 \in C_2$. The linels $\ell_1,\ell_2$ are called junction linels.
@@ -80,7 +70,25 @@ Let $S_O = ( S \cup R_1^+(S) ) $ and $S_I = ( S \setminus R_1^-(S) ) $, the neig
 	\mathcal{N}(S,N) = \bigcup_{1 \leq n \leq N} int \big( \mathcal{G}_{n}(\partial S_O, \partial S) \; \big) \cup int \big( \;  \; \mathcal{G}_{n}(\partial S, \partial S_I) \; \big),
 \end{align*}
 
-where $int(C)$ is the interior of the shape bounded by the closed oriented curve $C$. Algorithm~\ref{alg:local-search} describes the local combinatorial process and Figure~\ref{fig:local-comb-square-results} presents the digital curve evolution when executing this algorithm for two different shapes with $N=20$.
+where $int(C)$ is the interior of the shape bounded by the closed oriented curve $C$. Algorithm~\ref{alg:local-search} describes the local combinatorial process and Figure~\ref{fig:local-comb-square-results} presents the digital curve evolution when executing this algorithm for several shapes with $N=50$.
+
+
+\begin{figure}[h!]
+\center
+\subfloat{
+\includegraphics[scale=0.4]{figures/chapter5/gcurves/main-inner.pdf}
+}\hspace{1em}%
+\subfloat{
+\includegraphics[scale=0.4]{figures/chapter5/gcurves/main-outer.pdf}
+}\hspace{1em}\\[1em]
+\subfloat{
+\includegraphics[scale=0.4]{figures/chapter5/gcurves/inner-main.pdf}
+}\hspace{1em}%
+\subfloat{
+\includegraphics[scale=0.4]{figures/chapter5/gcurves/outer-main.pdf}
+}\hspace{1em}%
+\caption{Examples of $10$-Glued curves.}
+\end{figure}
 
 
 \begin{algorithm}[H]
@@ -110,44 +118,125 @@ where $int(C)$ is the interior of the shape bounded by the closed oriented curve
  \caption{Local combinatorial optimization for elastica minimization.}
 \end{algorithm}
 
-		
-%\begin{figure}[!h]
-%\center
-%	\subfloat[h=1.0\label{}]{%
-%	\includegraphics[scale=0.125]{images/local_search/square/h1/summary-flow.eps}
-%	}%
-%	\hspace{10pt}
-%	\subfloat[h=0.5\label{}]{%
-%	\includegraphics[scale=0.125]{images/local_search/square/h05/summary-flow.eps}
-%	}%
-%	\hspace{10pt}
-%	\subfloat[h=1.0\label{}]{%
-%	\includegraphics[scale=0.125]{images/local_search/flower/h1/summary-flow.eps}
-%	}%
-%	\hspace{10pt}
-%	\subfloat[h=0.5\label{}]{%
-%	\includegraphics[scale=0.125]{images/local_search/flower/h05/summary-flow.eps}
-%	}%
-%		\caption{Local combinatorial optimization process results for the square and flower shapes. Shapes displayed at every $2$ iterations for the square and $7$ iterations for the flower.}	
-%		\label{fig:local-comb-square-results}
-%\end{figure}
+\begin{figure}[h!]
+\center
+\subfloat{
+\includegraphics[scale=0.4]{figures/chapter5/exhaustive-selection/plot-shape-estimator/triangle.pdf}
+}\hspace{1em}%
+\subfloat{
+\includegraphics[scale=0.4]{figures/chapter5/exhaustive-selection/plot-shape-estimator/square.pdf}
+}\hspace{1em}%
+\subfloat{
+\includegraphics[scale=0.4]{figures/chapter5/exhaustive-selection/plot-shape-estimator/flower.pdf}
+}\hspace{1em}%
+\subfloat{
+\includegraphics[scale=0.4]{figures/chapter5/exhaustive-selection/plot-shape-estimator/bean.pdf}
+}%
+\caption{Elastica value evolution for the triangle, square, flower and bean shapes. Evolution with II-$5$ estimator achieves global optima for the first three shapes.}
+\label{fig:local-comb-plots}
+\end{figure}
 
-A series of experiments  illustrates the potential of minimizing a purely digital Elastica energy. 
+\begin{figure}[!h]
+\center
+\begin{minipage}[b]{0.5\textwidth}
+\center
+	\includegraphics[scale=0.185]{figures/chapter5/exhaustive-selection/ii-r5-lp0.01/triangle/summary.pdf}\\[2em]
+	
+	\includegraphics[scale=0.17]{figures/chapter5/exhaustive-selection/ii-r5-lp0.01/square/summary.pdf}\\[2em]
+
+	\includegraphics[scale=0.25]{figures/chapter5/exhaustive-selection/ii-r5-lp0.01/flower/summary.pdf}\\[2em]		
+	
+	\includegraphics[scale=0.25]{figures/chapter5/exhaustive-selection/ii-r5-lp0.01/bean/summary.pdf}			
+\end{minipage}%
+\begin{minipage}[b]{0.5\textwidth}
+\center
+	\includegraphics[scale=0.185]{figures/chapter5/exhaustive-selection/mdca-lp0.01/triangle/summary.pdf}\\[2em]
+	
+	\includegraphics[scale=0.17]{figures/chapter5/exhaustive-selection/mdca-lp0.01/square/summary.pdf}\\[2em]
+	
+	\includegraphics[scale=0.25]{figures/chapter5/exhaustive-selection/mdca-lp0.01/flower/summary.pdf}\\[2em]
+
+	\includegraphics[scale=0.25]{figures/chapter5/exhaustive-selection/mdca-lp0.01/bean/summary.pdf}
+\end{minipage}%	
+		\caption{Local combinatorial optimization process results for several shapes with $\alpha=0.01,\beta=1$. In the left column we have evolutions using II-$5$ and in the right MDCA. Shapes are displayed at every $5$ iterations.}	
+		\label{fig:local-comb-square-results}
+\end{figure}
 
 
-The running time of algorithm \ref{alg:local-search} is summarized in table \ref{tab:summary-local-comb-rtime}. All the
-experiments in this paper were executed on a five-core $3.4Ghz$ CPU and the number of pixels in the triangle, square and
-flower shapes are respectively $841,1867,521$ for grid step $h=1.0$. Although its use in practical applications is
-limited, we demonstrate that digital estimators are effective in their measurements and the flows evolve as expected. We
+\begin{figure}[h!]
+\center
+\captionsetup{type=table}
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+& \multicolumn{2}{c|}{$h=1.0$} & \multicolumn{2}{c|}{$h=0.5$} & \multicolumn{2}{c|}{$h=0.25$}\\
+\hline
+& Pixels & Time & Pixels & Time & Pixels & Time\\
+\hline
+Triangle & 131 & 1s (0.1s/it)  & 521 & 72s (2.7s/it) & 2080 & 1300s (18s/it)\\
+Square & 225 & 1s (0.1s/it) & 841 & 16s (0.9s/it) & 3249 & 656s (9.9s/it)\\
+Flower & 469 & 14s (1s/it) & 1867 & 218s (6.4s/it) & 7481 & 3246s (42s/it)\\
+Bean  & 1574 & 74s (1.9s/it) & 6278 & 995s (12.9s/it) & 25130 & 28580s (95.5s/it)\\
+\hline
+\end{tabular}
+\caption{Running time and input size for different grid steps.}
+\label{tab:summary-local-comb-rtime} 
+\end{figure}
+
+
+
+
+
+
+The algorithm is suitable for any type of digital estimators. To estimate length we use MDSS and to estimate curvature we execute experiments with the MDCA and II-$5$ estimators. We observe that II-$5$ evolves the triangle, the square and the flower to the optimal disk of radius $10$. On the other hand, MDCA evolution get stucked in local optima. In fact, the MDCA estimator, although with higher convergence speed, is more sensitive to noise than II, as illustrated in figure \ref{fig:mdca-sensitivity}. For the bean shape, both estimators stop in a local optima. In figure \ref{fig:local-comb-plots}, we can observe how the elastica value evolves for each shape and each curvature estimator.
+
+
+
+
+
+
+
+
+\begin{figure}[h!]
+\begin{minipage}[b]{0.6\textwidth}
+\center
+\includegraphics[scale=0.15]{figures/mdca-sensitivity/closer-picture.pdf}
+\end{minipage}%
+\begin{minipage}[b]{0.4\textwidth}
+\center
+\includegraphics[scale=0.025]{figures/mdca-sensitivity/big-picture.pdf}\\\vspace{2em}
+\captionsetup{type=table}
+\begin{tabular}{r|c|c}
+& II-$5$ & MDCA \\
+\hline
+Red  & 5.54 & 3.93\\
+Blue & 5.55 & 3.84\\
+\hline
+$| \Delta E / \Delta S |$ & 70 & 1400
+\end{tabular}
+\end{minipage}
+\caption{A slight variation in the shape boundary (in this example, a $0.07\%$ change or $4$ pixels over $5310$) inflicts a considerably higher change in the energy value when using MDCA than when using II. }
+\label{fig:mdca-sensitivity}
+\end{figure}
+
+
+
+
+
+The running time of algorithm \ref{alg:local-search} is summarized in table \ref{tab:summary-local-comb-rtime}. All the experiments in this paper were executed on a $32$-core $2.4Ghz$ CPU. Although its use in practical applications is
+limited, we demonstrate that digital estimators are effective in their measurements and the flows evolve as expected, reaching the global optima for some shapes. We
 observe that it is a complete digital approach, and we do not suffer from discretization and rounding problems, a common
 issue in continuous models.  Furthermore we have checked that this approach works indifferently with Integral Invariant
 curvature estimator and Maximal Digital Circular Arc curvature estimator. So the convergence of the digital curvature
 estimator seems to be the cornerstone to get a digital curve behaving like a continuous Elastica.  
 
+As a final experiment, we execute algorithm \ref{alg:local-search} imposing the restiction that a set of pixels $P$ must be part of the final solution.
 
-\textbf{Obs:} Include experiment that demonstrates that MDCA measurements are too sensitive to small changes in the boundary (I have a sequence of bean shapes that illustrates that).
+\begin{figure}[h!]
 
-\textbf{Obs:} It exist a neighborhood of shapes in which is possible to construct a flow to the global optimal solution by solving  the local problems? Well, as the problem is non convex, such neighborhood should not exist in the general case. 
+\caption{Fixed pixels evolution.}
+\end{figure}
+
+
 
 
 \section{Global Optimization Model}
@@ -186,28 +275,3 @@ In order to propose a global optimization scheme we need to include pixels and l
 
 Moreover, a solution returned by the model must be consistent in its set of pixels and linels, .i.e., linels must form connected closed curves and the set of pixels must lie in the interior of those curves.
 
-
-
-%\begin{figure}[!h]
-%\begin{minipage}[b]{0.5\textwidth}
-%\center
-%\includegraphics[scale=0.35]{images/local_search/square-flower.eps}
-%\caption{Elastica computation along iterations of algorithm \ref{alg:local-search}}
-%\label{fig:plot-elastica-local-search}
-%\end{minipage}\hspace{40pt}%
-%\begin{minipage}[b]{0.45\textwidth}
-%\center
-%\captionsetup{type=table}
-%\begin{tabular}{|l|c|c|}
-%\hline
-%& $h=1.0$ & $h=0.5$\\
-%\hline
-%Square & 47s (5s/it) & 260s (12s/it)\\
-%\hline
-%Flower & 1235s (23s/it)  & 8516s (52s/it)\\
-%\hline
-%\end{tabular}
-%\caption{Running times for the local combinatorial optimization algorithm with $k=1,N=20$. Four threads were used.}
-%\label{tab:summary-local-comb-rtime}
-%\end{minipage}
-%\end{figure}

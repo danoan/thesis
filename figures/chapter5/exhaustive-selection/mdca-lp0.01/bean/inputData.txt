@@ -1,0 +1,11 @@
+Shape: bean
+Grid Step: 0.5
+Radius: 3
+Iterations: 200
+Estimator: MDCA
+Strategy: Best
+Min GC Length: 2
+Max GC Length: 50
+Jonctions: 1
+Length Penalization: 0.01
+Fixed Linels: 
