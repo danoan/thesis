@@ -132,7 +132,7 @@ where $int(C)$ is the interior of the shape bounded by the closed oriented curve
 \subfloat{
 \includegraphics[scale=0.4]{figures/chapter5/exhaustive-selection/plot-shape-estimator/bean.pdf}
 }%
-\caption{Elastica value evolution for the triangle, square, flower and bean shapes. Evolution with II-$5$ estimator achieves global optima for the first three shapes.}
+\caption{Elastica value evolution for the triangle, square, flower and bean shapes. Evolution with II-$5$ estimator achieves global optima (dashed line) for the first three shapes.}
 \label{fig:local-comb-plots}
 \end{figure}
 
@@ -199,11 +199,11 @@ The algorithm is suitable for any type of digital estimators. To estimate length
 \begin{figure}[h!]
 \begin{minipage}[b]{0.6\textwidth}
 \center
-\includegraphics[scale=0.15]{figures/mdca-sensitivity/closer-picture.pdf}
+\includegraphics[scale=0.15]{figures/chapter5/mdca-sensitivity/closer-picture.pdf}
 \end{minipage}%
 \begin{minipage}[b]{0.4\textwidth}
 \center
-\includegraphics[scale=0.025]{figures/mdca-sensitivity/big-picture.pdf}\\\vspace{2em}
+\includegraphics[scale=0.025]{figures/chapter5/mdca-sensitivity/big-picture.pdf}\\\vspace{2em}
 \captionsetup{type=table}
 \begin{tabular}{r|c|c}
 & II-$5$ & MDCA \\
@@ -229,11 +229,28 @@ issue in continuous models.  Furthermore we have checked that this approach work
 curvature estimator and Maximal Digital Circular Arc curvature estimator. So the convergence of the digital curvature
 estimator seems to be the cornerstone to get a digital curve behaving like a continuous Elastica.  
 
-As a final experiment, we execute algorithm \ref{alg:local-search} imposing the restiction that a set of pixels $P$ must be part of the final solution.
+We can also impose some restrictions in the evolution process. For example, we can force some pixels to be part of the final shape, or that the endpoints of the curve must have a given orientation. Figure \ref{fig:fixed-pixels-evolution} summarizes the results.
 
 \begin{figure}[h!]
+\center
+\subfloat[\label{fig:fixed-a}]{
+\includegraphics[scale=0.25]{figures/chapter5/fixed-pixels/flower-1/summary.pdf}
+}\hspace{1em}%
+\subfloat[\label{fig:fixed-b}]{
+\includegraphics[scale=0.25]{figures/chapter5/fixed-pixels/flower-2/summary.pdf}
+}\hspace{1em}%
+\subfloat[\label{fig:fixed-c}]{
+\includegraphics[scale=0.25]{figures/chapter5/fixed-orientation/pair-1/summary.pdf}
+}\hspace{1em}%
+\subfloat[\label{fig:fixed-d}]{
+\includegraphics[scale=0.25]{figures/chapter5/fixed-orientation/pair-2/summary.pdf}
+}\hspace{1em}%
+\subfloat[\label{fig:fixed-e}]{
+\includegraphics[scale=0.25]{figures/chapter5/fixed-orientation/pair-3/summary.pdf}
+}\hspace{1em}%
 
-\caption{Fixed pixels evolution.}
+\caption{Green segments denote pixels to be enforced in the final shape for figures (a) and (b); or fixed orientations in the endpoints of an open curve as in figures (c)-(e). }
+\label{fig:fixed-pixels-evolution}
 \end{figure}
 
 
