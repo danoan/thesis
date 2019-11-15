@@ -266,25 +266,25 @@ The obtained flows are similar to those for the elastica and the energy simpler 
 
 \section{Global Optimization Model}
 
-Differently from the previous section, the model described here is designed for the integral invariant estimator only. As usual, let $Z \in \mathbb{Z}^2$ be the digitization of some shape $S \in \mathbb{R}^2$ using grid step $h$. Moreover, $Z$ is represented in the cellular-grid model and we denote $X$ its set of pixels and $Y$ its set of linels. Optimization variables are represented as vectors $x \in \mathbb{B}^{|X|},\, y \in \mathbb{B}^{|Y|}$ and its $i$th coefficients denoted  $x_i,y_i$.  Further, let $A \in \mathbb{B}^{|X|\times |Y|}$ the matrix defined as
+Differently from the previous section, the model described here is designed for the integral invariant estimator only. Let $D \in \frac{1}{2}\mathbb{Z}^2$ be the digitization of some shape $S \in \mathbb{R}^2$ using grid step $h$ in half-integer coordinates space. We assume that $D$ has $m$ pixels (located at integer coordinates) and $n$ linels (one and only one of its coordinates is $\frac{1}{2}$). Optimization variables are represented as vectors $x \in \mathbb{B}^{m},\, y \in \mathbb{B}^{n}$ and its $i$th coefficients denoted  $x_i,y_i$.  Further, let $A \in \mathbb{B}^{m\times n}$ the matrix defined as
 
 \[
 	A_{i,j} = \left\{ \begin{array}{ll}
-		1,\; x_j \in B_r(y_i)\\
+		1,\; x_j \in B_{r}(y_i)\\
 		0,\; \text{otherwise}.
 	\end{array}\right.
 \]
 
-In other words, the column vector $A_i$ of $A$ represents the pixels that are in the interior of  the disk $B_r(y_i)$ of radius $r$ centered at $y_i$.
+In other words, the column vector $A_i$ of $A$ represents the pixels that are in the interior of  the disk $B_{r}(y_i)$ of radius $r$ centered at $y_i$. 
 
 
 \begin{align}
-	\hat{E}(x,y) =& \sum_{y_i \in y}{ y_i \left(\; \alpha + \beta \hat{\kappa}_{r}^2(Z,y_i) \; \right)}\\\nonumber
+	\hat{E}(x,y) =& \sum_{y_i \in y}{ y_i \left(\; \alpha + \beta \hat{\kappa}_{r}^2(D,y_i) \; \right)}\\\nonumber
 			   =& \sum_{y_i \in y}{ y_i \left(\; \alpha  + \beta \big( \frac{3}{r^3}(\frac{\pi}{r^2} - |B_r(y_i)|)\big)^2\right)}\\\nonumber
 			   =& \sum_{y_i \in y}{ y_i \left(\; \alpha + \frac{9}{r^6}\beta \big(c^2 - 2cA_i^T\vec{x} + \vec{x}^TA_iA_i^T\vec{x}\big)\right)},			   
 	\end{align}
 	
-where $c =  \pi r^2/2$. We remark that linels and pixels in the solution must be consistent, .i.e., linels must form connected closed curves and the pixels must lie in the interior of those curves. This restriction is encoded in a set of constraints $C(x,y)$ detailed later. So far we have
+where $c =  \pi r^2/2$. We remark that linels and pixels in the solution must be topologicaly consistent, .i.e., linels must form connected closed curves and the pixels must lie in the interior of those curves. This restriction is encoded in a set of constraints $C(x,y)$ detailed later. So far we have
 
 \begin{align*}
 	\min_{x \in \mathbb{B}^{|X|}, y \in \mathbb{B}^{|Y|}}{\hat{E}(x,y)}, \quad \text{subject to } C(x,y). \quad (P0)
@@ -293,27 +293,29 @@ where $c =  \pi r^2/2$. We remark that linels and pixels in the solution must be
 The continuous counterpart of $P0$ has a very intuitive interpretation. We know that the shape that minimizes the integration of squared curvature is the ball of infinite radius. On the other hand, we know that the flow derived from perimeter minimization is the curvature flow, which invariably reaches a disk before converging to a single point. Therefore, we can expect that the global optima for $P0$ will be a disk. Hence, it is sufficient to analyze what it happens by restricting $P0$ to disks
 
 \begin{align*}
-	\frac{d}{dr}\big( \alpha 2\pi r + \pi/r \big) &= 0\\
+	\frac{d}{dr}\big( \alpha 2\pi r + \beta \pi/r \big) &= 0\\
 	r &= \alpha^{-1/2}.
 \end{align*}  
 
 We conclude that the solution for problem $P0$ is the ball of radius $\alpha^{-1/2}$. In real applications involving the minimization of elastica, we have an additional set of constraints $R$ that plays the role of regularization. For example, we may force some of the pixels in the original shape to be part of the solution; for imaging problems, we may add a data attachment term, and so on. Finally, we can write the general optimization problem as
 
 \begin{align*}
-	\min_{x \in \mathbb{B}^{|X|}, y \in \mathbb{B}^{|Y|}}{\hat{E}(x,y)}, \quad \text{subject to } C(x,y), R(x,y) \quad (P1)
+	\min_{x \in \mathbb{B}^{|X|}, y \in \mathbb{B}^{|Y|}}{\hat{E}(x,y)}, \quad \text{subject to } C(x,y), R(x) \quad (P1)
 \end{align*}
 
-	Formulation $P1$ is a binary non-convex third order problem and likely difficult to be solved optimally. Nonetheless, we can use standard optimization techniques to acquire some intuition on the model. In the next section we detail the consistency set of constraints $C(x,y)$ and in the section afterwards we describe experiments with relaxations of formulation $P1$.
+	Formulation $P1$ is a constrained binary non-convex third order problem and likely difficult to be solved optimally. Nonetheless, we can use standard optimization techniques to acquire some intuition on the model. 	
 	
-\subsection{Consistency constraints}
-
-The aim of the consitency constraints is to enforce the topological link that we have between pixels and linels, interpreted here as faces and edges in the plane. In order to accomplish that, we need to set an orientation for the faces and for the edges. We choose counter-clockwise for faces; right for horizontal edges; and up for vertical edges.
+\subsection{Topological constraints}
 
 
-For each linel $y_i$ we create two new variables, one for each possible orientation it may assume. We denote this extended set as $Y^+$. Next, we extend the linel incidence matrix defined in appendix \ref{chapter:pixel-incidence-matrix} to hold incidence with respect to oriented edges. The new matrix $\mathbf{C} \in \mathbb{B}^{|Y| \times |X| + |Y^+|}$ is defined as
+
+The aim of the topological constraints is to enforce topologicaly consistent solutions for the set of pixels and linels, interpreted here as faces and edges in the plane. In order to accomplish that, we need to set an orientation for the faces and another for the edges. We choose counter-clockwise for faces; right for horizontal edges; and up for vertical edges.
+
+
+For each linel $y_i$ we create variables $z_{2i},z_{2i+1}$, one for each possible orientation $y_i$ may assume. We denote this extended set as $Z$. Next, we extend the linel incidence matrix defined in appendix \ref{chapter:pixel-incidence-matrix} to hold incidence with respect to oriented edges. The new matrix $\mathbf{C} \in \mathbb{B}^{n \times m + 2n}$ is defined as
 
 \[
-	0 \leq j < |X|, \quad \mathbf{C}_{i,j} = \left\{ \begin{array}{ll}
+	0 \leq j < m, \quad \mathbf{C}_{i,j} = \left\{ \begin{array}{ll}
 	
 	1,& \text{Pixel $j$ is positive incident to linel $i$}\\
 	-1,& \text{Pixel $j$ is negative incident to linel $i$}\\	
@@ -322,7 +324,7 @@ For each linel $y_i$ we create two new variables, one for each possible orientat
 \]
 
 \[
-	|X| \leq j < |Y^+|, \quad \mathbf{C}_{i,j} = \left\{ \begin{array}{ll}
+	m \leq j < m + 2n, \quad \mathbf{C}_{i,j} = \left\{ \begin{array}{ll}
 	
 	1,& \text{Edge $j$ is positive incident to linel $i$}\\
 	-1,& \text{Edge $j$ is negative incident to linel $i$}\\	
@@ -334,16 +336,16 @@ Rewriting formulation (P1)
 
 \[
 \begin{array}{ll}
-& \displaystyle	\min \sum_{y_i \in Y^+}{ y_i \left(\; \alpha + \frac{9}{r^6}\beta \big(c^2 - 2cA_i^T\vec{x} + \vec{x}^TA_iA_i^T\vec{x}\big)\right)} \\
+& \displaystyle	\min \sum_{z_i \in Z}{ z_i \left(\; \alpha + \frac{9}{r^6}\beta \big(c^2 - 2cA_i^T\vec{x} + \vec{x}^TA_iA_i^T\vec{x}\big)\right)} \\
 \text{subject to}\\
-&	\mathbf{C}[ \mathbf{x}, \mathbf{y}^+] = 0,\\
-&   R(\mathbf{x},\mathbf{y}^+),\\
-&   \mathbf{x} \in \mathbb{B}^{|X|}, \mathbf{y^+} \in \mathbb{B}^{|Y^+|}.
+&	\mathbf{C}[ \mathbf{x}, \mathbf{z}] = 0,\\
+&   R(\mathbf{x}),\\
+&   \mathbf{x} \in \mathbb{B}^{m}, \mathbf{z} \in \mathbb{B}^{2n}.
 \end{array}
 \]
 
 
-We observe that for a linel $y_i$, constraints $\mathbf{C}$ allows both its variables in $Y^+$ to be evaluated to one. However, since we are minimizing a squared energy, this doesn't pose an issue.
+We observe that for a linel $y_i$, constraints $\mathbf{C}$ allows its both edge variables $z_{2i},z_{2i+1}$ to be evaluated to one. However, since we are minimizing a squared energy, this doesn't pose an issue.
 
 
 
@@ -374,42 +376,32 @@ We observe that for a linel $y_i$, constraints $\mathbf{C}$ allows both its vari
 	
 
 
-\subsection{Pixel-only model}
+\subsection{Unconstrained version of P1}
 
-We can use the pixel incidence matrix defined in appendix \ref{chapter:pixel-incidence-matrix} to define a model based on pixel variables only. For each linel, the estimation ball is centered at its both incident pixels, and the estimation is given by a simple average of both computations. 
-
-Let $\Omega \in \mathbb{Z}^2$ be a portion of the integer plane with $m$ pixels and $n$ linels. For a given euclidean shape $S$, we assume that its digitization $D$ is embeded in $\Omega$. We wish to evolve $D$ to a digital shape $D^\prime$ such that $E(D^\prime) < E(D)$.
-
-We partition $\Omega$ in sets $X,F,B$ representing the optimization, foreground and background domains. Vectors $\mathbf{1}_X, \mathbf{1}_F, \mathbf{1}_B \in \mathbb{B}^m$ represent its respective active vectors.
-
-\begin{example}
-	The pixel incidence vector $\mathbf{q} \in \mathbb{Z}^m$ for initial digital shape $D$ is given by
+We can use the pixel incidence matrix defined in appendix () to define a unconstrained version of P1. The linel incidence vector $\mathbf{q} \in \mathbb{Z}^n$ for $\mathbf{x} \in \mathbb{B}^{m}$ is 
 	
 	\begin{align*}
-		q &= \mathbf{P}^T\mathbf{P} (\mathbf{1}_X + \mathbf{1}_F)\\
-		&=\mathbf{P}^T\mathbf{P} (\mathbf{1}_X) + \mathbf{P}^T\mathbf{P} (\mathbf{1}_F)\\ 
-		&= \mathbf{q}_X + \mathbf{q}_F
+		\mathbf{q} &= \mathbf{P} \mathbf{x}
 	\end{align*}
-\end{example}
 
-For a given vector $\mathbf{x} \in \mathbb{Z}^k$, we define its matrix filter $\hat{\mathbf{X}} \in \mathbb{Z}^{k\times k}$ as
+We define the matrix filter $\hat{\mathbf{Q}} \in \mathbb{Z}^{n \times n}$ of $q$ as
 
 \[
-	\hat{\mathbf{X}}_{i,j} = \left\{ \begin{array}{ll}
-	1, & i=j \text{ and } x_i \neq 0 \\
+	\hat{\mathbf{Q}}_{i,j} = \left\{ \begin{array}{ll}
+	\mathbf{q}_i, & i=j \text{ and } \mathbf{q}_i \neq 0 \\
 	0, & \text{otherwise}.
 	\end{array}\right.
 \]
 
 Let $\mathbf{B} \in \mathbb{B}^{m\times m}$ such that column vector $\mathbf{B}_j$ represents the pixels in the interior of a disk of radius $R$ centered at pixel $i$. Finally, we define the energy as
 
-\begin{align*}
-	\hat{E}(\mathbf{x}) = \frac{9}{R^6}\frac{1}{4}\sum_{j}^{m}{\left( \frac{\pi R^2}{2} - \mathbf{x}^T\hat{\mathbf{q}_X}\mathbf{B}_j\mathbf{x}_j - \mathbf{q}_F^T\mathbf{B}_j \right)^2}.
-\end{align*}
+\begin{align}
+	\hat{E}(\mathbf{x}) = \frac{9}{R^6}\sum_{j}^{m}{\left( \frac{\pi R^2}{2} - \hat{\mathbf{Q}}\hat{\mathbf{Q}}\mathbf{B}_j \right)^2}.
+	\label{eq:unconstrained-digital-elastica}
+\end{align}
 
-The $0.25$ factor is due to the estimation ball computation on both incident pixels for each linel. 
 
-Energy $\hat{E}$ is of fourth order. If we relax variable $x$ to its real counterpat, a local optima for the relaxed problem is such that each coefficient of its gradient equals to zero. Therefore, if we know how to find the roots of the $m$ gradient coeffients expressions, we are done.
+Next we minimize energy \eqref{eq:unconstrained-digital-elastica} using the BFGS unconstrained optimization method.
 
 %Notice that we recover $JMIV$ energy if we consider the minimization in a fixed contour, namely the contour of the original digital shape $D$.
 %
