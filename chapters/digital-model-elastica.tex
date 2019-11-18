@@ -262,7 +262,39 @@ We also evaluate the process for a simplified version of the elastica in which t
 	\label{eq:simplified-digital-elastica}
 	\end{align}
 	
-The obtained flows are similar to those for the elastica and the energy simpler to optimize. From now on, we are going to refer as the digital elastica its simplified version \eqref{eq:simplified-digital-elastica}.
+
+\begin{figure}[h!]
+\center
+\subfloat[\label{fig:fixed-a}]{
+\includegraphics[scale=0.185]{figures/chapter5/sqc/flow/triangle/summary.pdf}
+}\hspace{1em}%
+\subfloat[\label{fig:fixed-b}]{
+\includegraphics[scale=0.17]{figures/chapter5/sqc/flow/square/summary.pdf}
+}\hspace{1em}%
+\subfloat[\label{fig:fixed-d}]{
+\includegraphics[scale=0.25]{figures/chapter5/sqc/fixed-orientation/pair-3/summary.pdf}
+}\hspace{1em}%	
+\subfloat[\label{fig:fixed-c}]{
+\includegraphics[scale=0.25]{figures/chapter5/sqc/flow/flower/summary.pdf}
+}\hspace{1em}%
+\subfloat[\label{fig:fixed-c}]{
+\includegraphics[scale=0.25]{figures/chapter5/sqc/fixed-points/flower-1/summary.pdf}
+}\hspace{1em}%
+\subfloat[\label{fig:fixed-c}]{
+\includegraphics[scale=0.25]{figures/chapter5/sqc/fixed-points/flower-2/summary.pdf}
+}\hspace{1em}%
+\caption{SQC energy experiments}
+\label{fig:sqc-energy-experiments}
+\end{figure}
+
+We obtain similar results for the previous experiments, except when handling the flower shape. Flow evolution for smoother versions of the flower doesn't change the scenario, which suggests that the simplified flow is not suited for initial shapes with regions of negative curvature.
+
+In fact, if we wish to evolve the flow with energy \eqref{eq:simplified-digital-elastica}, we need to enlarge the local-search neighborhood. Plots \ref{} illustrates
+
+
+
+
+That suggests that the lost in precision becomes too important for initial shapes with high curvature points. Indeed, figure () illustrates this behavior in a sequence of evalutions for the star shaped figure with decreasing values of the its maximum curvature absolute value.
 
 \section{Global Optimization Model}
 
@@ -378,30 +410,27 @@ We observe that for a linel $y_i$, constraints $\mathbf{C}$ allows its both edge
 
 \subsection{Unconstrained version of P1}
 
-We can use the pixel incidence matrix defined in appendix () to define a unconstrained version of P1. The linel incidence vector $\mathbf{q} \in \mathbb{Z}^n$ for $\mathbf{x} \in \mathbb{B}^{m}$ is 
+We can use the pixel incidence matrix defined in appendix () to define a unconstrained version of P1. The linel incidence vector $\mathbf{q} \in \mathbb{Z}^n$ for pixels $\mathbf{x} \in \mathbb{B}^{m}$ is 
 	
 	\begin{align*}
 		\mathbf{q} &= \mathbf{P} \mathbf{x}
 	\end{align*}
 
-We define the matrix filter $\hat{\mathbf{Q}} \in \mathbb{Z}^{n \times n}$ of $q$ as
+In order to supress the sign, we define diagonal matrix $\mathbf{\hat{Q}} \in \mathbb{R}^{n \times n }$ as
 
-\[
-	\hat{\mathbf{Q}}_{i,j} = \left\{ \begin{array}{ll}
-	\mathbf{q}_i, & i=j \text{ and } \mathbf{q}_i \neq 0 \\
-	0, & \text{otherwise}.
-	\end{array}\right.
-\]
+\begin{align*}
+	\mathbf{\hat{Q}} = diag(\mathbf{\hat{q}})diag(\mathbf{\hat{q}})
+\end{align*}
 
 Let $\mathbf{B} \in \mathbb{B}^{m\times m}$ such that column vector $\mathbf{B}_j$ represents the pixels in the interior of a disk of radius $R$ centered at pixel $i$. Finally, we define the energy as
 
 \begin{align}
-	\hat{E}(\mathbf{x}) = \frac{9}{R^6}\sum_{j}^{m}{\left( \frac{\pi R^2}{2} - \hat{\mathbf{Q}}\hat{\mathbf{Q}}\mathbf{B}_j \right)^2}.
+	\hat{E}(\mathbf{x}) = \frac{9}{R^6}\sum_{j}^{m}{\left( \frac{\pi R^2}{2} - \boldsymbol{\mathbbm{1}}^T\hat{\mathbf{Q}}\mathbf{B}_j \right)^2}.
 	\label{eq:unconstrained-digital-elastica}
 \end{align}
 
 
-Next we minimize energy \eqref{eq:unconstrained-digital-elastica} using the BFGS unconstrained optimization method.
+It is a six order energy. Next we minimize \eqref{eq:unconstrained-digital-elastica} using the BFGS unconstrained optimization method.
 
 %Notice that we recover $JMIV$ energy if we consider the minimization in a fixed contour, namely the contour of the original digital shape $D$.
 %
