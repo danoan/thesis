@@ -22,7 +22,7 @@ rescaled by $1/h$ and we set $h=1$).
 
 In the next section, we describe a combinatorial scheme that permit us to find the minimum digital shape with respect the digital elastica energy for some neighborhood of shapes of $S$. 
 
-\section{Local Combinatorial Scheme}
+\section{Local Combinatorial Scheme}\label{sec:local-combinatorial-scheme}
 
 Given a digital shape $S^{(0)}$ we describe a process that generates a
 sequence $S^{(i)}$ of shapes with non-increasing Elastica energy. The
@@ -285,26 +285,31 @@ In fact, the defined neghborhood is likely to not be appropriate for the simple 
 
 
 \begin{figure}[h!]
-\center
-\label{fig:sqc-energy-experiments}	
-\subfloat[\label{fig:fixed-c}]{
-\includegraphics[scale=0.25]{figures/chapter5/sqc/flow/flower/summary.pdf}
-}\hspace{1em}%
-\subfloat[\label{fig:fixed-c}]{
-\includegraphics[scale=0.25]{figures/chapter5/sqc/fixed-points/flower-1/summary.pdf}
-}\hspace{1em}%
-\subfloat[\label{fig:fixed-c}]{
-\includegraphics[scale=0.25]{figures/chapter5/sqc/fixed-points/flower-2/summary.pdf}
-}\\
-\subfloat[\label{fig:fixed-c}]{
-\includegraphics[scale=0.28]{figures/chapter5/sqc/plots/flow-flower.pdf}
-}\hspace{0.25em}%
-\subfloat[\label{fig:fixed-c}]{
-\includegraphics[scale=0.28]{figures/chapter5/sqc/plots/fixed-flower-1.pdf}
-}\hspace{0.25em}%
-\subfloat[\label{fig:fixed-c}]{
-\includegraphics[scale=0.28]{figures/chapter5/sqc/plots/fixed-flower-2.pdf}
-}
+\begin{minipage}[c]{0.32\textwidth}
+	\center
+	\subfloat[\label{fig:fixed-c}]{
+	\includegraphics[scale=0.19]{figures/chapter5/sqc/flow/flower/summary.pdf}}\\
+	\subfloat[\label{fig:fixed-c}]{
+	\includegraphics[scale=0.28]{figures/chapter5/sqc/plots/flow-flower.pdf}}
+\end{minipage}
+%
+\begin{minipage}[c]{0.32\textwidth}
+	\center
+	\subfloat[\label{fig:fixed-c}]{
+	\includegraphics[scale=0.19]{figures/chapter5/sqc/fixed-points/flower-1/summary.pdf}}\\
+	\subfloat[\label{fig:fixed-c}]{
+	\includegraphics[scale=0.28]{figures/chapter5/sqc/plots/fixed-flower-1.pdf}}
+\end{minipage}
+%
+\begin{minipage}[c]{0.32\textwidth}
+	\center
+	\subfloat[\label{fig:fixed-c}]{
+	\includegraphics[scale=0.19]{figures/chapter5/sqc/fixed-points/flower-2/summary.pdf}}\\
+	\subfloat[\label{fig:fixed-c}]{
+	\includegraphics[scale=0.28]{figures/chapter5/sqc/plots/fixed-flower-2.pdf}}
+\end{minipage}
+\caption{We evaluate the simple elastica energy \eqref{eq:simplified-digital-elastica} for the sequence of images $S_i$ and $Q_i$. The shapes with minimum energy are in $S_i$ for all the experiments, suggesting that energy \eqref{eq:simplified-digital-elastica} can be employed for curvature regularization, but possibly using a larger neighborhood. }
+\label{fig:aaa}
 \end{figure}
 
 \section{Global Optimization Model}
@@ -417,7 +422,7 @@ We observe that for a linel $y_i$, constraints $\mathbf{C}$ allows its both edge
 
 	For an instance with $n$ pixels, we can expect to have something in the order of $2n$ linels. Therefore, the number of variables is of order $O(n)$. After the linearization process we can expect to have up to $O(n^3)$ variables. Nonetheless, we evaluate a flow based on the linear model for some digital shapes. In order to attenuate the variable explosion issue, we constrain the optimization region to a unit-width band around the initial contour of the shape. The results are displayed in figure ().
 	
-	We also tried partial linearization, i.e., to derive quadratic formulations of (P1). Unfortunately, the quadratic terms matrix is not semi-definite positive. \sketch{Convex relaxations?}
+	Quadratic formulations were also investigated. Unfortunately, the matrix of quadratic terms is not semi-definite positive, fundamental condition for its efficient optimization.
 	
 
 
@@ -443,10 +448,8 @@ Let $\mathbf{B} \in \mathbb{B}^{m\times m}$ such that column vector $\mathbf{B}_
 \end{align}
 
 
-It is a six order energy. Next we minimize \eqref{eq:unconstrained-digital-elastica} using the BFGS unconstrained optimization method.
+Energy \eqref{eq:unconstrained-digital-elastica} is of order six we didn't try to optimize it.
 
-%Notice that we recover $JMIV$ energy if we consider the minimization in a fixed contour, namely the contour of the original digital shape $D$.
-%
-%\begin{align*}
-%	E_{JMIV} = \frac{9}{R^6}\frac{1}{4}\sum_{j}^{m}{\left( \frac{\pi R^2}{2} - \mathbf{x}^T\hat{\mathbf{q}_X}\mathbf{B}_j - \mathbf{q}_F^T\mathbf{B}_j \right)^2}.
-%\end{align*}
+\section{Conclusion}
+We gave a historical review of the elastica and we defined the digital elastica energy. The local combinatorial scheme defined in section \ref{sec:local-combinatorial-scheme} can evolve different shapes guided by the minimization of digital elastica energy, justifying the interest for multigrid convergent estimators. Finnaly, we sketch some global optimization models using standard techniques of optimization and point out its difficulties, suggesting that a practical global optimization model is likely not to exist. In the next chapter we explore a model that decreases the elastica energy and that can be used in practice.
+
