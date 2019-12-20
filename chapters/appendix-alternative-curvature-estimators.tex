@@ -1,24 +1,26 @@
-\chapter{Max Energy}\label{chapter:max-energy}
+\chapter{Alternative curvature estimators}\label{chapter:alternative-curvature-estimators}
 
-Let $\mathcal{C}$ a oriented curve in the plane. We center disks $B_i$ and $B_o$ of radius $R+\epsilon$ with centers aligned with the normal direction of the curve at some point $p \in \mathcal{C}$. Moreover, the distance from disks center to $p$ equals to $R$.
+We present two novel estimators of curvature based on the evaluation of estimation balls at a certain distance from the boundary. 
+
+\section{$\kappa_{max}$ estimator}
+
+Let $\mathcal{C}$ a oriented curve in the plane. We center disks $B_i$ and $B_o$ of radius $R+1$ with centers aligned with the normal direction of the curve at some point $p \in \mathcal{C}$. Moreover, the distance from disks center to $p$ equals to $R$.
 
 \begin{figure}[h!]\label{fig:r-separated-disks}
 \center
 \includegraphics[scale=0.35]{figures/chapter5/max-energy/r-separated-disks.png}
-\caption{disks of radius $R+\epsilon$ distant $R$ units from $p\in \mathcal{C}$ in the normal direction.}
+\caption{disks of radius $R+1$ distant $R$ units from $p\in \mathcal{C}$ in the normal direction.}
 \end{figure}
 
-%-2*sqrt(2)*pi*E^(3/2)*R^(9/2)*k^2 + 2*pi^2*R^4 + 71/210*sqrt(2)*pi*E^(7/2)*sqrt(R) - 28/15*sqrt(2)*pi*E^(5/2)*R^(3/2) - 16/3*sqrt(2)*pi*E^(3/2)*R^(5/2) + 224/45*E^4 + 64/9*E^3*R
-
-Let $\theta_o (\theta_i)$ to denote the intersection of $B_o(B_i)$ with the inner(outer) region of the curve. We define the function $E:\mathcal{C}\rightarrow \mathbb{R}$ as
+Let $\theta_o (\theta_i)$ to denote the intersection of $B_o(B_i)$ with the inner(outer) region of the curve. We define the function $g:\mathcal{C}\rightarrow \mathbb{R}$ as
 
 \begin{align*}
-	g(\epsilon,p) &= \big( \pi (R+\epsilon)^2 - \Theta_o(p)\big)^2 + \big(\pi (R+\epsilon)^2 - \Theta_i(p) )^2\\
-		 &= g_o(\epsilon,p) + g_i(\epsilon,p)
+	g(p) &= \big( \pi (R+1)^2 - \Theta_o(p)\big)^2 + \big(\pi (R+1)^2 - \Theta_i(p) )^2\\
+		 &= g_o(p) + g_i(p)
 \end{align*}
 
 \begin{claim}{R-separated disks curvature}\label{claim:r-separated-disks}
- Let $\mathcal{C} \in \mathbb{R}^2$ be a curve such that for a point $p \in \mathcal{C}$ its curvature equals to $\kappa$. For sufficiently small values of $\epsilon$ and $\kappa$, we can approximate $g$ by
+ Let $\mathcal{C} \in \mathbb{R}^2$ be a curve such that for a point $p \in \mathcal{C}$ its curvature equals to $\kappa$. For sufficiently small values of $\kappa$, we can approximate $g$ by
 
 \begin{align*}
 g(\epsilon,p) \approx &-2 \sqrt{2}\pi \epsilon^{3/2}R^{9/2}\kappa^2 + 2\pi^2R^4 + 8\pi^2\epsilon R^3\\
