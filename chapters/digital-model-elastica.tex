@@ -51,12 +51,8 @@ Let $S$ be a $2$-dimensional digital shape embedded in a domain $\Omega \subset 
 Let $d_{S}:\Omega \rightarrow \mathbb{R}$ be the signed Euclidean distance transformation with respect to shape $S$. The value $d_S(p)$ gives the Euclidean distance between $p \notin S$ and the closest pixel in $S$. For points $p \in S$, $d_S(p)$ gives the distance between $p$ and the closest pixel not in $S$.
 
 
-\begin{definition}{m-Ring Set}
-Given a digital shape $S\in\Omega$, its signed distance transformation $d_S$ and natural number $m \neq 0$, the {\em $m$-ring set of $S$} is defined as
-\begin{align*}
-	R_m(S) &:= L_m \cup L_{-m},
-\end{align*}
-where
+\begin{definition}{m-level set}
+Given a digital shape $S\in\Omega$, its signed distance transformation $d_S$ and natural number $m \neq 0$, the {\em $m$-level set of $S$} is defined as
 \begin{align*}
 	L_m(S) &:= \left\{ \quad \begin{array}{cc}
 		\left\{ p \in \Omega \; | \; m-1 < d_S(p) \leq m \right\} & , \quad m>0\\
@@ -65,22 +61,21 @@ where
 \end{align*}
 \end{definition}
 
-Consider the following set of neighbor candidates to $S$:
+We use the level sets to define extensions $S_{+m}$ and $S_{-m}$ of $S$.
 \begin{align*}
-\mathcal{U}(S) = \{ D \; | D \subset R_1(S) \cup S \; \text{and} \; \text{$D$ is connected} \}.
+	S_{+m} = S \cup \bigcup_{1 \leq j \leq |m|} L_j(S), \quad \quad S_{-m} &= S \setminus \bigcup_{1 \leq j \leq |m|} L_{-j}(S).
 \end{align*}
 
-
-Such set can be extremely large and its complete exhaustion is prohibitively expensive.  Instead, we are going to use a subset of it.
+Finally, we define the neighborhood of shapes of $S$ in which the local-search is done.
 
 \begin{definition}{$n$-neighborhood}
-	Given a digital shape $S \in \Omega$, its $n$-neighborhood $\mathcal{N}_n(S)$ is defined as the set of digital shapes that can be built from $S$ by adding or removing a sequence of $n$ connected pixels in $R_1(S)$.
+	Given a digital shape $S \in \Omega$, the \emph{ $n$-neighborhood} $\mathcal{N}_n(S)$ of $S$  is defined as the set of digital shapes that can be built from $S$ by removing a sequence of $k \in [O,n]$ connected pixels in $L_1(S)$.
 \end{definition}
 
-Algorithm~\ref{alg:local-search} describes the local combinatorial process and Figure~\ref{fig:local-comb-square-results} presents the digital curve evolution when executing this algorithm for two different shapes with $n=50$.
+Algorithm~\ref{alg:local-search} describes the local combinatorial process and Figure~\ref{fig:local-comb-square-results} presents the digital curve evolution when executing this algorithm for two different shapes with $K=1,n=50$.
 
 
-\begin{figure}[h!]
+\begin{figure}[]
 \center
 \subfloat{
 \includegraphics[scale=0.4]{figures/chapter5/gcurves/main-inner.pdf}
@@ -94,7 +89,7 @@ Algorithm~\ref{alg:local-search} describes the local combinatorial process and F
 \subfloat{
 \includegraphics[scale=0.4]{figures/chapter5/gcurves/outer-main.pdf}
 }\hspace{1em}%
-\caption{Members of $\mathcal{N}_n$ for the square shape.}
+\caption{Members of $\mathcal{N}_{11}$ for the square shape.}
 \end{figure}
 
 
@@ -106,15 +101,18 @@ Algorithm~\ref{alg:local-search} describes the local combinatorial process and F
  \SetKwData{Best}{best} 
  \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
  
- \Input{A digital set $S$; the maximum length of glued curves $N$; the maximum number of iterations \MIt; and a stop condition \Tol}
+ \Input{A digital set $S$; the neighborhood size $n$ and its depth $K$; the maximum number of iterations \MIt; and a stop condition \Tol}
  \BlankLine
  \Delta $\longleftarrow$ \Tol+1\;
  \While{ \It $<$ \MIt \bf{and} \Delta $>$ \Tol  }{
-  	\For{$ X \in \mathcal{N}(S^{(i)},N) $}
-	{
-		\If{ $\hat{E}(X)$ $<$ $\hat{E}(X^\star)$ }
+   	\For{$ k \in [0,K] $}
+   	{
+  		\For{$ X \in \mathcal{N}_n(S^{(i)}_{+k}) \cup \mathcal{N}_n(S^{(i)}_{-k}) $}
 		{
-			$X^\star \longleftarrow X$
+			\If{ $\hat{E}(X)$ $<$ $\hat{E}(X^\star)$ }
+			{
+				$X^\star \longleftarrow X$
+			}	
 		}
 	}
 	\It $\longleftarrow$ \It $+1$\;
@@ -316,7 +314,7 @@ In fact, the defined neghborhood is likely to not be appropriate for the simple 
 \label{fig:aaa}
 \end{figure}
 
-\section{Global Optimization Model}
+\section{Global Optimization Model}\label{sec:global-optmization-model}
 
 Differently from the previous section, the model described here is designed for the integral invariant estimator only. Let $D \in \frac{1}{2}\mathbb{Z}^2$ be the digitization of some shape $S \in \mathbb{R}^2$ using grid step $h$ in half-integer coordinates space. We assume that $D$ has $m$ pixels (located at integer coordinates) and $n$ linels (one and only one of its coordinates is $\frac{1}{2}$). Optimization variables are represented as vectors $x \in \mathbb{B}^{m},\, y \in \mathbb{B}^{n}$ and its $i$th coefficients denoted  $x_i,y_i$.  Further, let $A \in \mathbb{B}^{m\times n}$ the matrix defined as
 
