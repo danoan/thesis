@@ -45,13 +45,13 @@ Consider the following optimization problem and its result for the square shape 
 \label{fig:naive-opt-problem}
 \end{figure}
 
-The solution in figure \ref{fig:naive-opt-after} should not cause any surprise. The energy \eqref{eq:naive-opt-problem} is optimized over a fixed contour, i.e., independently of pixels being labeled zero or one, the estimation balls are evaluated at the same initial contour. In section \label{sec:global-optimization-model} we defined an optimization energy in which contour information is taken into account, but we end up with a difficult energy to optimize.
+The solution in figure \ref{fig:naive-opt-after} should not cause any surprise. The energy \eqref{eq:naive-opt-problem} is optimized over a fixed contour, i.e., independently of pixels being labeled zero or one the estimation ball is evaluated at the same initial contour. In section \ref{sec:global-optimization-model} we've defined an optimization energy in which contour information is taken into account, but we end up with a difficult optimization problem.
 
-Nonetheless, we can exploit the II estimator definition to derive a energy which the minimization will lead to a shape with lower digital elastica value.
+Nonetheless, we can exploit the II estimator definition to derive an energy which the minimization will lead to a shape with lower digital elastica value.
 
 
-\begin{definition}{Balance coefficent}
-Given digital shape $S \in \Omega$, positive number $r$ and point $p \in S$, the \emph{balance coefficient} of $S$ at $p$ is defined as
+\begin{definition}{Unbalance coefficent}
+Given digital shape $S \in \Omega$, positive number $r$ and point $p \in \Omega$, the \emph{unbalance coefficient} of $S$ at $p$ is defined as
 
 \begin{align*}
 	u(p) = \left( \frac{\pi r^2}{2} - |B_r(p) \cap S| \right)^2.
@@ -59,7 +59,9 @@ Given digital shape $S \in \Omega$, positive number $r$ and point $p \in S$, the
 
 \end{definition}
 
-The balance coefficient is a measure of how close an estimation ball is from estimating zero curvature. In figure \ref{fig:balance-plot}, we plot the balance coefficients of points in the diagonal of a square shape. 
+The unbalance coefficient definition is very similar to the II curvature estimator, except by the scaling factor $\frac{3}{R^3}$ and that the unbalance coefficient is defined everywhere and not only on the shape boundary.
+
+The unbalance coefficient is used to estimate the effect of moving the estimation ball center towards the interior or the exterior of the shape. For example, consider the figure \ref{fig:unbalance-plot} in which we plot the unbalance coefficients of points along the diagonal of a square shape. 
 
 \begin{figure}[h!]
 \center
@@ -74,12 +76,27 @@ The balance coefficient is a measure of how close an estimation ball is from est
 \begin{minipage}{0.75\textwidth}
 \includegraphics[scale=0.75]{figures/appendix-potential-elastica/potential-elastica-plot.png}
 \end{minipage}
-\caption{The balance difference of equidistant points from the shape contour preserves squared curvature information.}
-\label{fig:balance-plot}
+\caption{The unbalance difference of equidistant points from the shape contour preserves squared curvature information.}
+\label{fig:unbalance-plot}
 \end{figure}
 
 
-We notice that the difference between outer and inner balance is non-negative along all the points in the diagonal. In fact, this is true for any point of positive curvature. For negative curvature, this difference is negative. This is the key observation for the definition of the digital flow.
+We observe that the unbalance grows if the estimation ball is moved towards the exterior and decreases if the estimation ball is moved towards the interior of the shape. That is an indication that we should remove point $p$ from $S$ to decrease the curvature of the shape at point $p \in \partial S$. 
+
+
+\section{Formalization}
+
+Let $r>0,k \in \mathbb{R}$. For any point $p \in I(S)$, define
+
+\begin{align*}
+	c_{r,k}(p) = k\vec{n}(p).
+\end{align*}
+
+To simplify notation, we assume $r,k$ are fixed positive values and we denote $c_j^- = c_{r,-k}(x_j)$ and $c_j^+ = c_{r,k}(x_j)$. We define the energy
+
+\begin{align*}
+	E() &= \sum_{x_j}{ x_j (\, u(c_j^+) - u(c_j^-)\, )}
+\end{align*}
 
 \begin{definition}{k-potential}
 Given digital shape $S$, natural numbers $r>0, k \neq 0$, the \emph{k-potential} at point $p$ is defined as
@@ -88,10 +105,10 @@ Given digital shape $S$, natural numbers $r>0, k \neq 0$, the \emph{k-potential}
 	U_{S,k}(p) &= \sum_{q \in Q(p)}{ u(q),}
 \end{align*}
 
-where its balance set $Q(p)$ is defined as
+where its zone of influence $Q(p)$ is defined as
 
 \begin{align*}
-	\mathcal{Q}(p) &= \left\{\; q \; | \; q \in L_k(S),\; p \in B_r(q) \; \right\}.
+	\mathcal{Q}(p) &= \left\{\; p \in B_r(q) \; \right\}.
 \end{align*}
 
 \end{definition}
@@ -99,26 +116,73 @@ where its balance set $Q(p)$ is defined as
 \begin{figure}[h!]
 \center
 \includegraphics[scale=0.5]{figures/appendix-potential-elastica/k-potential.png}
-\caption{The blue points forms the balance set of the yellow point.}
-\label{fig:balance-set}
+\caption{The blue points forms the interference set of the yellow point.}
+\label{fig:unbalance-set}
 \end{figure}
 
-The balance set of $p$ is the set of all points $q$ in which the $p$ is contained in the estimation ball centered at $q$.  In figure \ref{fig:balance-set} we illustrate the balance set definition. The k-potential is used to decide which pixels are to be removed or to be kept in the next shape of the flow. 
+The interference set of $p$ is the set of all points $q$ in which $p$ is contained in the estimation ball centered at $q$.   
+
+
+
+
+
+
+
+The k-potential is used to decide which pixels are to be removed or to be kept in the next shape of the flow. 
 
 
 \begin{definition}{$k$-flow}
-	Given digital shape $X$, let $\Delta U_{S,k}(p) = U_{S,k}(p) - U_{S,-k}(p)$. Then we define its $k$-flow as
+	Given digital shape $X$, we define its $k$-flow as
 	
 	\begin{align*}
 		F_k = \Big\{& S^{(i)} \; | \\
 			& S^{(0)} = S,\\
-		    &S^{(i+1)} = \argmin \sum_{ x_j \in X(I(S^{(i)}))}{ x_j \Delta _j\big(\; \Delta U_{S^ {(i)},k}(x_j) \;\big)} - \frac{x_j}{2}\sum_{ x_l \in X(I(S^{(i)}))}{x_l \Delta _{jl}\big(\; \Delta U_{S^ {(i)},k}(x_j) \;\big)} \; \Big\}.
+		    &S^{(i+1)} = \argmin \sum_{ x_j \in X(I(S^{(i)}))}{ x_j \Delta _j\big(\; U_{S,k}(p) - U_{S,-k}(p) \;\big)} - \phi(S^{(i)},k,x_j) \; \Big\},
+	\end{align*}
+	
+	where $\phi(S^{(i)},k,x_j)$ accounts for pairwise terms that were counted twice.
+	
+	\begin{align*}
+	\phi(S^{(i)},k,x_j) = \frac{x_j}{2}\sum_{ x_l \in X(I(S^{(i)}))}{x_l \Delta _{jl}\big(\; U_{S,k}(p) - U_{S,-k}(p) \;\big)} 
 	\end{align*}
      	  
 \end{definition}	
 
-\section{Balance plot development}
-	The balance difference at a point $c \in S$ distant $d$ units from the corner is written as
+In other words, the pixel is labeled zero (one) if its outer (inner) potential is bigger than its inner (outer) potential.
+
+[Results for triangle, square, flower, bean. Non uniform. Balls positioned at radius-2]
+
+
+We have two issues to tackle. 
+\begin{enumerate}
+	\item{Why the estimation balls should be centered at distant levels?}
+	\item{Why the flow tends to shrink the shape?}
+\end{enumerate}
+
+
+\section{Distant balls}
+	The optimization process performs the better when the estimation balls are positioned at distance that maximize the gap between the outer and inner unbalance. Surprisingly, this gap is independent of the curvature value in the boundary. In the experiments, we observe that the highest gap is invariably at $\frac{2}{3}$ of the estimation ball radius.
+	
+	The reasoning for distance balls is two fold. First, we need at least a $k=1$ in order to compute the unbalance, otherwise it would be zero. The question is how large should be $k$? The energy is easier to optimize if the gap between outer and inner curves is at its maximum. We should find a compromise value for $k$ that assure us a sufficiently large gap. 
+	
+	Second, the inner and outer balls estimates the impact of shifting the center of the ball from a single point in the boundary. That means that limiting the region of influence of each pair of inner and outer balls is important.
+	
+	Each pair of inner and outer balls evaluates the shifting of a single point in the boundary.
+	
+	We do not impose any mapping between the inner and outer balls. It will be too complicated. And we don't need to do it. The mapping is somehow implicitly defined by the distance level curves. 
+	
+	However, the closer the balls are from the boundary the bigger it is its zone of influence. Ideally, we should set weigths for each pixel in the ball accordingly to its distance from the normal. This is also complicated! 
+	
+	Nonetheless, there is a natural way to implement that. If the balls are in distant levels, its zone of influence englobes a small area around the normal. We've got the weighting by normals for free!
+	
+	
+	
+	
+
+\section{Controlling the shrinking}
+
+\section{Unbalance plot development}
+	The unbalance difference at a point $c \in S$ distant $d$ units from the corner is written as
 	\begin{align*}
 		u_i(c) &= \frac{\pi r^2}{2} - \big( \; a^2 + area( APC ) + area(A'PC) + area(\arc{PQ})  \; \big) \\
 		&= \frac{\pi r^2}{2} - \big( \; a^2 + a(P_x-a) + \frac{\theta_P + \theta_Q + \pi/2}{2\pi} \pi r^2\; \big),
