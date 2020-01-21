@@ -35,24 +35,39 @@ shown that either estimators induce similar results.
 
 Let $S$ be a $2$-dimensional digital shape embedded in a domain $\Omega \subset \mathbb{Z}^2$. We adopt the cellular-grid model to represent $S$, i.e., pixels and its lower dimensional counterparts, linels and pointels, are part of $S$ (see figure \ref{fig:cellular-grid-model}). In particular, we denote by $\partial S$ the topological boundary of $S$, i.e., the connected sequence of linels such that for each linel we have one of its incident pixels in $S$ and the other not in $S$.
 
-\begin{figure}[h!]
+\begin{figure}[]
 	\center
 	\subfloat[\label{}]{%
-	\includegraphics[scale=2.0]{figures/chapter5/cellular-grid/flower.png}
+	\includegraphics[scale=1.8]{figures/chapter5/cellular-grid/flower.png}
 	}\hspace{40pt}%
 	\subfloat[\label{}]{%	
-	\includegraphics[scale=0.3]{figures/chapter5/cellular-grid/cellular-grid-illustration.pdf}
+	\includegraphics[scale=0.27]{figures/chapter5/cellular-grid/cellular-grid-illustration.pdf}
+	}\hspace{40pt}%
+	\subfloat[\label{}]{%
+	\includegraphics[scale=0.035]{figures/chapter5/gcurves/distance-transform.pdf}
 	}
-	\caption{The flower shape in figure (a) and the cellular-grid model representation in (b) of the rectangle-bounded region. In figure (b), pixels are colored in gray, linels in green and pointels in blue.}
+	\caption{The flower shape in figure (a) and the cellular-grid model representation in (b) of the rectangle-bounded region. In figure (b), pixels are colored in gray, linels in green and pointels in blue. In figure (c), the blue pixels denotes a $3$-ring set.}
 	\label{fig:cellular-grid-model}
 \end{figure}
 
 
+Consider the following set of neighbor candidates to $S$:
+\begin{align*}
+\mathcal{U}(S) = \{ D \; | D \subset R_1(S) \cup S \; \text{and} \; \text{$D$ is connected} \}.
+\end{align*}
+
+
+Such set can be extremely large and its complete exhaustion is prohibitively expensive.  Instead, we are going to use a subset of it.
+
 Let $d_{S}:\Omega \rightarrow \mathbb{R}$ be the signed Euclidean distance transformation with respect to shape $S$. The value $d_S(p)$ gives the Euclidean distance between $p \notin S$ and the closest pixel in $S$. For points $p \in S$, $d_S(p)$ gives the distance between $p$ and the closest pixel not in $S$.
 
 
-\begin{definition}{m-level set}
-Given a digital shape $S\in\Omega$, its signed distance transformation $d_S$ and natural number $m \neq 0$, the {\em $m$-level set of $S$} is defined as
+\begin{definition}{m-Ring Set}
+Given a digital shape $S\in\Omega$, its signed distance transformation $d_S$ and natural number $m \neq 0$, the {\em $m$-ring set of $S$} is defined as
+\begin{align*}
+	R_m(S) &:= L_m \cup L_{-m},
+\end{align*}
+where
 \begin{align*}
 	L_m(S) &:= \left\{ \quad \begin{array}{cc}
 		\left\{ p \in \Omega \; | \; m-1 < d_S(p) \leq m \right\} & , \quad m>0\\
@@ -61,33 +76,31 @@ Given a digital shape $S\in\Omega$, its signed distance transformation $d_S$ and
 \end{align*}
 \end{definition}
 
-We use the level sets to define extensions $S_{+m}$ and $S_{-m}$ of $S$.
-\begin{align*}
-	S_{+m} = S \cup \bigcup_{1 \leq j \leq |m|} L_j(S), \quad \quad S_{-m} &= S \setminus \bigcup_{1 \leq j \leq |m|} L_{-j}(S).
-\end{align*}
-
-Finally, we define the neighborhood of shapes of $S$ in which the local-search is done.
-
 \begin{definition}{$n$-neighborhood}
-	Given a digital shape $S \in \Omega$, the \emph{ $n$-neighborhood} $\mathcal{N}_n(S)$ of $S$  is defined as the set of digital shapes that can be built from $S$ by removing a sequence of $k \in [O,n]$ connected pixels in $L_1(S)$.
+
+	Given a digital shape $S \in \Omega$, its $n$-neigh\-bor\-hood $\mathcal{N}_n(S)$ is defined as the set of digital shapes that can be built from $S$ by adding or removing a sequence of $k \in [0,n]$ connected pixels in $R_1(S)$.
+
 \end{definition}
 
-Algorithm~\ref{alg:local-search} describes the local combinatorial process and Figure~\ref{fig:local-comb-square-results} presents the digital curve evolution when executing this algorithm for two different shapes with $K=1,n=50$.
+
+
+
+Algorithm~\ref{alg:local-search} describes the local combinatorial process and Figure~\ref{fig:local-comb-square-results} presents the evolution of four different shapes.
 
 
 \begin{figure}[]
 \center
 \subfloat{
-\includegraphics[scale=0.4]{figures/chapter5/gcurves/main-inner.pdf}
+\includegraphics[scale=0.4]{figures/chapter5/gcurves/gc/main-inner.pdf}
 }\hspace{1em}%
 \subfloat{
-\includegraphics[scale=0.4]{figures/chapter5/gcurves/main-outer.pdf}
+\includegraphics[scale=0.4]{figures/chapter5/gcurves/gc/main-outer.pdf}
 }\hspace{1em}\\[1em]
 \subfloat{
-\includegraphics[scale=0.4]{figures/chapter5/gcurves/inner-main.pdf}
+\includegraphics[scale=0.4]{figures/chapter5/gcurves/gc/inner-main.pdf}
 }\hspace{1em}%
 \subfloat{
-\includegraphics[scale=0.4]{figures/chapter5/gcurves/outer-main.pdf}
+\includegraphics[scale=0.4]{figures/chapter5/gcurves/gc/outer-main.pdf}
 }\hspace{1em}%
 \caption{Members of $\mathcal{N}_{11}$ for the square shape.}
 \end{figure}
@@ -96,112 +109,169 @@ Algorithm~\ref{alg:local-search} describes the local combinatorial process and F
 \begin{algorithm}[H]
  \SetKwData{It}{i}
  \SetKwData{MIt}{maxIt}
- \SetKwData{Tol}{tolerance}
  \SetKwData{Delta}{delta}
  \SetKwData{Best}{best} 
  \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
  
- \Input{A digital set $S$; the neighborhood size $n$ and its depth $K$; the maximum number of iterations \MIt; and a stop condition \Tol}
+ \Input{A digital set $S$ and the maximum number of iterations \MIt}
  \BlankLine
- \Delta $\longleftarrow$ \Tol+1\;
- \While{ \It $<$ \MIt \bf{and} \Delta $>$ \Tol  }{
-   	\For{$ k \in [0,K] $}
-   	{
-  		\For{$ X \in \mathcal{N}_n(S^{(i)}_{+k}) \cup \mathcal{N}_n(S^{(i)}_{-k}) $}
+ $i \longleftarrow 0$\;	
+ $S^{(0)} \longleftarrow S$\;
+ \While{ $k < \log_2{|\partial S^{(i)}|}$ \bf{and} \It $<$ \MIt }
+ {
+	$n \longleftarrow |\partial S|/(3 \cdot 2^k)$\; 
+ 
+ 
+  	\For{$ X \in \mathcal{N}_n(S^{(i)}) \cup \mathcal{N}_{2n}(S^{(i)}) \cup \mathcal{N}_{3n}(S^{(i)}) $}
+	{
+		\If{ $\hat{E}(X)$ $<$ $\hat{E}(X^\star)$ }
 		{
-			\If{ $\hat{E}(X)$ $<$ $\hat{E}(X^\star)$ }
-			{
-				$X^\star \longleftarrow X$
-			}	
-		}
+			$X^\star \longleftarrow X$\; 
+		}	
 	}
-	\It $\longleftarrow$ \It $+1$\;
-	$S^{(i)} \longleftarrow X^\star$\;
 	\Delta $\longleftarrow$ $\hat{E}(S^{(i-1)}) - \hat{E}(S^{(i)})$\;	
+	
+	\If{ \Delta $=0$ }
+	{
+		$k \longleftarrow k+1$\; 
+	}		
+	\Else{
+		$k \longleftarrow 1$\;	
+		$S^{(i)} \longleftarrow X^\star$\;
+		\It $\longleftarrow$ \It $+1$\;		
+	}
+	
  }
  \label{alg:local-search} 
  \caption{Local combinatorial optimization for elastica minimization.}
 \end{algorithm}
 
-\begin{figure}[h!]
+\begin{figure}[]
 \center
 \subfloat{
-\includegraphics[scale=0.4]{figures/chapter5/exhaustive-selection/plot-shape-estimator/triangle.pdf}
+\includegraphics[scale=0.4]{figures/chapter5/flow/plots/bars/length_pen_0.01000/triangle.pdf}
 }\hspace{1em}%
 \subfloat{
-\includegraphics[scale=0.4]{figures/chapter5/exhaustive-selection/plot-shape-estimator/square.pdf}
+\includegraphics[scale=0.4]{figures/chapter5/flow/plots/bars/length_pen_0.01000/square.pdf}
 }\hspace{1em}%
 \subfloat{
-\includegraphics[scale=0.4]{figures/chapter5/exhaustive-selection/plot-shape-estimator/flower.pdf}
+\includegraphics[scale=0.4]{figures/chapter5/flow/plots/bars/length_pen_0.01000/flower.pdf}
 }\hspace{1em}%
 \subfloat{
-\includegraphics[scale=0.4]{figures/chapter5/exhaustive-selection/plot-shape-estimator/bean.pdf}
+\includegraphics[scale=0.4]{figures/chapter5/flow/plots/bars/length_pen_0.01000/bean.pdf}
+}\hspace{1em}%
+\subfloat{
+\includegraphics[scale=0.4]{figures/chapter5/flow/plots/bars/length_pen_0.01000/ellipse.pdf}
+}\hspace{1em}%
+\subfloat{
+\includegraphics[scale=0.4]{figures/chapter5/flow/plots/summary/lp_0.01/summary-ii5.pdf}
 }%
-\caption{Elastica value evolution for the triangle, square, flower and bean shapes. Evolution with II-$5$ estimator achieves global optima (dashed line) for the first three shapes.}
-\label{fig:local-comb-plots}
+\caption{Minimum value attained for the digial elastica ($\alpha=0.01, \beta=1$) in comparisson with the global optimium (dashed line) for different curvature estimators and in different scales. The last figure summarizes the digital elastica evolution value for all shapes using grid step $h=0.25$.}
+\label{fig:local-comb-estimators-plots-lp001}
 \end{figure}
 
-\begin{figure}[!h]
+\begin{figure}[]
 \center
-\begin{minipage}[b]{0.5\textwidth}
-\center
-	\includegraphics[scale=0.185]{figures/chapter5/exhaustive-selection/ii-r5-lp0.01/triangle/summary.pdf}\\[2em]
-	
-	\includegraphics[scale=0.17]{figures/chapter5/exhaustive-selection/ii-r5-lp0.01/square/summary.pdf}\\[2em]
-
-	\includegraphics[scale=0.25]{figures/chapter5/exhaustive-selection/ii-r5-lp0.01/flower/summary.pdf}\\[2em]		
-	
-	\includegraphics[scale=0.25]{figures/chapter5/exhaustive-selection/ii-r5-lp0.01/bean/summary.pdf}			
-\end{minipage}%
-\begin{minipage}[b]{0.5\textwidth}
-\center
-	\includegraphics[scale=0.185]{figures/chapter5/exhaustive-selection/mdca-lp0.01/triangle/summary.pdf}\\[2em]
-	
-	\includegraphics[scale=0.17]{figures/chapter5/exhaustive-selection/mdca-lp0.01/square/summary.pdf}\\[2em]
-	
-	\includegraphics[scale=0.25]{figures/chapter5/exhaustive-selection/mdca-lp0.01/flower/summary.pdf}\\[2em]
-
-	\includegraphics[scale=0.25]{figures/chapter5/exhaustive-selection/mdca-lp0.01/bean/summary.pdf}
-\end{minipage}%	
-		\caption{Local combinatorial optimization process results for several shapes with $\alpha=0.01,\beta=1$. In the left column we have evolutions using II-$5$ and in the right MDCA. Shapes are displayed at every $5$ iterations.}	
-		\label{fig:local-comb-square-results}
+\subfloat{
+\includegraphics[scale=0.4]{figures/chapter5/flow/plots/bars/length_pen_0.00100/triangle.pdf}
+}\hspace{1em}%
+\subfloat{
+\includegraphics[scale=0.4]{figures/chapter5/flow/plots/bars/length_pen_0.00100/square.pdf}
+}\hspace{1em}%
+\subfloat{
+\includegraphics[scale=0.4]{figures/chapter5/flow/plots/bars/length_pen_0.00100/flower.pdf}
+}\hspace{1em}%
+\subfloat{
+\includegraphics[scale=0.4]{figures/chapter5/flow/plots/bars/length_pen_0.00100/bean.pdf}
+}\hspace{1em}%
+\subfloat{
+\includegraphics[scale=0.4]{figures/chapter5/flow/plots/bars/length_pen_0.00100/ellipse.pdf}
+}\hspace{1em}%
+\subfloat{
+\includegraphics[scale=0.4]{figures/chapter5/flow/plots/summary/lp_0.001/summary-ii5.pdf}
+}%
+\caption{Minimum value attained for the digial elastica ($\alpha=0.001, \beta=1$) in comparisson with the global optimium (dashed line) for different curvature estimators and in different scales. The last figure summarizes the digital elastica evolution value for all shapes using grid step $h=0.25$.}
+\label{fig:local-comb-estimators-plots-lp0001}
 \end{figure}
 
 
-\begin{figure}[h!]
-\center
-\captionsetup{type=table}
-\begin{tabular}{|l|c|c|c|c|c|c|}
-\hline
-& \multicolumn{2}{c|}{$h=1.0$} & \multicolumn{2}{c|}{$h=0.5$} & \multicolumn{2}{c|}{$h=0.25$}\\
-\hline
-& Pixels & Time & Pixels & Time & Pixels & Time\\
-\hline
-Triangle & 131 & 1s (0.1s/it)  & 521 & 72s (2.7s/it) & 2080 & 1300s (18s/it)\\
-Square & 225 & 1s (0.1s/it) & 841 & 16s (0.9s/it) & 3249 & 656s (9.9s/it)\\
-Flower & 469 & 14s (1s/it) & 1867 & 218s (6.4s/it) & 7481 & 3246s (42s/it)\\
-Bean  & 1574 & 74s (1.9s/it) & 6278 & 995s (12.9s/it) & 25130 & 28580s (95.5s/it)\\
-\hline
+\begin{figure}[hp!]
+	\center
+	\begin{tabular}{ccc}
+		$h=1.0$ & $h=0.5$ & $h=0.25$ \\[2em]
+	\includegraphics[scale=0.185]{figures/chapter5/flow/triangle/radius_5/ii/elastica/len_pen_0.01000/jonctions_1/best/gs_1.00000/summary.pdf} &
+	\includegraphics[scale=0.185]{figures/chapter5/flow/triangle/radius_5/ii/elastica/len_pen_0.01000/jonctions_1/best/gs_0.50000/summary.pdf} &
+	\includegraphics[scale=0.185]{figures/chapter5/flow/triangle/radius_5/ii/elastica/len_pen_0.01000/jonctions_1/best/gs_0.25000/summary.pdf}\\[2em]
+		
+	\includegraphics[scale=0.17]{figures/chapter5/flow/square/radius_5/ii/elastica/len_pen_0.01000/jonctions_1/best/gs_1.00000/summary.pdf} &
+	
+	\includegraphics[scale=0.17]{figures/chapter5/flow/square/radius_5/ii/elastica/len_pen_0.01000/jonctions_1/best/gs_0.50000/summary.pdf} &	
+	
+	\includegraphics[scale=0.17]{figures/chapter5/flow/square/radius_5/ii/elastica/len_pen_0.01000/jonctions_1/best/gs_0.25000/summary.pdf}\\[2em]
+	
+	
+	\includegraphics[scale=0.25]{figures/chapter5/flow/flower/radius_5/ii/elastica/len_pen_0.01000/jonctions_1/best/gs_1.00000/summary.pdf} &		
+	
+	\includegraphics[scale=0.25]{figures/chapter5/flow/flower/radius_5/ii/elastica/len_pen_0.01000/jonctions_1/best/gs_0.50000/summary.pdf} &
+
+	\includegraphics[scale=0.25]{figures/chapter5/flow/flower/radius_5/ii/elastica/len_pen_0.01000/jonctions_1/best/gs_0.25000/summary.pdf}\\[2em]	
+	
+	\includegraphics[scale=0.25]{figures/chapter5/flow/bean/radius_5/ii/elastica/len_pen_0.01000/jonctions_1/best/gs_1.00000/summary.pdf} &	 
+	
+	\includegraphics[scale=0.25]{figures/chapter5/flow/bean/radius_5/ii/elastica/len_pen_0.01000/jonctions_1/best/gs_0.50000/summary.pdf} &	
+	
+	\includegraphics[scale=0.25]{figures/chapter5/flow/bean/radius_5/ii/elastica/len_pen_0.01000/jonctions_1/best/gs_0.25000/summary.pdf}\\[2em]			
+
+	
+	\includegraphics[scale=0.25]{figures/chapter5/flow/ellipse/radius_5/ii/elastica/len_pen_0.01000/jonctions_1/best/gs_1.00000/summary.pdf} &
+
+	\includegraphics[scale=0.25]{figures/chapter5/flow/ellipse/radius_5/ii/elastica/len_pen_0.01000/jonctions_1/best/gs_0.25000/summary.pdf} &
+
+	\includegraphics[scale=0.25]{figures/chapter5/flow/ellipse/radius_5/ii/elastica/len_pen_0.01000/jonctions_1/best/gs_0.25000/summary.pdf}				
 \end{tabular}
-\caption{Running time and input size for different grid steps.}
-\label{tab:summary-local-comb-rtime} 
+		\caption{Local combinatorial optimization process results for several shapes with $\alpha=0.01,\beta=1$. The initial contour is colored in red; the final contour is colored in blue; and the optimal contour is colored in green.}	
+		\label{fig:local-comb-ii5-results}
+\end{figure}
+
+\begin{figure}
+\center
+\begin{tabular}{ccc}
+$h=1.0$ & $h=0.5$ & $h=0.25$\\[2em]
+\includegraphics[scale=0.25]{figures/chapter5/flow/flower/radius_3/mdca/elastica/len_pen_0.01000/jonctions_1/best/gs_1.00000/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter5/flow/flower/radius_3/mdca/elastica/len_pen_0.01000/jonctions_1/best/gs_0.50000/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter5/flow/flower/radius_3/mdca/elastica/len_pen_0.01000/jonctions_1/best/gs_0.25000/summary.pdf}\\[2em]
+\includegraphics[scale=0.25]{figures/chapter5/mdca-larger-neighborhood/flower/0.01/1.0/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter5/mdca-larger-neighborhood/flower/0.01/0.5/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter5/mdca-larger-neighborhood/flower/0.01/0.25/summary.pdf}
+\end{tabular}
+\caption{In the top row, the MDCA evolution for the neighborhood as presented in algorithm \ref{alg:local-search}. In the bottom row, the flow using the extended neighborhood. The extended neighborhood additionaly includes the dilation and erosion of the initial shape by a square of side $1$.}
+\label{fig:mdca-larger-neighborhood}
 \end{figure}
 
 
+The algorithm is suitable for any type of digital estimator. To estimate length we use MDSS and to estimate curvature we execute experiments with the MDCA and II-$r$ estimators ($r$ denoting the radius of the estimation ball). 
+
+
+\subsection{Free Digital Elastica}
+In the free digital elastica energy we optimize energy \ref{eq:digital-elastica} without any constraint. We observe that for $\alpha=0, \beta >0$ the Elastica becomes the integration of the squared curvature integration along the shape contour which has the ball of infinite radius as its minimizer. For $\alpha > 0, \beta=0$, minimize Elastica becomes minimize perimeter (curvature flow). It is easy to see that for $\alpha, \beta > 0$, the optimal shape for the Elastica is a disk of radius $r$. We can easily find the value of $r$.
+
+\begin{align*}
+	\frac{d}{dr}\big( \int_{\partial B(r)}{ (\alpha + \beta \kappa ^2) ds} \big ) &= 0\\
+	\frac{d}{dr}\big( \alpha 2\pi r + \beta \pi/r \big) &= 0\\
+	r &= \alpha^{-1/2}.
+\end{align*}  
+
+Therefore, the optimal shape for the free digital elastica is a digital disk of finite radius $\alpha^{-1/2}$.
+
+
+In figure \ref{fig:local-comb-ii5-results} we present several flows derived by algorithm \ref{alg:local-search} for parameters $\alpha=0.01, \beta=1$. We observe that both II-$5$ and II-$10$ evolve the shapes to disks of radius close to the optimal value of $10$ (see figure \ref{fig:local-comb-estimators-plots-lp001}). The II-$3$ estimator stops prematurely at a local optima due its limited sensibility compared to II-$5$ or II-$10$, while MDCA encounters some difficults to evolve in a high resolution setting and it also stops at some local optima. In fact, the MDCA estimator, although with higher convergence speed, is more sensitive to noise than II, as illustrated in figure \ref{fig:mdca-sensitivity}. Nonetheless, the results can be improved by using a larger neighborhood, as illustrates figures \ref{fig:mdca-larger-neighborhood}.
 
 
 
-
-The algorithm is suitable for any type of digital estimators. To estimate length we use MDSS and to estimate curvature we execute experiments with the MDCA and II-$5$ estimators. We observe that II-$5$ evolves the triangle, the square and the flower to the optimal disk of radius $10$. On the other hand, MDCA evolution get stucked in local optima. In fact, the MDCA estimator, although with higher convergence speed, is more sensitive to noise than II, as illustrated in figure \ref{fig:mdca-sensitivity}. For the bean shape, both estimators stop in a local optima. In figure \ref{fig:local-comb-plots}, we can observe how the elastica value evolves for each shape and each curvature estimator.
-
+We've executed the same experiments for different parameters $\alpha$ to confirm the effectiveness of our approach. We observe that the plots for $\alpha=0.001$ in figure \ref{fig:local-comb-estimators-plots-lp0001} follows a pattern similar to those in figure \ref{fig:local-comb-estimators-plots-lp001} for $\alpha=0.01$. In particular, the remarks for the II-$3$ and MDCA estimator are the same. Further, we point out that II-$5$ values are slightly farther from the optima for $\alpha=0.001$. The reason being that the shapes evolve to a ball of higher radius compared to the case $\alpha=0.01$. At some point of the evolution for $\alpha=0.001$, the sensibility of II-$5$ is not sufficient to escape from local optima. We remark that the adoption of an automatic selection of the estimation ball radius may attenuate this problem.
 
 
-
-
-
-
-
-\begin{figure}[h!]
+\begin{figure}[]
 \begin{minipage}[b]{0.6\textwidth}
 \center
 \includegraphics[scale=0.15]{figures/chapter5/mdca-sensitivity/closer-picture.pdf}
@@ -223,42 +293,73 @@ $| \Delta E / \Delta S |$ & 70 & 1400
 \label{fig:mdca-sensitivity}
 \end{figure}
 
+\subsection{Constrained Digital Elastica}
+
+An important advantage of algorithm \ref{alg:local-search} is that constraints can be imposed with minimum effort. We present results for two types of constraints. In the first type, we force some pixels to be part of the final solution and in the second we impose orientations at the endpoints of a curve. In figure \ref{fig:constrained-elastica} we compare the flows for different values of $\alpha$.
 
 
+\begin{figure}
+\center
+\begin{tabular}{ccc}
+$\alpha=0.1$ & $\alpha=0.01$ & $\alpha=0.001$\\[2em]
+\includegraphics[scale=0.25]{figures/chapter5/fixed-pixels/elastica/len_pen_0.1/flower-1/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter5/fixed-pixels/elastica/len_pen_0.01/flower-1/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter5/fixed-pixels/elastica/len_pen_0.001/flower-1/summary.pdf}\\[2em]
+\includegraphics[scale=0.25]{figures/chapter5/fixed-pixels/elastica/len_pen_0.1/flower-2/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter5/fixed-pixels/elastica/len_pen_0.01/flower-2/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter5/fixed-pixels/elastica/len_pen_0.001/flower-2/summary.pdf}\\[2em]
+\includegraphics[scale=0.25]{figures/chapter5/fixed-orientations/elastica/len_pen_0.1/curve-2/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter5/fixed-orientations/elastica/len_pen_0.01/curve-2/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter5/fixed-orientations/elastica/len_pen_0.001/curve-2/summary.pdf}\\[2em]
+\includegraphics[scale=0.25]{figures/chapter5/fixed-orientations/elastica/len_pen_0.1/curve-3/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter5/fixed-orientations/elastica/len_pen_0.01/curve-3/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter5/fixed-orientations/elastica/len_pen_0.001/curve-3/summary.pdf}
+\end{tabular}
+\caption{In the first and second rows, the flow obtained by forcing the green pixels to be part of the final solution; In the last two rows, the flow obtained by forcing the orientation at the endpoints of the curves.}
+\label{fig:constrained-elastica}
 
+\end{figure}
 
-The running time of algorithm \ref{alg:local-search} is summarized in table \ref{tab:summary-local-comb-rtime}. All the experiments in this paper were executed on a $32$-core $2.4Ghz$ CPU. Although its use in practical applications is
+\subsection{Running time}
+
+The running time of algorithm \ref{alg:local-search} is summarized in table \ref{tab:summary-local-comb-rtime}. All the experiments in this thesis were executed on a $32$-core $2.4Ghz$ CPU. Although its use in practical applications is
 limited, we demonstrate that digital estimators are effective in their measurements and the flows evolve as expected, reaching the global optima for some shapes. We
 observe that it is a complete digital approach, and we do not suffer from discretization and rounding problems, a common
 issue in continuous models.  Furthermore we have checked that this approach works indifferently with Integral Invariant
 curvature estimator and Maximal Digital Circular Arc curvature estimator. So the convergence of the digital curvature
-estimator seems to be the cornerstone to get a digital curve behaving like a continuous Elastica.  
-
-We can also impose some restrictions in the evolution process. For example, we can force some pixels to be part of the final shape, or that the endpoints of the curve must have a given orientation. Figure \ref{fig:fixed-pixels-evolution} summarizes the results.
+estimator seems to be the cornerstone to get a digital curve behaving like a continuous Elastica. 
 
 \begin{figure}[h!]
 \center
-\subfloat[\label{fig:fixed-a}]{
-\includegraphics[scale=0.25]{figures/chapter5/fixed-pixels/flower-1/summary.pdf}
-}\hspace{1em}%
-\subfloat[\label{fig:fixed-b}]{
-\includegraphics[scale=0.25]{figures/chapter5/fixed-pixels/flower-2/summary.pdf}
-}\hspace{1em}%
-\subfloat[\label{fig:fixed-c}]{
-\includegraphics[scale=0.25]{figures/chapter5/fixed-orientation/pair-1/summary.pdf}
-}\hspace{1em}%
-\subfloat[\label{fig:fixed-d}]{
-\includegraphics[scale=0.25]{figures/chapter5/fixed-orientation/pair-2/summary.pdf}
-}\hspace{1em}%
-\subfloat[\label{fig:fixed-e}]{
-\includegraphics[scale=0.25]{figures/chapter5/fixed-orientation/pair-3/summary.pdf}
-}\hspace{1em}%
-
-\caption{Green segments denote pixels to be enforced in the final shape for figures (a) and (b); or fixed orientations in the endpoints of an open curve as in figures (c)-(e). }
-\label{fig:fixed-pixels-evolution}
+\captionsetup{type=table}
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+& \multicolumn{2}{c|}{$h=1.0$} & \multicolumn{2}{c|}{$h=0.5$} & \multicolumn{2}{c|}{$h=0.25$}\\
+\hline
+& Pixels & Time & Pixels & Time & Pixels & Time\\
+\hline
+Triangle & 521 & 2s (0.05s/it)  & 2080 & 19s (0.3s/it) & 8315 & 261s (1.7s/it)\\
+Square & 841 & 0.9s (0.06s/it) & 3249 & 6s (0.18s/it) & 12769 & 57s (1s/it)\\
+Flower & 1641 & 6s (0.14s/it) & 6577 & 67s (0.7s/it) & 26321 & 1094s (4.7s/it)\\
+Bean  & 1574 & 6s (0.1s/it) & 6278 & 76s (0.67s/it) & 25130 & 692s (3s/it)\\
+Ellipse  & 626 & 1s (0.3s/it) & 2506 & 8s (0.19s/it) & 10038 & 134s (1.3s/it)\\
+\hline
+\end{tabular}
+\caption{Running time and input size for different grid steps.}
+\label{tab:summary-local-comb-rtime} 
 \end{figure}
 
-We also evaluate the process for a simplified version of the elastica in which the local length estimator is ommited
+
+
+
+
+\section{Global Optimization}\label{sec:global-optmization-model}
+
+In this section we turn to a global optimization approach. However, instead of minimizing energy \eqref{eq:digital-elastica} we are going to optimize a simplified version of it in which we don't need to compute the local length estimator.
+
+\subsection{Simplified Digital Elastica}
+
+The simplified digital elastica is defined as
 
 	\begin{align}
 	\hat{E}_S( D_h(X) ) = \sum_{\dot{\vec{e}} \in \partial D_h(X)}{ \alpha + \beta \hat{\kappa}_{r}^2(D_h(X),\dot{\vec{e}},h) }.
@@ -266,55 +367,28 @@ We also evaluate the process for a simplified version of the elastica in which t
 	\end{align}
 	
 
-\begin{figure}[h!]
+We argue that energy \eqref{eq:simplified-digital-elastica} is a reasonable approximation of \eqref{eq:digital-elastica}. Indeed, executing algorithm \ref{alg:local-search} for minimize the simplified digital elastica obtains very similar results to those for the digital elastica (see figure \ref{fig:simplified-elastica}).
+
+
+\begin{figure}[]
 \center
-\subfloat[\label{fig:fixed-a}]{
-\includegraphics[scale=0.185]{figures/chapter5/sqc/flow/triangle/summary.pdf}
-}\hspace{1em}%
-\subfloat[\label{fig:fixed-b}]{
-\includegraphics[scale=0.17]{figures/chapter5/sqc/flow/square/summary.pdf}
-}\hspace{1em}%
-\subfloat[\label{fig:fixed-d}]{
-\includegraphics[scale=0.25]{figures/chapter5/sqc/fixed-orientation/pair-3/summary.pdf}
-}
-\caption{Simple elastica experiments}
-\label{fig:simple-elastica-experiments}
+\begin{tabular}{ccc}
+\includegraphics[scale=0.25]{figures/chapter5/flow/triangle/radius_5/ii/selastica/len_pen_0.01000/jonctions_1/best/gs_0.25000/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter5/flow/square/radius_5/ii/selastica/len_pen_0.01000/jonctions_1/best/gs_0.25000/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter5/flow/ellipse/radius_5/ii/selastica/len_pen_0.01000/jonctions_1/best/gs_0.25000/summary.pdf}\\[2em]
+\includegraphics[scale=0.25]{figures/chapter5/flow/flower/radius_5/ii/selastica/len_pen_0.01000/jonctions_1/best/gs_0.25000/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter5/flow/bean/radius_5/ii/selastica/len_pen_0.01000/jonctions_1/best/gs_0.25000/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter5/fixed-pixels/selastica/len_pen_0.01/flower-1/summary.pdf}\\[2em]
+\includegraphics[scale=0.25]{figures/chapter5/fixed-pixels/selastica/len_pen_0.01/flower-2/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter5/fixed-orientations/selastica/len_pen_0.01/curve-2/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter5/fixed-orientations/selastica/len_pen_0.01/curve-3/summary.pdf}
+\end{tabular}
+\caption{Experiments of section \ref{sec:local-combinatorial-scheme} for the simplified digital elastica.}
+\label{fig:simplified-elastica}
 \end{figure}
 
-We obtain similar results for the previous experiments (see figure \ref{fig:simple-elastica-experiments}), except when handling the flower shape \sketch{It seems that is a matter of choosing the right estimation disk radius with respect to shape and grid step. Even for the digital elastica energy we may recover flows as described in this section if we use a disk radius that is not sensible enough in low curvature regions. As a result, we proportionally overestimate quite a lot points with low curvature. A better model would select the disk radius following some heuristic}. Flow evolution for smoother versions of the flower doesn't change this scenario, which suggests that the simplified flow is not suited for initial shapes with regions of negative curvature.
 
-In fact, the defined neghborhood is likely to not be appropriate for the simple elastica. Let $\{S_i\}$ be the sequence of shapes generated by algorithm \ref{alg:local-search} using digital elastica \eqref{eq:digital-elastica} and $\{Q_i\}$ the sequence of shapes generated by the same algorithm but using the simplified version of elastica \eqref{eq:simplified-digital-elastica}. Both sequences starts from the flower shape, i.e. $S_0=Q_0=flower(0.25)$. In figure \ref{} we compute the simple elastica energy for $\{S_i\}$ and $\{Q_i\}$ and we notice that the lowest values are achieved for $\{S_i\}$, except at the first iterations. That suggests that by using a larger neighborhood, the simplified elastica can be employed as a reasonable approximation of \eqref{eq:digital-elastica}. In particular, energy \eqref{eq:simplified-digital-elastica} is suitable for a global optimization model.
-
-
-\begin{figure}[h!]
-\begin{minipage}[c]{0.32\textwidth}
-	\center
-	\subfloat[\label{fig:fixed-c}]{
-	\includegraphics[scale=0.19]{figures/chapter5/sqc/flow/flower/summary.pdf}}\\
-	\subfloat[\label{fig:fixed-c}]{
-	\includegraphics[scale=0.28]{figures/chapter5/sqc/plots/flow-flower.pdf}}
-\end{minipage}
-%
-\begin{minipage}[c]{0.32\textwidth}
-	\center
-	\subfloat[\label{fig:fixed-c}]{
-	\includegraphics[scale=0.19]{figures/chapter5/sqc/fixed-points/flower-1/summary.pdf}}\\
-	\subfloat[\label{fig:fixed-c}]{
-	\includegraphics[scale=0.28]{figures/chapter5/sqc/plots/fixed-flower-1.pdf}}
-\end{minipage}
-%
-\begin{minipage}[c]{0.32\textwidth}
-	\center
-	\subfloat[\label{fig:fixed-c}]{
-	\includegraphics[scale=0.19]{figures/chapter5/sqc/fixed-points/flower-2/summary.pdf}}\\
-	\subfloat[\label{fig:fixed-c}]{
-	\includegraphics[scale=0.28]{figures/chapter5/sqc/plots/fixed-flower-2.pdf}}
-\end{minipage}
-\caption{We evaluate the simple elastica energy \eqref{eq:simplified-digital-elastica} for the sequence of images $S_i$ and $Q_i$. The shapes with minimum energy are in $S_i$ for all the experiments, suggesting that energy \eqref{eq:simplified-digital-elastica} can be employed for curvature regularization, but possibly using a larger neighborhood. }
-\label{fig:aaa}
-\end{figure}
-
-\section{Global Optimization Model}\label{sec:global-optmization-model}
+\subsection{Optimization Model for Simplified Elastica}
 
 Differently from the previous section, the model described here is designed for the integral invariant estimator only. Let $D \in \frac{1}{2}\mathbb{Z}^2$ be the digitization of some shape $S \in \mathbb{R}^2$ using grid step $h$ in half-integer coordinates space. We assume that $D$ has $m$ pixels (located at integer coordinates) and $n$ linels (one and only one of its coordinates is $\frac{1}{2}$). Optimization variables are represented as vectors $x \in \mathbb{B}^{m},\, y \in \mathbb{B}^{n}$ and its $i$th coefficients denoted  $x_i,y_i$.  Further, let $A \in \mathbb{B}^{m\times n}$ the matrix defined as
 
@@ -334,38 +408,29 @@ In other words, the column vector $A_i$ of $A$ represents the pixels that are in
 			   =& \sum_{y_i \in y}{ y_i \left(\; \alpha + \frac{9}{r^6}\beta \big(c^2 - 2cA_i^T\vec{x} + \vec{x}^TA_iA_i^T\vec{x}\big)\right)},			   
 	\end{align}
 	
-where $c =  \pi r^2/2$. We remark that linels and pixels in the solution must be topologicaly consistent, .i.e., linels must form connected closed curves and the pixels must lie in the interior of those curves. This restriction is encoded in a set of constraints $C(x,y)$ detailed later. So far we have
+where $c =  \pi r^2/2$. We remark that linels and pixels in the solution must be topologicaly consistent, .i.e., linels must form connected closed curves and the pixels must lie in the interior of those curves. This restriction is encoded in a set of topological constraints $T(x,y)$ detailed later. So far we have
 
 \begin{align*}
-	\min_{x \in \mathbb{B}^{|X|}, y \in \mathbb{B}^{|Y|}}{\hat{E}(x,y)}, \quad \text{subject to } C(x,y). \quad (P0)
+	\min_{x \in \mathbb{B}^{|X|}, y \in \mathbb{B}^{|Y|}}{\hat{E}(x,y)}, \quad \text{subject to } T(x,y). \quad (P0)
 \end{align*}
 
-The continuous counterpart of $P0$ has a very intuitive interpretation. We know that the shape that minimizes the integration of squared curvature is the ball of infinite radius. On the other hand, we know that the flow derived from perimeter minimization is the curvature flow, which invariably reaches a disk before converging to a single point. Therefore, we can expect that the global optima for $P0$ will be a disk. Hence, it is sufficient to analyze what it happens by restricting $P0$ to disks
+Additionaly, in real applications involving the minimization of Elastica, we have a set of constraints $R$ that plays the role of regularization. For example, we may force some of the pixels in the original shape to be part of the solution; for imaging problems, we may add a data attachment term, and so on. Finally, we can write the general optimization problem as
 
 \begin{align*}
-	\frac{d}{dr}\big( \alpha 2\pi r + \beta \pi/r \big) &= 0\\
-	r &= \alpha^{-1/2}.
-\end{align*}  
-
-We conclude that the solution for problem $P0$ is the ball of radius $\alpha^{-1/2}$. In real applications involving the minimization of elastica, we have an additional set of constraints $R$ that plays the role of regularization. For example, we may force some of the pixels in the original shape to be part of the solution; for imaging problems, we may add a data attachment term, and so on. Finally, we can write the general optimization problem as
-
-\begin{align*}
-	\min_{x \in \mathbb{B}^{|X|}, y \in \mathbb{B}^{|Y|}}{\hat{E}(x,y)}, \quad \text{subject to } C(x,y), R(x) \quad (P1)
+	\min_{x \in \mathbb{B}^{|X|}, y \in \mathbb{B}^{|Y|}}{\hat{E}(x,y)}, \quad \text{subject to } T(x,y), R(x) \quad (P1)
 \end{align*}
 
 	Formulation $P1$ is a constrained binary non-convex third order problem and likely difficult to be solved optimally. Nonetheless, we can use standard optimization techniques to acquire some intuition on the model. 	
 	
 \subsection{Topological constraints}
 
-
-
-The aim of the topological constraints is to enforce topologicaly consistent solutions for the set of pixels and linels, interpreted here as faces and edges in the plane. In order to accomplish that, we need to set an orientation for the faces and another for the edges. We choose counter-clockwise for faces; right for horizontal edges; and up for vertical edges.
+The estimation ball should be applied in the digital boundary of the shape, which oblige us to impose topological constraints in the model to avoid inconsistent solutions. In order to accomplish that, we set an arbitraty orientation for the faces and another for the edges. We choose counter-clockwise for faces; right for horizontal edges; and up for vertical edges.
 
 
 For each linel $y_i$ we create variables $z_{2i},z_{2i+1}$, one for each possible orientation $y_i$ may assume. We denote this extended set as $Z$. Next, we extend the linel incidence matrix defined in appendix \ref{chapter:pixel-incidence-matrix} to hold incidence with respect to oriented edges. The new matrix $\mathbf{C} \in \mathbb{B}^{n \times m + 2n}$ is defined as
 
 \[
-	0 \leq j < m, \quad \mathbf{C}_{i,j} = \left\{ \begin{array}{ll}
+	0 \leq j < m, \quad \mathbf{T}_{i,j} = \left\{ \begin{array}{ll}
 	
 	1,& \text{Pixel $j$ is positive incident to linel $i$}\\
 	-1,& \text{Pixel $j$ is negative incident to linel $i$}\\	
@@ -374,7 +439,7 @@ For each linel $y_i$ we create variables $z_{2i},z_{2i+1}$, one for each possibl
 \]
 
 \[
-	m \leq j < m + 2n, \quad \mathbf{C}_{i,j} = \left\{ \begin{array}{ll}
+	m \leq j < m + 2n, \quad \mathbf{T}_{i,j} = \left\{ \begin{array}{ll}
 	
 	1,& \text{Edge $j$ is positive incident to linel $i$}\\
 	-1,& \text{Edge $j$ is negative incident to linel $i$}\\	
@@ -388,14 +453,14 @@ Rewriting formulation (P1)
 \begin{array}{ll}
 & \displaystyle	\min \sum_{z_i \in Z}{ z_i \left(\; \alpha + \frac{9}{r^6}\beta \big(c^2 - 2cA_i^T\vec{x} + \vec{x}^TA_iA_i^T\vec{x}\big)\right)} \\
 \text{subject to}\\
-&	\mathbf{C}[ \mathbf{x}, \mathbf{z}] = 0,\\
+&	\mathbf{T}[ \mathbf{x}, \mathbf{z}] = 0,\\
 &   R(\mathbf{x}),\\
 &   \mathbf{x} \in \mathbb{B}^{m}, \mathbf{z} \in \mathbb{B}^{2n}.
 \end{array}
 \]
 
 
-We observe that for a linel $y_i$, constraints $\mathbf{C}$ allows its both edge variables $z_{2i},z_{2i+1}$ to be evaluated to one. However, since we are minimizing a squared energy, this doesn't pose an issue.
+We observe that for a linel $y_i$, constraints $\mathbf{T}$ allows its both edge variables $z_{2i},z_{2i+1}$ to be evaluated to one. However, since we are minimizing a squared energy, this doesn't pose an issue.
 
 
 
@@ -404,7 +469,7 @@ We observe that for a linel $y_i$, constraints $\mathbf{C}$ allows its both edge
 
 	The simplest model we can derive from (P1) consists in to relax the optimization variables to be in $\mathbb{U}$, and linearize all second and third order terms. 
 	
-	Let $T_i$ be a term of the summation. A term is a ordered sequence of optimization variables. For example, the term $x_2^2x_4$ is encoded as the sequence $(x_2,x_2,x_4)$. The order of term $T_i$ is the cardinality of its sequence, and it is denoted $|T_i|$. In order to linearize (P1), for each term $T_i$ of order two or higher, we create variable $z_i$ and enforce $|T_i|+1$ new constraints in the model
+	Let $T_i$ be a term of the summation. A term is an ordered sequence of optimization variables. For example, the term $x_2^2x_4$ is encoded as the sequence $(x_2,x_2,x_4)$. The order of term $T_i$ is the cardinality of its sequence, and it is denoted $|T_i|$. In order to linearize (P1), for each term $T_i$ of order two or higher, we create variable $z_i$ and enforce $|T_i|+1$ new constraints in the model
 	
 	\begin{align*}
 		z_i &\leq t, \quad \forall t \in T_i \\
@@ -428,7 +493,7 @@ We observe that for a linel $y_i$, constraints $\mathbf{C}$ allows its both edge
 
 \subsection{Unconstrained version of P1}
 
-We can use the pixel incidence matrix defined in appendix () to define a unconstrained version of P1. The linel incidence vector $\mathbf{q} \in \mathbb{Z}^n$ for pixels $\mathbf{x} \in \mathbb{B}^{m}$ is 
+We can use the pixel incidence matrix defined in appendix \ref{chapter:pixel-incidence-matrix} to define an unconstrained version of P1. The linel incidence vector $\mathbf{q} \in \mathbb{Z}^n$ for pixels $\mathbf{x} \in \mathbb{B}^{m}$ is 
 	
 	\begin{align*}
 		\mathbf{q} &= \mathbf{P} \mathbf{x}
@@ -448,8 +513,8 @@ Let $\mathbf{B} \in \mathbb{B}^{m\times m}$ such that column vector $\mathbf{B}_
 \end{align}
 
 
-Energy \eqref{eq:unconstrained-digital-elastica} is of order six and = we didn't try to optimize it.
+The resulting energy \eqref{eq:unconstrained-digital-elastica} is of order six and therefore hard to be optimized.
 
 \section{Conclusion}
-We gave a historical review of the elastica and we defined the digital elastica energy. The local combinatorial scheme defined in section \ref{sec:local-combinatorial-scheme} can evolve different shapes guided by the minimization of digital elastica energy and it eventually reaches global optimum, justifying the interest for multigrid convergent estimators. Finnaly, we sketch some global optimization models using standard techniques of optimization and point out its difficulties, suggesting that a practical global optimization model is unlikely to exist. In the next chapter we explore a model that decreases the elastica energy and that can be used in practice.
+We gave a historical review of the elastica and we defined the digital elastica energy. The local combinatorial scheme defined in section \ref{sec:local-combinatorial-scheme} can evolve different shapes guided by the minimization of digital elastica energy and it eventually reaches global optima, justifying the interest for multigrid convergent estimators. Finnaly, we sketch some global optimization models using standard techniques of optimization and point out its difficulties, suggesting that a practical global optimization model is unlikely to exist. In the next chapter we explore a model that decreases the elastica energy and that can be used in practice.
 
