@@ -1,9 +1,10 @@
-\chapter{Digital Model for Elastica}
-\label{chapter:digital-model-elastica}
+\chapter{Digital Elastica}
+\label{chapter:digital-elastica}
 
 In this chapter we review the elastica energy and some of its properties. Next, we introduce the digital version of the elastica using multigrind convergent estimators of length and curvature. Finally, we describe a theoretical optimization model for the minimization of the digital elastica.
 
-\section{Continuous and Digital Elastica}
+\section{Continuous and digital Elastica}
+\label{ch6:sec:continuous-digital-elastica}
 	\sketch{To be developed...}
 	
 	
@@ -22,7 +23,8 @@ rescaled by $1/h$ and we set $h=1$).
 
 In the next section, we describe a combinatorial scheme that permit us to find the minimum digital shape with respect the digital elastica energy for some neighborhood of shapes of $S$. 
 
-\section{Local Combinatorial Scheme}\label{sec:local-combinatorial-scheme}
+\section{Local combinatorial scheme}
+\label{ch6:sec:local-combinatorial-scheme}
 
 Given a digital shape $S^{(0)}$ we describe a process that generates a
 sequence $S^{(i)}$ of shapes with non-increasing Elastica energy. The
@@ -242,7 +244,15 @@ $h=1.0$ & $h=0.5$ & $h=0.25$\\[2em]
 \includegraphics[scale=0.25]{figures/chapter5/flow/flower/radius_3/mdca/elastica/len_pen_0.01000/jonctions_1/best/gs_0.25000/summary.pdf}\\[2em]
 \includegraphics[scale=0.25]{figures/chapter5/mdca-larger-neighborhood/flower/0.01/1.0/summary.pdf} &
 \includegraphics[scale=0.25]{figures/chapter5/mdca-larger-neighborhood/flower/0.01/0.5/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter5/mdca-larger-neighborhood/flower/0.01/0.25/summary.pdf}
+\includegraphics[scale=0.25]{figures/chapter5/mdca-larger-neighborhood/flower/0.01/0.25/summary.pdf}\\[2em]
+
+\includegraphics[scale=0.25]{figures/chapter5/flow/triangle/radius_3/mdca/elastica/len_pen_0.01000/jonctions_1/best/gs_1.00000/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter5/flow/triangle/radius_3/mdca/elastica/len_pen_0.01000/jonctions_1/best/gs_0.50000/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter5/flow/triangle/radius_3/mdca/elastica/len_pen_0.01000/jonctions_1/best/gs_0.25000/summary.pdf}\\[2em]
+
+\includegraphics[scale=0.25]{figures/chapter5/mdca-larger-neighborhood/triangle/0.01/1.0/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter5/mdca-larger-neighborhood/triangle/0.01/0.5/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter5/mdca-larger-neighborhood/triangle/0.01/0.25/summary.pdf}\\[2em]
 \end{tabular}
 \caption{In the top row, the MDCA evolution for the neighborhood as presented in algorithm \ref{alg:local-search}. In the bottom row, the flow using the extended neighborhood. The extended neighborhood additionaly includes the dilation and erosion of the initial shape by a square of side $1$.}
 \label{fig:mdca-larger-neighborhood}
@@ -252,7 +262,8 @@ $h=1.0$ & $h=0.5$ & $h=0.25$\\[2em]
 The algorithm is suitable for any type of digital estimator. To estimate length we use MDSS and to estimate curvature we execute experiments with the MDCA and II-$r$ estimators ($r$ denoting the radius of the estimation ball). 
 
 
-\subsection{Free Digital Elastica}
+\subsection{Free digital Elastica}
+\label{ch6:subsec:free-digital-elastica}
 In the free digital elastica energy we optimize energy \ref{eq:digital-elastica} without any constraint. We observe that for $\alpha=0, \beta >0$ the Elastica becomes the integration of the squared curvature integration along the shape contour which has the ball of infinite radius as its minimizer. For $\alpha > 0, \beta=0$, minimize Elastica becomes minimize perimeter (curvature flow). It is easy to see that for $\alpha, \beta > 0$, the optimal shape for the Elastica is a disk of radius $r$. We can easily find the value of $r$.
 
 \begin{align*}
@@ -293,7 +304,8 @@ $| \Delta E / \Delta S |$ & 70 & 1400
 \label{fig:mdca-sensitivity}
 \end{figure}
 
-\subsection{Constrained Digital Elastica}
+\subsection{Constrained digital Elastica}
+\label{ch6:subsec:constrained-digital-elastica}
 
 An important advantage of algorithm \ref{alg:local-search} is that constraints can be imposed with minimum effort. We present results for two types of constraints. In the first type, we force some pixels to be part of the final solution and in the second we impose orientations at the endpoints of a curve. In figure \ref{fig:constrained-elastica} we compare the flows for different values of $\alpha$.
 
@@ -321,6 +333,7 @@ $\alpha=0.1$ & $\alpha=0.01$ & $\alpha=0.001$\\[2em]
 \end{figure}
 
 \subsection{Running time}
+\label{ch6:subsec:running-time}
 
 The running time of algorithm \ref{alg:local-search} is summarized in table \ref{tab:summary-local-comb-rtime}. All the experiments in this thesis were executed on a $32$-core $2.4Ghz$ CPU. Although its use in practical applications is
 limited, we demonstrate that digital estimators are effective in their measurements and the flows evolve as expected, reaching the global optima for some shapes. We
@@ -353,11 +366,13 @@ Ellipse  & 626 & 1s (0.3s/it) & 2506 & 8s (0.19s/it) & 10038 & 134s (1.3s/it)\\
 
 
 
-\section{Global Optimization}\label{sec:global-optmization-model}
+\section{Global optimization}\label{sec:global-optmization-model}
+\label{ch6:sec:global-optimization}
 
 In this section we turn to a global optimization approach. However, instead of minimizing energy \eqref{eq:digital-elastica} we are going to optimize a simplified version of it in which we don't need to compute the local length estimator.
 
-\subsection{Simplified Digital Elastica}
+\subsection{Simplified digital Elastica}
+\label{ch6:subsec:simplified-digital-elastica}
 
 The simplified digital elastica is defined as
 
@@ -388,7 +403,8 @@ We argue that energy \eqref{eq:simplified-digital-elastica} is a reasonable appr
 \end{figure}
 
 
-\subsection{Optimization Model for Simplified Elastica}
+\subsection{Optimization model for simplified digital Elastica}
+\label{ch6:subsec:optimization-model-simplified-digital-elastica}
 
 Differently from the previous section, the model described here is designed for the integral invariant estimator only. Let $D \in \frac{1}{2}\mathbb{Z}^2$ be the digitization of some shape $S \in \mathbb{R}^2$ using grid step $h$ in half-integer coordinates space. We assume that $D$ has $m$ pixels (located at integer coordinates) and $n$ linels (one and only one of its coordinates is $\frac{1}{2}$). Optimization variables are represented as vectors $x \in \mathbb{B}^{m},\, y \in \mathbb{B}^{n}$ and its $i$th coefficients denoted  $x_i,y_i$.  Further, let $A \in \mathbb{B}^{m\times n}$ the matrix defined as
 
@@ -423,6 +439,7 @@ Additionaly, in real applications involving the minimization of Elastica, we hav
 	Formulation $P1$ is a constrained binary non-convex third order problem and likely difficult to be solved optimally. Nonetheless, we can use standard optimization techniques to acquire some intuition on the model. 	
 	
 \subsection{Topological constraints}
+\label{ch6:subsec:topological-constraints}
 
 The estimation ball should be applied in the digital boundary of the shape, which oblige us to impose topological constraints in the model to avoid inconsistent solutions. In order to accomplish that, we set an arbitraty orientation for the faces and another for the edges. We choose counter-clockwise for faces; right for horizontal edges; and up for vertical edges.
 
@@ -466,6 +483,7 @@ We observe that for a linel $y_i$, constraints $\mathbf{T}$ allows its both edge
 
 
 \subsection{Linear relaxation of $P1$}
+\label{ch6:subsec:linear-relaxation}
 
 	The simplest model we can derive from (P1) consists in to relax the optimization variables to be in $\mathbb{U}$, and linearize all second and third order terms. 
 	
@@ -492,6 +510,7 @@ We observe that for a linel $y_i$, constraints $\mathbf{T}$ allows its both edge
 
 
 \subsection{Unconstrained version of P1}
+\label{ch6:subsec:unconstrained-version}
 
 We can use the pixel incidence matrix defined in appendix \ref{chapter:pixel-incidence-matrix} to define an unconstrained version of P1. The linel incidence vector $\mathbf{q} \in \mathbb{Z}^n$ for pixels $\mathbf{x} \in \mathbb{B}^{m}$ is 
 	
@@ -516,5 +535,6 @@ Let $\mathbf{B} \in \mathbb{B}^{m\times m}$ such that column vector $\mathbf{B}_
 The resulting energy \eqref{eq:unconstrained-digital-elastica} is of order six and therefore hard to be optimized.
 
 \section{Conclusion}
+\label{ch6:sec:conclusion}
 We gave a historical review of the elastica and we defined the digital elastica energy. The local combinatorial scheme defined in section \ref{sec:local-combinatorial-scheme} can evolve different shapes guided by the minimization of digital elastica energy and it eventually reaches global optima, justifying the interest for multigrid convergent estimators. Finnaly, we sketch some global optimization models using standard techniques of optimization and point out its difficulties, suggesting that a practical global optimization model is unlikely to exist. In the next chapter we explore a model that decreases the elastica energy and that can be used in practice.
 
