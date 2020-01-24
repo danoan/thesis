@@ -185,7 +185,14 @@ Maximize or minimize a pbf in polynomial form are equivalent problems. Minimize 
 
 
 
-
+\begin{proposition}{Argmin expressions}
+Let $f:\mathbb{B}^n \rightarrow \mathbb{R}$ be a pseudo-boolean function. Then,
+\begin{align*}
+	\argmin{f(x)} &= \argmax{-f(x)} \\			
+	\overline{ \argmin{f(x)} } &= \argmin{ f(1-x) } \\
+	\overline{ \argmin{f(x)} } & \neq \argmax{f(x)}
+\end{align*}
+\end{proposition}
 
 
 
@@ -240,3 +247,4 @@ random fields.}
 	\item{Relation with total variation.}
 	\end{itemize}
 \end{enumerate}
+

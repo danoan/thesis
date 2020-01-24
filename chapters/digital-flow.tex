@@ -71,7 +71,7 @@ of energies for given parameters $\alpha,\beta, \gamma \geq 0$.
   & \sum_{x_j \in X^{(i)}}{\gamma g(S^{(i)},x_j)},
   \label{eq:energy-family}
 \end{align}
-where $g(S,x)$ denotes a data term (e.g., distance to initial shape $S$ or fidelity to data) and $s(x)$ denotes a length penalization term. We recall that $R_m$ refers to the $m-ring$ defined in section \ref{ch6:sec:local-combinatorial-scheme}. Each choice of $m$ generates a different flow, which is generally described in the Digital Curve Evolution (DCE) algorithm \ref{alg:evolution-model}.
+where $g(S,x)$ denotes a data term (e.g., distance to initial shape $S$ or fidelity to data) and $s(x)$ denotes a length penalization term. We recall that $R_m$ refers to the $m-ring$ defined in section \ref{ch6:sec:local-combinatorial-scheme}. Each choice of $m$ generates a different flow, which is generally described in the Digital Curve Evolution (DCE) algorithm \ref{alg:evolution-model}. To optimize energy \eqref{eq:energy-family} we use the QPBOI \ref{} algorithm.
 
 
 \begin{figure}
@@ -101,15 +101,15 @@ where $g(S,x)$ denotes a data term (e.g., distance to initial shape $S$ or fidel
  $S^{(0)} \longleftarrow S$\;
  $i \longleftarrow 1$\;
  \While{ \It $<$ \MIt  }{ 	
-	\comment{Expansion mode}
-	\If{ \It is odd }{	 
-	 	$x^{(i)} \longleftarrow \argmin_{X^{(i)}} E_m(1-X^{(i)},\overline{S^{(i-1)}})$\;
- 		$S^{(i)} \longleftarrow \overline{ F^{(i-1)}_{\overline{S}} + x^{(i)}}$\;
- 	}
-	\comment{Shrinking mode} 	
- 	\Else{	
+	\comment{Shrinking mode}
+	\If{ \It is even }{	 
 	 	$x^{(i)} \longleftarrow \argmin_{X^{(i)}} E_m(1-X^{(i)},S^{(i-1)})$\; 	
- 		$S^{(i)} \longleftarrow F^{(i-1)}_{S} + x^{(i)}$\;
+ 		$S^{(i)} \longleftarrow F^{(i-1)} + x^{(i)}$\;
+ 	}
+	\comment{Expansion mode} 	
+ 	\Else{	
+	 	$x^{(i)} \longleftarrow \argmin_{X^{(i)}} E_m(1-X^{(i)},\overline{S^{(i-1)}})$\;
+ 		$S^{(i)} \longleftarrow \overline{ F^{(i-1)} + x^{(i)}}$\; 	
  	}
  	
 	\It $\longleftarrow$ \It $+1$\;
@@ -134,7 +134,7 @@ the center of the estimation ball towards the interior of the shape, which means
 why we take the complement of the optimization solution.
 
 
-The explanation above covers the treatment of convex parts, but the way to treat concavities it's not much different. Indeed, concave regions are convex in the shape complement. The DCE algorithm \ref{alg:evolution-model} is made of two modes: shrinking and expansion. The shrinking mode handles convexities and its reasoning is explained in the last paragraph. The expansion mode operates exactly in the same way, but in the image complement, and by doing this we are able to handle
+The explanation above covers the treatment of convex parts, but the way to treat concavities it's not much different. Indeed, concave regions are convex in the shape complement. The DCE algorithm \ref{alg:evolution-model} is made of two modes: shrinking and expansion. The shrinking mode handles convexities and its reasoning is explained in the last paragraph. The expansion mode operates exactly in the same way, but at the image complement, and by doing this we are able to handle
 concavities. It is called expansion mode because the optimization region, in this case, is the outer pixel boundary of
 the original shape. Table~\ref{tab:flow-summary} sums up these arguments.
 
@@ -150,8 +150,7 @@ algorithm. The length penalization is defined as
   \label{eq:length-penalization}
 \end{align}
 	
-We do not use data terms in this section, thus we postpone the definition of such terms until later in this
-article, with the description of how DCE can be used in an image segmentation framework.
+For the moment we are not going to define any data term, as they are not important for the experiments at this section. We postpone the data term definition to chapter \ref{ch:applications}.
 
 
 
@@ -159,12 +158,12 @@ article, with the description of how DCE can be used in an image segmentation fr
   \center
   \setlength{\extrarowheight}{0.5em}
   \begin{tabular}{|c|c|c|c|} \hline
-    shrink mode &    $\kappa \gg 0$ & $\kappa \geq 0$ &  $\kappa < 0$ \\ \hline
-    $X$ & $x_k=1$ & $x_k \in \{0,1\}$ & $x_k=0$ \\ \hline
-    $S^{(i+1)} \leftarrow S^{(i)} \setminus X$ & eroded & prob. eroded & unchanged  \\ \hline \hline
+    shrinking mode &    $\kappa \gg 0$ & $\kappa \geq 0$ &  $\kappa < 0$ \\ \hline
+    $x^{(i)}$ & $x_k=1$ & $x_k \in \{0,1\}$ & $x_k=0$ \\ \hline
+    $S^{(i+1)} \leftarrow S^{(i)} - x^{(i)}$ & eroded & prob. eroded & unchanged  \\ \hline \hline
     expansion mode &    $\bar{\kappa} \gg 0$ & $\bar{\kappa} \geq 0$ & $\bar{\kappa} < 0$ \\ \hline
-    $\bar{X}$ & $\bar{x}_k=1$ & $\bar{x}_k \in \{0,1\}$ & $\bar{x}_k=0$ \\ \hline
-    $S^{(i+1)} \leftarrow \overline{\bar{S}^{(i)} \setminus \bar{X}}$ & dilated & prob. dilated & unchanged \\ \hline 
+    $\bar{x}^{(i)}$ & $\bar{x}_k=1$ & $\bar{x}_k \in \{0,1\}$ & $\bar{x}_k=0$ \\ \hline
+    $S^{(i+1)} \leftarrow \overline{\bar{S}^{(i)} - \bar{x}^{(i)}}$ & dilated & prob. dilated & unchanged \\ \hline 
   \end{tabular}
   
   \caption{  Since the curvature is negated when reversing the curve (i.e. $\bar{\kappa}=-\kappa$), this process can only shrink  convex parts in shrink mode and expand concave parts in expansion mode.}
@@ -173,10 +172,11 @@ article, with the description of how DCE can be used in an image segmentation fr
 \end{table}
 
 
-In figure \ref{fig:m1-square-flow} we see some results for the DCE algorithm with $m=1$. We observe a global evolution
-towards rounder shapes, but with several artifacts. We minimize the effects of a jaggy boundary by setting $\alpha >
-0$. Nonetheless, a higher radius of the estimation ball creates unstable shapes. In fact, the estimator is very sensitive in
-regions of low squared curvature, and it is precisely in those regions that spurious pixels are created.
+In figure \ref{fig:m1-square-flow} we show the results of the DCE algorithm for $m=1,\alpha=0, \beta=1, \gamma=0$. We observe a global evolution towards rounder shapes, but several artifacts are formed along the boundary. An estimation ball of higher radius evolves the shapes faster, but the contours become noisier. Setting $\alpha >0$ attenuates the problem for lower radius but the produced shapes doens't match with our intuition of what a flow driven by the squared curvature must be like, as the evaluation of the II estimator can tell us (see figure )
+
+
+Recall that at each iteration, energy \eqref{eq:energy-family} is derived by evaluating the II estimator on a fixed boundary, i.e., the contour information is not included in the optimization problem. 
+Therefore, the flip of a single pixel can turn a previous negative curvature estimation in a positive one (see figure). In our current setting, this is not a desirable property. To remediate this problem we are going to evaluate the estimation balls at farther $m-rings$ of $S$. We expect to eliminate the artificats and keep a qualitative measure of the curvature for the current shape contour.
 
 
 \begin{figure}
@@ -201,11 +201,17 @@ regions of low squared curvature, and it is precisely in those regions that spur
 \end{figure}
 
 
-\section{A more stable model.}
+\section{Artifacts elimination}
+
 In the previous section we noticed that the algorithm produces shapes with many artifacts due to the small uncertainties
 of the estimator along regions of low squared curvature. We argue that, by evaluating the estimation ball along outer
 ring sets we avoid those sensitive areas by focusing the optimization process only on regions with highest squared
 curvature value.
+
+In figure \ref{} we evaluate several flows for different energies $E_m$. As expected, the number of artifacts decrease as the value of $m$ increases. We confirm the stability of the model by looking at the plots of the digital elastica energy values for the produced shapes.
+
+
+
 
 
 \begin{figure}[]
