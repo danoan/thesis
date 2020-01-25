@@ -172,11 +172,12 @@ For the moment we are not going to define any data term, as they are not importa
 \end{table}
 
 
-In figure \ref{fig:m1-square-flow} we show the results of the DCE algorithm for $m=1,\alpha=0, \beta=1, \gamma=0$. We observe a global evolution towards rounder shapes, but several artifacts are formed along the boundary. An estimation ball of higher radius evolves the shapes faster, but the contours become noisier. Setting $\alpha >0$ attenuates the problem for lower radius but the produced shapes doens't match with our intuition of what a flow driven by the squared curvature must be like, as the evaluation of the II estimator can tell us (see figure )
+In figure \ref{fig:m1-square-flow} we show the results of the DCE algorithm for $m=1,\alpha=0, \beta=1, \gamma=0$. We observe a global evolution towards rounder shapes, but several artifacts are formed along the boundary. An estimation ball of higher radius evolves the shapes faster, but the contours become noisier. Setting $\alpha >0$ attenuates the problem for lower radius but the produced shapes doesn't match with our intuition of what a flow driven by the squared curvature must be like, as the evaluation of the II estimator can tell us (see figure ). We've identified two reasons for this behavior.
 
+First, we recall that at each iteration, energy \eqref{eq:energy-family} is derived by evaluating the II estimator on a fixed boundary, i.e., the contour information is not included in the optimization problem. Therefore, the flip of a single pixel can turn a previous negative curvature estimation in a positive one (see figure). In our current setting, this is not a desirable property. 
 
-Recall that at each iteration, energy \eqref{eq:energy-family} is derived by evaluating the II estimator on a fixed boundary, i.e., the contour information is not included in the optimization problem. 
-Therefore, the flip of a single pixel can turn a previous negative curvature estimation in a positive one (see figure). In our current setting, this is not a desirable property. To remediate this problem we are going to evaluate the estimation balls at farther $m-rings$ of $S$. We expect to eliminate the artificats and keep a qualitative measure of the curvature for the current shape contour.
+The second reason is related to the properties of the energy and those of the optimization method used. As we discuss in the next chapter, the optimization of energy $E_1$ by QPBO leaves several pixels unlabeled. In section \ref{} we propose a strategy to overcome these issues.
+
 
 
 \begin{figure}
@@ -198,7 +199,7 @@ Therefore, the flip of a single pixel can turn a previous negative curvature est
 \includegraphics[scale=0.24]{figures/chapter6/radius-effect/flower/improve/len_pen0.5/radius-9/summary.pdf}
 \end{tabular}
 
-\caption{The algorithm is very sensitive to the little variations of the estimator, which are particularly important in regions of low squared curvature. Artifacts are somewhat reduced with a length penalization but increases if we use a higher ball radius. }
+\caption{The algorithm is very sensitive to the little variations of the estimator, which are particularly important in regions of low squared curvature. Artifacts are somewhat reduced with a length penalization but increases if we use a higher ball radius. For better visualization, curves are displayed every $1/10$ of the number of iterations. }
 \label{fig:m1-square-flow}
 \end{figure}
 
@@ -211,94 +212,6 @@ Therefore, the flip of a single pixel can turn a previous negative curvature est
 \includegraphics[scale=0.45]{figures/chapter6/radius-effect/flower/improve/len_pen0/radius-3/radius-effect.pdf}}%
 \caption{The digital elastica decreases in a turbulent way.}
 \end{figure}
-
-
-\section{Artifacts elimination}
-
-In the previous section we noticed that the algorithm produces shapes with many artifacts due to the small uncertainties
-of the estimator along regions of low squared curvature. We argue that, by evaluating the estimation ball along outer
-ring sets we avoid those sensitive areas by focusing the optimization process only on regions with highest squared
-curvature value.
-
-In figure \ref{} we evaluate several flows for different energies $E_m$. As expected, the number of artifacts decrease as the value of $m$ increases. We confirm the stability of the model by looking at the plots of the digital elastica energy values for the produced shapes.
-
-
-
-
-
-%\begin{figure}[]
-%\center
-%\center
-%\begin{minipage}[b]{0.33\textwidth}
-%	\subfloat[$r=5, m=1$\label{}]{%
-%	\includegraphics[scale=0.2]{figures/chapter6/farther-rings/square-r5-l1/summary_flow.pdf}
-%	}%
-%\end{minipage}%
-%\begin{minipage}[b]{0.33\textwidth}
-%	\subfloat[$r=5, m=3$\label{}]{%
-%	\includegraphics[scale=0.2]{figures/chapter6/farther-rings/square-r5-l3/summary_flow.pdf}
-%	}%
-%\end{minipage}%
-%\begin{minipage}[b]{0.33\textwidth}
-%	\subfloat[$r=5, m=5$\label{}]{%
-%	\includegraphics[scale=0.2]{figures/chapter6/farther-rings/square-r5-l5/summary_flow.pdf}
-%	}%
-%\end{minipage}%
-%\caption{By positioning the estimation ball on farther rings, we minimize artifacts creation. \label{fig:mx-square-flow}}
-%\end{figure}
-
-In our experiments, the best results are obtained by executing DCE algorithm with $m$ equal to $r$, where $r$ is
-  the estimation ball radius (see figure \ref{fig:mx-square-flow}). We observe that digital elastica may increase after some
-  iterations if chosen radius is too large, as in the case of the triangle in figure \ref{fig:mx-flow-gs-radius-effect}
-  in which the flow converges to a single point. We conjecture that an appropriated value for the radius should be given
-  by the shape reach.  The produced flow has no difficulties in handling changes on topology, and it presents different
-  speeds for regions with low and high curvature values, as illustrated in figure
-  \ref{fig:mx-speed-variation-hole-filling}.
-
-%\begin{figure}
-%\center				
-%		\setcounter{subfigure}{-3}
-%		\subfloat[$r=3,h=0.5$]{%
-%		\subfloat{%
-%		\includegraphics[scale=0.2]{figures/chapter6/grid-radius-effect/triangle/r3-h0.5/summary_flow.pdf}
-%		}%
-%		\hspace{15pt}
-%		\subfloat{%
-%		\includegraphics[scale=0.15]{figures/chapter6/grid-radius-effect/square/r3-h0.5/summary_flow.pdf}}%
-%		\hspace{15pt}
-%		\subfloat{%
-%\includegraphics[scale=0.2]{figures/chapter6/grid-radius-effect/flower/r3-h0.5/summary_flow.pdf}}%
-%		}		
-%	
-%		\setcounter{subfigure}{-2}
-%		\subfloat[$r=5,h=0.5$]{%
-%		\subfloat{%
-%		\includegraphics[scale=0.2]{figures/chapter6/grid-radius-effect/triangle/r5-h0.5/summary_flow.pdf}
-%		}%1
-%		\hspace{15pt}
-%		\subfloat{%
-%		\includegraphics[scale=0.15]{figures/chapter6/grid-radius-effect/square/r5-h0.5/summary_flow.pdf}}%
-%		\hspace{15pt}
-%		\subfloat{%
-%\includegraphics[scale=0.2]{figures/chapter6/grid-radius-effect/flower/r5-h0.5/summary_flow.pdf}}%
-%		}\\
-%		\subfloat[Digital elastica evaluation ($r=5,h=0.5$)]{%
-%		\includegraphics[scale=0.5]{figures/chapter6/elastica-energy-plot/square-flower-triangle.pdf}						
-%		}
-%\caption{The choice of radius impacts the flow. In the figures, the flow ceases to evolve for all shapes  when $r=3$ (a). In figure (b), for $r=5$, the triangle evolves to a single point, while the others stop  in an intermediate shape, as in (a). In figure (c), we observe that for a given choice of radius, the digital elastica may increase after a certain number of iterations. }
-%\label{fig:mx-flow-gs-radius-effect}
-%\end{figure}
-
-
-%\begin{figure}
-%\center
-%\subfloat[]{%
-%	\includegraphics[scale=0.5]{figures/chapter6/faster-high-curvature/summary_flow.pdf}}\\%
-%\subfloat[]{%
-%		\includegraphics[scale=0.25]{figures/chapter6/fill-holes/summary_flow.pdf}}%%1
-%\caption{High curvature regions evolves faster than lower ones (a). The flow can handle topological changes (b). }
-%\label{fig:mx-speed-variation-hole-filling}
-%\end{figure}
 
 
 \section{Optimization method}
@@ -326,38 +239,104 @@ but loses the property of partial optimality. The second is an exact method whic
 than QPBO.
 
 The percentage of unlabeled pixels by QPBOP for $E_1$ is quite high, but the percentage decreases to zero as we set $m$
-equal to $r$. Therefore, we are more confident in taking the solution for values of $m$ close to $r$. However, the way it
+to a value closer to $r$, the estimation ball radius. Therefore, we are more confident in taking the solution for values of $m$ close to $r$. However, the way it
 varies across values of $m$ differs from shape to shape, as is illustrated in figure
 \ref{fig:unlabeled-versus-iterations}. We also noticed that, for $m=r$, all the pixels were labeled, {which may
   indicate that $E_r$ is an easy instance of the general non-submodular energy $E_m$, but this remains to be
   proved. The number of pairwise terms in $E_r$ is roughly half of those in $E_1$ (see figure
-  \ref{fig:ratio-pairwise-terms}).
+  \ref{fig:ratio-pairwise-terms}), which also explains the higher number of labeled variables.
 
-  We have used QPBOI to solve $E_m$. Naturally, in the case where all pixels are labeled by QPBOP, QPBOI returns the
-  same labeling as QPBOP.
-
-
-%\begin{figure}
-%\center
-%\includegraphics[scale=0.5]{figures/chapter6/pairwise-ratio/plot-pairwiseratio-lowerHigher-concavities-probe.pdf}
-%\caption{We plot the ratio of pairwise terms among all $\binom{|X^{(i)}|}{2}$ combinations. The highest ring has roughly half the number of pairwise terms as the lowest ring.}
-%\label{fig:ratio-pairwise-terms}
-%\end{figure}
+  We have used QPBOI to solve $E_m$. Naturally, in the case where all pixels are labeled by QPBOP, QPBOI returns the same labeling as QPBOP. In the next section we show that by evaluating the estimation ball at the farthest ring, we preserve a qualitatively measure of curvature, we eliminate the artifacts and we produce smoother flows.
 
 
-%\begin{figure}[]
-%\center
-%\begin{minipage}[b]{0.5\textwidth}
-%\subfloat[]{ \includegraphics[scale=0.35]{figures/chapter6/unlabeled-iterations/radius-3/plot-model-square-concavities-probe.pdf}}\\%
-%\subfloat[]{ \includegraphics[scale=0.35]{figures/chapter6/unlabeled-iterations/radius-5/plot-model-square-concavities-probe.pdf}}\\%
-%\subfloat[]{ \includegraphics[scale=0.35]{figures/chapter6/unlabeled-iterations/radius-7/plot-model-square-concavities-probe.pdf}}%
-%\end{minipage}%
-%\begin{minipage}[b]{0.5\textwidth}
-%\subfloat[]{ \includegraphics[scale=0.35]{figures/chapter6/unlabeled-iterations/radius-3/plot-model-flower-concavities-probe.pdf}}\\%
-%\subfloat[]{ \includegraphics[scale=0.35]{figures/chapter6/unlabeled-iterations/radius-5/plot-model-flower-concavities-probe.pdf}}\\%
-%\subfloat[]{ \includegraphics[scale=0.35]{figures/chapter6/unlabeled-iterations/radius-7/plot-model-flower-concavities-probe.pdf}}%
-%\end{minipage}
-%\caption{For each plot, we first produce shapes $\left\{ S^{(i)} \right\}$ executing DCE with $m=r$. Then, for each shape in $\left\{ S^{(i)} \right\}$, we execute one iteration of DCE for different values of $m$ and we count the unlabeled pixels. The number of unlabeled pixels by QPBOP remains high for lower values of $m$, and goes to zero when $m=r$. We observe the same behaviour for varying radius values.}
-%\label{fig:unlabeled-versus-iterations}
-%\end{figure}
+\begin{figure}
+\center
+\includegraphics[scale=0.5]{figures/chapter6/unlabeled-ratio/plots/pairwise-ratio/h0.25/radius-5/plot-pairwiseratio-lowerHigher-concavities-probe.pdf}
+\caption{We plot the ratio of pairwise terms among all $\binom{|X^{(i)}|}{2}$ combinations. The highest ring has roughly half the number of pairwise terms as the lowest ring.}
+\label{fig:ratio-pairwise-terms}
+\end{figure}
+
+
+\begin{figure}
+\center
+\begin{minipage}[b]{0.5\textwidth}
+\subfloat[]{ \includegraphics[scale=0.35]{figures/chapter6/unlabeled-ratio/plots/unlabeled-per-iterations/h0.25/radius-3/plot-model-triangle-concavities-probe.pdf}}\\%
+\subfloat[]{ \includegraphics[scale=0.35]{figures/chapter6/unlabeled-ratio/plots/unlabeled-per-iterations/h0.25/radius-5/plot-model-triangle-concavities-probe.pdf}}\\%
+\subfloat[]{ \includegraphics[scale=0.35]{figures/chapter6/unlabeled-ratio/plots/unlabeled-per-iterations/h0.25/radius-7/plot-model-triangle-concavities-probe.pdf}}%
+\end{minipage}%
+\begin{minipage}[b]{0.5\textwidth}
+\subfloat[]{ \includegraphics[scale=0.35]{figures/chapter6/unlabeled-ratio/plots/unlabeled-per-iterations/h0.25/radius-3/plot-model-flower-concavities-probe.pdf}}\\%
+\subfloat[]{ \includegraphics[scale=0.35]{figures/chapter6/unlabeled-ratio/plots/unlabeled-per-iterations/h0.25/radius-5/plot-model-flower-concavities-probe.pdf}}\\%
+\subfloat[]{ \includegraphics[scale=0.35]{figures/chapter6/unlabeled-ratio/plots/unlabeled-per-iterations/h0.25/radius-7/plot-model-flower-concavities-probe.pdf}}%
+\end{minipage}
+\caption{For each plot, we first produce shapes $\left\{ S^{(i)} \right\}$ executing DCE with $m=r$. Then, for each shape in $\left\{ S^{(i)} \right\}$, we execute one iteration of DCE for different values of $m$ and we count the unlabeled pixels. The number of unlabeled pixels by QPBOP remains high for lower values of $m$, and goes to zero when $m=r$. We observe the same behaviour for varying radius values.}
+\label{fig:unlabeled-versus-iterations}
+\end{figure}
+
+
+
+\section{Evaluation on farther rings}
+
+In the previous sections we pointed out two reasons for the production of artifacts by the DCE algorithm. One related to the number of unlabeled pixels by the QPBO algorithm and the second due to the small uncertainties of the estimator along regions of low squared curvature. We've seen already that QPBO labels more pixels at farther rings. In this section, we argue that by evaluating the estimation ball along outer
+ring sets we can also handle the sensibility issue by focusing the optimization process only on regions with highest squared curvature value.
+
+In figure \ref{} we evaluate several flows for different energies $E_m$. As expected, the number of artifacts decrease as the value of $m$ increases, but the process still tends to shrinking the shape to a single point, resembling the curvature flow. In the next chapter we tackle this issue.
+
+We confirm the stability of the model by looking at the plots of the digital elastica energy values for the produced shapes. Moreover, the produced flow has no difficulties in handling changes on topology, and it presents different speeds for regions with low and high curvature values, as illustrated in figure \ref{fig:mx-speed-variation-hole-filling}.
+
+
+\begin{figure}
+\center
+\begin{tabular}{p{3em}ccc}
+$m=1$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-5/level1/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level1/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-5/level1/summary.pdf} \\[2em]
+$m=3$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-5/level3/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level3/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-5/level3/summary.pdf} \\[2em]
+$m=4$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-5/level4/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level4/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-5/level4/summary.pdf} \\[2em]
+$m=5$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-5/level5/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level5/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-5/level5/summary.pdf} \\[2em]
+\end{tabular}
+\caption{By positioning the estimation ball on farther rings, we minimize artifacts creation. The radius of the estimation ball used here equals to $5$ and the curves are displayed every $10$ iterations. \label{fig:mx-square-flow}}
+\end{figure}
+
+
+\begin{figure}
+\center
+\begin{tabular}{p{3em}ccc}
+$m=1$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-9/level1/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level1/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-9/level1/summary.pdf} \\[2em]
+$m=5$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-9/level5/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level5/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-9/level5/summary.pdf} \\[2em]
+$m=8$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-9/level8/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level8/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-9/level8/summary.pdf} \\[2em]
+$m=9$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-9/level9/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level9/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-9/level9/summary.pdf} \\[2em]
+\end{tabular}
+\caption{By positioning the estimation ball on farther rings, we minimize artifacts creation. The radius of the estimation ball used here equals to $9$ and the curves are displayed every $10$ iterations. \label{fig:mx-square-flow}}
+\end{figure}
+
+\begin{figure}
+\center
+\subfloat[]{
+\includegraphics[scale=0.5]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-5/level1/level-effect.pdf}}%
+\subfloat[]{
+\includegraphics[scale=0.5]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-9/level1/level-effect.pdf}}\\[2em]%
+\subfloat[]{
+\includegraphics[scale=0.5]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level1/level-effect.pdf}}%
+\subfloat[]{
+\includegraphics[scale=0.5]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level1/level-effect.pdf}}%
+\end{figure}
+
+\section{Conclusion}
+
+
 
