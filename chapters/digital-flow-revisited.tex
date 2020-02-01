@@ -1,7 +1,242 @@
 \chapter{Digital Flow Revisited}
 \label{chapter:digital-flow-revisited}
 
-The goal of this chapter is to present an evolution process that decreases digital elastica energy and can be used in practice. In particular, an application in image segmentation is presented at the end of the chapter. 
+In this chapter we give a formal argument for the DCE algorithm presented in chapter \ref{chapter:digital-curve-evolution} along with a different interpretation for it and an easy-to-implement version of the DCE algorithm.
+
+\section{Estimating curvature with outer balls}
+
+Let $\mathcal{C}$ a oriented curve in the plane. We center disks $B_i$ and $B_o$ of radius $R+R/2$ with centers aligned with the normal direction of the curve at some point $p \in \mathcal{C}$. Moreover, the distance from disks center to $p$ equals to $R$.
+
+\begin{figure}
+\center
+\includegraphics[scale=0.35]{figures/appendix-max-energy/r-separated-disks.png}
+\caption{disks of radius $R+1$ distant $R$ units from $p\in \mathcal{C}$ in the normal direction.}
+\label{fig:r-separated-disks}
+\end{figure}
+
+Let $\theta_o (\theta_i)$ to denote the intersection of $B_o(B_i)$ with the inner(outer) region of the curve. We define the function $g:\mathcal{R} \times \mathcal{C}\rightarrow \mathbb{R}$ as
+
+\begin{align*}
+	g_{R}(p) &= \Big( \Theta_o(p) - \Theta_i(p) \;\Big)^2.
+\end{align*}
+
+\begin{claim}{R-separated disks curvature}\label{claim:r-separated-disks}
+ Let $\mathcal{C} \in \mathbb{R}^2$ be a curve such that for a point $p \in \mathcal{C}$ its curvature equals to $\kappa$. For sufficiently small values of $R$, we can approximate $g$ by
+
+
+\begin{align*}
+g_R(p) \approx & \frac{125}{144}R^6k^2.
+\end{align*} 
+\end{claim}
+
+
+\begin{proof} For every point $p$ in $C$, consider its Frenet frame formed by the tangent vector at $p$, $T(p)$ and the normal vector at $p$, $N(p)$. We assume the origin of the frame is at point $p$. Let $x$ be a variable in the axis defined by $T(p)$. Expanding $C(x)$ around the origin we obtain
+
+\begin{align*}
+	C(x) &= C(0) + \frac{dC}{dx}x + \frac{1}{2}\frac{d^2C}{dx^2}x^2 + O(x^3) \\
+	&= \frac{\kappa}{2}x^2 + O(x^3).
+\end{align*}
+
+In other words, the second order approximation for the curve $C$ in the Frenet frame is the parabola $f(x) =  \kappa/2x^2$ passing at the origin. We are going to use this parabola to estimate $\Theta_o$ and $\Theta_i$.
+
+We proceed by computing the intersection area $\theta_o$.
+
+
+\begin{figure}[h!]\label{fig:parabola-approx-ex}
+\center
+	\subfloat[\label{}]{%
+\includegraphics[scale=0.35]{figures/appendix-max-energy/parabola-approx-1.png}
+	}\hspace{20pt}%
+	\subfloat[\label{}]{%
+\includegraphics[scale=0.35]{figures/appendix-max-energy/parabola-approx-2.png}
+	}
+\caption{The yellow area corresponds to $\theta_o$ and it equals the area under the parabola from $x=0$ until $x=x_o$ minus the orange area $h(x)$.}
+\end{figure}
+
+\begin{align*}
+	h(x) &= R+\epsilon - \sqrt{ (R+\epsilon)^2 - x^2}\\
+	\theta_o &= 2\int_0^{x_o}{f(x) + \epsilon - h(x)}\\
+\end{align*}
+
+To compute the intersection point $x_o$ of the parabola with the disc, we use again pythagoras' theorem.
+
+\begin{align*}
+	(R+\epsilon)^2 &= (R-\frac{\kappa}{2}x_o^2)^2 + x_o^2\\
+	0 &= \frac{\kappa^2}{4}x_o^4 + (1-R\kappa)x_o^2 + R^2 - (R+\epsilon)^2
+\end{align*}
+
+By setting $z_o=x_o^2$
+
+\begin{align*}
+\Delta_o &= (1-R\kappa)^2 + \kappa^2(2R\epsilon + \epsilon^2)\\
+z_o &= \frac{2}{\kappa^2}(R\kappa-1 + \sqrt{\Delta_o})\\
+x_o &= \frac{\sqrt{2}}{\kappa}\sqrt{R\kappa-1+\sqrt{\Delta_o}}
+\end{align*}
+
+We proceed similarly for the inner disk.
+
+
+\begin{figure}[h!]\label{fig:parabola-approx-in}
+\center
+	\subfloat[\label{}]{%
+\includegraphics[scale=0.35]{figures/appendix-max-energy/parabola-approx-3.png}
+	}\hspace{15pt}%
+	\subfloat[\label{}]{%
+\includegraphics[scale=0.35]{figures/appendix-max-energy/parabola-approx-4.png}
+	}
+\caption{The yellow area corresponds to $\theta_i$ and it equals the area between the parabola and the disc from $x=0$ until $x=x_i$.}
+\end{figure}
+
+\begin{align*}
+	\theta_i &= 2\int_{0}^{x_i}{\epsilon - f(x) - h(x)}	\end{align*}
+
+The intersection point $x_i$ between the parabola and the inner disk is given by
+	
+\begin{align*}
+	(R+\epsilon)^2 &= (R+\frac{\kappa}{2}x_o^2)^2 + x_i^2\\
+	0 &= \frac{\kappa^2}{4}x_i^4 + (1+R\kappa)x_i^2 + R^2 - (R+\epsilon)^2	\\
+\Delta_i &= (1+R\kappa)^2 + \kappa^2(2R\epsilon + \epsilon^2)\\
+x_i &= \frac{\sqrt{2}}{\kappa}\sqrt{-R\kappa-1+\sqrt{\Delta_i}}.
+\end{align*}
+
+The claimed approximation is obtained by expanding $g_R$ with its  6th order Taylor series around $\kappa=0,R=0$.
+\end{proof}
+
+Thegore, the squared curvature can be estimated as
+
+\begin{align*}
+	\kappa ^2 = \frac{144}{125R^6}g_R(p).
+\end{align*}
+
+\section{DCE energy and curvature estimation}
+
+In the previous section we saw how to estimate curvature using the outer balls. In this section we recover the DCE energy using this estimation. Let $R=r+r/2$ for some $r>0$.
+
+\begin{align*}
+	g_{R}(p) &= ( \Theta_i - \Theta_o )^2 \\
+		   &= \big(\; ( \pi R^2 - F_i - \sum_{X_i}{x} ) - (F_o + \sum_{X_o}{x}) \;\big)^2 \\
+		   &= ( \frac{\pi R^2}{2} - F_i - \sum_{X_i}{x} + \frac{\pi R^2}{2} - F_o - \sum_{X_o}{x} )^2.
+\end{align*}
+
+Recall that a single term of the DCE energy is written as
+
+
+\begin{align*}
+  T_{R,m}(p) &=  \sum_{p \in R_m(S)}{ c_1\Big( c_2 - |F_{R}(p)| - \sum_{x_j \in X_R(p)} {x_j} \Big)^2 } \\
+  	  &= c_1\Big( \frac{\pi R^2}{2} - |F_{R}(p_i)| - \sum_{x_j \in X_{R}(p_{i})} {x_j} \Big)^2 + c_1\Big( \frac{\pi R^2}{2} - |F_{R}(p_o)| - \sum_{x_j \in X_{R}(p_{o})} {x_j} \Big)^2
+\end{align*}
+
+Under some conditions, the functions $T_{R,m}$ and $g_R$ have the same minimizer. 
+
+\begin{lemma}
+	Let $A_i,A_o$ such that $A_o \leq -A_i$. Define the function $F:\mathbb{R^+}\cup\{0\}\rightarrow \mathbb{R}$ as
+	\begin{align*}
+		F(y) = (A_i-y)^2 + (A_o - y)^2.
+	\end{align*}
+	Then 
+	
+	\begin{align*}
+		0=\argmin F.
+	\end{align*}
+	
+\begin{proof}
+	\begin{align*}
+		\frac{\partial  f}{dy} &= 0 \\
+		-2(A_i+A_o-2y) &= 0 \\
+		A_i - A_i - 2y \geq A_i + A_o - 2y &= 0\\
+		-2y \geq 0.
+	\end{align*}
+	
+	Therefore, $y=0$.
+\end{proof}
+\end{lemma}
+
+
+\begin{claim}{Basic solution}
+	For sufficiently large values of $m$, there exists a solution $S$ such that
+\begin{align*}
+	\forall p \quad S \in \argmin T_{R,m}(p) \text{ and } S \in \argmin g_R(p).
+\end{align*}
+
+\end{claim}
+
+\begin{proof}
+	Let $A_i=\pi R^2/2 - F_i$ and $A_o=\pi R^2/2 -F_o$. We rewrite $E_m$ and $g_R$ as
+	\begin{align*}
+		E_m &= (A_i - \sum_{X_i}{x} )^2 + (A_o - \sum_{X_o}{x})^2\\
+		g_R(p) &= (A_i - \sum_{X_i}{x} + A_o - \sum_{X_o}{x})^2,
+	\end{align*}
+	
+	Assume that $m$ is larger enough such that we have $A_i<0$ and $A_o>0$. We have one of the following cases.\\
+	
+	\textbf{Case i:} $X_o \subset X_i$ (convexity).
+	
+	\begin{align*}
+		E_m &= (A_i - \sum_{X_i^*}{x} - \sum_{X_o}{x} )^2 + (A_o - \sum_{X_o}{x})^2\\
+		g_R(p) &= (A_i - \sum_{X_i^*}{x} - \sum_{X_o}{x} + A_o - \sum_{X_o}{x})^2,
+	\end{align*}	
+	
+	where $X_i^*=X_i \setminus X_o$. Assume solution $S=(X_i^*=0,X_o=1)$. Therefore,
+	\begin{align*}
+		\frac{dE_m}{dx}(S) &= 0, \; \forall x \\
+		-2(A_i - |X_o|) - 2(A_o - |X_o|) &= 0 \\
+		|X_o| &= \frac{A_i+A_o}{2}
+	\end{align*}
+	
+	On the other hand, if $S$ is the minimum solution of $g_R$ then
+	
+	\begin{align*}
+		A_o &\geq 2|X_o| = A_i+A_o.
+	\end{align*}
+	
+	The last expression holds, since we assume $A_i<0$.
+	
+	The second case, $X_i \subset X_o$ (concavity), follows similarly, but the common solution is $S=(X_i=1,X_o^*=0)$.
+\end{proof}
+
+The advantage of the DCE energy is that inner and outer terms are computed separately, i.e., there is no need to map the pair of balls. That property makes the algorithm to be much faster and easy to construct.
+
+\section{A single step version of DCE algorithm}
+In the DCE algorithm we invert the solution after minimization. The inversion of optimal solution $f(X)$ equals the solution of $f(1-X)$.
+
+\begin{align*}
+	\overline{\argmin E_m(X)} = \argmin E_m(1-X).
+\end{align*}
+
+Rewriting a simple term $T_m(X)$ as $T_m(1-X)$ we obtain
+
+\begin{align}
+	T_m(1-X) &= (A_i - \sum_{X_i}{(1-x)})^2 + (A_o - \sum_{X_o}{(1-x)})^2
+	\label{eq:inverted-term}
+\end{align}
+
+Consider the first term in $T_m(1-X)$. Expanding it, we have
+
+\begin{align}
+	(A_i - \sum_{X_i}{(1-x)})^2 &= (A_i - |X|)^2 + 2(A_i-|X|)\sum{x} + ( \sum{x} )^2 \nonumber  \\
+	&= A_i^2 -2A_i|X| + |X|^2 + 2(A_i - |X|)\sum{x} + (\sum{x})^2 \nonumber  \\
+	&= A_i^2 + 2A_i\sum{x} + (\sum{x})^2 - 2A_i|X| + |X|^2 - 2|X|\sum{x} \nonumber  \\
+	&= 2A_i^2 - (A_i - \sum{x})^2 + (|X| - \sum{x})^2 + (\sum{x})^2 \nonumber \\
+	&= 2A_i^2 - (A_i - \sum{x})^2 + (\sum{(1-x)})^2 + (\sum{x})^2 \nonumber  \\
+	&= 2A_i^2 - (A_i - \sum{x})^2 + P_1(x).
+	\label{eq:first-sum-inverted-term}
+\end{align}
+
+where  $P_a=\Big( \sum{a(1-x)} \Big)^2 + \Big(\sum{x}\Big)^2$. Replacing \eqref{eq:first-sum-inverted-term} in \eqref{eq:inverted-term}.
+
+\begin{align}
+	T_m(1-X) = -(A_i - \sum_{x})^2 + (A_o - \sum{(1-x)})^2 + P_a(x).
+\end{align}
+
+The term $P_a$ is a kind of local penalization. Among those to be labeled one, $P_a$ forces the labeling of only half of them when $a=1$. Indeed,
+
+\begin{align*}
+	\min P_a(|X|) &= \frac{a^2|X|}{a^2+1}.
+\end{align*}
+
+
+
+
 
 \section{Potential elastica}
 

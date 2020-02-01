@@ -275,9 +275,9 @@ varies across values of $m$ differs from shape to shape, as is illustrated in fi
 
 
 
-\section{Evaluation on farther rings}
+\section{Evaluation on outer rings}
 
-In the previous sections we pointed out two reasons for the production of artifacts by the DCE algorithm. One related to the number of unlabeled pixels by the QPBO algorithm and the second due to the small uncertainties of the estimator along regions of low squared curvature. We've seen already that QPBO labels more pixels at farther rings. In this section, we argue that by evaluating the estimation ball along outer
+In the previous sections we pointed out two reasons for the production of artifacts by the DCE algorithm. One related to the number of unlabeled pixels by the QPBO algorithm and the second due to the small uncertainties of the estimator along regions of low squared curvature. We've seen already that QPBO labels more pixels at outer rings. In this section, we argue that by evaluating the estimation ball along outer
 ring sets we can also handle the sensibility issue by focusing the optimization process only on regions with highest squared curvature value.
 
 In figure \ref{} we evaluate several flows for different energies $E_m$. As expected, the number of artifacts decrease as the value of $m$ increases, but the process still tends to shrinking the shape to a single point, resembling the curvature flow. In the next chapter we tackle this issue.
@@ -301,7 +301,7 @@ $m=5$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/impr
 \includegraphics[scale=0.25]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level5/summary.pdf} &
 \includegraphics[scale=0.25]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-5/level5/summary.pdf} \\[2em]
 \end{tabular}
-\caption{By positioning the estimation ball on farther rings, we minimize artifacts creation. The radius of the estimation ball used here equals to $5$ and the curves are displayed every $10$ iterations. \label{fig:mx-square-flow}}
+\caption{By positioning the estimation ball on outer rings, we minimize artifacts creation. The radius of the estimation ball used here equals to $5$ and the curves are displayed every $10$ iterations. \label{fig:mx-square-flow}}
 \end{figure}
 
 
@@ -321,7 +321,7 @@ $m=9$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/impr
 \includegraphics[scale=0.25]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level9/summary.pdf} &
 \includegraphics[scale=0.25]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-9/level9/summary.pdf} \\[2em]
 \end{tabular}
-\caption{By positioning the estimation ball on farther rings, we minimize artifacts creation. The radius of the estimation ball used here equals to $9$ and the curves are displayed every $10$ iterations. \label{fig:mx-square-flow}}
+\caption{By positioning the estimation ball on outer rings, we minimize artifacts creation. The radius of the estimation ball used here equals to $9$ and the curves are displayed every $10$ iterations. \label{fig:mx-square-flow}}
 \end{figure}
 
 \begin{figure}
@@ -336,7 +336,69 @@ $m=9$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/impr
 \includegraphics[scale=0.5]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level1/level-effect.pdf}}%
 \end{figure}
 
+\begin{figure}
+\center
+\subfloat[]{\includegraphics[scale=0.9]{figures/chapter6/topology-change/summary-wave.pdf}}
+
+\subfloat[]{\includegraphics[scale=0.35]{figures/chapter6/topology-change/summary-square-holes.pdf}}
+\caption{The flow evolves regions of high curvature faster, as illustrated in figure (a). Figure (b) illustrates the property of the DCE algorithm to handle changes in topology.}
+\end{figure}
+
+
+\section{Data term and image segmentation}
+
+We present an application of the DCE algorithm to supervised image segmentation. The DCE acts as a contour correction method. Here we use a data fidelity term in order to characterize the object of interest. Given foreground and background seeds selected by the user, we derive mixed Gaussian distributions of color intensities $G_f$,$G_b$, and we define the data fidelity term as the cross-entropy, i.e.
+	
+\begin{align}
+  g(x_{w(p)}) = -(1-x_{w(p)})\log{G_f(p)} - x_{w(p)}\log{G_b(p)}.
+  \label{eq:data-fidelity}
+\end{align}	
+
+We use the DCE algorithm to regularize an initial contour output by some segmentation algorithm or delineated by the user. In this application, the data term of the DCE
+is set to the data fidelity term \eqref{eq:data-fidelity}.
+	
+\begin{algorithm}
+ \SetKwData{It}{i}
+ \SetKwData{MIt}{maxIt}
+ \SetKwData{Tol}{tolerance}
+ \SetKwData{Delta}{delta}
+ \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+ \SetKwComment{comment}{//}{}
+ 
+ \Input{An image $I$; seed mask $M$; the estimation ball radius $r$; length $(\alpha)$, squared curvature $(\beta)$ and data fidelity $(\gamma)$ coefficients; initial dilation $d$; stop condition value \Tol; the maximum number of iterations \MIt;}
+ \BlankLine
+
+ $S \longleftarrow$ GrabCut($I,M$)\;
+ $S^{(0)} \longleftarrow $ dilate($S$,$d$)\; 
+ \Delta $\longleftarrow +\infty$\;
+ $i \longleftarrow 0$\;
+ \While{ \It $<$ \MIt \bf{and} \Delta $>$ \Tol  }{ 	
+ 	$S^{(i+1)} \longleftarrow $ DCE($S^{(i)},r,\alpha,\beta,\gamma,2$)\;
+ 	\Delta $\longleftarrow |S^{(i)} - S^{(i+1)}|$\;
+
+	\It $\longleftarrow$ \It $+1$\;
+	
+ }
+ \label{alg:contour-correction} 
+ \caption{Contour correction algorithm.}
+\end{algorithm}	
+
+The algorithm can be initialized by a collection of compact sets, or with the result of a third-party segmentation algorithm, as GrabCut \cite{rother04grabcut}. We include an additional parameter $d$ that dilates the initial sets using a square of side one before executing the flow.
+	
+\begin{figure}[ht!]
+\center
+\begin{tabular}{cccc}
+Seeds & GrabCut & $\alpha=0.5, \beta=0.0, \gamma=0.5$ & $\alpha=0.5, \beta=1.0, \gamma=0.5$\\
+ 	\includegraphics[scale=0.25]{figures/chapter6/segmentation/coala/mt_improve/radius_5/data_0.50/sq_0.00/length_0.50/it_50/seeds.png} & 
+ 	\includegraphics[scale=0.25]{figures/chapter6/segmentation/coala/mt_improve/radius_5/data_0.50/sq_0.00/length_0.50/it_50/gc-seg.png} & 
+ 	\includegraphics[scale=0.25]{figures/chapter6/segmentation/coala/mt_improve/radius_5/data_0.50/sq_0.00/length_0.50/it_50/corrected-seg.png} & 
+ 	\includegraphics[scale=0.25]{figures/chapter6/segmentation/coala/mt_improve/radius_5/data_0.50/sq_1.00/length_0.50/it_50/corrected-seg.png}
+\end{tabular}	
+\caption{Given foreground (green) and background (gray) seeds at picture (a); GrabCut produces picture (b) which is used as input of the Contour Correction algorithm; in pictures (c) and (d) we display the output of Contour Correction algorithm with and without squared curvature regularization. }
+\label{fig:ch6-segmentation}
+\end{figure}
+
 \section{Conclusion}
 
-
+In the next chapter we elucidate the relation between the curvature and the computation of estimation balls at outer rings.
 
