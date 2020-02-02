@@ -1,31 +1,31 @@
 \chapter{Digital Flow Revisited}
 \label{chapter:digital-flow-revisited}
 
-In this chapter we give a formal argument for the DCE algorithm presented in chapter \ref{chapter:digital-curve-evolution} along with a different interpretation for it and an easy-to-implement version of the DCE algorithm.
+In this chapter we give a formal argument for the DCE algorithm presented in chapter \ref{chapter:digital-curve-evolution} along with an easy-to-implement version of it and an alternative interpretation.
 
 \section{Estimating curvature with outer balls}
 
-Let $\mathcal{C}$ a oriented curve in the plane. We center disks $B_i$ and $B_o$ of radius $R+R/2$ with centers aligned with the normal direction of the curve at some point $p \in \mathcal{C}$. Moreover, the distance from disks center to $p$ equals to $R$.
+Let $\mathcal{C}$ an oriented curve in the plane. We center disks $B_i$ and $B_o$ of radius $R + \epsilon$ and its centers aligned with the normal direction of the curve at some point $p \in \mathcal{C}$. Moreover, the distance from disks center to $p$ equals to $R$.
 
 \begin{figure}
 \center
 \includegraphics[scale=0.35]{figures/appendix-max-energy/r-separated-disks.png}
-\caption{disks of radius $R+1$ distant $R$ units from $p\in \mathcal{C}$ in the normal direction.}
+\caption{disks of radius $R+\epsilon$ distant $R$ units from $p\in \mathcal{C}$ in the normal direction.}
 \label{fig:r-separated-disks}
 \end{figure}
 
-Let $\theta_o (\theta_i)$ to denote the intersection of $B_o(B_i)$ with the inner(outer) region of the curve. We define the function $g:\mathcal{R} \times \mathcal{C}\rightarrow \mathbb{R}$ as
+Let $\Theta_o (\Theta_i)$ to denote the intersection of $B_o(B_i)$ with the inner(outer) region of the curve. We define the function $g_R:\mathcal{R} \times \mathcal{C}\rightarrow \mathbb{R}$ as
 
 \begin{align*}
-	g_{R}(p) &= \Big( \Theta_o(p) - \Theta_i(p) \;\Big)^2.
+	g_{R}(p) &= \Big( \Theta_i(p) - \Theta_o(p) \;\Big)^2.
 \end{align*}
 
 \begin{claim}{R-separated disks curvature}\label{claim:r-separated-disks}
- Let $\mathcal{C} \in \mathbb{R}^2$ be a curve such that for a point $p \in \mathcal{C}$ its curvature equals to $\kappa$. For sufficiently small values of $R$, we can approximate $g$ by
+ Let $\mathcal{C} \in \mathbb{R}^2$ be a curve such that for a point $p \in \mathcal{C}$ its curvature equals to $\kappa$. For $\epsilon=R/2$ and for sufficiently small values of $R$ and $\kappa$, we can approximate $g_R$ by
 
 
 \begin{align*}
-g_R(p) \approx & \frac{125}{144}R^6k^2.
+g_R(p) \approx & \frac{125}{144}R^6k^2 + \frac{625}{768}R^8k^4 + O(R^{10}\kappa^6)
 \end{align*} 
 \end{claim}
 
@@ -39,7 +39,7 @@ g_R(p) \approx & \frac{125}{144}R^6k^2.
 
 In other words, the second order approximation for the curve $C$ in the Frenet frame is the parabola $f(x) =  \kappa/2x^2$ passing at the origin. We are going to use this parabola to estimate $\Theta_o$ and $\Theta_i$.
 
-We proceed by computing the intersection area $\theta_o$.
+We proceed by computing the intersection area $\Theta_o$.
 
 
 \begin{figure}[h!]\label{fig:parabola-approx-ex}
@@ -50,15 +50,15 @@ We proceed by computing the intersection area $\theta_o$.
 	\subfloat[\label{}]{%
 \includegraphics[scale=0.35]{figures/appendix-max-energy/parabola-approx-2.png}
 	}
-\caption{The yellow area corresponds to $\theta_o$ and it equals the area under the parabola from $x=0$ until $x=x_o$ minus the orange area $h(x)$.}
+\caption{The yellow area equals $\Theta_o /2$, the same value of the area under the parabola from $x=0$ until $x=x_o$ minus the orange area $h(x)$.}
 \end{figure}
 
 \begin{align*}
 	h(x) &= R+\epsilon - \sqrt{ (R+\epsilon)^2 - x^2}\\
-	\theta_o &= 2\int_0^{x_o}{f(x) + \epsilon - h(x)}\\
+	\Theta_o &= 2\int_0^{x_o}{f(x) + \epsilon - h(x)}\\
 \end{align*}
 
-To compute the intersection point $x_o$ of the parabola with the disc, we use again pythagoras' theorem.
+To compute the intersection point $x_o$ of the parabola with the disk, we use again Pythagoras' theorem.
 
 \begin{align*}
 	(R+\epsilon)^2 &= (R-\frac{\kappa}{2}x_o^2)^2 + x_o^2\\
@@ -84,11 +84,11 @@ We proceed similarly for the inner disk.
 	\subfloat[\label{}]{%
 \includegraphics[scale=0.35]{figures/appendix-max-energy/parabola-approx-4.png}
 	}
-\caption{The yellow area corresponds to $\theta_i$ and it equals the area between the parabola and the disc from $x=0$ until $x=x_i$.}
+\caption{The yellow area corresponds to $\Theta_i$ and it equals the area between the parabola and the disk from $x=0$ until $x=x_i$.}
 \end{figure}
 
 \begin{align*}
-	\theta_i &= 2\int_{0}^{x_i}{\epsilon - f(x) - h(x)}	\end{align*}
+	\Theta_i &= 2\int_{0}^{x_i}{\epsilon - f(x) - h(x)}	\end{align*}
 
 The intersection point $x_i$ between the parabola and the inner disk is given by
 	
@@ -99,13 +99,13 @@ The intersection point $x_i$ between the parabola and the inner disk is given by
 x_i &= \frac{\sqrt{2}}{\kappa}\sqrt{-R\kappa-1+\sqrt{\Delta_i}}.
 \end{align*}
 
-The claimed approximation is obtained by expanding $g_R$ with its  6th order Taylor series around $\kappa=0,R=0$.
+The claimed approximation is obtained by expanding $g_R$ with its  8th order Taylor series around $\kappa=0,R=0$.
 \end{proof}
 
-Thegore, the squared curvature can be estimated as
+Therefore, the squared curvature qt point $p$ can be estimated as
 
 \begin{align*}
-	\kappa ^2 = \frac{144}{125R^6}g_R(p).
+	\kappa ^2 = root \big( \frac{625}{768}R^8z^2 + \frac{125}{144}R^6z - g_R(p) \big).
 \end{align*}
 
 \section{DCE energy and curvature estimation}
@@ -420,15 +420,15 @@ We have two issues to tackle.
 	The unbalance difference at a point $c \in S$ distant $d$ units from the corner is written as
 	\begin{align*}
 		u_i(c) &= \frac{\pi r^2}{2} - \big( \; a^2 + area( APC ) + area(A'PC) + area(\arc{PQ})  \; \big) \\
-		&= \frac{\pi r^2}{2} - \big( \; a^2 + a(P_x-a) + \frac{\theta_P + \theta_Q + \pi/2}{2\pi} \pi r^2\; \big),
+		&= \frac{\pi r^2}{2} - \big( \; a^2 + a(P_x-a) + \frac{\Theta_P + \Theta_Q + \pi/2}{2\pi} \pi r^2\; \big),
 	\end{align*}
 	
 	where
 	
 	\[
 	\begin{array}{ll}
-	a = d\sqrt{1/2} & \theta_P = \arctan \frac{a}{P_x-a} \\		
-	Q_y = -P_x = a + \sqrt{r^2 -a^2} & \theta_Q = \arctan \frac{a}{|Q_y|-a}		
+	a = d\sqrt{1/2} & \Theta_P = \arctan \frac{a}{P_x-a} \\		
+	Q_y = -P_x = a + \sqrt{r^2 -a^2} & \Theta_Q = \arctan \frac{a}{|Q_y|-a}		
 	\end{array}\]
 	
 %default = pi*R^2*(abs(t2) + abs(phi))/(2*pi) + a*abs(p2[0])
@@ -438,14 +438,14 @@ We have two issues to tackle.
 	Similarly, for the outer ball
 	\begin{align*}
 		u_o(c) &= \frac{\pi r^2}{2} - \big(\; \frac{\pi r^2}{4} - area(APC) - area(AQC) - area(\arc{CP'}) - area(\arc{CQ'}) \; \big)\\
-		&= \frac{\pi r^2}{2} - \big( \; \frac{\pi r^2}{4} - aP_x - \frac{\theta_P + \theta_Q}{2\pi}\pi r^2 \; \big),
+		&= \frac{\pi r^2}{2} - \big( \; \frac{\pi r^2}{4} - aP_x - \frac{\Theta_P + \Theta_Q}{2\pi}\pi r^2 \; \big),
 	\end{align*}
 	
 	where
 	\[
 	\begin{array}{ll}
-		a = d\sqrt{1/2} & \theta_P = \arctan \frac{a}{P_x+a}\\
-		Q_y = -P_x = \sqrt{r^2-a^2} - a & \theta_Q = \arctan \frac{a}{|Q_y|+a}
+		a = d\sqrt{1/2} & \Theta_P = \arctan \frac{a}{P_x+a}\\
+		Q_y = -P_x = \sqrt{r^2-a^2} - a & \Theta_Q = \arctan \frac{a}{|Q_y|+a}
 	\end{array}	 \]
 	
 \begin{figure}[h!]
