@@ -24,9 +24,14 @@ Let $\Theta_o (\Theta_i)$ to denote the intersection of $B_o(B_i)$ with the inne
  Let $\mathcal{C} \in \mathbb{R}^2$ be a curve such that for a point $p \in \mathcal{C}$ its curvature equals to $\kappa$. For $\epsilon=R/2$ and for sufficiently small values of $R$ and $\kappa$, we can approximate $g_R$ by
 
 
+%\begin{align*}
+%g_R(p) \approx & \frac{125}{144}R^6k^2 + \frac{625}{768}R^8k^4 + O(R^{10}\kappa^6)
+%\end{align*} 
+
 \begin{align*}
-g_R(p) \approx & \frac{125}{144}R^6k^2 + \frac{625}{768}R^8k^4 + O(R^{10}\kappa^6)
+g_R(p) \approx & \frac{125}{144}R^6k^2 + O(R^{8}\kappa^4)
 \end{align*} 
+
 \end{claim}
 
 
@@ -99,32 +104,39 @@ The intersection point $x_i$ between the parabola and the inner disk is given by
 x_i &= \frac{\sqrt{2}}{\kappa}\sqrt{-R\kappa-1+\sqrt{\Delta_i}}.
 \end{align*}
 
-The claimed approximation is obtained by expanding $g_R$ with its  8th order Taylor series around $\kappa=0,R=0$.
+The claimed approximation is obtained by expanding $g_R$ with its  6th order Taylor series around $\kappa=0,R=0$.
 \end{proof}
 
-Therefore, the squared curvature qt point $p$ can be estimated as
+Therefore, the squared curvature at point $p$ can be estimated as
 
 \begin{align*}
-	\kappa ^2 = root \big( \frac{625}{768}R^8z^2 + \frac{125}{144}R^6z - g_R(p) \big).
+	\hat{\kappa}_{R-sep} ^2 = \frac{144}{125R^6}g_R(p) .
 \end{align*}
 
 \section{DCE energy and curvature estimation}
 
-In the previous section we saw how to estimate curvature using the outer balls. In this section we recover the DCE energy using this estimation. Let $R=r+r/2$ for some $r>0$.
+In the previous section we saw how to estimate curvature using the $R$-separator estimator. In this section we show how to derive the DCE energy from it. Recall that the DCE energy is written as
 
 \begin{align*}
-	g_{R}(p) &= ( \Theta_i - \Theta_o )^2 \\
-		   &= \big(\; ( \pi R^2 - F_i - \sum_{X_i}{x} ) - (F_o + \sum_{X_o}{x}) \;\big)^2 \\
-		   &= ( \frac{\pi R^2}{2} - F_i - \sum_{X_i}{x} + \frac{\pi R^2}{2} - F_o - \sum_{X_o}{x} )^2.
+  E_{R,m}(S) &=  \sum_{p \in R_m(S)}{ c_1\Big( c_2 - |F_{R}(p)| - \sum_{x_j \in X_R(p)} {x_j} \Big)^2 } \\
+  	  &= \sum_{p_i,p_o \in R_m(S)} c_1\Big( \frac{\pi R^2}{2} - |F_{R}(p_i)| - \sum_{x_j \in X_{R}(p_{i})} {x_j} \Big)^2 + c_1\Big( \frac{\pi R^2}{2} - |F_{R}(p_o)| - \sum_{x_j \in X_{R}(p_{o})} {x_j} \Big)^2
 \end{align*}
 
-Recall that a single term of the DCE energy is written as
+%Let $R=r+r/2$ for some $r>0$.
 
+%\begin{align*}
+%	g_{R}(p) &= ( \Theta_i - \Theta_o )^2 \\
+%		   &= \big(\; ( \pi R^2 - F_i - \sum_{X_i}{x} ) - (F_o + \sum_{X_o}{x}) \;\big)^2 \\
+%		   &= ( \frac{\pi R^2}{2} - F_i - \sum_{X_i}{x} + \frac{\pi R^2}{2} - F_o - \sum_{X_o}{x} )^2.
+%\end{align*}
+
+On the other hand, if we use the $R$-sep estimator, we could derive an alternative energy $E'_{R,m}$
 
 \begin{align*}
-  T_{R,m}(p) &=  \sum_{p \in R_m(S)}{ c_1\Big( c_2 - |F_{R}(p)| - \sum_{x_j \in X_R(p)} {x_j} \Big)^2 } \\
-  	  &= c_1\Big( \frac{\pi R^2}{2} - |F_{R}(p_i)| - \sum_{x_j \in X_{R}(p_{i})} {x_j} \Big)^2 + c_1\Big( \frac{\pi R^2}{2} - |F_{R}(p_o)| - \sum_{x_j \in X_{R}(p_{o})} {x_j} \Big)^2
+  E'_{R,m}(S) &= \sum_{p \in R_m(S)}{\kappa_{R-sep}^2(p)}\\
+  E'_{R,m}(S) &= \sum_{p_i,p_o \in R_m(S)} \frac{125}{144R^6}\Big( \frac{\pi R^2}{2} - |F_{R}(p_i)| - \sum_{x_j \in X_{R}(p_{i})} {x_j} + \frac{\pi R^2}{2} - |F_{R}(p_o)| - \sum_{x_j \in X_{R}(p_{o})} {x_j} \Big)^2
 \end{align*}
+
 
 Under some conditions, the functions $T_{R,m}$ and $g_R$ have the same minimizer. 
 
