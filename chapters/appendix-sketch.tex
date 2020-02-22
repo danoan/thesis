@@ -1,0 +1,113 @@
+\chapter{Sketch}\label{chapter:appendix-sketch}
+
+\section{Optimization}
+
+Let $\mathfrak{B}=\{0,1\}$. We define $F:\mathfrak{B}^n\rightarrow \mathbb{R}^n$ as a pseudo-boolean function. The function $F$ can be expressed in the form of a multivariate polynomial and its degree is exactly the same of its polynomial, namely, the degree of the monomial with highest degree.
+
+\begin{claim}{Degree-2 reduction}
+	A pseudo-boolean function $F$ of any degree can be rewritten as a degree-2 pseudo-boolean function of the form.	
+	
+\begin{align}\label{eq:pbf-polynomial-form}
+	F(X) = \sum_{1\leq i\leq n}{a_ix_i} + \sum_{1 \leq i < j \leq n}{a_{ij}x_ix_j}	
+\end{align}	
+	
+\end{claim}
+
+Sometimes, we may prefer to write $F$ using its literals. A variable $x_i$ possess literals $x_i$ and $\overline{x_i}$ representing the values $1$ and $0$, respectively. The expression \eqref{eq:pbf-polynomial-form} is transformed in:
+
+\begin{align}
+	F(X) = \sum_{1\leq i\leq n}{E_i(0) + E_i(1)} + \sum_{1 \leq i < j \leq n}{E_{ij}(0,0) + E_{ij}(0,1) + E_{ij}(1,0) + E_{ij}(1,1)}
+\end{align}
+
+
+\begin{claim}{Submodular} \label{claim:submodular}
+ We say that $F$ is submodular if and only if 
+ 
+ \begin{align*}
+	E_{ij}(0,0) + E_{ij}(1,1) \leq E_{ij}(0,1) + E_{ij}(1,0).
+ \end{align*}
+\end{claim}
+
+We say that $F$ is supermodular otherwise. Submodular (supermodular) functions can be efficiently minimized (maximized).
+
+%\textbf{Observation:} One may lead to believe that $F$ in its polynomial form and $a_{ij}\leq0, \forall i,j$ can be solved by a greedy algorithm on the unary terms $a_i$. That is not true, as the function below illustrates
+%
+%\begin{align*}
+%	-10x_1 + 2x_2 + 2x_3 -x_1x_2 -x_1x_3 -10x_2x_3
+%\end{align*}
+%
+%The greedy solution would return $f(1,0,0)=-10$, while the correct minimum is $f(1,1,1)=-18$.
+
+\begin{claim}{Optimization of $E$}
+	Function $E$ is supermodular.
+\end{claim}
+
+\begin{proof}
+	From equation \eqref{eq:max-energy} we observe that all pairwise coefficients are positive. Then, by claim \ref{claim:submodular}, the function is supermodular.
+\end{proof}
+
+
+\section{Open issues}
+
+\begin{enumerate}
+	\item{In practice, how accurate can be an estimator for curvature based on the Taylor expansion of $g$? In particular, for each values of $\kappa$ with respect to $\epsilon$ the expansion is a good approximation?}
+	\item{The analytic results were obtained in a local framework. How can we extend this interpretation for the integral computation that we evaluated in the flow?}
+	\item{The inner and outer curves have different perimeters. How can we set their weights properly?}
+\end{enumerate}
+
+
+\section{Experiments}
+
+\subsection{Experiment 1}
+\textbf{Hypothesis:} The flow advances from interior if outer ball doesn't touch pixels that are touched by the inner ball.
+
+
+\textbf{Experiment description:} Execute the flow over a curvy face where we know curvature elsewhere (e.g. the bean shape). If we use a ball of radius smaller than the reach, in no ocassion the inner(outer) ball won't touch any pixels. Therefore, by the hypothesis, the shape should not evolve.
+
+
+\textbf{Result:} The hypothesis demonstrated wrong, as the shape evolves anyway. But inspire us to do a second experiment.
+
+\subsection{Experiment 2}
+
+\textbf{Hypothesis:} The flow advances towards the outer shape at $p$ if $G_i(p) > G_o(p)$.
+
+
+\textbf{Definitions:} Define the hitting inner(outer) curve of some pixel $p$ in the digital curve $H_i(p)$($H_o(p)$) as the set of points  $q$ in the inner(outer) curve in which a ball of radius $r$ centered at $q$ touches $p$. For a point $q \in H_i(p)$, define its gain as $G_{p}(q) = 2DA - D^2$, where $A$ is the disk area and $D$ its deficit. For the inner curve, its deficit is the disk area not covering the shape interior. We define the gain of $p$ as $G_i(p) = \sum_{q \in H_i(p)} G_p(q)$, and we do similarly for $G_o(p)$. 
+
+
+\textbf{Experiment description:} A possible way is to derive the positive ot negative conclusion from analytical development. Otherwise, one can code a flow that works as its proposed here and then compare the results.
+
+
+\textbf{Result:} Not tested yet.
+
+
+\subsection{Experiment 3}
+
+\textbf{Hypothesis:} The inner and outer perimeter differences is the main responsible for the flow evolution.
+
+\textbf{Experiment description:} Evolve the flow in such a way that outer and inner perimeters have the same weight. For example, set inner ball coefficient one and outer  ball coeficient as $L_{inn}/L_{out}$.
+
+\textbf{Result:} The flow presents interesting behaviour. Regions of negative curvature always expand, but regions of positive curvature may decrease or increase, depending of its proximity with the closest positive curvature region. For example, the upper convex parts of the bean shape shrinks, while its bottom convex part dilates.
+
+
+\subsection{Experiment 4}
+
+\textbf{Hypothesis:} If curvature is negative, the energy is better of by maximizing the inner ball. If curvature is positive, the energy is  better of by maximizing the outer ball.
+
+
+\textbf{Experiment description:}
+
+
+\textbf{Result:} Experiment 3 demonstrated that this hypothesis is false.
+
+
+
+\subsection{Experiment 5}
+
+\textbf{Hypothesis:} Evolution for the flower with parameters $h=0.5,r=5,l=-1$ leads to iteration with disconnected components. Those components appear at regions of local flatness. Is that an issue caused by the perimeter weigth in inner and outer curves?
+
+
+\textbf{Experiment description:}
+
+
+\textbf{Result:}
