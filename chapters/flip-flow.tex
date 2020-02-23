@@ -5,7 +5,7 @@ In the previous chapter we've presented a local combinatorial model using multig
 
 \section{Definitions}
 
-Let $S$ be a digital shape with domain $\Omega \subset \mathbb{Z}^2$. We describe a flow $\left \{ S^{(i)} \; | \; i \geq 0, S^{0} = S \right\}$ intended to decrease the digital elastica energy of $S$.
+Let $S$ be a digital shape with domain $\Omega \subset \mathbb{Z}^2$. We describe a flow $\left \{ S^{(k)} \; | \; k \geq 0, S^{0} = S \right\}$ intended to decrease the digital elastica energy of $S$.
 
 We assume an ordering in $\Omega$, i.e., there exists a bijective function $\omega : \Omega \rightarrow \{1 \cdots |\Omega| \}$. Moreover, let $X_{\omega}:\Omega \rightarrow 2^{\{0,1\}}$ be an operator that transforms digital sets in its corresponding set of binary variables, i.e., given $P \in \Omega$
 
@@ -21,7 +21,7 @@ A $\{0,1\}$ assignment of the variables in $X(P)$ is denoted $x(P)$. We define t
 	S + x(P) = S \cup \left\{ p \; | \; p \in P, x_{\omega(p)}=1 \right\}.
 \end{align*}
 
-Next, we define the set of optimization variables. In order to guarantee connectivity and thus avoid the enforcement of the topological constraints discussed in \ref{ch6:subsec:topological-constraints}, we limit the optimization region to a subset of $\Omega$, namely the inner pixel boundary of  $S^{(i)}$.
+Next, we define the set of optimization variables. In order to guarantee connectivity and thus avoid the enforcement of the topological constraints discussed in \ref{ch6:subsec:topological-constraints}, we limit the optimization region to a subset of $\Omega$, namely the inner pixel boundary of  $S^{(k)}$.
 
 \begin{definition}{Inner pixel boundary}
 
@@ -33,16 +33,16 @@ where $\mathcal{N}_4(p)$ denotes the $4$-adjacent neighbor set of $p$ (without $
 \end{definition}
 
 
-The FlipFlow algorithm consists into decide, at each iteration, which pixels in the inner boundary are to be removed from $S^{(i)}$ and which are to be kept in $S^{(i)}$. To simplify notation, the inner pixel boundary of $S^{(i)}$ is simply denoted $I^{(i)}$. At each iteration, the set $X^{(i)}$ of optimization variables is defined as
+The FlipFlow algorithm consists into decide, at each iteration, which pixels in the inner boundary are to be removed from $S^{(k)}$ and which are to be kept in $S^{(k)}$. To simplify notation, the inner pixel boundary of $S^{(k)}$ is simply denoted $I^{(k)}$. At each iteration, the set $X^{(k)}$ of optimization variables is defined as
 
 \begin{align*}
-	X^{(i)} := X(I^{(i)}).
+	X^{(k)} := X(I^{(k)}).
 \end{align*}
 
-An assignment of $X^{(i)}$ is simply denoted $x^{(i)}$. We recall the definition of the II digital curvature estimator:
+An assignment of $X^{(k)}$ is simply denoted $x^{(k)}$. We recall the definition of the II digital curvature estimator:
 
 \begin{align}
-	\hat{\kappa}^2(p) &= c_1\Big( c_2 - | B_r(p) \cap S^{(i)} | \Big)^2, 
+	\hat{\kappa}^2(p) &= c_1\Big( c_2 - | B_r(p) \cap S^{(k)} | \Big)^2, 
 	\label{eq:curvature-estimator-pixels}
 \end{align}
 where $c_1=3/r^6$ and $c_2=\pi r^2/2$. 
@@ -51,26 +51,26 @@ The following sets are important in the expansion of $\eqref{eq:curvature-estima
 
 
 \begin{align*}
-	F^{(i)} &:= S^{(i)} \setminus I^{(i)} \\
-	F_r^{(i)}(p) &:= F^{(i)} \cap B_r(p)\\
-	I_r^{(i)}(p) &:= I^{(i)} \cap B_r(p) \\
-	X_r^{(i)}(p) &:= X\big( I_r^{(i)}(p) \big).
+	F^{(k)} &:= S^{(k)} \setminus I^{(k)} \\
+	F_r^{(k)}(p) &:= F^{(k)} \cap B_r(p)\\
+	I_r^{(k)}(p) &:= I^{(k)} \cap B_r(p) \\
+	X_r^{(k)}(p) &:= X\big( I_r^{(k)}(p) \big).
 \end{align*}
 
 
 Expanding \eqref{eq:curvature-estimator-pixels}, we get 
 
 \begin{align}
-  \hat{\kappa}^2(p) &= c_1\Big( c_2 - |F_{r}^{(i)}(p)| - \sum_{x_j \in X_r^{(i)}(p)} {x_j} \Big)^2 \nonumber \\
-   &= c_1 \Big( C + 2\left( |F_{r}^{(i)}(p)| - c_2 \right) \hspace{-2mm}\sum_{x_j \in X_{r}^{(i)}(p)}\hspace{-2mm}{x_j} + \hspace{-2mm}\sum_{x_j \in X_{r}^{(i)}(p)}\hspace{-2mm}{x_j^2} + \hspace{-2mm}\sum_{ \substack{x_j,x_k \in X_{r}^{(i)}(p) \\ j<k} }\hspace{-2mm}{2x_jx_k}  \Big),
+  \hat{\kappa}^2(p) &= c_1\Big( c_2 - |F_{r}^{(k)}(p)| - \sum_{x_j \in X_r^{(k)}(p)} {x_j} \Big)^2 \nonumber \\
+   &= c_1 \Big( C + 2\left( |F_{r}^{(k)}(p)| - c_2 \right) \hspace{-2mm}\sum_{x_j \in X_{r}^{(k)}(p)}\hspace{-2mm}{x_j} + \hspace{-2mm}\sum_{x_j \in X_{r}^{(k)}(p)}\hspace{-2mm}{x_j^2} + \hspace{-2mm}\sum_{ \substack{x_j,x_l \in X_{r}^{(k)}(p) \\ j<l} }\hspace{-2mm}{2x_jx_l}  \Big),
    \label{eq:digital-squared-curvature-term}
 \end{align}
-where $C=c_2^2 - 2c_2 \cdot |F_{r}^{(i)}(p)| + |F_{r}^{(i)}(p)|^2$ is a constant. As expression \eqref{eq:digital-squared-curvature-term} is a term to be optimized, we can ignore constants and multiplication factors. Moreover, as we are in a binary optimization setting, we can  further simplify expression \eqref{eq:digital-squared-curvature-term} by exploiting the binary character of variables and eliminating monomials of second order. We define the following family
+where $C=c_2^2 - 2c_2 \cdot |F_{r}^{(k)}(p)| + |F_{r}^{(k)}(p)|^2$ is a constant. As expression \eqref{eq:digital-squared-curvature-term} is a term to be optimized, we can ignore constants and multiplication factors. Moreover, as we are in a binary optimization setting, we can  further simplify expression \eqref{eq:digital-squared-curvature-term} by exploiting the binary character of variables and eliminating monomials of second order. We define the following family
 of energies for given parameters $\alpha,\beta, \gamma \geq 0$.
 \begin{align}
-  E_{m-flip}(X^{(i)},S^{(i)}) =& \sum_{x_j \in X^{(i)}}{\alpha s(x_j)} + \nonumber \\ 
-  & \sum_{ \substack{p \in \\ R_m(S^{(i)})}}{ 2c_1 \beta  \Big( { (1/2+ |F_{r}^{(i)}(p)|-c_2) \cdot \sum_{ \substack{ x_j \in \\ X_{r}^{(i)}(p)}}{x_j} } + \sum_{ \substack{j<k, \\ x_j,x_k \in \\ X_{r}^{(i)}(p) } }{x_jx_k} \Big) } + \nonumber \\
-  & \sum_{x_j \in X^{(i)}}{\gamma g(S^{(i)},x_j)},
+  E_{m-flip}(X^{(k)},S^{(k)}) =& \sum_{x_j \in X^{(k)}}{\alpha s(x_j)} + \nonumber \\ 
+  & \sum_{ \substack{p \in \\ R_m(S^{(k)})}}{ 2c_1 \beta  \Big( { (1/2+ |F_{r}^{(k)}(p)|-c_2) \cdot \sum_{ \substack{ x_j \in \\ X_{r}^{(k)}(p)}}{x_j} } + \sum_{ \substack{j<l, \\ x_j,x_l \in \\ X_{r}^{(k)}(p) } }{x_jx_l} \Big) } + \nonumber \\
+  & \sum_{x_j \in X^{(k)}}{\gamma g(S^{(k)},x_j)},
   \label{eq:energy-family}
 \end{align}
 where $g(S,x)$ denotes a data term (e.g., distance to initial shape $S$ or fidelity to data) and $s(x)$ denotes a length penalization term. We recall that $R_m$ refers to the $m-ring$ defined in section \ref{ch6:sec:local-combinatorial-scheme}. Each choice of $m$ generates a different flow, which is generally described in the FlipFlow algorithm \ref{alg:evolution-model}. To optimize energy \eqref{eq:energy-family} we use the QPBOI \ref{} algorithm.
@@ -92,7 +92,7 @@ where $g(S,x)$ denotes a data term (e.g., distance to initial shape $S$ or fidel
 \end{figure}
 
 \begin{algorithm}
- \SetKwData{It}{i}
+ \SetKwData{It}{k}
  \SetKwData{MIt}{maxIt}
  \SetKwData{Delta}{delta}
  \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
@@ -105,13 +105,13 @@ where $g(S,x)$ denotes a data term (e.g., distance to initial shape $S$ or fidel
  \While{ \It $<$ \MIt  }{ 	
 	\comment{Shrinking mode}
 	\If{ \It is even }{	 
-	 	$x^{(i)} \longleftarrow \argmin_{X^{(i)}} E_{m-flip}(1-X^{(i)},S^{(i-1)})$\; 	
- 		$S^{(i)} \longleftarrow F^{(i-1)} + x^{(i)}$\;
+	 	$x^{(k)} \longleftarrow \argmin_{X^{(k)}} E_{m-flip}(1-X^{(k)},S^{(k-1)})$\; 	
+ 		$S^{(k)} \longleftarrow F^{(k-1)} + x^{(k)}$\;
  	}
 	\comment{Expansion mode} 	
  	\Else{	
-	 	$x^{(i)} \longleftarrow \argmin_{X^{(i)}} E_{m-flip}(1-X^{(i)},\overline{S^{(i-1)}})$\;
- 		$S^{(i)} \longleftarrow \overline{ F^{(i-1)} + x^{(i)}}$\; 	
+	 	$x^{(k)} \longleftarrow \argmin_{X^{(k)}} E_{m-flip}(1-X^{(k)},\overline{S^{(k-1)}})$\;
+ 		$S^{(k)} \longleftarrow \overline{ F^{(k-1)} + x^{(k)}}$\; 	
  	}
  	
 	\It $\longleftarrow$ \It $+1$\;
@@ -122,10 +122,10 @@ where $g(S,x)$ denotes a data term (e.g., distance to initial shape $S$ or fidel
 \end{algorithm}
 
 
-As discussed in section \ref{ch6:sec:global-optimization}, the topological constraints are a fundamental part in a global optimization model for the digital elastica but the complexity added to it dampens any hope of optimizing it efficiently. In the proposed FlipFlow model, we exclude topological constraints and we end up with the tractable binary second order energy \eqref{eq:energy-family}. However, due the lack of contour information, the minimization of \eqref{eq:energy-family} for $S^{(i)}$ results in undesirable shapes of even higher digital elastica energy values  (see figure \ref{fig:contour-info}). Interestingly, by using the inverse of the optimal assignement, we can derive a shape of lower digital elastica energy. Therefore, the next shape is given by
+As discussed in section \ref{ch6:sec:global-optimization}, the topological constraints are a fundamental part in a global optimization model for the digital elastica but the complexity added to it dampens any hope of optimizing it efficiently. In the proposed FlipFlow model, we exclude topological constraints and we end up with the tractable binary second order energy \eqref{eq:energy-family}. However, due the lack of contour information, the minimization of \eqref{eq:energy-family} for $S^{(k)}$ results in undesirable shapes of even higher digital elastica energy values  (see figure \ref{fig:contour-info}). Interestingly, by using the inverse of the optimal assignement, we can derive a shape of lower digital elastica energy. Therefore, the next shape is given by
 
 \begin{align*}
-	S^{(i+1)} = F_{S}^{(i)} + \argmin _{}{E_{m-flip}\big(1-X^{(i)},S^{(i)}} \big).
+	S^{(k+1)} = F_{S}^{(k)} + \argmin _{}{E_{m-flip}\big(1-X^{(k)},S^{(k)}} \big).
 \end{align*}
 
 Recall that the integral invariant estimator approaches curvature by computing the difference between half of the area
@@ -145,8 +145,8 @@ algorithm. The length penalization is defined as
 
 \begin{align}
   s(x_{w(p)})=\sum_{q \in \mathcal{N}_4(p)}{ t(q) }, \quad \text{where } t(q) = \left\{\begin{array}{ll}
-  (x_{w(p)}-x_{w(q)})^2, & \text{if } q \in I^{(i)}\\
-  (x_{w(p)}-0), & \text{if } q \in F^{(i)}\\
+  (x_{w(p)}-x_{w(q)})^2, & \text{if } q \in I^{(k)}\\
+  (x_{w(p)}-0), & \text{if } q \in F^{(k)}\\
   (x_{w(p)}-1), & \text{otherwise }
   \end{array}\right.
   \label{eq:length-penalization}
@@ -161,11 +161,11 @@ For the moment we are not going to define any data term, as they are not importa
   \setlength{\extrarowheight}{0.5em}
   \begin{tabular}{|c|c|c|c|} \hline
     shrinking mode &    $\kappa \gg 0$ & $\kappa \geq 0$ &  $\kappa < 0$ \\ \hline
-    $x^{(i)}$ & $x_k=1$ & $x_k \in \{0,1\}$ & $x_k=0$ \\ \hline
-    $S^{(i+1)} \leftarrow S^{(i)} - x^{(i)}$ & eroded & prob. eroded & unchanged  \\ \hline \hline
+    $x^{(k)}$ & $x_j=1$ & $x_j \in \{0,1\}$ & $x_j=0$ \\ \hline
+    $S^{(k+1)} \leftarrow S^{(k)} - x^{(k)}$ & eroded & prob. eroded & unchanged  \\ \hline \hline
     expansion mode &    $\bar{\kappa} \gg 0$ & $\bar{\kappa} \geq 0$ & $\bar{\kappa} < 0$ \\ \hline
-    $\bar{x}^{(i)}$ & $\bar{x}_k=1$ & $\bar{x}_k \in \{0,1\}$ & $\bar{x}_k=0$ \\ \hline
-    $S^{(i+1)} \leftarrow \overline{\bar{S}^{(i)} - \bar{x}^{(i)}}$ & dilated & prob. dilated & unchanged \\ \hline 
+    $\bar{x}^{(k)}$ & $\bar{x}_j=1$ & $\bar{x}_j \in \{0,1\}$ & $\bar{x}_j=0$ \\ \hline
+    $S^{(k+1)} \leftarrow \overline{\bar{S}^{(k)} - \bar{x}^{(k)}}$ & dilated & prob. dilated & unchanged \\ \hline 
   \end{tabular}
   
   \caption{  Since the curvature is negated when reversing the curve (i.e. $\bar{\kappa}=-\kappa$), this process can only shrink  convex parts in shrink mode and expand concave parts in expansion mode.}
@@ -254,7 +254,7 @@ varies across values of $m$ differs from shape to shape, as is illustrated in fi
 \begin{figure}
 \center
 \includegraphics[scale=0.5]{figures/chapter6/unlabeled-ratio/plots/pairwise-ratio/h0.25/radius-5/plot-pairwiseratio-lowerHigher-concavities-probe.pdf}
-\caption{We plot the ratio of pairwise terms among all $\binom{|X^{(i)}|}{2}$ combinations. The highest ring has roughly half the number of pairwise terms as the lowest ring.}
+\caption{We plot the ratio of pairwise terms among all $\binom{|X^{(k)}|}{2}$ combinations. The highest ring has roughly half the number of pairwise terms as the lowest ring.}
 \label{fig:ratio-pairwise-terms}
 \end{figure}
 
@@ -271,7 +271,7 @@ varies across values of $m$ differs from shape to shape, as is illustrated in fi
 \subfloat[]{ \includegraphics[scale=0.35]{figures/chapter6/unlabeled-ratio/plots/unlabeled-per-iterations/h0.25/radius-5/plot-model-flower-concavities-probe.pdf}}\\%
 \subfloat[]{ \includegraphics[scale=0.35]{figures/chapter6/unlabeled-ratio/plots/unlabeled-per-iterations/h0.25/radius-7/plot-model-flower-concavities-probe.pdf}}%
 \end{minipage}
-\caption{For each plot, we first produce shapes $\left\{ S^{(i)} \right\}$ executing FlipFlow with $m=r$. Then, for each shape in $\left\{ S^{(i)} \right\}$, we execute one iteration of FlipFlow for different values of $m$ and we count the unlabeled pixels. The number of unlabeled pixels by QPBOP remains high for lower values of $m$, and goes to zero when $m=r$. We observe the same behaviour for varying radius values.}
+\caption{For each plot, we first produce shapes $\left\{ S^{(k)} \right\}$ executing FlipFlow with $m=r$. Then, for each shape in $\left\{ S^{(k)} \right\}$, we execute one iteration of FlipFlow for different values of $m$ and we count the unlabeled pixels. The number of unlabeled pixels by QPBOP remains high for lower values of $m$, and goes to zero when $m=r$. We observe the same behaviour for varying radius values.}
 \label{fig:unlabeled-versus-iterations}
 \end{figure}
 
@@ -349,10 +349,10 @@ $m=9$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/impr
 
 \section{Data term and image segmentation}
 
-We present an application of the FlipFlow algorithm to supervised image segmentation. The FlipFlow acts as a contour correction method. Here we use a data fidelity term in order to characterize the object of interest. Given foreground and background seeds selected by the user, we derive mixed Gaussian distributions of color intensities $G_f$,$G_b$, and we define the data fidelity term as the cross-entropy, i.e.
+We present an application of the FlipFlow algorithm to supervised image segmentation. The FlipFlow acts as a contour correction method. Here we use a data fidelity term in order to characterize the object of interest. Given foreground and background seeds selected by the user, we derive mixed Gaussian distributions of color intensities $H_f$,$H_b$, and we define the data fidelity term as the cross-entropy, i.e.
 	
 \begin{align}
-  g(x_{w(p)}) = -(1-x_{w(p)})\log{G_f(p)} - x_{w(p)}\log{G_b(p)}.
+  g(x_{w(p)}) = -(1-x_{w(p)})\log{H_f(p)} - x_{w(p)}\log{H_b(p)}.
   \label{eq:data-fidelity}
 \end{align}	
 
@@ -360,7 +360,7 @@ We use the FlipFlow algorithm to regularize an initial contour output by some se
 is set to the data fidelity term \eqref{eq:data-fidelity}.
 	
 \begin{algorithm}
- \SetKwData{It}{i}
+ \SetKwData{It}{k}
  \SetKwData{MIt}{maxIt}
  \SetKwData{Tol}{tolerance}
  \SetKwData{Delta}{delta}
@@ -373,10 +373,10 @@ is set to the data fidelity term \eqref{eq:data-fidelity}.
  $S \longleftarrow$ GrabCut($I,M$)\;
  $S^{(0)} \longleftarrow $ dilate($S$,$d$)\; 
  \Delta $\longleftarrow +\infty$\;
- $i \longleftarrow 0$\;
+ $k \longleftarrow 0$\;
  \While{ \It $<$ \MIt \bf{and} \Delta $>$ \Tol  }{ 	
- 	$S^{(i+1)} \longleftarrow $ FlipFlow($S^{(i)},r,\alpha,\beta,\gamma,2$)\;
- 	\Delta $\longleftarrow |S^{(i)} - S^{(i+1)}|$\;
+ 	$S^{(k+1)} \longleftarrow $ FlipFlow($S^{(k)},r,\alpha,\beta,\gamma,2$)\;
+ 	\Delta $\longleftarrow |S^{(k)} - S^{(k+1)}|$\;
 
 	\It $\longleftarrow$ \It $+1$\;
 	

@@ -4,58 +4,55 @@
 In this chapter we give a different interpretation for the FlipFlow algorithm presented in chapter \ref{chapter:flip-flow} along with an easy-to-implement version of it.
 
 \section{A single step version of FlipFlow algorithm}
-We are going to derive a single step version of the FlipFlow algorithm. First, consider the value $T_m(X,p)$ which corresponds to the sum of the inner and outer ball contributions at point $p$ of shape $X$ assuming a $m$-ring.
+We are going to consider the inner and outer pixel boundary simultaneously as the optimization variables. We recall that $S^{(k)}$ corresponds to the digital shape $S$ after the $k$th iteration of the flow and that $d_{S^{(k)}}$ is its signed distance transform. Assuming a $m$-ring configuration, the sets we are going to need are summarized below:
+
+\begin{align*}
+	O^{(k)} &:=\left\{ p \in \Omega \; | \; -m <= d_{S^{(k)}}(p) \leq m \right\}\\
+	X^{(k)} &:= X(O^{(k)})  \\
+	F^{(k)} &:= S^{(k)} \setminus O^{(k)} \\
+	F_r^{(k)}(p) &:= F^{(k)} \cap B_r(p)\\
+	G_r^{(k)}(p) &:= B_r(p) \setminus F_r^{(k)}(p) \\	
+	O_r^{(k)}(p) &:= O^{(k)} \cap B_r(p) \\
+	X_r^{(k)}(p) &:= X\big( O_r^{(k)}(p) \big).
+\end{align*}
+
+We assume a mapping between each point $p \in \partial_h S^{(k)}$ to a pair of points $p_o,p_i \in R_m(S^{(k)})$ in the outer and inner parts of the ring, respectively. We define the value $T_m(X^{(k)},p)$ which corresponds to the sum of the outer and inner ball contributions centered at points $p_o$ and $p_i$. To simplify notation, we denote $X_i=X_r^{(k)}(p_i)$ and $X_o=X_r^{(k)}(p_o)$ and we proceed similarly for sets $F,G,O$.
 
 \begin{align}
-	T_m(X) &= (A_o - \sum_{X_o}{x})^2  + (A_i - \sum_{X_i}{x})^2 
+	T_m(X^{(k)},p) &= (A_o - \sum_{x_j \in X_o}{(1-x_j)})^2  + (A_i - \sum_{x_j \in X_i}{(1-x_j)})^2 
 	\label{eq:flip-flow-term},
 \end{align}
 
-where $A_i=\pi R^2/2 - F_i$, $A_o=\pi R^2/2 - F_o$.
-
-In the FlipFlow algorithm we invert the solution after minimization. The inversion of optimal solution $f(X)$ equals the solution of $f(1-X)$.
-
-\begin{align*}
-	\overline{\argmin E_m(X)} = \argmin E_m(1-X).
-\end{align*}
-
-Rewriting \eqref{eq:flip-flow-term} as $T_m(1-X)$ we obtain
+where $A_i=\pi R^2/2 - F_i$, $A_o=\pi R^2/2 - F_o$. Note that we sum over $(1-x)$, which corresponds to the inversion step of the FlipFlow algorithm. We are going to rearrange equation \eqref{eq:flip-flow-term}, which will give us an alternative interpretation for the FlipFlow model. Let's start by rewriting the first term in \eqref{eq:flip-flow-term}.
 
 \begin{align}
-	T_m(1-X) &= (A_o - \sum_{X_o}{(1-x)})^2 + (A_i - \sum_{X_i}{(1-x)})^2
-	\label{eq:inverted-term}
-\end{align}
-
-Let's start by rewriting the first term in \eqref{eq:inverted-term}.
-
-\begin{align}
-	(A_o - \sum_{X_o}{(1-x)})^2 &= (\frac{\pi R^2}{2} - F_O - |X_O| + \sum_{X_o}{x})^2 \nonumber \\
-	&= 	(B_O - \frac{\pi R^2}{2} + \sum_{X_o}{x})^2 \nonumber \\
-	&= (\frac{\pi R^2}{2} - B_O - \sum_{X_o}{x})^2,
+	\big( A_o - \sum_{x_j \in X_o}{(1-x_j)}\big)^2 &= (\frac{\pi R^2}{2} - |F_o| - |X_o| + \sum_{x_j \in X_o}{x_j})^2 \nonumber \\
+	&= 	( |G_o| - \frac{\pi R^2}{2} + \sum_{x_j \in X_o}{x_j})^2 \nonumber \\
+	&= (\frac{\pi R^2}{2} - |G_o| - \sum_{x_j \in X_o}{x_j})^2,
 	\label{eq:first-sum-inverted-term}
 \end{align}
 
-since $B_O+F_O+|X_O| = \pi R^2$. Next, consider the second term of \eqref{eq:inverted-term}. Expanding it, we obtain
+since $|G_o|+|F_o|+|X_o| = \pi R^2$. Next, consider the second term of \eqref{eq:flip-flow-term}. Expanding it, we obtain
 
 \begin{align*}
-	(A_i - \sum_{X_i}{(1-x)})^2 &= (A_i - |X|)^2 + 2(A_i-|X|)\sum_{X_i}{x} + ( \sum_{X_i}{x} )^2 \\
-	&= A_i^2 -2A_i|X| + |X|^2 + 2(A_i - |X|)\sum_{X_i}{x} + (\sum_{X_i}{x})^2  \\
-	&= A_i^2 + 2A_i\sum_{X_i}{x} + (\sum_{X_i}{x})^2 - 2A_i|X| + |X|^2 - 2|X|\sum_{X_i}{x} \\
-	&= 2A_i^2 - (A_i - \sum_{X_i}{x})^2 -2A_i|X| + (|X| - \sum_{X_i}{x})^2 + (\sum_{X_i}{x})^2
+	(A_i - \sum_{x_j \in X_i}{(1-x_j)})^2 &= (A_i - |X_i|)^2 + 2(A_i-|X_i|)\sum_{x_j \in X_i}{x_j} + ( \sum_{x_j \in X_i}{x_j} )^2  \\
+	&= A_i^2 -2A_i|X_r^{(k)}(p_i)| + |X_i|^2 + 2(A_i - |X_i|)\sum_{x_j \in X_i}{x_j} + (\sum_{x_j \in X_i}{x_j})^2  \\
+	&= A_i^2 + 2A_i\sum_{x_j \in X_i}{x_j} + (\sum_{x_j \in X_i}{x_j})^2 - 2A_i|X_i| + |X_i|^2 - 2|X_i|\sum_{x_j \in X_i}{x_j} \\
+	&= 2A_i^2 - (A_i - \sum_{x_j \in X_i}{x_j})^2 -2A_i|X_i| + (|X_i| - \sum_{x_j \in X_i}{x_j})^2 + (\sum_{x_j \in X_i}{x_j})^2
 \end{align*}
 
-Eliminating constant $2A_i^2 - 2A_i|X|$
+Eliminating constant $2A_i^2 - 2A_i|X_i|$
 	
 \begin{align}
-	(A_i - \sum_{X_i}{(1-x)})^2 &= - (A_i - \sum_{X_i}{x})^2 + \Big( \sum_{X_i}{(1-x)} \Big)^2 + \Big(\sum_{X_i}{x}\Big)^2 \nonumber \\
-	&= - (A_i - \sum_{X_i}{x})^2 + P_1(x).
+	(A_i - \sum_{x_j \in X_i}{(1-x_j)})^2 &= - (A_i - \sum_{x_j \in X_i}{x_j})^2 + \Big( \sum_{x_j \in X_i}{(1-x_j)} \Big)^2 + \Big(\sum_{x_j \in X_i}{x_j}\Big)^2 \nonumber \\
+	&= - (A_i - \sum_{x_j \in X_i}{x_j})^2 + P_1(X_i).
 	\label{eq:second-sum-inverted-term}
 \end{align}
 
-where  $P_a=\Big( \sum{a(1-x)} \Big)^2 + \Big(\sum{x}\Big)^2$. Replacing \eqref{eq:first-sum-inverted-term} and \eqref{eq:second-sum-inverted-term}  in \eqref{eq:inverted-term} we obtain
+where  $P_a(X_i)=\Big( \sum_{x_j \in X_i}{a(1-x_j)} \Big)^2 + \Big(\sum_{x_j \in X_i}{x_j}\Big)^2$. Replacing \eqref{eq:first-sum-inverted-term} and \eqref{eq:second-sum-inverted-term}  in \eqref{eq:inverted-term} we obtain
 
 \begin{align}
-	T_m(1-X) = (\frac{\pi R^2}{2} - B_O - \sum_{X_o}{x})^2 - (A_i - \sum_{X_i}{x})^2 + P_1(x).
+	T_m(X^{(k)},p) = (\frac{\pi R^2}{2} - G_o - \sum_{x_j \in X_o}{x_j})^2 - (A_i - \sum_{x_j \in X_i}{x_j})^2 + P_1(X_i).
 \end{align}
 
 The term $P_1$ penalizes solutions in which the ratio of $1$-labeled variables is distant from $0.5$. Since we don't have topological constraints, such term forces the model to be more selective in its labeling, which reduces the number of chess-board alike solutions. The parameter $a$ controls the number of $1$-labeled variables to be set in the solution. Indeed,
@@ -69,76 +66,37 @@ The term $P_1$ penalizes solutions in which the ratio of $1$-labeled variables i
 	\item{Argue that $a=1$ is indeed a good choice. Since the terms are applied to regions of positive and negative curvature, the number of $1$-labeled variables may vary. Moreover, we can show by doing some experiments that increasing the weight of $P_1$ reduces the chess-board alike solutions. }
 \end{itemize}
 
-We are almost ready to define the single step version of the FlipFlop energy. As in chapter \ref{chapter:flip-flow}, we need to define some sets before proceed. We recall that $S^{(i)}$ corresponds to the shape in the $i$th iteration and that $d_S$ is its signed distance transform.
-
-\begin{align*}
-	O^{(i)} &:=\left\{ p \in \Omega \; | \; -m <= d_{S^{(i)}}(p) \leq m \right\}\\
-	X^{(i)} &:= X(O^{(i)})  \\
-	F^{(i)} &:= S^{(i)} \setminus O^{(i)} \\
-	F_r^{(i)}(p) &:= F^{(i)} \cap B_r(p)\\
-	I_r^{(i)}(p) &:= O^{(i)} \cap B_r(p) \\
-	X_r^{(i)}(p) &:= X\big( O_r^{(i)}(p) \big).
-\end{align*}
-
+The single step FlipFlow energy is defined as
 
 \begin{align}
-  E_{m-sflip}(X^{(i)},S^{(i)}) =& \sum_{x_j \in X^{(i)}}{\alpha s(x_j)} + \sum_{ \substack{p_o,p_i \in \\ R_m(S^{(i)})}}{ 2c_1 \beta  T_m(p_o,p_i) }+ \sum_{x_j \in X^{(i)}}{\gamma g(S^{(i)},x_j)},
+  E_{m-sflip}(X^{(k)},S^{(k)}) =& \sum_{x_j \in X^{(k)}}{\alpha s(x_j)} + \sum_{ \substack{p \in \\ R_m(S^{(k)})}}{ 2c_1 \beta  T_m(X^{(k)},p) }+ \sum_{x_j \in X^{(k)}}{\gamma g(S^{(k)},x_j)},
   \label{eq:single-step-energy-family}
 \end{align}
-where $g(S,x)$ denotes a data term (e.g., distance to initial shape $S$ or fidelity to data) and $s(x)$ denotes a length penalization term. We recall that $R_m$ refers to the $m-ring$ defined in section \ref{ch6:sec:local-combinatorial-scheme}. Each choice of $m$ generates a different flow, which is generally described in the FlipFlow algorithm \ref{alg:evolution-model}. To optimize energy \eqref{eq:energy-family} we use the QPBOI \ref{} algorithm.
-
-\section{Potential elastica}
-
-As observed in the previous chapter, a global optimization model is unlikely to be useful in practice. In this section, we are going to explore the definition of the II estimator to derive a process that evolves the shape $S$ based on measurements of its current boundary $\partial S$. We start by defining a naive energy that illustrates some of the issues with this approach and how we can overcome them.
-
-As usual, let $S \in \Omega \in \mathbb{Z}^2$ be a digital shape. We assume an ordering in $\Omega$, i.e., there exists a bijective function $\omega : \Omega \rightarrow \{1 \cdots |\Omega| \}$. Moreover, we associate to any subset $P \subset \Omega$ the set of binary variables $X(P)$ defined as
-
-\begin{align*}
-	X(P) := \left\{ x_{\omega(p)} \in \{0,1\} \; | \; p \in P \right\}.
-\end{align*}
-
-\begin{definition}{Inner pixel boundary}
-Given a digital shape $S \in \Omega \in \mathbb{Z}^2$, we define its inner pixel boundary set $I(S)$ as
-\begin{align*}
-	I(S) := \left\{ \: p \; | \; p \in S, |\mathcal{N}_4(x) \cap S|<4 \: \right\},
-\end{align*}
-where $\mathcal{N}_4(p)$ denotes the $4$-adjacent neighbor set of $p$ (without $p$).
-\end{definition}
-
-
-We recall the II estimator definition
-
-\begin{align*}
-	\hat{k}(p) = \frac{3}{r^3}\left( \frac{\pi r^2}{2} - |B_r(p) \cap S| \right).
-\end{align*}
-
-Consider the following optimization problem and its result for the square shape with parameters $h=0.5,r=10$ in figure \ref{}.
+where $g(S,x)$ denotes a data term (e.g., distance to initial shape $S$ or fidelity to data) and $s(x)$ denotes a length penalization term defined below.
 
 \begin{align}
-	\min_{X(I(S)} \sum_{p \in I(S)}{ \Big( \; \frac{\pi r^2}{2} - | (B_r(p) \cap S) \setminus I(S) | - \sum_{ \substack{x_j \in \\ X( I(S) \cap B_r(p))}}{x_j} \; \Big)^2}.
-	\label{eq:naive-opt-problem}
+  s(x_{w(p)})=\sum_{q \in \mathcal{N}_4(p)}{ t(q) }, \quad \text{where } t(q) = \left\{\begin{array}{ll}
+  (x_{w(p)}-x_{w(q)})^2, & \text{if } q \in O^{(k)}\\
+  (x_{w(p)}-1), & \text{if } q \in F^{(k)}\\
+  (x_{w(p)}-0), & \text{otherwise }
+  \end{array}\right.
+  \label{eq:length-penalization}
 \end{align}
 
-\begin{figure}
-\center
-\subfloat[\label{fig:naive-opt-before}]{
-\includegraphics[scale=0.18]{figures/chapter6/contour-information/before-opt.pdf}}
-\subfloat[\label{fig:naive-opt-after}]{
-\includegraphics[scale=0.18]{figures/chapter6/contour-information/after-opt.pdf}}
-\caption{Solution of model \eqref{eq:naive-opt-problem} for the square shape $(h=0.5,r=10)$. In (a) we have the square shape before minimization. Optimization variables are colored yellow. In (b), the resulting shape of the optimization problem. }
-\label{fig:naive-opt-problem}
-\end{figure}
+\begin{align}
+  g(x_{w(p)}) = -x_{w(p)}\log{H_f(p)} - (1-x_{w(p)})\log{H_b(p)},
+  \label{eq:data-fidelity}
+\end{align}	
 
-The solution in figure \ref{fig:naive-opt-after} should not cause any surprise. The energy \eqref{eq:naive-opt-problem} is optimized over a fixed contour, i.e., independently of pixels being labeled zero or one the estimation ball is evaluated at the same initial contour. In section \ref{sec:global-optimization-model} we've defined an optimization energy in which contour information is taken into account, but we end up with a difficult optimization problem.
+where $H_f ,H_b $ are the mixed Gaussian distributions of color intensities derived from the foreground and background seeds.
 
-Nonetheless, we can exploit the II estimator definition to derive an energy which the minimization will lead to a shape with lower digital elastica value.
-
+\section{Potential elastica}
 
 \begin{definition}{Unbalance coefficent}
 Given digital shape $S \in \Omega$, positive number $r$ and point $p \in \Omega$, the \emph{unbalance coefficient} of $S$ at $p$ is defined as
 
 \begin{align*}
-	u(p) = \left( \frac{\pi r^2}{2} - |B_r(p) \cap S| \right)^2.
+	u(S,p) = \left( \frac{\pi r^2}{2} - |B_r(p) \cap S| \right)^2.
 \end{align*}
 
 \end{definition}
@@ -165,34 +123,20 @@ The unbalance coefficient is used to estimate the effect of moving the estimatio
 \end{figure}
 
 
-We observe that the unbalance grows if the estimation ball is moved towards the exterior and decreases if the estimation ball is moved towards the interior of the shape. That is an indication that we should remove point $p$ from $S$ to decrease the curvature of the shape at point $p \in \partial S$. 
+In figure \ref{fig:unbalance-plot}, the unbalance grows if the estimation ball is moved towards the exterior and decreases if the estimation ball is moved towards the interior of the shape. That is an indication that we should remove point $p$ from $S$ to decrease the curvature of the shape at point $p \in \partial S$. The same point $p$ may be touched by several balls, each of them contributing with some value for the ultimate decision of keep or remove point $p$ of $S$. The $m$-potential is defined as the sum of these contributions
 
 
-\section{Formalization}
-
-Let $r>0,k \in \mathbb{R}$. For any point $p \in I(S)$, define
+\begin{definition}{m-potential}
+Given digital shape $S$, natural numbers $r>0, m \neq 0$, the \emph{m-potential} at point $p$ is defined as
 
 \begin{align*}
-	c_{r,k}(p) = k\vec{n}(p).
+	U_{m}(S,p) &= \sum_{q \in Q_m(p)}{ u(q),}
 \end{align*}
 
-To simplify notation, we assume $r,k$ are fixed positive values and we denote $c_j^- = c_{r,-k}(x_j)$ and $c_j^+ = c_{r,k}(x_j)$. We define the energy
+where its zone of influence $Q_m(p)$ is defined as
 
 \begin{align*}
-	E() &= \sum_{x_j}{ x_j (\, u(c_j^+) - u(c_j^-)\, )}
-\end{align*}
-
-\begin{definition}{k-potential}
-Given digital shape $S$, natural numbers $r>0, k \neq 0$, the \emph{k-potential} at point $p$ is defined as
-
-\begin{align*}
-	U_{S,k}(p) &= \sum_{q \in Q(p)}{ u(q),}
-\end{align*}
-
-where its zone of influence $Q(p)$ is defined as
-
-\begin{align*}
-	\mathcal{Q}(p) &= \left\{\; p \in B_r(q) \; \right\}.
+	Q_m(p) &= \left\{\; q \in L_m(S) \; | \; p \in B_r(q) \; \right\}.
 \end{align*}
 
 \end{definition}
@@ -200,110 +144,33 @@ where its zone of influence $Q(p)$ is defined as
 \begin{figure}[h!]
 \center
 \includegraphics[scale=0.5]{figures/appendix-potential-elastica/k-potential.png}
-\caption{The blue points forms the interference set of the yellow point.}
+\caption{The blue points forms the zone of influence of the yellow point.}
 \label{fig:unbalance-set}
 \end{figure}
 
-The interference set of $p$ is the set of all points $q$ in which $p$ is contained in the estimation ball centered at $q$.   
+The zone of influence of $p$ is the set of all points $q$ in which $p$ is contained in the estimation ball centered at $q$. Finally, we can use the $m$-potential to rewrite the single step FlipFlow energy.
 
 
-
-
-
-
-
-The k-potential is used to decide which pixels are to be removed or to be kept in the next shape of the flow. 
-
-
-\begin{definition}{$k$-flow}
+\begin{definition}{$ms$-FlipFlow}
 	Given digital shape $X$, we define its $k$-flow as
 	
 	\begin{align*}
-		F_k = \Big\{& S^{(i)} \; | \\
+		F_{ms} = \Big\{& S^{(k)} \; | \\
 			& S^{(0)} = S,\\
-		    &S^{(i+1)} = \argmin \sum_{ x_j \in X(I(S^{(i)}))}{ x_j \Delta _j\big(\; U_{S,k}(p) - U_{S,-k}(p) \;\big)} - \phi(S^{(i)},k,x_j) \; \Big\},
+		    &S^{(k+1)} = \argmin \sum_{ x_j \in X_r^{(k)}}{ x_j \Delta _j\big(\; U_{m}(S^{(k)},p) - U_{-m}(S^{(k)},p) \;\big)} - \phi(S^{(k)},m,x_j) \; \Big\},
 	\end{align*}
 	
-	where $\phi(S^{(i)},k,x_j)$ accounts for pairwise terms that were counted twice.
+	where $\phi(S^{(k)},m,x_j)$ accounts for pairwise terms that were counted twice.
 	
 	\begin{align*}
-	\phi(S^{(i)},k,x_j) = \frac{x_j}{2}\sum_{ x_l \in X(I(S^{(i)}))}{x_l \Delta _{jl}\big(\; U_{S,k}(p) - U_{S,-k}(p) \;\big)} 
+	\phi(S^{(k)},m,x_j) = \frac{x_j}{2}\sum_{ x_l \in X_r^{(k)}}{x_l \Delta _{jl}\big(\; U_m(S^{(k)},p) - U_{-m}(S^{(k)},p) \;\big)} 
 	\end{align*}
      	  
 \end{definition}	
 
-In other words, the pixel is labeled zero (one) if its outer (inner) potential is bigger than its inner (outer) potential.
-
-[Results for triangle, square, flower, bean. Non uniform. Balls positioned at radius-2]
-
-
-We have two issues to tackle. 
-\begin{enumerate}
-	\item{Why the estimation balls should be centered at distant levels?}
-	\item{Why the flow tends to shrink the shape?}
-\end{enumerate}
-
-
-\section{Distant balls}
-	The optimization process performs the better when the estimation balls are positioned at distance that maximize the gap between the outer and inner unbalance. Surprisingly, this gap is independent of the curvature value in the boundary. In the experiments, we observe that the highest gap is invariably at $\frac{2}{3}$ of the estimation ball radius.
+	The inner and outer balls estimates the impact of shifting the center of the ball from a single point in the boundary. That means that limiting the region of influence of each pair of inner and outer balls is important. Each pair of inner and outer balls evaluates the shifting of a single point in the boundary.	
 	
-	The reasoning for distance balls is two fold. First, we need at least a $k=1$ in order to compute the unbalance, otherwise it would be zero. The question is how large should be $k$? The energy is easier to optimize if the gap between outer and inner curves is at its maximum. We should find a compromise value for $k$ that assure us a sufficiently large gap. 
+	We do not impose any mapping between the inner and outer balls. It will be too complicated otherwise, and we don't need to do it. The mapping is implicitly defined when the inner and outer balls are positioned at $m$-rings with high value of $m$. The larger the value of $m$ the smaller is the zone of influence of each point. In the limit, each pair of balls would touch a single point in the pixel boundary. 
 	
-	Second, the inner and outer balls estimates the impact of shifting the center of the ball from a single point in the boundary. That means that limiting the region of influence of each pair of inner and outer balls is important.
+	That observation let us to ask if a graph-cut model may be devised for the problem.
 	
-	Each pair of inner and outer balls evaluates the shifting of a single point in the boundary.
-	
-	We do not impose any mapping between the inner and outer balls. It will be too complicated. And we don't need to do it. The mapping is somehow implicitly defined by the distance level curves. 
-	
-	However, the closer the balls are from the boundary the bigger it is its zone of influence. Ideally, we should set weigths for each pixel in the ball accordingly to its distance from the normal. This is also complicated! 
-	
-	Nonetheless, there is a natural way to implement that. If the balls are in distant levels, its zone of influence englobes a small area around the normal. We've got the weighting by normals for free!
-	
-	
-	
-	
-
-\section{Controlling the shrinking}
-
-\section{Unbalance plot development}
-	The unbalance difference at a point $c \in S$ distant $d$ units from the corner is written as
-	\begin{align*}
-		u_i(c) &= \frac{\pi r^2}{2} - \big( \; a^2 + area( APC ) + area(A'PC) + area(\arc{PQ})  \; \big) \\
-		&= \frac{\pi r^2}{2} - \big( \; a^2 + a(P_x-a) + \frac{\Theta_P + \Theta_Q + \pi/2}{2\pi} \pi r^2\; \big),
-	\end{align*}
-	
-	where
-	
-	\[
-	\begin{array}{ll}
-	a = d\sqrt{1/2} & \Theta_P = \arctan \frac{a}{P_x-a} \\		
-	Q_y = -P_x = a + \sqrt{r^2 -a^2} & \Theta_Q = \arctan \frac{a}{|Q_y|-a}		
-	\end{array}\]
-	
-%default = pi*R^2*(abs(t2) + abs(phi))/(2*pi) + a*abs(p2[0])
-
-%g2 = pi*R^2/2 - ( pi*R^2 - ( pi*R^2/4 - default) )	
-	
-	Similarly, for the outer ball
-	\begin{align*}
-		u_o(c) &= \frac{\pi r^2}{2} - \big(\; \frac{\pi r^2}{4} - area(APC) - area(AQC) - area(\arc{CP'}) - area(\arc{CQ'}) \; \big)\\
-		&= \frac{\pi r^2}{2} - \big( \; \frac{\pi r^2}{4} - aP_x - \frac{\Theta_P + \Theta_Q}{2\pi}\pi r^2 \; \big),
-	\end{align*}
-	
-	where
-	\[
-	\begin{array}{ll}
-		a = d\sqrt{1/2} & \Theta_P = \arctan \frac{a}{P_x+a}\\
-		Q_y = -P_x = \sqrt{r^2-a^2} - a & \Theta_Q = \arctan \frac{a}{|Q_y|+a}
-	\end{array}	 \]
-	
-\begin{figure}[h!]
-	\begin{minipage}{0.5\textwidth}
-	\center
-	\includegraphics[scale=2.0]{figures/appendix-potential-elastica/balance-dev-1.png}
-	\end{minipage}%
-	\begin{minipage}{0.5\textwidth}
-	\center
-	\includegraphics[scale=2.0]{figures/appendix-potential-elastica/balance-dev-2.png}
-	\end{minipage}	
-\end{figure}
