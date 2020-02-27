@@ -1,0 +1,11 @@
+Shape name:flower
+Ball radius:9
+Grid step:0.25
+Opt band:2
+Energy:elastica
+Length penalization:0.01
+Iterations:400
+neighborhood size:0
+Max number of threads:4
+Output folder:/home/dantu/GIT/PhD/thesis-figures/chapter8/graph-flow/data/flower/neigh-0
+Pixel mask filepath:
