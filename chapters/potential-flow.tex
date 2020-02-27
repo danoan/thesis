@@ -186,14 +186,14 @@ T_{m-flip}(S) &= ( \frac{\pi R^2}{2} - (\; |F_o| + \sum_{ x_j \in X_o}{1-x_j} \;
 &= T_{m-pot}(S) + P_1(X_i) + c.
 \end{align}
 
-The two energies differ in the penalty term $P_1(X_i)$. Such term favors solutions in which half of the variables are labeled one. The FlipFlow and PotentialFlow behave smilarly. However, it's more likely that the PotentialFlow converges to an intermediate shape instead of evolving to a single point (see figure \ref{fig:potential-flow-flip-flow-comparison}). We believe that the extended optimization region is the reason for that.
+The two energies differ in the penalty term $P_1(X_i)$. Such term favors solutions in which half of the variables are labeled one. The FlipFlow and PotentialFlow behave similarly. For lower values of $m$ both produ However, it's more likely that the PotentialFlow converges to an intermediate shape instead of evolving to a single point (see figure \ref{fig:potential-flow-flip-flow-comparison}). We believe that the extended optimization region is the reason for that.
 
 \begin{figure}
 \begin{tabular}{cccc}
-$8$-PotentialFlow & \includegraphics[scale=0.25]{figures/chapter7/potential-flow/triangle/summary.pdf} & \includegraphics[scale=0.25]{figures/chapter7/potential-flow/flower/summary.pdf} & \includegraphics[scale=0.25]{figures/chapter7/potential-flow/bean/summary.pdf} \\
-$8$-FlipFlow & \includegraphics[scale=0.25]{figures/chapter7/flip-flow/triangle/summary.pdf} & \includegraphics[scale=0.25]{figures/chapter7/flip-flow/flower/summary.pdf} & \includegraphics[scale=0.25]{figures/chapter7/flip-flow/bean/summary.pdf} \\
+$7$-PotentialFlow & \includegraphics[scale=0.25]{figures/chapter7/potential-flow/triangle/summary.pdf} & \includegraphics[scale=0.25]{figures/chapter7/potential-flow/flower/summary.pdf} & \includegraphics[scale=0.25]{figures/chapter7/potential-flow/bean/summary.pdf} \\
+$7$-FlipFlow & \includegraphics[scale=0.25]{figures/chapter7/flip-flow/triangle/summary.pdf} & \includegraphics[scale=0.25]{figures/chapter7/flip-flow/flower/summary.pdf} & \includegraphics[scale=0.25]{figures/chapter7/flip-flow/bean/summary.pdf} \\
 \end{tabular}
-\caption{Evolutions of three shapes for the $8$-PotentialFlow and $8$-FlipFlow using a estimation ball radius of $9$. The PotentialFlow is more likely to converge to an intermediate shape instead to converge to a single points.}
+\caption{Evolutions of three shapes for the $7$-PotentialFlow and $7$-FlipFlow using a estimation ball radius of $9$. The models present similiar behaviour. Shapes are displayed at every $10$ iterations.}
 \label{fig:potential-flow-flip-flow-comparison}
 \end{figure}
 

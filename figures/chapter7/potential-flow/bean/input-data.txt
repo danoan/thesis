@@ -1,4 +1,4 @@
-Levels: 2(FartherFromCenter)
+Levels: 3(FartherFromCenter)
 Radius: 9
 Neighborhood: 4
 Squared Curvature Weight: 1 

@@ -60,7 +60,7 @@ The $m$-graph-cut flow produces similar results to the previous flows (see figur
 \begin{tabular}{cccc}
 &\includegraphics[scale=0.25]{figures/chapter8/graph-flow/triangle/neigh-0/summary.pdf} & \includegraphics[scale=0.25]{figures/chapter8/graph-flow/flower/neigh-0/summary.pdf} & \includegraphics[scale=0.25]{figures/chapter8/graph-flow/bean/neigh-0/summary.pdf}
 \end{tabular}
-\caption{$1$-GraphFlow results for the triangle, flower and bean shapes. Differently from the previous models, the GraphFlow evolves the shape to a single point for any value of $m$.}
+\caption{$1$-GraphFlow results for the triangle, flower and bean shapes. Differently from the previous models, the GraphFlow evolves the shape to a single point for any value of $m$. However, for higher values of $m$ the convergence is faster. Shapes are displayed at every $10$ iterations.}
 \label{fig:graph-flow-neigh0-results}
 \end{figure}
 
@@ -93,7 +93,7 @@ The local-enumerative graph-cut (LEGC) algorithm is described as
 	$candidates \longleftarrow \{\}$\;
  	\ForEach{ $X \in N_a(S^{(k)})$ }
  	{
- 		$candidates \longleftarrow candidates \cup C_s( X )$\;
+ 		$candidates \longleftarrow candidates \cup \{ p \; | \; v_p \in C_s( X ) \}$\;
  	}
  
 	$S^{(k)} \longleftarrow \displaystyle \argmin_{X \in candidates}{ \hat{E}(X) }$\; 	
@@ -104,13 +104,13 @@ The local-enumerative graph-cut (LEGC) algorithm is described as
  \label{alg:legc-algorithm}  
 \end{algorithm}
 
-The LEGC algorithm can grow or shrink accordingly with the $\alpha$ coefficient in the digital Elastica (see figure \ref{fig:graph-flow-neigh2-results}). For $a=0$, we recover the convergence to a point behaviour observed the in FlipFlow and PotentialFlow model. Moreover, its solution for the free Elastica problem is very similar to those given by the enumerative process of chapter \ref{chapter:digital-elastica}, i.e., the shapes converges to the expected global optimum. However, for the constrained Elastica problem, the LSGC encounters some difficulties to evolve (see figure \ref{fig:graph-flow-constrained}). We believe that a larger neighborhood, possibly random, could solve the issue.
+The LSGC algorithm can grow or shrink accordingly with the $\alpha$ coefficient in the digital Elastica (see figure \ref{fig:graph-flow-neigh2-results}). For $a=0$, we recover the convergence to a point behaviour observed the in FlipFlow and PotentialFlow model. Moreover, its solution for the free Elastica problem is very similar to those given by the enumerative process of chapter \ref{chapter:digital-elastica}, i.e., the shapes converges to the expected global optimum. However, for the constrained Elastica problem, the LSGC encounters some difficulties to evolve (see figure \ref{fig:graph-flow-constrained}). We believe that a larger neighborhood, possibly random, could solve the issue.
 
 \begin{figure}
 \begin{tabular}{cccc}
 &\includegraphics[scale=0.25]{figures/chapter8/graph-flow/triangle/neigh-2/summary.pdf} & \includegraphics[scale=0.25]{figures/chapter8/graph-flow/flower/neigh-2/summary.pdf} & \includegraphics[scale=0.25]{figures/chapter8/graph-flow/bean/neigh-2/summary.pdf}
 \end{tabular}
-\caption{The LSGC algorithm can shrink and grow, and it converges to the global optimum in the free Elastica problem. For the flows in the figure, we are using $a=2$.}
+\caption{The LSGC algorithm can shrink and grow, and it converges to the global optimum (green curve) in the free Elastica problem. For the flows in the figure, we are using $a=2$ and shapes are displayed at every $10$ iterations.}
 \label{fig:graph-flow-neigh2-results}
 \end{figure}
 
