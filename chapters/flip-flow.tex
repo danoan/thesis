@@ -1,4 +1,4 @@
-\chapter{Flip-Flow: A curve evolution algorithm driven by Elastica minimization.}
+\chapter{FlipFlow}
 \label{chapter:flip-flow}
 
 In the previous chapter we've presented a local combinatorial model using multigrid convergent estimator that proved to be very sucessfull in optimizing the digital elastica but too slow to be used in practice. We've also attempted to derive a global optimization model, but unfortunately such model is unlikely to be solved in the current state of art of binary optimization techniques. In this chapter we present a second local optimization model that is much faster than algorithm \ref{alg:local-search} but with fewer guarantees of optimality.
@@ -101,17 +101,17 @@ where $g(S,x)$ denotes a data term (e.g., distance to initial shape $S$ or fidel
  \Input{A digital set $S$; The ring number $m$; Length($\alpha$), curvature($\beta$) and data($\gamma$) coefficients; the maximum number of iterations \MIt;}
  \BlankLine
  $S^{(0)} \longleftarrow S$\;
- $i \longleftarrow 1$\;
+ $k \longleftarrow 1$\;
  \While{ \It $<$ \MIt  }{ 	
 	\comment{Shrinking mode}
 	\If{ \It is even }{	 
-	 	$x^{(k)} \longleftarrow \argmin_{X^{(k)}} E_{m-flip}(1-X^{(k)},S^{(k-1)})$\; 	
- 		$S^{(k)} \longleftarrow F^{(k-1)} + x^{(k)}$\;
+	 	$x^{(k-1)} \longleftarrow \argmin_{X^{(k-1)}} E_{m-flip}(1-X^{(k-1)},S^{(k-1)})$\; 	
+ 		$S^{(k)} \longleftarrow F^{(k-1)} + x^{(k-1)}$\;
  	}
 	\comment{Expansion mode} 	
  	\Else{	
-	 	$x^{(k)} \longleftarrow \argmin_{X^{(k)}} E_{m-flip}(1-X^{(k)},\overline{S^{(k-1)}})$\;
- 		$S^{(k)} \longleftarrow \overline{ F^{(k-1)} + x^{(k)}}$\; 	
+	 	$x^{(k-1)} \longleftarrow \argmin_{X^{(k-1)}} E_{m-flip}(1-X^{(k-1)},\overline{S^{(k-1)}})$\;
+ 		$S^{(k)} \longleftarrow \overline{ F^{(k-1)} + x^{(k-1)}}$\; 	
  	}
  	
 	\It $\longleftarrow$ \It $+1$\;
@@ -349,10 +349,10 @@ $m=9$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/impr
 
 \section{Data term and image segmentation}
 
-We present an application of the FlipFlow algorithm to supervised image segmentation. The FlipFlow acts as a contour correction method. Here we use a data fidelity term in order to characterize the object of interest. Given foreground and background seeds selected by the user, we derive mixed Gaussian distributions of color intensities $H_f$,$H_b$, and we define the data fidelity term as the cross-entropy, i.e.
+We present an application of the FlipFlow algorithm to supervised image segmentation. The FlipFlow acts as a contour correction method. Here we use a data fidelity term in order to characterize the object of interest. Given foreground and background seeds selected by the user, we derive mixed Gaussian distributions of color intensities $G_f$,$G_b$, and we define the data fidelity term as the cross-entropy, i.e.
 	
 \begin{align}
-  g(x_{w(p)}) = -(1-x_{w(p)})\log{H_f(p)} - x_{w(p)}\log{H_b(p)}.
+  g(x_{w(p)}) = -(1-x_{w(p)})\log{G_f(p)} - x_{w(p)}\log{G_b(p)}.
   \label{eq:data-fidelity}
 \end{align}	
 
@@ -386,6 +386,8 @@ is set to the data fidelity term \eqref{eq:data-fidelity}.
 \end{algorithm}	
 
 The algorithm can be initialized by a collection of compact sets, or with the result of a third-party segmentation algorithm, as GrabCut \cite{rother04grabcut}. We include an additional parameter $d$ that dilates the initial sets using a square of side one before executing the flow.
+
+An illustration of the application of the FlipFlow model in image segmentation is presented in figure \ref{fig:ch6-segmentation}. We present a more exhaustive list of experiments and comparisons with other methods in chapter \ref{}.
 	
 \begin{figure}[ht!]
 \center

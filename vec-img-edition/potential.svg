@@ -20,6 +20,10 @@
      id="defs2">
     <inkscape:path-effect
        effect="spiro"
+       id="path-effect11035"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
        id="path-effect5220"
        is_visible="true" />
     <inkscape:path-effect
@@ -198,6 +202,22 @@
        effect="spiro"
        id="path-effect72-5-6-3-2-6"
        is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect28-6-36"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect72-5-75"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect11035-1"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect11035-1-7"
+       is_visible="true" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -206,9 +226,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.2753006"
-     inkscape:cx="194.13858"
-     inkscape:cy="38.451759"
+     inkscape:zoom="0.56882515"
+     inkscape:cx="266.56496"
+     inkscape:cy="60.672268"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -884,5 +904,174 @@
          id="path4246-16"
          style="opacity:1;fill:#a4daff;fill-opacity:1;stroke:none;stroke-width:0.09460621;stroke-miterlimit:4;stroke-dasharray:0.56763723, 0.56763723;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke" />
     </g>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.665;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m -211.15614,163.79402 c 2.00418,-6.52103 5.3892,-12.61407 9.86711,-17.7608 5.72975,-6.58555 13.30693,-11.61849 21.71315,-13.97115 8.40622,-2.35266 17.62067,-1.95443 25.64897,1.47281 3.9698,1.69469 7.60485,4.08497 11.51163,5.92027 7.55358,3.54847 15.99332,4.94452 24.33887,4.93355 23.471564,-0.0309 46.658471,-11.56165 60.847176,-30.25913"
+       id="path11033"
+       inkscape:connector-curvature="0"
+       inkscape:path-effect="#path-effect11035"
+       inkscape:original-d="m -211.15614,163.79402 c 0.15978,-7.00606 5.8143,-12.46098 9.86711,-17.7608 10.77319,-14.08802 30.90258,-17.20106 47.36212,-12.49834 4.09069,1.16877 7.40641,4.49923 11.51163,5.92027 7.39834,2.56096 16.58711,4.12608 24.33887,4.93355 30.08879,3.13425 45.906499,-5.358 60.847176,-30.25913"
+       transform="translate(14.142857,26.970099)"
+       inkscape:export-filename="/home/dantu/GIT/PhD/thesis/figures/appendix-potential-elastica/k-potential.png"
+       inkscape:export-xdpi="120"
+       inkscape:export-ydpi="120" />
+    <path
+       style="fill:none;stroke:#ffc800;stroke-width:1.665;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m -211.15614,163.79402 c 2.00418,-6.52103 5.3892,-12.61407 9.86711,-17.7608 5.72975,-6.58555 13.30693,-11.61849 21.71315,-13.97115 8.40622,-2.35266 17.62067,-1.95443 25.64897,1.47281 3.9698,1.69469 7.60485,4.08497 11.51163,5.92027 7.55358,3.54847 15.99332,4.94452 24.33887,4.93355 23.471564,-0.0309 46.658471,-11.56165 60.847176,-30.25913"
+       id="path11033-2"
+       inkscape:connector-curvature="0"
+       inkscape:path-effect="#path-effect11035-1"
+       inkscape:original-d="m -211.15614,163.79402 c 0.15978,-7.00606 5.8143,-12.46098 9.86711,-17.7608 10.77319,-14.08802 30.90258,-17.20106 47.36212,-12.49834 4.09069,1.16877 7.40641,4.49923 11.51163,5.92027 7.39834,2.56096 16.58711,4.12608 24.33887,4.93355 30.08879,3.13425 45.906499,-5.358 60.847176,-30.25913"
+       transform="translate(22.704884,45.902613)"
+       inkscape:export-filename="/home/dantu/GIT/PhD/thesis/figures/appendix-potential-elastica/k-potential.png"
+       inkscape:export-xdpi="120"
+       inkscape:export-ydpi="120" />
+    <path
+       style="fill:none;stroke:#ffc800;stroke-width:1.665;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m -211.15614,163.79402 c 2.00418,-6.52103 5.3892,-12.61407 9.86711,-17.7608 5.72975,-6.58555 13.30693,-11.61849 21.71315,-13.97115 8.40622,-2.35266 17.62067,-1.95443 25.64897,1.47281 3.9698,1.69469 7.60485,4.08497 11.51163,5.92027 7.55358,3.54847 15.99332,4.94452 24.33887,4.93355 23.471564,-0.0309 46.658471,-11.56165 60.847176,-30.25913"
+       id="path11033-2-0"
+       inkscape:connector-curvature="0"
+       inkscape:path-effect="#path-effect11035-1-7"
+       inkscape:original-d="m -211.15614,163.79402 c 0.15978,-7.00606 5.8143,-12.46098 9.86711,-17.7608 10.77319,-14.08802 30.90258,-17.20106 47.36212,-12.49834 4.09069,1.16877 7.40641,4.49923 11.51163,5.92027 7.39834,2.56096 16.58711,4.12608 24.33887,4.93355 30.08879,3.13425 45.906499,-5.358 60.847176,-30.25913"
+       transform="translate(11.52216,9.065404)"
+       inkscape:export-filename="/home/dantu/GIT/PhD/thesis/figures/appendix-potential-elastica/k-potential.png"
+       inkscape:export-xdpi="120"
+       inkscape:export-ydpi="120" />
+    <circle
+       style="opacity:0.8;fill:#00c1ff;fill-opacity:1;stroke:#0000ff;stroke-width:1.02483726;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke"
+       id="path38-3-6-1-6"
+       cx="-120.57508"
+       cy="167.93088"
+       r="31.427624"
+       inkscape:export-filename="/home/dantu/GIT/PhD/thesis/figures/appendix-potential-elastica/k-potential.png"
+       inkscape:export-xdpi="120"
+       inkscape:export-ydpi="120" />
+    <circle
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.12780711;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke"
+       id="path38-3-6-1-6-9"
+       cx="-120.6969"
+       cy="168.47505"
+       r="3.9193285"
+       inkscape:export-filename="/home/dantu/GIT/PhD/thesis/figures/appendix-potential-elastica/k-potential.png"
+       inkscape:export-xdpi="120"
+       inkscape:export-ydpi="120" />
+    <circle
+       style="opacity:1;fill:#e1ff00;fill-opacity:1;stroke:none;stroke-width:0.10153215;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke"
+       id="path38-3-6-1-6-9-3-61"
+       cx="-134.30092"
+       cy="146.53473"
+       r="3.1135814"
+       inkscape:export-filename="/home/dantu/GIT/PhD/thesis/figures/appendix-potential-elastica/k-potential.png"
+       inkscape:export-xdpi="120"
+       inkscape:export-ydpi="120" />
+    <circle
+       style="opacity:1;fill:#e1ff00;fill-opacity:1;stroke:none;stroke-width:0.10153215;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke"
+       id="path38-3-6-1-6-9-3-8"
+       cx="-123.96542"
+       cy="151.4438"
+       r="3.1135814"
+       inkscape:export-filename="/home/dantu/GIT/PhD/thesis/figures/appendix-potential-elastica/k-potential.png"
+       inkscape:export-xdpi="120"
+       inkscape:export-ydpi="120" />
+    <circle
+       style="opacity:1;fill:#e1ff00;fill-opacity:1;stroke:none;stroke-width:0.10153215;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke"
+       id="path38-3-6-1-6-9-3-7"
+       cx="-111.85082"
+       cy="153.4968"
+       r="3.1135814"
+       inkscape:export-filename="/home/dantu/GIT/PhD/thesis/figures/appendix-potential-elastica/k-potential.png"
+       inkscape:export-xdpi="120"
+       inkscape:export-ydpi="120" />
+    <circle
+       style="opacity:1;fill:#e1ff00;fill-opacity:1;stroke:none;stroke-width:0.10153215;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke"
+       id="path38-3-6-1-6-9-3-9"
+       cx="-99.199364"
+       cy="152.82623"
+       r="3.1135814"
+       inkscape:export-filename="/home/dantu/GIT/PhD/thesis/figures/appendix-potential-elastica/k-potential.png"
+       inkscape:export-xdpi="120"
+       inkscape:export-ydpi="120" />
+    <circle
+       style="opacity:1;fill:#e1ff00;fill-opacity:1;stroke:none;stroke-width:0.10153215;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke"
+       id="path38-3-6-1-6-9-3-9-2"
+       cx="-144.07712"
+       cy="176.76131"
+       r="3.1135814"
+       inkscape:export-filename="/home/dantu/GIT/PhD/thesis/figures/appendix-potential-elastica/k-potential.png"
+       inkscape:export-xdpi="120"
+       inkscape:export-ydpi="120" />
+    <circle
+       style="opacity:1;fill:#e1ff00;fill-opacity:1;stroke:none;stroke-width:0.10153215;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke"
+       id="path38-3-6-1-6-9-3-9-0"
+       cx="-131.05319"
+       cy="180.24986"
+       r="3.1135814"
+       inkscape:export-filename="/home/dantu/GIT/PhD/thesis/figures/appendix-potential-elastica/k-potential.png"
+       inkscape:export-xdpi="120"
+       inkscape:export-ydpi="120" />
+    <circle
+       style="opacity:1;fill:#e1ff00;fill-opacity:1;stroke:none;stroke-width:0.10153215;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke"
+       id="path38-3-6-1-6-9-3-9-23"
+       cx="-118.49441"
+       cy="186.41296"
+       r="3.1135814"
+       inkscape:export-filename="/home/dantu/GIT/PhD/thesis/figures/appendix-potential-elastica/k-potential.png"
+       inkscape:export-xdpi="120"
+       inkscape:export-ydpi="120" />
+    <circle
+       style="opacity:1;fill:#e1ff00;fill-opacity:1;stroke:none;stroke-width:0.10153215;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke"
+       id="path38-3-6-1-6-9-3-9-7"
+       cx="-104.77277"
+       cy="189.43637"
+       r="3.1135814"
+       inkscape:export-filename="/home/dantu/GIT/PhD/thesis/figures/appendix-potential-elastica/k-potential.png"
+       inkscape:export-xdpi="120"
+       inkscape:export-ydpi="120" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'TeX Gyre DejaVu Math';-inkscape-font-specification:'TeX Gyre DejaVu Math';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332;"
+       x="-116.05243"
+       y="170.48192"
+       id="text11195"
+       inkscape:export-filename="/home/dantu/GIT/PhD/thesis/figures/appendix-potential-elastica/k-potential.png"
+       inkscape:export-xdpi="120"
+       inkscape:export-ydpi="120"><tspan
+         sodipodi:role="line"
+         id="tspan11193"
+         x="-116.05243"
+         y="170.48192"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre DejaVu Math';-inkscape-font-specification:'TeX Gyre DejaVu Math';stroke-width:0.26458332;fill:#ffffff;fill-opacity:1;">p</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'TeX Gyre DejaVu Math';-inkscape-font-specification:'TeX Gyre DejaVu Math';letter-spacing:0px;word-spacing:0px;fill:#e1ff00;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-113.74629"
+       y="146.96786"
+       id="text11195-6"
+       inkscape:export-filename="/home/dantu/GIT/PhD/thesis/figures/appendix-potential-elastica/k-potential.png"
+       inkscape:export-xdpi="120"
+       inkscape:export-ydpi="120"><tspan
+         sodipodi:role="line"
+         id="tspan11193-3"
+         x="-113.74629"
+         y="146.96786"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre DejaVu Math';-inkscape-font-specification:'TeX Gyre DejaVu Math';fill:#e1ff00;fill-opacity:1;stroke-width:0.26458332">q<tspan
+   style="font-size:64.99999762%;baseline-shift:sub"
+   id="tspan11215">1</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'TeX Gyre DejaVu Math';-inkscape-font-specification:'TeX Gyre DejaVu Math';letter-spacing:0px;word-spacing:0px;fill:#e1ff00;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-145.82597"
+       y="187.31876"
+       id="text11195-6-7"
+       inkscape:export-filename="/home/dantu/GIT/PhD/thesis/figures/appendix-potential-elastica/k-potential.png"
+       inkscape:export-xdpi="120"
+       inkscape:export-ydpi="120"><tspan
+         sodipodi:role="line"
+         id="tspan11193-3-9"
+         x="-145.82597"
+         y="187.31876"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre DejaVu Math';-inkscape-font-specification:'TeX Gyre DejaVu Math';fill:#e1ff00;fill-opacity:1;stroke-width:0.26458332">q<tspan
+   style="font-size:64.99999762%;baseline-shift:sub"
+   id="tspan11238">2</tspan></tspan></text>
   </g>
 </svg>
