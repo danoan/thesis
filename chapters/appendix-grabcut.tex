@@ -1,0 +1,11 @@
+\chapter{GrabCut model}
+\label{chapter:appendix-grabcut-model}
+
+\begin{align*}
+	boundary(p,q) &= {exp\Big( -\frac{(I_p-I_q)^2}{2}} \Big) \cdot \frac{1}{dist(p,q)} \\
+	regional(t,p) &= \left\{ \begin{array}{cc}
+		-\ln Pr(I_p|Foreground), & \text{ if } t=T \\
+		-\ln Pr(I_p|Background), & \text{ if } t=S \\		
+		0 & \text{ otherwise }		
+	\end{array}\right.
+\end{align*}

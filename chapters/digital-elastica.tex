@@ -1,16 +1,16 @@
 \chapter{Digital Elastica}
 \label{chapter:digital-elastica}
 
-In this chapter we review the elastica energy and some of its properties. Next, we introduce the digital version of the elastica using multigrind convergent estimators of length and curvature. Finally, we describe a theoretical optimization model for the minimization of the digital elastica.
+In this chapter we review the Elastica energy and some of its properties. Next, we introduce the digital version of the Elastica using multigrind convergent estimators of length and curvature. Finally, we describe a theoretical optimization model for the minimization of the digital Elastica.
 
 \section{Continuous and digital Elastica}
 \label{ch6:sec:continuous-digital-elastica}
 	\sketch{To be developed...}
 	
 	
-	Given an Euclidean shape $X$, its digital elastica $\hat{E}$ is defined as
+	Given an Euclidean shape $X$ and parameters $\Theta=(\alpha,\beta) >0$. The digital Elastica $\hat{E}$ is defined as
 	\begin{align}
-	\hat{E}( D_h(X) ) = \sum_{\dot{\vec{e}} \in \partial D_h(X)}{ \hat{s}( \dot{\vec{e}})\left(\; \alpha + \beta \hat{\kappa}_{r}^2(D_h(X),\dot{\vec{e}},h) \; \right)},
+	\hat{E}_{\Theta}( D_h(X) ) = \sum_{\dot{\vec{e}} \in \partial D_h(X)}{ \hat{s}( \dot{\vec{e}})\left(\; \alpha + \beta \hat{\kappa}_{r}^2(D_h(X),\dot{\vec{e}},h) \; \right)},
 	\label{eq:digital-elastica}
 	\end{align}
 	
@@ -21,7 +21,7 @@ In the following we omit the grid step $h$ to simplify expressions
 (or, putting it differently, we assume that the shape of interest is
 rescaled by $1/h$ and we set $h=1$). 
 
-In the next section, we describe a combinatorial scheme that permit us to find the minimum digital shape with respect the digital elastica energy for some neighborhood of shapes of $S$. 
+In the next section, we describe a combinatorial scheme that permit us to find the minimum digital shape with respect the digital Elastica energy for some neighborhood of shapes of $S$. 
 
 \section{Local combinatorial scheme}
 \label{ch6:sec:local-combinatorial-scheme}
@@ -115,7 +115,7 @@ Algorithm~\ref{alg:local-search} describes the local combinatorial process and F
  \SetKwData{Best}{best} 
  \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
  
- \Input{A digital set $S$ and the maximum number of iterations \MIt}
+ \Input{A digital set $S$; weight coefficients $\Theta=(\alpha , \beta)$; the maximum number of iterations \MIt}
  \BlankLine
  $i \longleftarrow 0$\;	
  $S^{(0)} \longleftarrow S$\;
@@ -126,12 +126,12 @@ Algorithm~\ref{alg:local-search} describes the local combinatorial process and F
  
   	\For{$ X \in \mathcal{N}_n(S^{(i)}) \cup \mathcal{N}_{2n}(S^{(i)}) \cup \mathcal{N}_{3n}(S^{(i)}) $}
 	{
-		\If{ $\hat{E}(X)$ $<$ $\hat{E}(X^\star)$ }
+		\If{ $\hat{E}_{\Theta}(X)$ $<$ $\hat{E}_{\Theta}(X^\star)$ }
 		{
 			$X^\star \longleftarrow X$\; 
 		}	
 	}
-	\Delta $\longleftarrow$ $\hat{E}(S^{(i-1)}) - \hat{E}(S^{(i)})$\;	
+	\Delta $\longleftarrow$ $\hat{E}_{\Theta}(S^{(i-1)}) - \hat{E}_{\Theta}(S^{(i)})$\;	
 	
 	\If{ \Delta $=0$ }
 	{
@@ -145,7 +145,7 @@ Algorithm~\ref{alg:local-search} describes the local combinatorial process and F
 	
  }
  \label{alg:local-search} 
- \caption{Local combinatorial optimization for elastica minimization.}
+ \caption{Local combinatorial optimization for Elastica minimization.}
 \end{algorithm}
 
 \begin{figure}[]
@@ -168,7 +168,7 @@ Algorithm~\ref{alg:local-search} describes the local combinatorial process and F
 \subfloat{
 \includegraphics[scale=0.4]{figures/chapter5/flow/plots/summary/lp_0.01/summary-ii5.pdf}
 }%
-\caption{Minimum value attained for the digial elastica ($\alpha=0.01, \beta=1$) in comparisson with the global optimium (dashed line) for different curvature estimators and in different scales. The last figure summarizes the digital elastica evolution value for all shapes using grid step $h=0.25$.}
+\caption{Minimum value attained for the digial Elastica ($\alpha=0.01, \beta=1$) in comparisson with the global optimium (dashed line) for different curvature estimators and in different scales. The last figure summarizes the digital Elastica evolution value for all shapes using grid step $h=0.25$.}
 \label{fig:local-comb-estimators-plots-lp001}
 \end{figure}
 
@@ -192,7 +192,7 @@ Algorithm~\ref{alg:local-search} describes the local combinatorial process and F
 \subfloat{
 \includegraphics[scale=0.4]{figures/chapter5/flow/plots/summary/lp_0.001/summary-ii5.pdf}
 }%
-\caption{Minimum value attained for the digial elastica ($\alpha=0.001, \beta=1$) in comparisson with the global optimium (dashed line) for different curvature estimators and in different scales. The last figure summarizes the digital elastica evolution value for all shapes using grid step $h=0.25$.}
+\caption{Minimum value attained for the digial Elastica ($\alpha=0.001, \beta=1$) in comparisson with the global optimium (dashed line) for different curvature estimators and in different scales. The last figure summarizes the digital Elastica evolution value for all shapes using grid step $h=0.25$.}
 \label{fig:local-comb-estimators-plots-lp0001}
 \end{figure}
 
@@ -264,7 +264,7 @@ The algorithm is suitable for any type of digital estimator. To estimate length 
 
 \subsection{Free digital Elastica}
 \label{ch6:subsec:free-digital-elastica}
-In the free digital elastica energy we optimize energy \ref{eq:digital-elastica} without any constraint. We observe that for $\alpha=0, \beta >0$ the Elastica becomes the integration of the squared curvature integration along the shape contour which has the ball of infinite radius as its minimizer. For $\alpha > 0, \beta=0$, minimize Elastica becomes minimize perimeter (curvature flow). It is easy to see that for $\alpha, \beta > 0$, the optimal shape for the Elastica is a disk of radius $r$. We can easily find the value of $r$.
+In the free digital Elastica energy we optimize energy \ref{eq:digital-elastica} without any constraint. We observe that for $\alpha=0, \beta >0$ the Elastica becomes the integration of the squared curvature integration along the shape contour which has the ball of infinite radius as its minimizer. For $\alpha > 0, \beta=0$, minimize Elastica becomes minimize perimeter (curvature flow). It is easy to see that for $\alpha, \beta > 0$, the optimal shape for the Elastica is a disk of radius $r$. We can easily find the value of $r$.
 
 \begin{align*}
 	\frac{d}{dr}\big( \int_{\partial B(r)}{ (\alpha + \beta \kappa ^2) ds} \big ) &= 0\\
@@ -272,7 +272,7 @@ In the free digital elastica energy we optimize energy \ref{eq:digital-elastica}
 	r &= \alpha^{-1/2}.
 \end{align*}  
 
-Therefore, the optimal shape for the free digital elastica is a digital disk of finite radius $\alpha^{-1/2}$.
+Therefore, the optimal shape for the free digital Elastica is a digital disk of finite radius $\alpha^{-1/2}$.
 
 
 In figure \ref{fig:local-comb-ii5-results} we present several flows derived by algorithm \ref{alg:local-search} for parameters $\alpha=0.01, \beta=1$. We observe that both II-$5$ and II-$10$ evolve the shapes to disks of radius close to the optimal value of $10$ (see figure \ref{fig:local-comb-estimators-plots-lp001}). The II-$3$ estimator stops prematurely at a local optima due its limited sensibility compared to II-$5$ or II-$10$, while MDCA encounters some difficults to evolve in a high resolution setting and it also stops at some local optima. In fact, the MDCA estimator, although with higher convergence speed, is more sensitive to noise than II, as illustrated in figure \ref{fig:mdca-sensitivity}. Nonetheless, the results can be improved by using a larger neighborhood, as illustrates figures \ref{fig:mdca-larger-neighborhood}.
@@ -374,15 +374,15 @@ In this section we turn to a global optimization approach. However, instead of m
 \subsection{Simplified digital Elastica}
 \label{ch6:subsec:simplified-digital-elastica}
 
-The simplified digital elastica is defined as
+The simplified digital Elastica is defined as
 
 	\begin{align}
-	\hat{E}_S( D_h(X) ) = \sum_{\dot{\vec{e}} \in \partial D_h(X)}{ \alpha + \beta \hat{\kappa}_{r}^2(D_h(X),\dot{\vec{e}},h) }.
+	\hat{E}_{\Theta-sim}( D_h(X) ) = \sum_{\dot{\vec{e}} \in \partial D_h(X)}{ \alpha + \beta \hat{\kappa}_{r}^2(D_h(X),\dot{\vec{e}},h) }.
 	\label{eq:simplified-digital-elastica}
 	\end{align}
 	
 
-We argue that energy \eqref{eq:simplified-digital-elastica} is a reasonable approximation of \eqref{eq:digital-elastica}. Indeed, executing algorithm \ref{alg:local-search} for minimize the simplified digital elastica obtains very similar results to those for the digital elastica (see figure \ref{fig:simplified-elastica}).
+We argue that energy \eqref{eq:simplified-digital-elastica} is a reasonable approximation of \eqref{eq:digital-elastica}. Indeed, executing algorithm \ref{alg:local-search} for minimize the simplified digital Elastica obtains very similar results to those for the digital Elastica (see figure \ref{fig:simplified-elastica}).
 
 
 \begin{figure}[]
@@ -398,7 +398,7 @@ We argue that energy \eqref{eq:simplified-digital-elastica} is a reasonable appr
 \includegraphics[scale=0.25]{figures/chapter5/fixed-orientations/selastica/len_pen_0.01/curve-2/summary.pdf} &
 \includegraphics[scale=0.25]{figures/chapter5/fixed-orientations/selastica/len_pen_0.01/curve-3/summary.pdf}
 \end{tabular}
-\caption{Experiments of section \ref{sec:local-combinatorial-scheme} for the simplified digital elastica.}
+\caption{Experiments of section \ref{sec:local-combinatorial-scheme} for the simplified digital Elastica.}
 \label{fig:simplified-elastica}
 \end{figure}
 
@@ -419,7 +419,7 @@ In other words, the column vector $A_i$ of $A$ represents the pixels that are in
 
 
 \begin{align}
-	\hat{E}(x,y) =& \sum_{y_i \in y}{ y_i \left(\; \alpha + \beta \hat{\kappa}_{r}^2(D,y_i) \; \right)}\\\nonumber
+	E_{\Theta-sim}(x,y) =& \sum_{y_i \in y}{ y_i \left(\; \alpha + \beta \hat{\kappa}_{r}^2(D,y_i) \; \right)}\\\nonumber
 			   =& \sum_{y_i \in y}{ y_i \left(\; \alpha  + \beta \big( \frac{3}{r^3}(\frac{\pi}{r^2} - |B_r(y_i)|)\big)^2\right)}\\\nonumber
 			   =& \sum_{y_i \in y}{ y_i \left(\; \alpha + \frac{9}{r^6}\beta \big(c^2 - 2cA_i^T\vec{x} + \vec{x}^TA_iA_i^T\vec{x}\big)\right)},			   
 	\end{align}
@@ -427,13 +427,13 @@ In other words, the column vector $A_i$ of $A$ represents the pixels that are in
 where $c =  \pi r^2/2$. We remark that linels and pixels in the solution must be topologicaly consistent, .i.e., linels must form connected closed curves and the pixels must lie in the interior of those curves. This restriction is encoded in a set of topological constraints $T(x,y)$ detailed later. So far we have
 
 \begin{align*}
-	\min_{x \in \mathbb{B}^{|X|}, y \in \mathbb{B}^{|Y|}}{\hat{E}(x,y)}, \quad \text{subject to } T(x,y). \quad (P0)
+	\min_{x \in \mathbb{B}^{|X|}, y \in \mathbb{B}^{|Y|}}{E_{\Theta-sim}(x,y)}, \quad \text{subject to } T(x,y). \quad (P0)
 \end{align*}
 
 Additionaly, in real applications involving the minimization of Elastica, we have a set of constraints $R$ that plays the role of regularization. For example, we may force some of the pixels in the original shape to be part of the solution; for imaging problems, we may add a data attachment term, and so on. Finally, we can write the general optimization problem as
 
 \begin{align*}
-	\min_{x \in \mathbb{B}^{|X|}, y \in \mathbb{B}^{|Y|}}{\hat{E}(x,y)}, \quad \text{subject to } T(x,y), R(x) \quad (P1)
+	\min_{x \in \mathbb{B}^{|X|}, y \in \mathbb{B}^{|Y|}}{E_{\Theta-sim}(x,y)}, \quad \text{subject to } T(x,y), R(x) \quad (P1)
 \end{align*}
 
 	Formulation $P1$ is a constrained binary non-convex third order problem and likely difficult to be solved optimally. Nonetheless, we can use standard optimization techniques to acquire some intuition on the model. 	
@@ -524,17 +524,17 @@ In order to supress the sign, we define diagonal matrix $\mathbf{Q} \in \mathbb{
 	\mathbf{Q} = diag(\mathbf{q})diag(\mathbf{q})
 \end{align*}
 
-Let $\mathbf{B} \in \mathbb{B}^{m\times m}$ such that column vector $\mathbf{B}_j$ represents the pixels in the interior of a disk of radius $R$ centered at pixel $i$. Finally, we define the energy as
+Let $\mathbf{B} \in \mathbb{B}^{m\times m}$ such that column vector $\mathbf{B}_j$ represents the pixels in the interior of a disk of radius $R$ centered at pixel $i$. Finally, we search for solutions of
 
 \begin{align}
-	\hat{E}(\mathbf{x}) = \frac{9}{R^6}\sum_{j}^{m}{\left( \frac{\pi R^2}{2} - \boldsymbol{\mathbbm{1}}^T{\mathbf{Q}}\mathbf{B}_j \right)^2}.
+	\min_{\mathbf{x}} \frac{9}{R^6}\sum_{j}^{m}{\left( \frac{\pi R^2}{2} - \boldsymbol{\mathbbm{1}}^T{\mathbf{Q}}\mathbf{B}_j \right)^2}.
 	\label{eq:unconstrained-digital-elastica}
 \end{align}
 
 
-The resulting energy \eqref{eq:unconstrained-digital-elastica} is of order six and therefore hard to be optimized.
+Expression \eqref{eq:unconstrained-digital-elastica} involves the minimization of a sixth order equation and therefore hard to be optimized.
 
 \section{Conclusion}
 \label{ch6:sec:conclusion}
-We gave a historical review of the elastica and we defined the digital elastica energy. The local combinatorial scheme defined in section \ref{sec:local-combinatorial-scheme} can evolve different shapes guided by the minimization of digital elastica energy and it eventually reaches global optima, justifying the interest for multigrid convergent estimators. Finnaly, we sketch some global optimization models using standard techniques of optimization and point out its difficulties, suggesting that a practical global optimization model is unlikely to exist. In the next chapter we explore a model that decreases the elastica energy and that can be used in practice.
+We gave a historical review of the Elastica and we defined the digital Elastica energy. The local combinatorial scheme defined in section \ref{ch6:sec:local-combinatorial-scheme} can evolve different shapes guided by the minimization of digital Elastica energy and it eventually reaches global optima, justifying the interest for multigrid convergent estimators. Finnaly, we sketch some global optimization models using standard techniques of optimization and point out its difficulties, suggesting that a practical global optimization model is unlikely to exist. In the next chapter we explore a model that decreases the Elastica energy and that can be used in practice.
 
