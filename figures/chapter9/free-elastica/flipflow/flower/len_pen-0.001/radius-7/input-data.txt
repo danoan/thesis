@@ -1,0 +1,9 @@
+Flow Profile: Double Step 
+Levels: 2(FartherFromCenter)
+Radius: 7
+Neighborhood: 4
+Squared Curvature Weight: 1 
+Length Weight: 0.001 
+Data Weight: 0 
+Opt region in application: 0
+Initial shape has: 29929 pixels

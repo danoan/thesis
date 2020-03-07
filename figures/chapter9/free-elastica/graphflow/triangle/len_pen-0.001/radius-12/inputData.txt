@@ -1,0 +1,12 @@
+Shape name:triangle
+Ball radius:12
+Grid step:0.25
+Opt band:3
+Energy:elastica
+Length penalization:0.001
+Curvature penalization:1
+Iterations:400
+neighborhood size:2
+Max number of threads:6
+Output folder:/home/dantu/GIT/PhD/thesis-figures/chapter9/free-elastica/data/graphflow/triangle/len_pen-0.001/radius-12
+Pixel mask filepath:

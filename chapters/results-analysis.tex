@@ -1,0 +1,194 @@
+\chapter{Results analysis}
+\label{chapter:results-analysis}
+
+In this chapter we analyse the results produced by the four models developed in this thesis. We are going to compare its results for each of the three problems considered: free Elastica, constrained Elastica and image segmentation. Table \ref{tab:models-summary} summarizes the models properties.
+
+In the image segmentation section, we compare our results with the linear model for curvature regularization of Schoenemann.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{r|ccccc}
+Model & Implementation & Running time & Free El. & Constrained El. & Image Segmentation\\
+\hline
+LocalSearch & medium & slow & yes(opt) & yes & no \\
+FlipFlow & hard & acceptable & yes & no & yes \\
+BalanceFlow & medium & acceptable & yes & no & yes \\
+GraphFlow & simple & fast & yes(opt) & yes & yes
+\end{tabular}
+\caption{Models summary. The qualitative attributes are relative, e.g., the GraphFlow presents the lowest running time while LocalSearch presents the highest.}
+\label{tab:models-summary}
+\end{table}
+
+\section{Free Elastica}
+
+The free Elastica problem consists in to evolve a initial shape to another with lower digital Elastica energy without impose any constraint on the shape evolution. We have ran two experiments, summarized in table \ref{tab:free-elastica-parameters-summary}, to illustrate the evolution process behaviour for each of the models described in this thesis. 
+
+The parameter $eRadius$ corresponds to the radius of the disk used to compute the balance coefficient in the FlipFlow,BalanceFlow and GraphFlow models. The $vRadius$ corresponds to the radius parameter of the II curvature estimator to compute the digital Elastica in the plots of figure \ref{fig:plots-free-elastica-general} and in the validation function of GraphFlow and LocalSearch.
+
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Experiment & $\alpha$ & $\beta$ & $eRadius$ & $vRadius$ \\
+\hline
+General & $0.01$ & $1$ & $7$ & $5$ \\
+\hline
+\multirow{2}{*}{Radius-choice} & $0.001$ & $1$ & $7$ & $5$\\
+& $0.001$ & $1$ & $12$ & $5$\\
+\hline
+\end{tabular}
+\caption{Parameters listing for the free Elastica experiments.}
+\label{tab:free-elastica-parameters-summary}
+\end{table}
+
+\subsection{General experiment}
+
+  The General experiment executes each model using the listed parameters in table \ref{tab:free-elastica-parameters-summary} for $5$ different parametric shapes. The results for the General experiment is shown in figures \ref{fig:results-free-elastica-general}. One can check in plot \ref{fig:plots-free-elastica-general} how the digital Elastica value evolves at each iteration. For this experiment we also provide table \ref{tab:rtime-free-elastica-general} with the model's respective running times.
+  
+
+We observe that both LocalSearch and GraphFlow evolves the initial shape to another closer to the optimal one, i.e., for $\alpha=0.01$, the disk of radius $10$. However, the GraphFlow model is simpler to implement and much faster than LocalSearch, as table \ref{tab:rtime-free-elastica-general} evidentiates. Even with a smaller neighborhood, the GraphFlow achieves its convergence first than LocalSearch in two ocassions, one in the square and the other in the flower evolution.
+
+At the first iterations, FlipFlow and BalanceFlow produce shapes with lower digital Elastica energy. However, the models do not stop to evolve even if a shape of smaller perimeter and lower digital Elastica ceases to exist, and starting from this point, the digital Elastica value increases.
+
+
+\begin{figure}
+\center
+\captionsetup{type=table}
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+& Pixels & LocalSearch & FlipFlow & BalanceFlow & GraphFlow \\
+\hline
+Triangle & 8315 & 1.7s/it & 0.4s/it & 0.38s/it & 0.14s/it\\
+Square & 12769 & 1s/it & 0.51s/it & 0.47s/it & 0.12s/it\\
+Ellipse  & 10038 & 1.3s/it & 0.64s/it & 0.57s/it & 0.1s/it \\
+Flower & 26321 & 4.7s/it & 1.23s/it & 0.94s/it & 0.14s/it\\
+Bean  & 25130 & 3s/it & 1.2s/it & 1.17s/it & 0.16s/it\\
+\hline
+\end{tabular}
+\caption{Running time and input size of the General experiment for the free Elastica.}
+\label{tab:rtime-free-elastica-general} 
+\end{figure}
+
+
+\begin{figure}
+\begin{tabular}{cccc}
+LocalSearch & FlipFlow & BalanceFlow & GraphFlow\\[1em]
+\includegraphics[scale=0.15]{figures/chapter9/free-elastica/localsearch/triangle/len_pen-0.01/radius-7/summary.pdf} & 
+\includegraphics[scale=0.15]{figures/chapter9/free-elastica/flipflow/triangle/len_pen-0.01/radius-7/summary.pdf} &
+\includegraphics[scale=0.15]{figures/chapter9/free-elastica/balanceflow/triangle/len_pen-0.01/radius-7/summary.pdf} &
+\includegraphics[scale=0.15]{figures/chapter9/free-elastica/graphflow/triangle/len_pen-0.01/radius-7/summary.pdf} \\[1em]
+\includegraphics[scale=0.15]{figures/chapter9/free-elastica/localsearch/square/len_pen-0.01/radius-7/summary.pdf} & 
+\includegraphics[scale=0.15]{figures/chapter9/free-elastica/flipflow/square/len_pen-0.01/radius-7/summary.pdf} &
+\includegraphics[scale=0.15]{figures/chapter9/free-elastica/balanceflow/square/len_pen-0.01/radius-7/summary.pdf} &
+\includegraphics[scale=0.15]{figures/chapter9/free-elastica/graphflow/square/len_pen-0.01/radius-7/summary.pdf} \\[1em]
+\includegraphics[scale=0.2]{figures/chapter9/free-elastica/localsearch/ellipse/len_pen-0.01/radius-7/summary.pdf} & 
+\includegraphics[scale=0.2]{figures/chapter9/free-elastica/flipflow/ellipse/len_pen-0.01/radius-7/summary.pdf} &
+\includegraphics[scale=0.2]{figures/chapter9/free-elastica/balanceflow/ellipse/len_pen-0.01/radius-7/summary.pdf} &
+\includegraphics[scale=0.2]{figures/chapter9/free-elastica/graphflow/ellipse/len_pen-0.01/radius-7/summary.pdf} \\[1em]
+\includegraphics[scale=0.2]{figures/chapter9/free-elastica/localsearch/flower/len_pen-0.01/radius-7/summary.pdf} & 
+\includegraphics[scale=0.2]{figures/chapter9/free-elastica/flipflow/flower/len_pen-0.01/radius-7/summary.pdf} &
+\includegraphics[scale=0.2]{figures/chapter9/free-elastica/balanceflow/flower/len_pen-0.01/radius-7/summary.pdf} &
+\includegraphics[scale=0.2]{figures/chapter9/free-elastica/graphflow/flower/len_pen-0.01/radius-7/summary.pdf} \\[1em]
+\includegraphics[scale=0.2]{figures/chapter9/free-elastica/localsearch/bean/len_pen-0.01/radius-7/summary.pdf} & 
+\includegraphics[scale=0.2]{figures/chapter9/free-elastica/flipflow/bean/len_pen-0.01/radius-7/summary.pdf} &
+\includegraphics[scale=0.2]{figures/chapter9/free-elastica/balanceflow/bean/len_pen-0.01/radius-7/summary.pdf} &
+\includegraphics[scale=0.2]{figures/chapter9/free-elastica/graphflow/bean/len_pen-0.01/radius-7/summary.pdf} 
+\end{tabular}
+\caption{Evolutions of the General experiment for the free Elastica.}
+\label{fig:results-free-elastica-general}
+\end{figure}
+
+\begin{figure}
+\begin{tabular}{cc}
+\includegraphics[scale=0.45]{figures/chapter9/free-elastica/plots/iteration/main_experiment/len_pen_0.01/radius-7/triangle.pdf} &
+\includegraphics[scale=0.45]{figures/chapter9/free-elastica/plots/iteration/main_experiment/len_pen_0.01/radius-7/square.pdf}\\[1em]
+\includegraphics[scale=0.45]{figures/chapter9/free-elastica/plots/iteration/main_experiment/len_pen_0.01/radius-7/ellipse.pdf} &
+\includegraphics[scale=0.45]{figures/chapter9/free-elastica/plots/iteration/main_experiment/len_pen_0.01/radius-7/flower.pdf}\\[1em]
+\includegraphics[scale=0.45]{figures/chapter9/free-elastica/plots/iteration/main_experiment/len_pen_0.01/radius-7/bean.pdf}
+\end{tabular}
+\caption{Digital Elastica value evolution per iteration of the General experiment for the free Elastica.}
+\label{fig:plots-free-elastica-general}
+\end{figure}
+
+\subsection{Radius-choice experiment}
+
+In the Radius-choice experiment, we set the length penalization parameter to $\alpha=0.001$. Compared to the General experiment, the expected behaviour is that the shapes will grow till reach the optimal disk of radius $1\alpha^{0.5} \approx 31$. This experiment evidentiates the natural observation that the choice of the $eRadius$ parameter is important the optimal shape achievement.
+
+In the case of FlipFlow and BalanceFlow, the evolution goes faster with a larger radius, but the shape never grows, it only shrinks. On the other hand, LocalSearch and GraphFlow are sensitive to the value of $\alpha$ and they can grow or shrink the shape acoordingly. Moreover, the choice of $eRadius$ defines how closer the solution will be from the optimum.
+
+We recall that the II estimator measures curvature by using a disk of a given radius. The radius parameter defines the range of values estimated by the estimator. At first glance, a larger radius returns a more precise estimation, but we should be careful in not use a radius larger than the shape reach at the point of estimation.
+
+However, for the Radius-choice experiment, a value $eRadius=7$ is too small to identify the small variations that a shape that grows till become a disk of radius $31$ suffers. Therefore, when we set $eRadius=12$ both LocalSearch and GraphFlow return solutions closer to the optimal as we can check in figures \ref{fig:results-free-elastica-radius-choice} and \ref{fig:plots-free-elastica-radius-choice}.
+
+
+\begin{figure}
+\begin{tabular}{m{1.5cm}cccc}
+& LocalSearch & FlipFlow & BalanceFlow & GraphFlow\\[1em]
+$r=7$ & \raisebox{-.5\height}{\includegraphics[scale=0.15]{figures/chapter9/free-elastica/localsearch/triangle/len_pen-0.001/radius-7/summary.pdf}} & 
+\raisebox{-.5\height}{\includegraphics[scale=0.15]{figures/chapter9/free-elastica/flipflow/triangle/len_pen-0.001/radius-7/summary.pdf}} &
+\raisebox{-.5\height}{\includegraphics[scale=0.15]{figures/chapter9/free-elastica/balanceflow/triangle/len_pen-0.001/radius-7/summary.pdf}} &
+\raisebox{-.5\height}{\includegraphics[scale=0.15]{figures/chapter9/free-elastica/graphflow/triangle/len_pen-0.001/radius-7/summary.pdf}} \\[1em]
+$r=12$ & \raisebox{-.5\height}{\includegraphics[scale=0.15]{figures/chapter9/free-elastica/localsearch/triangle/len_pen-0.001/radius-12/summary.pdf}} & 
+\raisebox{-.5\height}{\includegraphics[scale=0.15]{figures/chapter9/free-elastica/flipflow/triangle/len_pen-0.001/radius-12/summary.pdf}} &
+\raisebox{-.5\height}{\includegraphics[scale=0.15]{figures/chapter9/free-elastica/balanceflow/triangle/len_pen-0.001/radius-12/summary.pdf}} &
+\raisebox{-.5\height}{\includegraphics[scale=0.15]{figures/chapter9/free-elastica/graphflow/triangle/len_pen-0.001/radius-12/summary.pdf}} \\[1em]
+$r=7$ & \raisebox{-.5\height}{\includegraphics[scale=0.15]{figures/chapter9/free-elastica/localsearch/flower/len_pen-0.001/radius-7/summary.pdf}} & 
+\raisebox{-.5\height}{\includegraphics[scale=0.15]{figures/chapter9/free-elastica/flipflow/flower/len_pen-0.001/radius-7/summary.pdf}} &
+\raisebox{-.5\height}{\includegraphics[scale=0.15]{figures/chapter9/free-elastica/balanceflow/flower/len_pen-0.001/radius-7/summary.pdf}} &
+\raisebox{-.5\height}{\includegraphics[scale=0.15]{figures/chapter9/free-elastica/graphflow/flower/len_pen-0.001/radius-7/summary.pdf}} \\[1em]
+$r=12$ & \raisebox{-.5\height}{\includegraphics[scale=0.15]{figures/chapter9/free-elastica/localsearch/flower/len_pen-0.001/radius-12/summary.pdf}} & 
+\raisebox{-.5\height}{\includegraphics[scale=0.15]{figures/chapter9/free-elastica/flipflow/flower/len_pen-0.001/radius-12/summary.pdf}} &
+\raisebox{-.5\height}{\includegraphics[scale=0.15]{figures/chapter9/free-elastica/balanceflow/flower/len_pen-0.001/radius-12/summary.pdf}} &
+\raisebox{-.5\height}{\includegraphics[scale=0.15]{figures/chapter9/free-elastica/graphflow/flower/len_pen-0.001/radius-12/summary.pdf}}
+\end{tabular}
+\caption{Evolutions of the Radius-choice experiment for the free Elastica.}
+\label{fig:results-free-elastica-radius-choice}
+\end{figure}
+
+\begin{figure}
+\begin{tabular}{cc}
+\includegraphics[scale=0.4]{figures/chapter9/free-elastica/plots/iteration/radius_choice/len_pen_0.001/radius-7/triangle.pdf} & 
+\includegraphics[scale=0.4]{figures/chapter9/free-elastica/plots/iteration/radius_choice/len_pen_0.001/radius-12/triangle.pdf}\\[1em] 
+\includegraphics[scale=0.4]{figures/chapter9/free-elastica/plots/iteration/radius_choice/len_pen_0.001/radius-7/flower.pdf} & 
+\includegraphics[scale=0.4]{figures/chapter9/free-elastica/plots/iteration/radius_choice/len_pen_0.001/radius-12/flower.pdf}
+\end{tabular}
+\caption{Digital Elastica value evolution per iteration of the Radius-choice experiment for the free Elastica.}
+\label{fig:plots-free-elastica-radius-choice}
+\end{figure}
+
+
+\section{Constrained Elastica}
+
+In the constrained Elastica problem, the initial shape should evolve to another one of lower digital Elastica energy while respecting a set of constraints. We realized experiments with two different set of constraints. In the first, we impose that a set of pixels in the digital boundary of the initial shape must persist in the solution. In the second, we impose an orientation at then endpoint of a curve. 
+
+For this problem, only LocalSearch and GraphFlow were evaluated. The FlipFlow and BalanceFlow can be modified to evolve the constrained Elastica, but its implementation is tiresome and we believe the results will not be much different from those given by GraphFlow. We recall that for a $0$-neighborhood, the GraphFlow behaves very similarly to FlipFlow and BalanceFlow.
+
+The parameters used in the comparison are listed in table \ref{} and the running times in table \ref{}. The results are displayed in figures \ref{} and \ref{}, one for each value of $\alpha$. 
+
+The LocalSearch approach behaves as expected in both experiments, both the GraphFlow encounters some difficults to evolve in the case of fixed endpoint orientations. We recall that the GraphFlow uses as neighborhood a set of dilations and erosions of the initial shape. Instead, if we use a neighborhood in which just some pixels of the inner or outer boundary are changed (in a similar fashion of what is done in the LocalSearch neighborhood, but with fewer members) we believe that we can recover better results.
+
+\section{Image segmentation}
+
+The FlipFlow,BalanceFlow and GraphFlow can be extended to do image segmentation. In this section we compare the results of those three models developed in this thesis and two other segmentation models: Grabcut and Schoenemann linear curvature regularization (SLCR). In the former, any geometric information is included. Indeed, the Grabcut solution is the input of all three models of this thesis. The latter is a linear programming formulation that includes curvature regularization in the form of the Bruckstein's discretization.
+
+The parameters used in the comparison are listed in table \ref{} and the running times in table \ref{}. The results are displayed in figures \ref{} and \ref{}.
+
+It is clear that all three models regularizes the initial segmentation given by Grabcut with respect to the squared curvature, the regularization amount being parameterized by the relation between the data ($\gamma, \theta_r, \theta_b$) and curvature ($\beta$) weights. The best choice of parameters depends on the object to be segmented, and we remark that curvature itself may not be the appropriated choice for segmenting some objects.
+
+Compared with the SLCR model, our model do not suffer from the staircase effect, and we are able to recover smoother contours. However, none of our models do multisegmentation, although an implementation is possible.
+
+\subsection{The radius choice}
+
+The choice of parameters is input-dependent. The weights coefficients are standard in image segmentation models, and no further discussion of them will take place here. However, we are going to say few words with respect the choice of the balance coefficient and estimation disk radii.
+
+The II-$r$ estimator is not appropriate to be used in shapes with reach value lower than $r$. In such cases, the non-intersection area of the disk may be disconnected, violating one of the estimator premisses. Therefore, the first recommendation is to choose a radius greater than the shape reach.
+
+The second criteria to take into account is the desired range of curvature values to be contemplated by the estimator. A small value of radius can make fewer unique estimations than a disk of larger radius. At first glance, a larger radius seems a better choice, but one should not forget the first criteria in the last paragraph.
+
+In figure \ref{} we illustrate how the choice of radius may change the segmentation results in the GraphFlow model. A radius larger than the reach of the initial segments does not help us in to find the desired segmentation. Using a smaller radius and tunning the weight coefficients, we recover a better result.
+
+\section{Conclusion}
+
+
+
+

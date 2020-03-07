@@ -1,7 +1,7 @@
-\chapter{FlipFlow}
+\chapter{A 2-step evolution model driven by digital Elastica minimization}
 \label{chapter:flip-flow}
 
-In the previous chapter we've presented a local combinatorial model using multigrid convergent estimator that proved to be very sucessfull in optimizing the digital elastica but too slow to be used in practice. We've also attempted to derive a global optimization model, but unfortunately such model is unlikely to be solved in the current state of art of binary optimization techniques. In this chapter we present a second local optimization model that is much faster than algorithm \ref{alg:local-search} but with fewer guarantees of optimality.
+In the previous chapter we have presented a local combinatorial model using multigrid convergent estimator that proved to be very sucessfull in optimizing the digital elastica but too slow to be used in practice. We have also attempted to derive a global optimization model, but unfortunately such model is unlikely to be solved in the current state of art of binary optimization techniques. In this chapter we present a second local optimization model that is much faster than algorithm \ref{alg:local-search} but with fewer guarantees of optimality.
 
 \section{Definitions}
 
@@ -71,7 +71,7 @@ Expanding \eqref{eq:curvature-estimator-pixels}, we get
 where $C=c_2^2 - 2c_2 \cdot |F_{r}^{(k)}(p)| + |F_{r}^{(k)}(p)|^2$ is a constant. As expression \eqref{eq:digital-squared-curvature-term} is a term to be optimized, we can ignore constants and multiplication factors. Moreover, as we are in a binary optimization setting, we can  further simplify expression \eqref{eq:digital-squared-curvature-term} by exploiting the binary character of variables and eliminating monomials of second order. We define the following family
 of energies for given parameters $\Theta=(\alpha,\beta ) \geq 0$
 \begin{align}
-  E_{(\Theta,m)-flip}(X^{(k)}) =& \sum_{x_j \in X^{(k)}}{\alpha s(x_j)} + \nonumber \\ 
+  E_{(\Theta,m)}^{flip}(X^{(k)}) =& \sum_{x_j \in X^{(k)}}{\alpha s(x_j)} + \nonumber \\ 
   & \sum_{ \substack{p \in \\ R_m(S^{(k)})}}{ 2c_1 \beta  \Big( { (1/2+ |F_{r}^{(k)}(p)|-c_2) \cdot \sum_{ \substack{ x_j \in \\ X_{r}^{(k)}(p)}}{x_j} } + \sum_{ \substack{j<l, \\ x_j,x_l \in \\ X_{r}^{(k)}(p) } }{x_jx_l} \Big) },
   \label{eq:energy-family}
 \end{align}
@@ -107,12 +107,12 @@ where $s(\cdot)$ denotes a length penalization term. We recall that $R_m$ refers
  \While{ \It $<$ \MIt  }{ 	
 	\comment{Shrinking mode}
 	\If{ \It is even }{	 
-	 	$x^{(k-1)} \longleftarrow \displaystyle \argmin_{X^{(k-1)}} E_{(\Theta,m)-flip}(1-X^{(k-1)})$\; 	
+	 	$x^{(k-1)} \longleftarrow \displaystyle \argmin_{X^{(k-1)}} E_{(\Theta,m)}^{flip}(1-X^{(k-1)})$\; 	
  		$S^{(k)} \longleftarrow F^{(k-1)} + x^{(k-1)}$\;
  	}
 	\comment{Expansion mode} 	
  	\Else{	
-	 	$\overline{x}^{(k-1)} \longleftarrow \displaystyle \argmin_{\overline{X}^{(k-1)}} E_{(\Theta,m)-flip}(1-\overline{X}^{(k-1)})$\;
+	 	$\overline{x}^{(k-1)} \longleftarrow \displaystyle \argmin_{\overline{X}^{(k-1)}} E_{(\Theta,m)}^{flip}(1-\overline{X}^{(k-1)})$\;
  		$S^{(k)} \longleftarrow \overline{ \overline{F}^{(k-1)} + \overline{x}^{(k-1)}}$\; 	
  	}
  	
@@ -129,7 +129,7 @@ where $s(\cdot)$ denotes a length penalization term. We recall that $R_m$ refers
 As discussed in section \ref{ch6:sec:global-optimization}, the topological constraints are a fundamental part in a global optimization model for the digital elastica but the complexity added to it dampens any hope of optimizing it efficiently. In the proposed FlipFlow model, we exclude topological constraints and we end up with the tractable binary second order energy \eqref{eq:energy-family}. However, due the lack of contour information, the minimization of \eqref{eq:energy-family} for $S^{(k)}$ results in undesirable shapes of even higher digital elastica energy values  (see figure \ref{fig:contour-info}). Interestingly, by using the inverse of the optimal assignement, we can derive a shape of lower digital elastica energy. Therefore, the next shape is given by
 
 \begin{align*}
-	S^{(k+1)} = S^{(k)} - \argmin _{}{E_{(\Theta,m)-flip}\big(1-X^{(k)}} \big).
+	S^{(k+1)} = S^{(k)} - \argmin _{}{E_{(\Theta,m)}^{flip}\big(1-X^{(k)}} \big).
 \end{align*}
 
 Recall that the integral invariant estimator approaches curvature by computing the difference between half of the area
@@ -174,7 +174,7 @@ algorithm. The length penalization is defined as
 \end{table}
 
 
-In figure \ref{fig:m1-square-flow} we show the results of the FlipFlow algorithm for $m=1,\alpha=0, \beta=1$. We observe a global evolution towards rounder shapes, but several artifacts are formed along the boundary. An estimation ball of higher radius evolves the shapes faster, but the contours become noisier. Setting $\alpha >0$ attenuates the problem for lower radius but the produced shapes doesn't match with our intuition of what a flow driven by the squared curvature must be like, as the evaluation of the II estimator can tell us (see figure ). We've identified two reasons for this behavior.
+In figure \ref{fig:m1-square-flow} we show the results of the FlipFlow algorithm for $m=1,\alpha=0, \beta=1$. We observe a global evolution towards rounder shapes, but several artifacts are formed along the boundary. An estimation ball of higher radius evolves the shapes faster, but the contours become noisier. Setting $\alpha >0$ attenuates the problem for lower radius but the produced shapes doesn't match with our intuition of what a flow driven by the squared curvature must be like, as the evaluation of the II estimator can tell us (see figure ). We have identified two reasons for this behavior.
 
 First, we recall that at each iteration, energy \eqref{eq:energy-family} is derived by evaluating the II estimator on a fixed boundary, i.e., the contour information is not included in the optimization problem. Therefore, the flip of a single pixel can turn a previous negative curvature estimation in a positive one (see figure). In our current setting, this is not a desirable property. 
 
@@ -229,7 +229,7 @@ The function $f$ is submodular if and only if the following inequality holds for
   \quad f_{j,k}(0,0) + f_{j,k}(1,1) \leq f_{j,k}(0,1) + f_{j,k}(1,0).
 \end{align*}
 
-The energy $E_{(\Theta,m)-flip}$ is non-submodular and optimizing it is a difficult problem, which constrains us to use heuristics and
+The energy $E_{(\Theta,m)}^{flip}$ is non-submodular and optimizing it is a difficult problem, which constrains us to use heuristics and
 approximation algorithms. The QPBO method \cite{rother07qpbo} transforms the original problem in a max-flow/min-cut
 formulation and yields a full optimal labeling for submodular energies. For non-submodular energies the method is
 guaranteed to return a partial labeling with the property that the set of labeled variables is part of an optimal
@@ -240,15 +240,15 @@ QPBOI (improve) and QPBOP (probe). The first is an approximation method that is 
 but loses the property of partial optimality. The second is an exact method which is reported to label more variables
 than QPBO.
 
-The percentage of unlabeled pixels by QPBOP for $E_{(\Theta,m)-flip}$ is quite high, but the percentage decreases to zero as we set $m$
+The percentage of unlabeled pixels by QPBOP for $E_{(\Theta,m)}^{flip}$ is quite high, but the percentage decreases to zero as we set $m$
 to a value closer to $r$, the estimation ball radius. Therefore, we are more confident in taking the solution for values of $m$ close to $r$. However, the way it
 varies across values of $m$ differs from shape to shape, as is illustrated in figure
 \ref{fig:unlabeled-versus-iterations}. We also noticed that, for $m=r$, all the pixels were labeled, {which may
-  indicate that $E_{(\Theta,r)-flip}$ is an easy instance of the general non-submodular energy $E_{(\Theta,m)-flip}$, but this remains to be
+  indicate that $E_{(\Theta,r)-flip}$ is an easy instance of the general non-submodular energy $E_{(\Theta,m)}^{flip}$, but this remains to be
   proved. The number of pairwise terms in $E_{(\Theta,r)-flip}$ is roughly half of those in $E_{(\Theta,1)-flip}$ (see figure
   \ref{fig:ratio-pairwise-terms}), which also explains the higher number of labeled variables.
 
-  We have used QPBOI to solve $E_{(\Theta,m)-flip}$. Naturally, in the case where all pixels are labeled by QPBOP, QPBOI returns the same labeling as QPBOP. In the next section we show that by evaluating the estimation ball at the farthest ring, we preserve a qualitatively measure of curvature, we eliminate the artifacts and we produce smoother flows.
+  We have used QPBOI to solve $E_{(\Theta,m)}^{flip}$. Naturally, in the case where all pixels are labeled by QPBOP, QPBOI returns the same labeling as QPBOP. In the next section we show that by evaluating the estimation ball at the farthest ring, we preserve a qualitatively measure of curvature, we eliminate the artifacts and we produce smoother flows.
 
 
 \begin{figure}
@@ -279,10 +279,10 @@ varies across values of $m$ differs from shape to shape, as is illustrated in fi
 
 \section{Evaluation across $m$-rings}
 
-In the previous sections we pointed out two reasons for the production of artifacts by the FlipFlow algorithm. One related to the number of unlabeled pixels by the QPBO algorithm and the second due to the small uncertainties of the estimator along regions of low squared curvature. We've seen already that QPBO labels more pixels at outer rings. In this section, we argue that by evaluating the estimation ball along outer
+In the previous sections we pointed out two reasons for the production of artifacts by the FlipFlow algorithm. One related to the number of unlabeled pixels by the QPBO algorithm and the second due to the small uncertainties of the estimator along regions of low squared curvature. We have seen already that QPBO labels more pixels at outer rings. In this section, we argue that by evaluating the estimation ball along outer
 ring sets we can also handle the sensibility issue by focusing the optimization process only on regions with highest squared curvature value.
 
-In figure \ref{} we evaluate several flows for different energies $E_{(\Theta,m)-flip}$. As expected, the number of artifacts decrease as the value of $m$ increases, but the process still tends to shrinking the shape to a single point, resembling the curvature flow. In the next chapter we tackle this issue.
+In figure \ref{} we evaluate several flows for different energies $E_{(\Theta,m)}^{flip}$. As expected, the number of artifacts decrease as the value of $m$ increases, but the process still tends to shrinking the shape to a single point, resembling the curvature flow. In the next chapter we tackle this issue.
 
 We confirm the stability of the model by looking at the plots of the digital elastica energy values for the produced shapes. Moreover, the produced flow has no difficulties in handling changes on topology, and it presents different speeds for regions with low and high curvature values, as illustrated in figure \ref{fig:mx-speed-variation-hole-filling}.
 
@@ -336,6 +336,7 @@ $m=9$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/impr
 \includegraphics[scale=0.5]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level1/level-effect.pdf}}%
 \subfloat[]{
 \includegraphics[scale=0.5]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level1/level-effect.pdf}}%
+\caption{Digital Elastica (II-$5$,$h=0.25$) evaluation at each iteration for several $m$-FlipFlow evolutions. In the left column, we use FlipFlow radius $5$ and in the right column we use FlipFlow radius $9$. }
 \end{figure}
 
 \begin{figure}
@@ -378,12 +379,12 @@ is set to the data fidelity term \eqref{eq:data-fidelity}.
  
  	\comment{Shrinking mode}
 	\If{ \It is even }{	 
-	 	$x^{(k-1)} \longleftarrow \displaystyle \argmin_{X^{(k-1)}} E_{(\Theta,m)-flip}(1-X^{(k-1)}) + \gamma g(X^{(k-1)})$\; 	
+	 	$x^{(k-1)} \longleftarrow \displaystyle \argmin_{X^{(k-1)}} E_{(\Theta,m)}^{flip}(1-X^{(k-1)}) + \gamma g(X^{(k-1)})$\; 	
  		$S^{(k)} \longleftarrow F^{(k-1)} + x^{(k-1)}$\;
  	}
 	\comment{Expansion mode} 	
  	\Else{	
-	 	$\overline{x}^{(k-1)} \longleftarrow \displaystyle \argmin_{\overline{X}^{(k-1)}} E_{(\Theta,m)-flip}(1-\overline{X}^{(k-1)}) + \gamma g(\overline{X}^{(k-1)})$\;
+	 	$\overline{x}^{(k-1)} \longleftarrow \displaystyle \argmin_{\overline{X}^{(k-1)}} E_{(\Theta,m)}^{flip}(1-\overline{X}^{(k-1)}) + \gamma g(\overline{X}^{(k-1)})$\;
  		$S^{(k)} \longleftarrow \overline{ \overline{F}^{(k-1)} + \overline{x}^{(k-1)}}$\; 	
  	}
  
@@ -402,7 +403,7 @@ The algorithm can be initialized by a collection of compact sets, or with the re
 
 An illustration of the application of the FlipFlow model in image segmentation is presented in figure \ref{fig:ch6-segmentation}. We present a more exhaustive list of experiments and comparisons with other methods in chapter \ref{}.
 	
-\begin{figure}[ht!]
+\begin{figure}
 \center
 \begin{tabular}{cccc}
 \multirow{2}{*}{Seeds} & \multirow{2}{*}{GrabCut} & $\alpha=0.5, \beta=0.0,$ & $\alpha=0.5, \beta=1.0,$ \\

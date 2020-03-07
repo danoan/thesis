@@ -1,4 +1,4 @@
-\chapter{Digital Elastica}
+\chapter{A combinatorial model for digital Elastica shape optimization}
 \label{chapter:digital-elastica}
 
 In this chapter we review the Elastica energy and some of its properties. Next, we introduce the digital version of the Elastica using multigrind convergent estimators of length and curvature. Finally, we describe a theoretical optimization model for the minimization of the digital Elastica.
@@ -279,7 +279,7 @@ In figure \ref{fig:local-comb-ii5-results} we present several flows derived by a
 
 
 
-We've executed the same experiments for different parameters $\alpha$ to confirm the effectiveness of our approach. We observe that the plots for $\alpha=0.001$ in figure \ref{fig:local-comb-estimators-plots-lp0001} follows a pattern similar to those in figure \ref{fig:local-comb-estimators-plots-lp001} for $\alpha=0.01$. In particular, the remarks for the II-$3$ and MDCA estimator are the same. Further, we point out that II-$5$ values are slightly farther from the optima for $\alpha=0.001$. The reason being that the shapes evolve to a ball of higher radius compared to the case $\alpha=0.01$. At some point of the evolution for $\alpha=0.001$, the sensibility of II-$5$ is not sufficient to escape from local optima. We remark that the adoption of an automatic selection of the estimation ball radius may attenuate this problem.
+We have executed the same experiments for different parameters $\alpha$ to confirm the effectiveness of our approach. We observe that the plots for $\alpha=0.001$ in figure \ref{fig:local-comb-estimators-plots-lp0001} follows a pattern similar to those in figure \ref{fig:local-comb-estimators-plots-lp001} for $\alpha=0.01$. In particular, the remarks for the II-$3$ and MDCA estimator are the same. Further, we point out that II-$5$ values are slightly farther from the optima for $\alpha=0.001$. The reason being that the shapes evolve to a ball of higher radius compared to the case $\alpha=0.01$. At some point of the evolution for $\alpha=0.001$, the sensibility of II-$5$ is not sufficient to escape from local optima. We remark that the adoption of an automatic selection of the estimation ball radius may attenuate this problem.
 
 
 \begin{figure}[]
@@ -377,7 +377,7 @@ In this section we turn to a global optimization approach. However, instead of m
 The simplified digital Elastica is defined as
 
 	\begin{align}
-	\hat{E}_{\Theta-sim}( D_h(X) ) = \sum_{\dot{\vec{e}} \in \partial D_h(X)}{ \alpha + \beta \hat{\kappa}_{r}^2(D_h(X),\dot{\vec{e}},h) }.
+	\hat{E}_{\Theta}^{simp}( D_h(X) ) = \sum_{\dot{\vec{e}} \in \partial D_h(X)}{ \alpha + \beta \hat{\kappa}_{r}^2(D_h(X),\dot{\vec{e}},h) }.
 	\label{eq:simplified-digital-elastica}
 	\end{align}
 	
@@ -419,7 +419,7 @@ In other words, the column vector $A_i$ of $A$ represents the pixels that are in
 
 
 \begin{align}
-	E_{\Theta-sim}(x,y) =& \sum_{y_i \in y}{ y_i \left(\; \alpha + \beta \hat{\kappa}_{r}^2(D,y_i) \; \right)}\\\nonumber
+	E_{\Theta}^{simp}(x,y) =& \sum_{y_i \in y}{ y_i \left(\; \alpha + \beta \hat{\kappa}_{r}^2(D,y_i) \; \right)}\\\nonumber
 			   =& \sum_{y_i \in y}{ y_i \left(\; \alpha  + \beta \big( \frac{3}{r^3}(\frac{\pi}{r^2} - |B_r(y_i)|)\big)^2\right)}\\\nonumber
 			   =& \sum_{y_i \in y}{ y_i \left(\; \alpha + \frac{9}{r^6}\beta \big(c^2 - 2cA_i^T\vec{x} + \vec{x}^TA_iA_i^T\vec{x}\big)\right)},			   
 	\end{align}
@@ -427,13 +427,13 @@ In other words, the column vector $A_i$ of $A$ represents the pixels that are in
 where $c =  \pi r^2/2$. We remark that linels and pixels in the solution must be topologicaly consistent, .i.e., linels must form connected closed curves and the pixels must lie in the interior of those curves. This restriction is encoded in a set of topological constraints $T(x,y)$ detailed later. So far we have
 
 \begin{align*}
-	\min_{x \in \mathbb{B}^{|X|}, y \in \mathbb{B}^{|Y|}}{E_{\Theta-sim}(x,y)}, \quad \text{subject to } T(x,y). \quad (P0)
+	\min_{x \in \mathbb{B}^{|X|}, y \in \mathbb{B}^{|Y|}}{E_{\Theta}^{simp}(x,y)}, \quad \text{subject to } T(x,y). \quad (P0)
 \end{align*}
 
 Additionaly, in real applications involving the minimization of Elastica, we have a set of constraints $R$ that plays the role of regularization. For example, we may force some of the pixels in the original shape to be part of the solution; for imaging problems, we may add a data attachment term, and so on. Finally, we can write the general optimization problem as
 
 \begin{align*}
-	\min_{x \in \mathbb{B}^{|X|}, y \in \mathbb{B}^{|Y|}}{E_{\Theta-sim}(x,y)}, \quad \text{subject to } T(x,y), R(x) \quad (P1)
+	\min_{x \in \mathbb{B}^{|X|}, y \in \mathbb{B}^{|Y|}}{E_{\Theta}^{simp}(x,y)}, \quad \text{subject to } T(x,y), R(x) \quad (P1)
 \end{align*}
 
 	Formulation $P1$ is a constrained binary non-convex third order problem and likely difficult to be solved optimally. Nonetheless, we can use standard optimization techniques to acquire some intuition on the model. 	

@@ -1,0 +1,17 @@
+Shape: flower
+Grid Step: 0.25
+Radius: 7
+Iterations: 400
+Estimator: II
+Strategy: Best
+Min GC Length: 4
+Max GC Length: 10
+Jonctions: 1
+Length Penalization: 0.01
+Number of eroded sets: 0
+Number of dilated sets: 0
+Number of curve segments: 4
+Automatic glued curve length: 1
+Initializationo mode: Not Recognized
+Energy type: Elastica
+Fixed pixel mask: 
