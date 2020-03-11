@@ -5,8 +5,12 @@
 In this chapter we introduce the balance coefficient, a value that indicates how far the intersection of some disk and a digital shape is from half of the disk area. This value motivates the definition of a new family of energies to regularize the squared curvatute: the $m$-BalanceFlow. We are going to show that the BalanceFlow is closely related to the FlipFlow energy, but the former has an easier interpretation and a simpler algorithm to implement.
 
 
-\section{Definitions}
-In section \ref{sec:flipflow-algorithm-discussion}, we have argued that inverting the solution was necessary to reduce the squared curvature estimation in the next shape of the flow. In this section, we formalize the key concept involved in our argumentation.
+\section{BalanceFlow model}
+In~\cref{ch7:subsec:flipflow-algorithm-discussion}, we have argued that inverting the solution was necessary to reduce the squared curvature estimation in the next shape of the flow. In this section, we investigate further the reasons involved in this unusual inversion step. 
+
+\subsection{Definitions}
+
+In the FlipFlow model no contour information is given, and the strategy there were to label the pixels such that the next shape has a boundary in which the estimation balls are more balanced than in the previous shape, i.e., the difference $|B_r(p) \cap S| - |B_r(p) \cap \overline{S}|$ is closer to zero for every pixel $p \in \partial S$.  We formalize this idea defining the balance coefficient.
 
 \begin{definition}{Balance coefficent}
 Given digital shape $S \in \Omega$, positive number $r$ and point $p \in \Omega$, the \emph{balance coefficient} of $S$ at $p$ is defined as
@@ -23,7 +27,7 @@ The balance coefficient definition is very similar to the II squared curvature e
 	u(S,p) &= ( \frac{\pi r^2}{2} - |F| )^2 = ( -\frac{\pi r^2}{2} + |G| )^2 = ( \frac{\pi r^2}{2} - |G| )^2.
 \end{align*}
 
-The balance coefficient is used to estimate the effect of moving the estimation ball center towards the interior or the exterior of the shape. For example, consider the figure \ref{fig:balance-plot} in which we plot the balance coefficients of points along the diagonal of a square shape. 
+The balance coefficient is used to estimate the effect of moving the estimation ball center towards the interior or the exterior of the shape. For example, consider~\cref{fig:balance-plot} in which we plot the balance coefficients of points along the diagonal of a square shape. 
 
 \begin{figure}
 \center
@@ -89,6 +93,8 @@ We are going to consider the inner and outer pixel boundary simultaneously as th
 	X_r^{(k)}(p) &:= X\big( O_r^{(k)}(p) \big).
 \end{align*}
 
+\subsection{Algorithm}
+
 We assume $k=0$ if not defined, i.e., $S=S^{(0)}$. We denote $p_i, p_o \in \mathcal{R}_m(S)$ as the inner and outer ball centers in the $m$-ring of $S$, respectively. To simplify notation, let $X_o=X_r(p_o)$ and $X_i=X_r(p_i)$. We define the term $T_{m}^{bal}(S)$ as
 
 \begin{align}
@@ -105,7 +111,7 @@ The $m$-balance energy family is defined as
   \label{eq:single-step-energy-family}
 \end{align}
 
-We follow the same notation of chapter \ref{chapter:flip-flow} to denote the data term $g(S,x)$ and the length penalization term $s(x)$ defined below. 
+We follow the same notation of~\cref{chapter:flip-flow} to denote the data term $g(S,x)$ and the length penalization term $s(x)$ defined below. 
 
 \begin{align}
   s(x_{w(p)})=\sum_{q \in \mathcal{N}_4(p)}{ t(q) }, \quad \text{where } t(q) = \left\{\begin{array}{ll}
@@ -121,7 +127,7 @@ We follow the same notation of chapter \ref{chapter:flip-flow} to denote the dat
   \label{eq:single-step-data-fidelity}
 \end{align}	
 
-where $H_f ,H_b $ are the mixed Gaussian distributions of color intensities derived from the foreground and background seeds. The BalanceFlow algorithm is summarized in \ref{alg:balance-flow} and an illustration is shown in figure \ref{fig:ch7-segmentation}.
+where $H_f ,H_b $ are the mixed Gaussian distributions of color intensities derived from the foreground and background seeds. The BalanceFlow algorithm is summarized in~\cref{alg:balance-flow} and an illustration is shown in~\cref{fig:ch7-segmentation}.
 
 \begin{algorithm}
  \SetKwData{It}{k}
@@ -161,7 +167,7 @@ where $H_f ,H_b $ are the mixed Gaussian distributions of color intensities deri
 
 
 \section{Relation with FlipFlow}
-	The BalanceFlow returns similar solutions to the FlipFlow algorithm. Indeed, they are closely related. We recall the curvature regularization term of the FlipFlow energy \eqref{eq:energy-family} for some digital shape $S$ before proving proposition
+	The BalanceFlow returns similar solutions to the FlipFlow algorithm. Indeed, they are closely related. We recall the curvature regularization term of the FlipFlow~\cref{eq:energy-family} for some digital shape $S$ before proving proposition
 
 \begin{align}
 T_{m}^{flip}(S) &= \sum_{ p_i,p_o \in R_m(S)}{ ( \frac{\pi R^2}{2} - F_r(p_o) - \sum_{x_j \in X_r(p_o)}{x_j})^2 + (\frac{\pi R^2}{2} - F_r(p_i) - \sum_{x_j \in X_r(p_i)}{x_j})^2 }
@@ -179,14 +185,14 @@ where $P_1(X_i) = (\sum_{X_i}{ 1-x_j})^2 + (\sum_{X_i}{x_j})^2.$
 
 \begin{proof}
 
-We start by replacing $x_j$ to $(1-x_j)$ in \eqref{eq:curvature-term}, which corresponds to take the complement of the solution in the FlipFlow model. To simplify notation, we are going to ommit the radius $r$ and replace points $p_i,p_o$ by an underscored $i,o$, i.e., $F_i := F_r(p_i)$. We rewrite \eqref{eq:curvature-term} as
+We start by replacing $x_j$ to $(1-x_j)$ in~\cref{eq:curvature-term}, which corresponds to take the complement of the solution in the FlipFlow model. To simplify notation, we are going to ommit the radius $r$ and replace points $p_i,p_o$ by an underscored $i,o$, i.e., $F_i := F_r(p_i)$. We rewrite~\cref{eq:curvature-term} as
 
 \begin{align}
 T_{m}^{flip}(S) &= \sum_{ p_i,p_o \in R_m(S)}{ ( \frac{\pi R^2}{2} - F_o - \sum_{x_j \in X_o}{1-x_j})^2 + (\frac{\pi R^2}{2} - F_i - \sum_{x_j \in X_i}{1-x_j})^2 }
 \label{eq:curvature-term-simplification}
 \end{align}
 
-Next, let $A_i = \pi R^2/2 - |F_i|$. We rewrite  the second term of \eqref{eq:curvature-term-simplification} as
+Next, let $A_i = \pi R^2/2 - |F_i|$. We rewrite  the second term of~\cref{eq:curvature-term-simplification} as
 
 \begin{align*}
 	\Big(A_i - \sum_{x_j \in X_i}{ (1-x_j) } \Big)^2 &= \Big( A_i - |X_i| + \sum_{x_j \in X_i}{ x_j } \Big)^2 \\
@@ -204,7 +210,7 @@ Next, let $A_i = \pi R^2/2 - |F_i|$. We rewrite  the second term of \eqref{eq:cu
 	\label{eq:second-term}
 \end{align}
 
-Finnaly, we  replace \eqref{eq:second-term} in \eqref{eq:curvature-term-simplification} to obtain
+Finnaly, we  replace~\cref{eq:second-term} in~\cref{eq:curvature-term-simplification} to obtain
 
 \begin{align}
 T_{m}^{flip}(S) &= ( \frac{\pi R^2}{2} - (\; |F_o| + \sum_{ x_j \in X_o}{1-x_j} \; ) )^2 -(\frac{\pi R^2}{2} - (\; |F_i| + \sum_{x_j \in X_i}{x_j}\;))^2  + P_1(X_i) + c \nonumber \\
@@ -213,7 +219,7 @@ T_{m}^{flip}(S) &= ( \frac{\pi R^2}{2} - (\; |F_o| + \sum_{ x_j \in X_o}{1-x_j} 
 
 \end{proof}
 
-Proposition \ref{prop:flipflow-balanceflow-relation} tell us that, apart  from a constant, the two energies differ in the penalty term $P_1(X_i)$. Locally, such term favors solutions in which half of the variables touched by the inner ball are labeled one. Indeed, the FlipFlow and BalanceFlow behave similarly. In the next chapter we make extensive comparisons between them.
+~\cref{prop:flipflow-balanceflow-relation} tell us that, apart  from a constant, the two energies differ in the penalty term $P_1(X_i)$. Locally, such term favors solutions in which half of the variables touched by the inner ball are labeled one. Indeed, the FlipFlow and BalanceFlow behave similarly. In the next chapter we make extensive comparisons between them.
 
 %\begin{figure}
 %\begin{tabular}{cccc}
@@ -226,7 +232,7 @@ Proposition \ref{prop:flipflow-balanceflow-relation} tell us that, apart  from a
 
 \section{Towards a graph-based formulation}
 
-Let $A_o = \pi R^2 / 2 - |F_o|$ and $A_i = \pi R^2/2 - |F_i|$. Putting $x_j$ in evidence we can rewrite \eqref{eq:balance-term} as
+Let $A_o = \pi R^2 / 2 - |F_o|$ and $A_i = \pi R^2/2 - |F_i|$. Putting $x_j$ in evidence we can rewrite~\cref{eq:balance-term} as
 
 \begin{align*}
 	T_{m}^{bal}(S) &= \Big(A_o - |X_o| + \sum_{x_j \in X_o}{x_j} \Big)^2 - \Big(A_i - \sum_{x_j \in X_i}{x_j}\Big)^2 \\
@@ -241,7 +247,7 @@ Grouping the constants in $c=(A_o - |X_o|)^2 - A_i^2$ and putting $x_j$ in evide
 	\label{eq:xj-evidence}
 \end{align}
 
-We remark the similarity of the expression between parentheses in \eqref{eq:xj-evidence} and the sum $u(S,p_o)^{1/2} + u(S,p_i)^{1/2}$, i.e., the sum of balance coefficients square roots. The variable $x_j$ is set to zero if the expression in parentheses is less than zero. That remark motivates us to define a graph-based model, described in the next chapter, in which the edge's weight are given by the sum of balance coefficients.
+We remark the similarity of the expression between parentheses in~\cref{eq:xj-evidence} and the sum $u(S,p_o)^{1/2} + u(S,p_i)^{1/2}$, i.e., the sum of balance coefficients square roots. The variable $x_j$ is set to zero if the expression in parentheses is less than zero. That remark motivates us to define a graph-based model, described in the next chapter, in which the edge's weight are given by the sum of balance coefficients.
 
 
 \section{Conclusion}

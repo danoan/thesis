@@ -1,11 +1,17 @@
 \chapter{A 2-step evolution model driven by digital Elastica minimization}
 \label{chapter:flip-flow}
 
-In the previous chapter we have presented a local combinatorial model using multigrid convergent estimator that proved to be very sucessfull in optimizing the digital elastica but too slow to be used in practice. We have also attempted to derive a global optimization model, but unfortunately such model is unlikely to be solved in the current state of art of binary optimization techniques. In this chapter we present a second local optimization model that is much faster than algorithm \ref{alg:local-search} but with fewer guarantees of optimality.
+In the previous chapter we have presented a local combinatorial model using multigrid convergent estimator that proved to be very sucessfull in optimizing the digital Elastica but too slow to be used in practice. We have also attempted to derive a global optimization model, but unfortunately such model is unlikely to be solved in the current state of art of binary optimization techniques. In this chapter we present a second local optimization model that is much faster than~\cref{alg:local-search} but with fewer guarantees of optimality.
 
-\section{Definitions}
+\section{FlipFlow model}
+\label{ch7:sec:flipflow-model}
 
-Let $S$ be a digital shape with domain $\Omega \subset \mathbb{Z}^2$. We describe a flow $\left \{ S^{(k)} \; | \; k \geq 0, S^{0} = S \right\}$ intended to decrease the digital elastica energy of $S$.
+In this section we describe the FlipFlow model that aims to evolve a initial digital shape $S$ into another of lower digial Elastica value. The FlipFlow algorithm consists into decide, at each iteration $k$, which pixels in the \emph{inner boundary} of $S^{(k)}$ are to be removed  and which are to be kept. 
+
+\subsection{Definitions}
+\label{ch7:subsec:definitions}
+
+Let $S$ be a digital shape with domain $\Omega \subset \mathbb{Z}^2$. We describe a flow $\left \{ S^{(k)} \; | \; k \geq 0, S^{0} = S \right\}$ intended to decrease the digital Elastica energy of $S$.
 
 We assume an ordering in $\Omega$, i.e., there exists a bijective function $\omega : \Omega \rightarrow \{1 \cdots |\Omega| \}$. Moreover, let $X_{\omega}:\Omega \rightarrow 2^{\{0,1\}}$ be an operator that transforms digital sets in its corresponding set of binary variables, i.e., given $P \in \Omega$
 
@@ -21,7 +27,7 @@ A $\{0,1\}$ assignment of the variables in $X(P)$ is denoted $x(P)$. We define t
 	S + x(P) = S \cup \left\{ p \; | \; p \in P, x_{\omega(p)}=1 \right\}.
 \end{align*}
 
-Next, we define the set of optimization variables. In order to guarantee connectivity and thus avoid the enforcement of the topological constraints discussed in \ref{ch6:subsec:topological-constraints}, we limit the optimization region to a subset of $\Omega$, namely the inner pixel boundary of  $S^{(k)}$.
+Next, we define the set of optimization variables. In order to guarantee connectivity and thus avoid the enforcement of the topological constraints discussed in~\cref{ch6:subsec:topological-constraints}, we limit the optimization region to a subset of $\Omega$, namely the inner pixel boundary of  $S^{(k)}$.
 
 \begin{definition}{Inner pixel boundary}
 
@@ -34,7 +40,7 @@ where $\mathcal{N}_4(p)$ denotes the $4$-adjacent neighbor set of $p$ (without $
 
 Further, we write $\overline{I}(S)$ to denote the inner pixel boundary of the complement of $S$, i.e., $\overline{I}(S) := I(\overline{S})$.
 
-The FlipFlow algorithm consists into decide, at each iteration, which pixels in the inner boundary are to be removed from $S^{(k)}$ and which are to be kept in $S^{(k)}$. To simplify notation, the inner pixel boundary of $S^{(k)}$ is simply denoted $I^{(k)}$. At each iteration, the set $X^{(k)}$ of optimization variables is defined as
+To simplify notation, the inner pixel boundary of $S^{(k)}$ is simply denoted $I^{(k)}$. At each iteration, the set $X^{(k)}$ of optimization variables is defined as
 
 \begin{align*}
 	X^{(k)} := X(I^{(k)}).
@@ -42,7 +48,13 @@ The FlipFlow algorithm consists into decide, at each iteration, which pixels in 
 
 In the case we optimize the complement of $S$, we write $\overline{X}^{(k)}$, i.e., $\overline{X}^{(k)} = X(\overline{I}^{(k)})$.
 
-An assignment of $X^{(k)}$ is simply denoted $x^{(k)}$. We recall the definition of the II digital curvature estimator:
+An assignment of $X^{(k)}$ is simply denoted $x^{(k)}$. 
+
+
+\subsection{Algorithm}
+\label{ch7:subsec:algorithm}
+
+We recall the definition of the II digital curvature estimator:
 
 \begin{align}
 	\hat{\kappa}^2(p) &= c_1\Big( c_2 - | B_r(p) \cap S^{(k)} | \Big)^2, 
@@ -50,7 +62,7 @@ An assignment of $X^{(k)}$ is simply denoted $x^{(k)}$. We recall the definition
 \end{align}
 where $c_1=3/r^6$ and $c_2=\pi r^2/2$. 
 
-The following sets are important in the expansion of $\eqref{eq:curvature-estimator-pixels}$.
+The following sets are important in the expansion of $~\cref{eq:curvature-estimator-pixels}$.
 
 
 \begin{align*}
@@ -61,37 +73,22 @@ The following sets are important in the expansion of $\eqref{eq:curvature-estima
 \end{align*}
 
 
-Expanding \eqref{eq:curvature-estimator-pixels}, we get 
+Expanding~\cref{eq:curvature-estimator-pixels}, we get 
 
 \begin{align}
   \hat{\kappa}^2(p) &= c_1\Big( c_2 - |F_{r}^{(k)}(p)| - \sum_{x_j \in X_r^{(k)}(p)} {x_j} \Big)^2 \nonumber \\
    &= c_1 \Big( C + 2\left( |F_{r}^{(k)}(p)| - c_2 \right) \hspace{-2mm}\sum_{x_j \in X_{r}^{(k)}(p)}\hspace{-2mm}{x_j} + \hspace{-2mm}\sum_{x_j \in X_{r}^{(k)}(p)}\hspace{-2mm}{x_j^2} + \hspace{-2mm}\sum_{ \substack{x_j,x_l \in X_{r}^{(k)}(p) \\ j<l} }\hspace{-2mm}{2x_jx_l}  \Big),
    \label{eq:digital-squared-curvature-term}
 \end{align}
-where $C=c_2^2 - 2c_2 \cdot |F_{r}^{(k)}(p)| + |F_{r}^{(k)}(p)|^2$ is a constant. As expression \eqref{eq:digital-squared-curvature-term} is a term to be optimized, we can ignore constants and multiplication factors. Moreover, as we are in a binary optimization setting, we can  further simplify expression \eqref{eq:digital-squared-curvature-term} by exploiting the binary character of variables and eliminating monomials of second order. We define the following family
+where $C=c_2^2 - 2c_2 \cdot |F_{r}^{(k)}(p)| + |F_{r}^{(k)}(p)|^2$ is a constant. As~\cref{eq:digital-squared-curvature-term} is a term to be optimized, we can ignore constants and multiplication factors. Moreover, as we are in a binary optimization setting, we can  further simplify~\cref{eq:digital-squared-curvature-term} by exploiting the binary character of variables and eliminating monomials of second order. We define the following family
 of energies for given parameters $\Theta=(\alpha,\beta ) \geq 0$
 \begin{align}
   E_{(\Theta,m)}^{flip}(X^{(k)}) =& \sum_{x_j \in X^{(k)}}{\alpha s(x_j)} + \nonumber \\ 
   & \sum_{ \substack{p \in \\ R_m(S^{(k)})}}{ 2c_1 \beta  \Big( { (1/2+ |F_{r}^{(k)}(p)|-c_2) \cdot \sum_{ \substack{ x_j \in \\ X_{r}^{(k)}(p)}}{x_j} } + \sum_{ \substack{j<l, \\ x_j,x_l \in \\ X_{r}^{(k)}(p) } }{x_jx_l} \Big) },
   \label{eq:energy-family}
 \end{align}
-where $s(\cdot)$ denotes a length penalization term. We recall that $R_m$ refers to the $m-ring$ defined in section \ref{ch6:sec:local-combinatorial-scheme}. Each choice of $m$ generates a different flow, which is generally described in the FlipFlow algorithm \ref{alg:evolution-model}. To optimize energy \eqref{eq:energy-family} we use the QPBOI \ref{} algorithm.
+where $s(\cdot)$ denotes a length penalization term. We recall that $R_m$ refers to the $m-ring$ defined in~\cref{ch6:sec:local-combinatorial-scheme}. Each choice of $m$ generates a different flow, which is generally described in the FlipFlow~\cref{alg:evolution-model}. To optimize~\cref{eq:energy-family} we use the QPBOI algorithm \cite{rother07qpbo}.
 
-
-\begin{figure}
-\begin{minipage}{0.5\textwidth}
-\center
-\includegraphics[scale=0.2]{figures/chapter6/contour-information/before-opt.pdf}
-\label{fig:contour-info-1}
-\end{minipage}%
-\begin{minipage}{0.5\textwidth}
-\center
-\includegraphics[scale=0.2]{figures/chapter6/contour-information/after-opt.pdf}
-\label{fig:contour-info-2}
-\end{minipage}%
-\caption{ Directly using the optimization result of \eqref{eq:energy-family} doesn't decrease squared curvature because contour information is not present in the energy.}
-\label{fig:contour-info}
-\end{figure}
 
 \begin{algorithm}
  \SetKwData{It}{k}
@@ -123,10 +120,25 @@ where $s(\cdot)$ denotes a length penalization term. We recall that $R_m$ refers
  \label{alg:evolution-model}  
 \end{algorithm}
 
-\section{Algorithm discussion}
-\label{sec:flipflow-algorithm-discussion}
+\subsection{Algorithm discussion}
+\label{ch7:subsec:flipflow-algorithm-discussion}
 
-As discussed in section \ref{ch6:sec:global-optimization}, the topological constraints are a fundamental part in a global optimization model for the digital elastica but the complexity added to it dampens any hope of optimizing it efficiently. In the proposed FlipFlow model, we exclude topological constraints and we end up with the tractable binary second order energy \eqref{eq:energy-family}. However, due the lack of contour information, the minimization of \eqref{eq:energy-family} for $S^{(k)}$ results in undesirable shapes of even higher digital elastica energy values  (see figure \ref{fig:contour-info}). Interestingly, by using the inverse of the optimal assignement, we can derive a shape of lower digital elastica energy. Therefore, the next shape is given by
+\begin{figure}
+\begin{minipage}{0.5\textwidth}
+\center
+\includegraphics[scale=0.2]{figures/chapter6/contour-information/before-opt.pdf}
+\label{fig:contour-info-1}
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+\center
+\includegraphics[scale=0.2]{figures/chapter6/contour-information/after-opt.pdf}
+\label{fig:contour-info-2}
+\end{minipage}%
+\caption{ Directly using the optimization result of~\cref{eq:energy-family} doesn't decrease squared curvature because contour information is not present in the energy.}
+\label{fig:contour-info}
+\end{figure}
+
+As discussed in~\cref{ch6:sec:global-optimization}, the topological constraints are a fundamental part in a global optimization model for the digital Elastica but the complexity added to it dampens any hope of optimizing it efficiently. In the proposed FlipFlow model, we exclude topological constraints and we end up with the tractable binary second order~\cref{eq:energy-family}. However, due the lack of contour information, the minimization of~\cref{eq:energy-family} for $S^{(k)}$ results in undesirable shapes of even higher digital Elastica energy values  (see~\cref{fig:contour-info}). Interestingly, by using the inverse of the optimal assignement, we can derive a shape of lower digital Elastica energy. Therefore, the next shape is given by
 
 \begin{align*}
 	S^{(k+1)} = S^{(k)} - \argmin _{}{E_{(\Theta,m)}^{flip}\big(1-X^{(k)}} \big).
@@ -140,9 +152,9 @@ the center of the estimation ball towards the interior of the shape, which means
 why we take the complement of the optimization solution.
 
 
-The explanation above covers the treatment of convex parts, but the way to treat concavities it's not much different. Indeed, concave regions are convex in the shape complement. The FlipFlow algorithm \ref{alg:evolution-model} is made of two modes: shrinking and expansion. The shrinking mode handles convexities and its reasoning is explained in the last paragraph. The expansion mode operates exactly in the same way, but at the image complement, and by doing this we are able to handle
+The explanation above covers the treatment of convex parts, but the way to treat concavities it's not much different. Indeed, concave regions are convex in the shape complement. The FlipFlow~\cref{alg:evolution-model} is made of two modes: shrinking and expansion. The shrinking mode handles convexities and its reasoning is explained in the last paragraph. The expansion mode operates exactly in the same way, but at the image complement, and by doing this we are able to handle
 concavities. It is called expansion mode because the optimization region, in this case, is the outer pixel boundary of
-the original shape. Table~\ref{tab:flow-summary} sums up these arguments.
+the original shape. Table~\cref{tab:flow-summary} sums up these arguments.
 
 Length and data terms should be properly defined in order to comply with the complement step of the FlipFlow
 algorithm. The length penalization is defined as
@@ -174,11 +186,11 @@ algorithm. The length penalization is defined as
 \end{table}
 
 
-In figure \ref{fig:m1-square-flow} we show the results of the FlipFlow algorithm for $m=1,\alpha=0, \beta=1$. We observe a global evolution towards rounder shapes, but several artifacts are formed along the boundary. An estimation ball of higher radius evolves the shapes faster, but the contours become noisier. Setting $\alpha >0$ attenuates the problem for lower radius but the produced shapes doesn't match with our intuition of what a flow driven by the squared curvature must be like, as the evaluation of the II estimator can tell us (see figure ). We have identified two reasons for this behavior.
+In~\cref{fig:m1-square-flow} we show the results of the FlipFlow algorithm for $m=1,\alpha=0, \beta=1$. We observe a global evolution towards rounder shapes, but several artifacts are formed along the boundary. An estimation ball of higher radius evolves the shapes faster, but the contours become noisier. Setting $\alpha >0$ attenuates the problem for lower radius but the produced shapes doesn't match with our intuition of what a flow driven by the squared curvature must be like, as the evaluation of the II estimator can tell us (see figure ). We have identified two reasons for this behavior.
 
-First, we recall that at each iteration, energy \eqref{eq:energy-family} is derived by evaluating the II estimator on a fixed boundary, i.e., the contour information is not included in the optimization problem. Therefore, the flip of a single pixel can turn a previous negative curvature estimation in a positive one (see figure). In our current setting, this is not a desirable property. 
+First, we recall that at each iteration,~\cref{eq:energy-family} is derived by evaluating the II estimator on a fixed boundary, i.e., the contour information is not included in the optimization problem. Therefore, the flip of a single pixel can turn a previous negative curvature estimation in a positive one (see figure). In our current setting, this is not a desirable property. 
 
-The second reason is related to the properties of the energy and those of the optimization method used. As we discuss in the next chapter, the optimization of energy $E_{(\Theta,1)-flip}$ by QPBO leaves several pixels unlabeled. In section \ref{} we propose a strategy to overcome these issues.
+The second reason is related to the properties of the energy and those of the optimization method used. As we discuss in the next chapter, the optimization of energy $E_{(\Theta,1)-flip}$ by QPBO leaves several pixels unlabeled. In~\cref{ch7:sec:evaluation-across-rings} we propose a strategy to overcome these issues.
 
 
 
@@ -212,11 +224,12 @@ The second reason is related to the properties of the energy and those of the op
 \includegraphics[scale=0.45]{figures/chapter6/radius-effect/triangle/improve/len_pen0/radius-3/radius-effect.pdf}}%
 \subfloat[]{
 \includegraphics[scale=0.45]{figures/chapter6/radius-effect/flower/improve/len_pen0/radius-3/radius-effect.pdf}}%
-\caption{The digital elastica decreases in a turbulent way.}
+\caption{The digital Elastica decreases in a turbulent way.}
 \end{figure}
 
 
 \section{Optimization method}
+\label{ch7:sec:optimization-method}
 
 Let $f$ be a function of $n$ binary variables with unary and pairwise terms, i.e.
 
@@ -230,25 +243,23 @@ The function $f$ is submodular if and only if the following inequality holds for
 \end{align*}
 
 The energy $E_{(\Theta,m)}^{flip}$ is non-submodular and optimizing it is a difficult problem, which constrains us to use heuristics and
-approximation algorithms. The QPBO method \cite{rother07qpbo} transforms the original problem in a max-flow/min-cut
+approximation algorithms. The QPBO method \cite{hammer84} transforms the original problem in a max-flow/min-cut
 formulation and yields a full optimal labeling for submodular energies. For non-submodular energies the method is
 guaranteed to return a partial labeling with the property that the set of labeled variables is part of an optimal
 solution. That property is called partial optimality.
 
 In practice, QPBO can leave many pixels unlabeled. There exist two extensions to QPBO that alleviate this limitation:
-QPBOI (improve) and QPBOP (probe). The first is an approximation method that is guaranteed to not increase the energy,
+QPBOI (improve) and QPBOP (probe) \cite{rother07qpbo}. The first is an approximation method that is guaranteed to not increase the energy,
 but loses the property of partial optimality. The second is an exact method which is reported to label more variables
 than QPBO.
 
 The percentage of unlabeled pixels by QPBOP for $E_{(\Theta,m)}^{flip}$ is quite high, but the percentage decreases to zero as we set $m$
 to a value closer to $r$, the estimation ball radius. Therefore, we are more confident in taking the solution for values of $m$ close to $r$. However, the way it
-varies across values of $m$ differs from shape to shape, as is illustrated in figure
-\ref{fig:unlabeled-versus-iterations}. We also noticed that, for $m=r$, all the pixels were labeled, {which may
+varies across values of $m$ differs from shape to shape, as is illustrated in~\cref{fig:unlabeled-versus-iterations}. We also noticed that, for $m=r$, all the pixels were labeled, {which may
   indicate that $E_{(\Theta,r)-flip}$ is an easy instance of the general non-submodular energy $E_{(\Theta,m)}^{flip}$, but this remains to be
-  proved. The number of pairwise terms in $E_{(\Theta,r)-flip}$ is roughly half of those in $E_{(\Theta,1)-flip}$ (see figure
-  \ref{fig:ratio-pairwise-terms}), which also explains the higher number of labeled variables.
+  proved. The number of pairwise terms in $E_{(\Theta,r)-flip}$ is roughly half of those in $E_{(\Theta,1)-flip}$ (see~\cref{fig:ratio-pairwise-terms}), which also explains the higher number of labeled variables.
 
-  We have used QPBOI to solve $E_{(\Theta,m)}^{flip}$. Naturally, in the case where all pixels are labeled by QPBOP, QPBOI returns the same labeling as QPBOP. In the next section we show that by evaluating the estimation ball at the farthest ring, we preserve a qualitatively measure of curvature, we eliminate the artifacts and we produce smoother flows.
+  We have used QPBOI to solve $E_{(\Theta,m)}^{flip}$. Naturally, in the case where all pixels are labeled by QPBOP, QPBOI returns the same labeling as QPBOP. In the next section we show that by evaluating the estimation ball at outer rings, we preserve a qualitatively measure of curvature, we eliminate the artifacts and we produce smoother flows.
 
 
 \begin{figure}
@@ -278,14 +289,16 @@ varies across values of $m$ differs from shape to shape, as is illustrated in fi
 
 
 \section{Evaluation across $m$-rings}
+\label{ch7:sec:evaluation-across-rings}
 
-In the previous sections we pointed out two reasons for the production of artifacts by the FlipFlow algorithm. One related to the number of unlabeled pixels by the QPBO algorithm and the second due to the small uncertainties of the estimator along regions of low squared curvature. We have seen already that QPBO labels more pixels at outer rings. In this section, we argue that by evaluating the estimation ball along outer
-ring sets we can also handle the sensibility issue by focusing the optimization process only on regions with highest squared curvature value.
+In the previous sections we pointed out two reasons for the production of artifacts by the FlipFlow algorithm. One related to the number of unlabeled pixels by the QPBOP algorithm and the second due to the small uncertainties of the estimator along regions of low squared curvature. We have seen already that QPBOP labels more pixels at outer rings. In this section, we argue that by evaluating the estimation ball along outer
+ring sets we can also handle the sensibility issue by focusing the optimization process only on regions of high squared curvature value.
 
-In figure \ref{} we evaluate several flows for different energies $E_{(\Theta,m)}^{flip}$. As expected, the number of artifacts decrease as the value of $m$ increases, but the process still tends to shrinking the shape to a single point, resembling the curvature flow. In the next chapter we tackle this issue.
+In~\cref{fig:mrings-r5-evolution,fig:mrings-r9-evolution} we evaluate several flows for different energies $E_{(\Theta,m)}^{flip}$. As expected, the number of artifacts decrease as the value of $m$ increases, but the process still tends to shrinking the shape to a single point, resembling the curvature flow. 
 
-We confirm the stability of the model by looking at the plots of the digital elastica energy values for the produced shapes. Moreover, the produced flow has no difficulties in handling changes on topology, and it presents different speeds for regions with low and high curvature values, as illustrated in figure \ref{fig:mx-speed-variation-hole-filling}.
+We confirm the stability of the model by looking at the plots of the digital Elastica energy values for the produced shapes. Moreover, the produced flow has no difficulties in handling changes on topology, and it presents different speeds for regions with low and high curvature values, as illustrated in~\cref{fig:handle-topology-different-speed}.
 
+The computation of estimation balls at outer rings raises the question about its validity as a curvature estimator. In fact, one can estimate the curvature using outer balls (see~\cref{app:curvature-and-distant-disks}), but we were not able to prove its multigrid convergence. However, this relation suggests that curvature information is at least qualitatevely present in the outer balls computation, and this computation is preferred, as it is easier to optimize acordingly to the experiments illustrated in~\cref{fig:mrings-r5-evolution,fig:mrings-r9-evolution,fig:unlabeled-versus-iterations,fig:mrings-plots-r5-r9}.
 
 \begin{figure}
 \center
@@ -303,7 +316,7 @@ $m=5$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/impr
 \includegraphics[scale=0.25]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level5/summary.pdf} &
 \includegraphics[scale=0.25]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-5/level5/summary.pdf} \\[2em]
 \end{tabular}
-\caption{By positioning the estimation ball on outer rings, we minimize artifacts creation. The radius of the estimation ball used here equals to $5$ and the curves are displayed every $10$ iterations. \label{fig:mx-square-flow}}
+\caption{By positioning the estimation ball on outer rings, we minimize artifacts creation. The radius of the estimation ball used here equals to $5$ and the curves are displayed every $10$ iterations. \label{fig:mrings-r5-evolution}}
 \end{figure}
 
 
@@ -323,7 +336,7 @@ $m=9$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/impr
 \includegraphics[scale=0.25]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level9/summary.pdf} &
 \includegraphics[scale=0.25]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-9/level9/summary.pdf} \\[2em]
 \end{tabular}
-\caption{By positioning the estimation ball on outer rings, we minimize artifacts creation. The radius of the estimation ball used here equals to $9$ and the curves are displayed every $10$ iterations. \label{fig:mx-square-flow}}
+\caption{By positioning the estimation ball on outer rings, we minimize artifacts creation. The radius of the estimation ball used here equals to $9$ and the curves are displayed every $10$ iterations. \label{fig:mrings-r9-evolution}}
 \end{figure}
 
 \begin{figure}
@@ -337,6 +350,7 @@ $m=9$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/impr
 \subfloat[]{
 \includegraphics[scale=0.5]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level1/level-effect.pdf}}%
 \caption{Digital Elastica (II-$5$,$h=0.25$) evaluation at each iteration for several $m$-FlipFlow evolutions. In the left column, we use FlipFlow radius $5$ and in the right column we use FlipFlow radius $9$. }
+\label{fig:mrings-plots-r5-r9}
 \end{figure}
 
 \begin{figure}
@@ -345,10 +359,12 @@ $m=9$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/impr
 
 \subfloat[]{\includegraphics[scale=0.35]{figures/chapter6/topology-change/summary-square-holes.pdf}}
 \caption{The flow evolves regions of high curvature faster, as illustrated in figure (a). Figure (b) illustrates the property of the FlipFlow algorithm to handle changes in topology.}
+\label{fig:handle-topology-different-speed}
 \end{figure}
 
 
 \section{Data term and image segmentation}
+\label{ch7:sec:data-term-image-segmentation}
 
 We present an application of the FlipFlow algorithm to supervised image segmentation. The FlipFlow acts as a contour correction method. Here we use a data fidelity term in order to characterize the object of interest. Given foreground and background seeds selected by the user, we derive mixed Gaussian distributions of color intensities $H_f$,$H_b$, and we define the data fidelity term as the cross-entropy, i.e.
 	
@@ -358,7 +374,7 @@ We present an application of the FlipFlow algorithm to supervised image segmenta
 \end{align}	
 
 We use the FlipFlow algorithm to regularize an initial contour output by some segmentation algorithm or delineated by the user. In this application, the data term of the FlipFlow
-is set to the data fidelity term \eqref{eq:data-fidelity}.
+is set to the data fidelity term~\cref{eq:data-fidelity}.
 	
 \begin{algorithm}
  \SetKwData{It}{k}
@@ -394,14 +410,14 @@ is set to the data fidelity term \eqref{eq:data-fidelity}.
 	\It $\longleftarrow$ \It $+1$\;
 	
  }
- \label{alg:contour-correction} 
  \caption{Contour correction algorithm.}
+  \label{alg:contour-correction} 
 \end{algorithm}	
 
 
 The algorithm can be initialized by a collection of compact sets, or with the result of a third-party segmentation algorithm, as GrabCut \cite{rother04grabcut}. We include an additional parameter $d$ that dilates the initial sets using a square of side one before executing the flow.
 
-An illustration of the application of the FlipFlow model in image segmentation is presented in figure \ref{fig:ch6-segmentation}. We present a more exhaustive list of experiments and comparisons with other methods in chapter \ref{}.
+An illustration of the application of the FlipFlow model in image segmentation is presented in~\cref{fig:ch6-segmentation}. We present a more exhaustive list of experiments and comparisons with other methods in~\cref{chapter:results-analysis}.
 	
 \begin{figure}
 \center
@@ -418,6 +434,12 @@ An illustration of the application of the FlipFlow model in image segmentation i
 \end{figure}
 
 \section{Conclusion}
+\label{ch7:sec:conclusion}
+We presented the FlipFlow model in~\cref{ch7:sec:flipflow-model}, an evolution process that produces shapes of decreasing digital Elastica until a certain point.~\cref{alg:evolution-model} operates in two distint modes: the shrinking and the dilation modes. They are responsible for the treatment of convexities and concavities regions, respectively. 
 
-In the next chapter we elucidate the relation between the curvature and the computation of estimation balls at outer rings.
+
+~\cref{ch7:sec:optimization-method} briefly describes some properties of QPBO method and its variants used to solve the quadratic binary problem that appears at every iteration of ~\cref{alg:evolution-model}. In~\cref{ch7:sec:evaluation-across-rings} we point out the submodularization effect of evaluating the FlipFlow model at outer $m$-rings. For larger values of $m$, all pixels are labeled by QPBOP. Finnaly, we extended~\cref{alg:evolution-model} in order to include a data term regularization and do image segmentation using~\cref{alg:contour-correction}.
+
+
+In the next chapter we identify the key concept behind the FlipFlow model to define an easier to implement version of it.
 

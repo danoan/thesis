@@ -6,6 +6,8 @@
 \usepackage{algorithm2e,float}
 \usepackage{listings}
 \usepackage{array,multirow}
+\usepackage{hyperref}
+\usepackage[noabbrev,capitalise,nameinlink]{cleveref}
 
 \usepackage{natbib}
 \bibliographystyle{alpha}
@@ -46,6 +48,7 @@
 	\include{chapters/graphcut-flow}
 	\include{chapters/results-analysis}
 	\begin{appendices}
+		\crefalias{chapter}{appsec}
 		\include{chapters/appendix-curvature-distant-balls}			
 		\include{chapters/appendix-pixel-incidence-matrix}
 		\include{chapters/appendix-grabcut}				
