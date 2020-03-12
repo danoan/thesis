@@ -16,7 +16,7 @@ In the FlipFlow model no contour information is given, and the strategy there we
 Given digital shape $S \in \Omega$, positive number $r$ and point $p \in \Omega$, the \emph{balance coefficient} of $S$ at $p$ is defined as
 
 \begin{align*}
-	u(S,p) = ( \frac{\pi r^2}{2} - |B_r(p) \cap S| )^2.
+	u(S,p) = \left( \frac{\pi r^2}{2} - |B_r(p) \cap S| \right)^2.
 \end{align*}
 
 \end{definition}
@@ -24,7 +24,7 @@ Given digital shape $S \in \Omega$, positive number $r$ and point $p \in \Omega$
 The balance coefficient definition is very similar to the II squared curvature estimator. Nonetheless, we have decided to make a new definition since we don't have the scaling factor $\frac{9}{R^6}$ and that the balance coefficient can be computed everywehere and not only in the digital boundary of the shape. Let $F=B_r(p) \cap S$ and $G=B_r(p) \setminus F$. The balance coefficient is symmetric with respect $F$ and $G$. 
 
 \begin{align*}
-	u(S,p) &= ( \frac{\pi r^2}{2} - |F| )^2 = ( -\frac{\pi r^2}{2} + |G| )^2 = ( \frac{\pi r^2}{2} - |G| )^2.
+	u(S,p) &= \left( \frac{\pi r^2}{2} - |F| \right)^2 = \left( -\frac{\pi r^2}{2} + |G| \right)^2 = \left( \frac{\pi r^2}{2} - |G| \right)^2.
 \end{align*}
 
 The balance coefficient is used to estimate the effect of moving the estimation ball center towards the interior or the exterior of the shape. For example, consider~\cref{fig:balance-plot} in which we plot the balance coefficients of points along the diagonal of a square shape. 
@@ -93,16 +93,26 @@ We are going to consider the inner and outer pixel boundary simultaneously as th
 	X_r^{(k)}(p) &:= X\big( O_r^{(k)}(p) \big).
 \end{align*}
 
+We recall that an assignment of variables $X(\Omega)$ is denoted $x(\Omega)$. In the case the shape is described is terms of a set of variables $X(\Omega)$, i.e., $S=F \cup x(\Omega)$,  the ballance coefficient is written as
+
+\begin{align*}
+	u(F,X,p) &=  \Big( \frac{\pi r^2}{2} - |F_r(p)| - \sum_{x_j \in X_r(p)}{x_j} \Big)^2.
+\end{align*}
+
 \subsection{Algorithm}
 
-We assume $k=0$ if not defined, i.e., $S=S^{(0)}$. We denote $p_i, p_o \in \mathcal{R}_m(S)$ as the inner and outer ball centers in the $m$-ring of $S$, respectively. To simplify notation, let $X_o=X_r(p_o)$ and $X_i=X_r(p_i)$. We define the term $T_{m}^{bal}(S)$ as
+Let $p_i, p_o \in \mathcal{R}_m(S)$ the inner and outer ball centers in the $m$-ring of $S$, respectively. We assume $k=0$ if not defined, i.e., $S=S^{(0)}$. We define the term $T_{m}^{bal}(S)$ as
 
 \begin{align}
-	T_{m}^{bal}(S) &= \sum_{p_i,p_o \in \mathcal{R}_m(S)}{( \frac{\pi R^2}{2} - (\; |F_o| + \sum_{ x_j \in X_o}{1-x_j} \; ) )^2 -(\frac{\pi R^2}{2} - (\; |F_i| + \sum_{x_j \in X_i}{x_j}\;))^2}.
+	T_{m}^{bal}(S) &= \sum_{p_i,p_o \in \mathcal{R}_m(S)}{u(F,1-X,p_o) - u(F,X,p_i)} \nonumber \\
+	&=  \sum_{p_i,p_o \in \mathcal{R}_m(S)}{\Bigg( \frac{\pi R^2}{2} - \Big(\; |F_o| + \sum_{ x_j \in X_o}{1-x_j} \; \Big) \Bigg)^2 -\Bigg(\frac{\pi R^2}{2} - \Big(\; |F_i| + \sum_{x_j \in X_i}{x_j}\;\Big)\Bigg)^2},
 	\label{eq:balance-term}
 \end{align}
 
-Locally, labeling $x_j=0$ implies to change the initial balance of the outer ball, while keeping the initial balance of the inner ball unchanged. 
+where $X_o=X_r(p_o), X_i=X_r(p_i), F_o=F_r(p_o), F_i=F_r(p_i)$.
+
+
+\cref{eq:balance-term} favors configurations of zero difference between the outer and inner ball coeficients, i.e., regions of zero curvature. Minimization of~\cref{eq:balance-term} tends to label variables to zero (one) in regions of positive (negative) curvature.
 
 The $m$-balance energy family is defined as
 
@@ -170,7 +180,7 @@ where $H_f ,H_b $ are the mixed Gaussian distributions of color intensities deri
 	The BalanceFlow returns similar solutions to the FlipFlow algorithm. Indeed, they are closely related. We recall the curvature regularization term of the FlipFlow~\cref{eq:energy-family} for some digital shape $S$ before proving proposition
 
 \begin{align}
-T_{m}^{flip}(S) &= \sum_{ p_i,p_o \in R_m(S)}{ ( \frac{\pi R^2}{2} - F_r(p_o) - \sum_{x_j \in X_r(p_o)}{x_j})^2 + (\frac{\pi R^2}{2} - F_r(p_i) - \sum_{x_j \in X_r(p_i)}{x_j})^2 }
+T_{m}^{flip}(S) &= \sum_{ p_i,p_o \in R_m(S)}{ \Big( \frac{\pi R^2}{2} - F_r(p_o) - \sum_{x_j \in X_r(p_o)}{x_j}\Big)^2 + \Big(\frac{\pi R^2}{2} - F_r(p_i) - \sum_{x_j \in X_r(p_i)}{x_j}\Big)^2 }
 \label{eq:curvature-term}
 \end{align}
 
@@ -188,7 +198,7 @@ where $P_1(X_i) = (\sum_{X_i}{ 1-x_j})^2 + (\sum_{X_i}{x_j})^2.$
 We start by replacing $x_j$ to $(1-x_j)$ in~\cref{eq:curvature-term}, which corresponds to take the complement of the solution in the FlipFlow model. To simplify notation, we are going to ommit the radius $r$ and replace points $p_i,p_o$ by an underscored $i,o$, i.e., $F_i := F_r(p_i)$. We rewrite~\cref{eq:curvature-term} as
 
 \begin{align}
-T_{m}^{flip}(S) &= \sum_{ p_i,p_o \in R_m(S)}{ ( \frac{\pi R^2}{2} - F_o - \sum_{x_j \in X_o}{1-x_j})^2 + (\frac{\pi R^2}{2} - F_i - \sum_{x_j \in X_i}{1-x_j})^2 }
+T_{m}^{flip}(S) &= \sum_{ p_i,p_o \in R_m(S)}{ \Big( \frac{\pi R^2}{2} - F_o - \sum_{x_j \in X_o}{1-x_j}\Big)^2 + \Big(\frac{\pi R^2}{2} - F_i - \sum_{x_j \in X_i}{1-x_j}\Big)^2 }
 \label{eq:curvature-term-simplification}
 \end{align}
 
@@ -213,7 +223,7 @@ Next, let $A_i = \pi R^2/2 - |F_i|$. We rewrite  the second term of~\cref{eq:cur
 Finnaly, we  replace~\cref{eq:second-term} in~\cref{eq:curvature-term-simplification} to obtain
 
 \begin{align}
-T_{m}^{flip}(S) &= ( \frac{\pi R^2}{2} - (\; |F_o| + \sum_{ x_j \in X_o}{1-x_j} \; ) )^2 -(\frac{\pi R^2}{2} - (\; |F_i| + \sum_{x_j \in X_i}{x_j}\;))^2  + P_1(X_i) + c \nonumber \\
+T_{m}^{flip}(S) &= \Bigg( \frac{\pi R^2}{2} - \Big(\; |F_o| + \sum_{ x_j \in X_o}{1-x_j} \; \Big) \Bigg)^2 - \Bigg(\frac{\pi R^2}{2} - \Big(\; |F_i| + \sum_{x_j \in X_i}{x_j}\;\Big) \Bigg)^2  + P_1(X_i) + c \nonumber \\
 &= T_{m}^{bal}(S) + P_1(X_i) + c.
 \end{align}
 
@@ -232,26 +242,37 @@ T_{m}^{flip}(S) &= ( \frac{\pi R^2}{2} - (\; |F_o| + \sum_{ x_j \in X_o}{1-x_j} 
 
 \section{Towards a graph-based formulation}
 
-Let $A_o = \pi R^2 / 2 - |F_o|$ and $A_i = \pi R^2/2 - |F_i|$. Putting $x_j$ in evidence we can rewrite~\cref{eq:balance-term} as
+%Let $A_o = \pi R^2 / 2 - |F_o|$ and $A_i = \pi R^2/2 - |F_i|$. We rewrite~\cref{eq:balance-term} as
+%
+%\begin{align*}
+%	T_{m}^{bal}(S) &= \Big(A_o - |X_o| + \sum_{x_j \in X_o}{x_j} \Big)^2 - \Big(A_i - \sum_{x_j \in X_i}{x_j}\Big)^2 \\
+%	&= (A_o - |X_o|)^2 + 2(A_o - |X_o|)\sum_{x_j \in X_o}{x_j} +   \big(\sum_{x_j \in X_o}{x_j}\big)^2 - A_i^2  + 2A_i\sum_{x_j \in X_i}{x_j}  - \big(\sum_{x_j \in X_i}{x_j}\big)^2.
+%\end{align*} 
+%
+%Grouping the constants in $c=(A_o - |X_o|)^2 - A_i^2$ and putting $x_j$ in evidence we obtain
+%
+%\begin{align}
+%	T_{m}^{bal}(S) 	&= c +\sum_{x_j \in X}{ 2x_j\Big( A_o - |X_o| + \frac{1}{2}\sum_{x_l \in X_o}{x_l} + A_i - \frac{1}{2}\sum_{x_l \in X_i}{x_l}\Big)} \nonumber \\
+%	&= c +\sum_{x_j \in X}{2x_j\Bigg( \Big(A_o - \sum_{x_l \in X_o}{1-\frac{x_l}{2}}\Big) + \Big(A_i - \sum_{x_l \in X_i}{\frac{x_l}{2}}\Big)\Bigg)}.
+%	\label{eq:xj-evidence}
+%\end{align}
+%
+%We remark the similarity of the expression between parentheses in~\cref{eq:xj-evidence} and the sum $u(S,p_o)^{1/2} + u(S,p_i)^{1/2}$, i.e., the sum of balance coefficients square roots. The variable $x_j$ is set to zero if for every assignment for variables $x_l$, the expression in parentheses is greater than zero. That remark motivates us to define a graph-based model, described in the next chapter, in which the edge's weight are given by the sum of balance coefficients.
 
-\begin{align*}
-	T_{m}^{bal}(S) &= \Big(A_o - |X_o| + \sum_{x_j \in X_o}{x_j} \Big)^2 - \Big(A_i - \sum_{x_j \in X_i}{x_j}\Big)^2 \\
-	&= (A_o - |X_o|)^2 - A_i^2 + 2(A_o - |X_o|)\sum_{x_j \in X_o}{x_j} + 2A_i\sum_{x_j \in X_i}{x_j} + \sum_{x_j \in X_o}{x_j}^2 - \sum_{x_j \in X_i}{x_j}^2.
-\end{align*} 
+Looking at~\cref{fig:balance-plot} it would be interesting to find the point in which the inner or outer ball reaches the zero balance. In~\cref{fig:flower-balance-coefficient-zero-set} each color represents the balance coefficient $u_{12}$ of the closed shape with contour colored in white. We highlighted in magenta the pixels $p$ which $u_{12}(S,p) \leq 169$.
 
-Grouping the constants in $c=(A_o - |X_o|)^2 - A_i^2$ and putting $x_j$ in evidence we obtain
+~\cref{fig:flower-balance-coefficient-zero-set} suggests that an evolution based on the zero level set of the balance coefficient may decrease the digital Elastica energy. In the next chapter we describe a graph-cut model in which the cost function is given by a function of the balance coefficients.
 
-\begin{align}
-	T_{m}^{bal}(S) 	&= c +\sum_{x_j \in X}{ 2x_j\Big( A_o - |X_o| + \frac{1}{2}\sum_{x_l \in X_o}{x_l} + A_i - \frac{1}{2}\sum_{x_l \in X_i}{x_l}\Big)} \nonumber \\
-	&= c +\sum_{x_j \in X}{2x_j\Bigg( \Big(A_o - \sum_{x_l \in X_o}{1-\frac{x_l}{2}}\Big) + \Big(A_i - \sum_{x_l \in X_i}{\frac{x_l}{2}}\Big)\Bigg)}.
-	\label{eq:xj-evidence}
-\end{align}
-
-We remark the similarity of the expression between parentheses in~\cref{eq:xj-evidence} and the sum $u(S,p_o)^{1/2} + u(S,p_i)^{1/2}$, i.e., the sum of balance coefficients square roots. The variable $x_j$ is set to zero if the expression in parentheses is less than zero. That remark motivates us to define a graph-based model, described in the next chapter, in which the edge's weight are given by the sum of balance coefficients.
+\begin{figure}
+\center
+\includegraphics[scale=0.05]{figures/chapter7/level-set/flower.pdf}
+\caption{Balance coefficient map of radius $12$ for the flower shape (contour in white). The pixels in magenta have balance coefficient smaller than $169$. }
+\label{fig:flower-balance-coefficient-zero-set}
+\end{figure}
 
 
 \section{Conclusion}
-The BalanceFlow model is closely related to the FlipFlow but it has a simple implementation and interpretation. The balance coefficent is the link that connects both models and the motivation for the graph-based model proposed in the next chapter.
+The BalanceFlow model is closely related to the FlipFlow but it has a simple implementation and interpretation. The balance coefficent is the link that connects both models and the motivation for the graph-cut model proposed in the next chapter.
 
 
 

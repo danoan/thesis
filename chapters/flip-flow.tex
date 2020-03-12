@@ -13,18 +13,18 @@ In this section we describe the FlipFlow model that aims to evolve a initial dig
 
 Let $S$ be a digital shape with domain $\Omega \subset \mathbb{Z}^2$. We describe a flow $\left \{ S^{(k)} \; | \; k \geq 0, S^{0} = S \right\}$ intended to decrease the digital Elastica energy of $S$.
 
-We assume an ordering in $\Omega$, i.e., there exists a bijective function $\omega : \Omega \rightarrow \{1 \cdots |\Omega| \}$. Moreover, let $X_{\omega}:\Omega \rightarrow 2^{\{0,1\}}$ be an operator that transforms digital sets in its corresponding set of binary variables, i.e., given $P \in \Omega$
+We assume an ordering in $\Omega$, i.e., there exists a bijective function $\omega : \Omega \rightarrow \{1 \cdots |\Omega| \}$. Moreover, let $X_{\omega}:\Omega \rightarrow 2^{\{0,1\}}$ be an operator that transforms digital sets in its corresponding set of binary variables, i.e.,
 
 \begin{align*}
-	X_{\omega}(P) := \left\{ x_{\omega(p)} \in \{0,1\} \; | \; p \in P \right\}.
+	X_{\omega}(\Omega) := \left\{ x_{\omega(p)} \in \{0,1\} \; | \; p \in \Omega \right\}.
 \end{align*}
 
-We'll simply write $X(P)$ if the definition of $\omega$ is clear from the context.
+We'll simply write $X(\Omega)$ if the definition of $\omega$ is clear from the context.
 
-A $\{0,1\}$ assignment of the variables in $X(P)$ is denoted $x(P)$. We define the sum of a set $S$ and an assignment $x(P)$ of $X(P)$ in a domain $\Omega$ as
+A $\{0,1\}$ assignment of the variables in $X(\Omega)$ is denoted $x(\Omega)$. We define the sum of a set $S$ and an assignment $x(\Omega)$ as
 
 \begin{align*}
-	S + x(P) = S \cup \left\{ p \; | \; p \in P, x_{\omega(p)}=1 \right\}.
+	S + x(\Omega) = S \cup \left\{ p \; | \; p \in P, x_{\omega(p)}=1 \right\}.
 \end{align*}
 
 Next, we define the set of optimization variables. In order to guarantee connectivity and thus avoid the enforcement of the topological constraints discussed in~\cref{ch6:subsec:topological-constraints}, we limit the optimization region to a subset of $\Omega$, namely the inner pixel boundary of  $S^{(k)}$.
