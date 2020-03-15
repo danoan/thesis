@@ -314,5 +314,17 @@ $(n=2, a=0,\alpha=0.01)$ & $(n=2, a=2,\alpha=0.01)$ & $(n=2, a=2, \alpha=0.001)$
 \label{fig:ch8-segmentation}
 \end{figure}
 
+\begin{figure}
+\center
+\begin{tabular}{cc}
+$\alpha=0.01, \mathbf{\beta=0}$ & $\alpha=0.01, \mathbf{\beta=1}$\\
+$\lambda_r = 3, \lambda_b = 3$ & $\lambda_r = 3, \lambda_b = 3$\\
+ 	\includegraphics[scale=0.25]{figures/chapter8/completion/graphseg/alpha-0.0/beta-0.0/gamma-3.0/radius-5/corrected-seg.png} & 
+ 	\includegraphics[scale=0.25]{figures/chapter8/completion/graphseg/alpha-0.01/beta-1.0/gamma-3.0/radius-3/corrected-seg.png}
+\end{tabular}	
+\caption{Completion property. The left figure illustrates an example of oversegmentation that may occur when the squared curvature term is set to zero. In the right figure, the same image is segmented as a single object when $\beta = 1$. }
+\label{fig:ch8-segmentation-curvature-completion}
+\end{figure}
+
 \section{Conclusion}
 A graph-cut model  We described a graph-cut model that regularizes the squared curvature, in the free, constrained Elastica and is suitable for image segmentation. The evolution produced by the GraphFlow responds to the length penalization term $\alpha$, i.e., the shape tends to grow (shrink) for lower (higher) values of $\alpha$.  Moreover, the GraphFlow~\cref{alg:graphflow-algorithm} is faster and simpler to implement than the previous models presented in this thesis.

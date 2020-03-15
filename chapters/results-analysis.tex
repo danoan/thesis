@@ -214,7 +214,7 @@ The FlipFlow,BalanceFlow and GraphFlow can be extended to do image segmentation.
 
 All three models (FF,BF,GF) need a initial segmentation as input. This segmentation is given by a single iteration of the Grabcut algorithm.~\cref{tab:image-segmentation-parameters-summary} lists the parameters configuration for each experiment and~\cref{tab:rtime-image-segmentation-general} summarizes their running times. 
 
-We categorize the experiments in two sections. In the first, we study the influence of the weight coefficient in the segmentation and in the second we discuss the choice of the disk radius.
+We categorize the experiments in two sections. In the first, we study the influence of eqch parameter in the produced segmentation and in the second we compare our segmentations with those produced by SLCR.
 
 
 \begin{table}
@@ -233,9 +233,13 @@ Experiment & $maxIt$ & $vRadius$ & $eRadius$ & $\alpha$ & $\beta$  & $\gamma$ & 
 &  & & & & $1$ & & & & & &\\
 &  & & & & $3$ & & & & & &\\
 \hline
-\multirow{3}{*}{Exp-$\gamma$} & \multirow{3}{*}{$200$} & \multirow{3}{*}{$7$} & \multirow{3}{*}{$7$} & \multirow{3}{*}{$0.1$} & \multirow{3}{*}{$1$} & $0$ & \multirow{3}{*}{$5$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$2$} & $0$ & $0$ \\
+\multirow{3}{*}{Exp-$\gamma$} & \multirow{3}{*}{$200$} & \multirow{3}{*}{$7$} & \multirow{3}{*}{$7$} & \multirow{3}{*}{$0.1$} & \multirow{3}{*}{$1$} & $0$ & \multirow{3}{*}{$0$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$2$} & $0$ & $0$ \\
 &  & & & & & $1$ & & & & $1$ & $1$\\
 &  & & & & & $5$ & & & & $5$ & $5$\\
+\hline
+\multirow{3}{*}{Exp-$radius$} & \multirow{3}{*}{$200$} & $3$ & $3$ & \multirow{3}{*}{$0.1$} & \multirow{3}{*}{$1$} & \multirow{3}{*}{$1$} & \multirow{3}{*}{$0$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$1$} & \multirow{3}{*}{$1$} \\
+&  & $7$ & $7$ & & & & & & & & \\
+&  & $12$ & $12$ & & & & & & & & \\
 \hline
 \end{tabular}
 \caption{Parameters listing for the image segmentation experiments. The headers $FF,BF,GF$ highlights parameters that are exclusive for the FlipFLow, BalanceFlow and GraphFlow models, respectively.}
@@ -259,7 +263,7 @@ GraphFlow & 0 & 1s/it & 0.12s/it\\
 \label{tab:rtime-image-segmentation-general} 
 \end{figure}
 
-\subsection{Weights choice}
+\subsection{Parameters influence}
 The models offer parameters to control the weight of length $(\alpha)$, curvature $(\beta)$ and data ($\gamma,\lambda _r, \lambda _b$). We recall that FF and BF accept a single regional parameter $\gamma$ for data, while GF accepts $\lambda _r$ to ponderate a regional term and $\lambda _b$ to weight a boundary term. The Grabcut input and its result are shown in~\cref{fig:grabcut-input-image-segmentation}. The results are displayed in~\cref{fig:exp-alpha-image-segmentation,fig:exp-beta-image-segmentation,fig:exp-gamma-image-segmentation,fig:exp-radius-image-segmentation}. 
 
 The FlipFlow and BalanceFlow present similar results for all experiments, as expected. The Exp-$\alpha$ experiment regularizes only length, and we can observe that the segmentations produced by all three models tend to be staircased. 
@@ -268,7 +272,7 @@ We remark that there is no length penalization in the cost function of the candi
 
 On the other hand, experiment Exp-$\beta$ illustrates how the curvature can be used to produce smoother curves in these models. We recall that the shrink or growing behaviour in the case of the GF is controlled by the value of $\alpha$, which in Exp-$\beta$ is set to $\alpha=0.1$. The FF, and BF can grow in concavities, but it presents a general shrinking behaviour.
 
-Finally, Exp-$\gamma$ illustrates the role of data term in the final segmentation result. It is clear that all three models regularizes the initial segmentation given by Grabcut with respect to the squared curvature, the regularization amount being parameterized by the relation between the data ($\gamma, \theta_r, \theta_b$) and curvature ($\beta$) weights. The best choice of parameters depends on the object to be segmented.
+Finally, Exp-$\gamma$ illustrates the role of data term in the final segmentation result and Exp-$radius$ the effect of the estimation ball radius. It is clear that all three models regularizes the initial segmentation given by Grabcut with respect to the squared curvature, the regularization amount being parameterized by the relation between the data ($\gamma, \theta_r, \theta_b$) and curvature ($\beta$) weights. The best choice of parameters depends on the object to be segmented.
 
 
 \begin{figure}
@@ -346,35 +350,24 @@ $\gamma = 5$ & \raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter
 \begin{figure}
 \begin{tabular}{cccc}
 & FlipFlow & BalanceFlow & GraphFlow\\
-$r=3$ & \raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/flipseg/alpha-0.1/beta-1.0/gamma-2.0/radius-3/corrected-seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/balanceseg/alpha-0.1/beta-1.0/gamma-2.0/radius-3/corrected-seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/graphseg/alpha-0.1/beta-1.0/gamma-2.0/radius-3/corrected-seg.png}} \\[10em]
+$r=3$ & \raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/flipseg/alpha-0.1/beta-1.0/gamma-1.0/radius-3/corrected-seg.png}} &
+\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/balanceseg/alpha-0.1/beta-1.0/gamma-1.0/radius-3/corrected-seg.png}} &
+\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/graphseg/alpha-0.1/beta-1.0/gamma-1.0/radius-3/corrected-seg.png}} \\[10em]
 
-$r=25$ & \raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/flipseg/alpha-0.1/beta-1.0/gamma-2.0/radius-25/corrected-seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/balanceseg/alpha-0.1/beta-1.0/gamma-2.0/radius-25/corrected-seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/graphseg/alpha-0.1/beta-1.0/gamma-2.0/radius-25/corrected-seg.png}} \\[10em]
+$r=7$ & \raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/flipseg/alpha-0.1/beta-1.0/gamma-1.0/radius-7/corrected-seg.png}} &
+\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/balanceseg/alpha-0.1/beta-1.0/gamma-1.0/radius-7/corrected-seg.png}} &
+\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/graphseg/alpha-0.1/beta-1.0/gamma-1.0/radius-7/corrected-seg.png}} \\[10em]
 
-$r=50$ & \raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/flipseg/alpha-0.1/beta-1.0/gamma-2.0/radius-50/corrected-seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/balanceseg/alpha-0.1/beta-1.0/gamma-2.0/radius-50/corrected-seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/graphseg/alpha-0.1/beta-1.0/gamma-2.0/radius-50/corrected-seg.png}}
+$r=12$ & \raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/flipseg/alpha-0.1/beta-1.0/gamma-1.0/radius-12/corrected-seg.png}} &
+\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/balanceseg/alpha-0.1/beta-1.0/gamma-1.0/radius-12/corrected-seg.png}} &
+\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/graphseg/alpha-0.1/beta-1.0/gamma-1.0/radius-12/corrected-seg.png}}
 \end{tabular}
 \caption{Exp-$radius$}
 \label{fig:exp-radius-image-segmentation}
 \end{figure}
 
-%\begin{figure}
-%\begin{tabular}{ccc}
-%$\lambda _b=5$ & $\lambda _b=10$ & $\lambda _b=20$\\
-%\includegraphics[scale=0.4]{figures/chapter9/segmentation/graphseg/exp-lb/radius-7/alpha-0.5/beta-3.0/lb-5.0/lr-2.0/coala/corrected-seg.png} &
-%\includegraphics[scale=0.4]{figures/chapter9/segmentation/graphseg/exp-lb/radius-7/alpha-0.5/beta-3.0/lb-10.0/lr-2.0/coala/corrected-seg.png} &
-%\includegraphics[scale=0.4]{figures/chapter9/segmentation/graphseg/exp-lb/radius-7/alpha-0.5/beta-3.0/lb-20.0/lr-2.0/coala/corrected-seg.png}\\
-%\multicolumn{3}{c}{GraphFlow}
-%\end{tabular}
-%\caption{Exp-$\lambda _b$}
-%\label{fig:exp-lambdab-image-segmentation}
-%\end{figure}
 
-\subsection{Radius choice}
+\subsection{Comparison}
 
 The choice of parameters is input-dependent. The weights coefficients are standard in image segmentation models, and no further discussion of them will take place here. However, we are going to say few words with respect the choice of the balance coefficient and estimation disk radii.
 
@@ -384,6 +377,80 @@ The second criteria to take into account is the desired range of curvature value
 
 %In figure~\cref{} we illustrate how the choice of radius may change the segmentation results in the GraphFlow model. A radius larger than the reach of the initial segments does not help us in to find the desired segmentation. Using a smaller radius and tunning the weight coefficients, we recover a better result.
 
+\newcommand\figTable[2]{\raisebox{-.5\height}{\includegraphics[scale=#1]{#2}}}
+\newcommand\segComparison[2]{figures/chapter9/segmentation/comparison/#1/#2/alpha-0.01/beta-1.0/gamma-3.0/radius-7}
+
+\newcommand\compTable[5]{
+	\begin{figure}
+	\center
+	\begin{tabular}{m{0.25cm}ccc}
+	\rotatebox{90}{GrabCut} & 
+	\figTable{0.32}{\segComparison{flipseg}{#1}/gc-seg.png} & 
+	\figTable{0.32}{\segComparison{flipseg}{#2}/gc-seg.png} & 
+	\figTable{0.32}{\segComparison{flipseg}{#3}/gc-seg.png} \\[6em]
+	
+	\rotatebox{90}{SCLR} & 
+	\figTable{0.32}{\segComparison{flipseg}{#1}/corrected-seg.png} & 
+	\figTable{0.32}{\segComparison{flipseg}{#2}/gc-seg.png} & 
+	\figTable{0.32}{\segComparison{flipseg}{#3}/corrected-seg.png}\\[6em]
+	
+	\rotatebox{90}{FlipFlow} & 
+	\figTable{0.32}{\segComparison{flipseg}{#1}/corrected-seg.png} & 
+	\figTable{0.32}{\segComparison{flipseg}{#2}/corrected-seg.png} & 
+	\figTable{0.32}{\segComparison{flipseg}{#3}/corrected-seg.png} \\[6em]
+	
+	\rotatebox{90}{BalanceFlow} & 
+	\figTable{0.32}{\segComparison{balanceseg}{#1}/corrected-seg.png} & 
+	\figTable{0.32}{\segComparison{balanceseg}{#2}/corrected-seg.png} & 
+	\figTable{0.32}{\segComparison{balanceseg}{#3}/corrected-seg.png}\\[6em]
+	
+	\rotatebox{90}{GraphFlow} & 
+	\figTable{0.32}{\segComparison{graphseg}{#1}/corrected-seg.png} & 
+	\figTable{0.32}{\segComparison{graphseg}{#2}/corrected-seg.png} & 
+	\figTable{0.32}{\segComparison{graphseg}{#3}/corrected-seg.png}
+	\end{tabular}
+	\caption{#4}
+	\label{#5}
+	\end{figure}
+}
+
+
+\compTable{airplane}{kite-surf}{eagle}{Comparison 1}{fig:exp-comparison-image-segmentation-1}
+\compTable{birds}{brown-snake}{tiger}{Comparison 2}{fig:exp-comparison-image-segmentation-2}
+\compTable{camel}{green-snake}{peacock}{Comparison 3}{fig:exp-comparison-image-segmentation-3}
+%\compTable{long-snake}{mushroom}{statues}{Comparison 4}{fig:exp-comparison-image-segmentation-4}
+
+
+\afterpage{%
+    \clearpage% Flush earlier floats (otherwise order might not be correct)
+    \thispagestyle{empty}% empty page style (?)
+    \begin{landscape}% Landscape page
+
+	\begin{figure}
+	\center
+	\begin{tabular}{ccccc}
+
+	\figTable{0.32}{\segComparison{flipseg}{long-snake}/gc-seg.png} & 
+	\figTable{0.32}{\segComparison{flipseg}{long-snake}/corrected-seg.png} & 
+	\figTable{0.32}{\segComparison{flipseg}{long-snake}/corrected-seg.png} & 		
+	\figTable{0.32}{\segComparison{balanceseg}{long-snake}/corrected-seg.png} & 			
+	\figTable{0.32}{\segComparison{graphseg}{long-snake}/corrected-seg.png} \\[10em]	
+	
+	\figTable{0.32}{\segComparison{flipseg}{statues}/gc-seg.png} & 
+	\figTable{0.32}{\segComparison{flipseg}{statues}/corrected-seg.png} & 
+	\figTable{0.32}{\segComparison{flipseg}{statues}/corrected-seg.png} & 		
+	\figTable{0.32}{\segComparison{balanceseg}{statues}/corrected-seg.png} & 			
+	\figTable{0.32}{\segComparison{graphseg}{statues}/corrected-seg.png}
+	
+	
+	\end{tabular}
+	\caption{Comparison 4}
+	\label{fig:exp-comparison-image-segmentation-4}
+	\end{figure}
+
+    \end{landscape}
+    \clearpage% Flush page
+}
 
 
 
