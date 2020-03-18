@@ -1,0 +1,12 @@
+Shape name:/home/dantu/GIT/PhD/thesis-figures/chapter9/constrained-elastica/input/flower-2/input.pgm
+Ball radius:15
+Grid step:1
+Opt band:2
+Energy:elastica
+Length penalization:0.002
+Curvature penalization:1
+Iterations:400
+neighborhood size:1
+Max number of threads:6
+Output folder:/home/dantu/GIT/PhD/thesis-figures/chapter9/constrained-elastica/data/graphflow/flower-2/len_pen-0.002/radius-15/N-1/h1.0
+Pixel mask filepath:/home/dantu/GIT/PhD/thesis-figures/chapter9/constrained-elastica/input/flower-2/pixelMask.pgm

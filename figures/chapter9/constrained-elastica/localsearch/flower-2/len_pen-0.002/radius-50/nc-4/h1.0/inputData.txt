@@ -1,0 +1,17 @@
+Shape: user-defined
+Grid Step: 1
+Radius: 50
+Iterations: 400
+Estimator: II
+Strategy: Best
+Min GC Length: 4
+Max GC Length: 10
+Jonctions: 1
+Length Penalization: 0.002
+Number of eroded sets: 0
+Number of dilated sets: 0
+Number of curve segments: 3
+Automatic glued curve length: 1
+Initializationo mode: FixedPixels
+Energy type: Elastica
+Fixed pixel mask: /home/dantu/GIT/PhD/thesis-figures/chapter9/constrained-elastica/input/flower-2/pixelMask.pgm

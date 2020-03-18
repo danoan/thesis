@@ -1,0 +1,12 @@
+Shape name:/home/dantu/GIT/PhD/thesis-figures/chapter9/constrained-elastica/input/curve-3/input.pgm
+Ball radius:50
+Grid step:1
+Opt band:2
+Energy:elastica
+Length penalization:0.0002
+Curvature penalization:1
+Iterations:400
+neighborhood size:1
+Max number of threads:6
+Output folder:/home/dantu/GIT/PhD/thesis-figures/chapter9/constrained-elastica/data/graphflow/curve-3/len_pen-0.0002/radius-50/N-1/h1.0
+Pixel mask filepath:/home/dantu/GIT/PhD/thesis-figures/chapter9/constrained-elastica/input/curve-3/pixelMask.pgm

@@ -23,23 +23,23 @@ GraphFlow (GF) & easy & fast & yes(opt) & yes & yes
 
 The free Elastica problem consists in to find a shape with the lowest digital Elastica. The approach to solve this problem as well the two others that follow, is to iteractively evolve a initial shape to another with lower digital Elastica value. We have ran two experiments, summarized in~\cref{tab:free-elastica-parameters-summary}, to illustrate the evolution process behaviour for each of the models described in this thesis. 
 
-The parameter $eRadius$ corresponds to the radius of the disk used to compute the balance coefficient in the FlipFlow,BalanceFlow and GraphFlow models. The $vRadius$ corresponds to the radius parameter of the II curvature estimator to compute the digital Elastica in the plots of~\cref{fig:plots-free-elastica-general} and in the validation function of GraphFlow and LocalSearch.
+We make a distinction between the radius used to compute the balance coefficient $(bRadius)$ and the one used to estimate curvature using the II-estimator $(vRadius)$ in the validation function of GraphFlow and LocalSearch. In particular, the $vRadius$ is the one used to plot the graphs in~\cref{fig:plots-free-elastica-general,fig:plots-free-elastica-radius-choice}. Moreover, the $vRadius$ is always scaled by the grid step, while the $bRadius$ is never scaled.
 
 \begin{table}
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
-\cline{7-10}
-\multicolumn{6}{c|}{} & $LS$ & $FF,BF$ & \multicolumn{2}{|c|}{$GF$}\\
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\cline{8-11}
+\multicolumn{7}{c|}{} & $LS$ & $FF,BF$ & \multicolumn{2}{|c|}{$GF$}\\
 \hline
-Experiment & $maxIt$ & $vRadius$ & $eRadius$ & $\alpha$ & $\beta$  & $nc$ & $m$ & $a$ & $ob$ \\
+Experiment & $maxIt$ & $vRadius$ & $bRadius$ & $h$ & $\alpha$ & $\beta$  & $nc$ & $m$ & $a$ & $ob$ \\
 \hline
-General & $400$ & $5$ & $7$ & $0.01$ & $1$  & $4$ & $5$ & $2$ & $3$ \\
+Exp-General & $400$ & $5$ & $7$ & $0.25$ & $0.01$ & $1$  & $4$ & $5$ & $2$ & $3$ \\
 \hline
-\multirow{2}{*}{Radius-choice} & \multirow{2}{*}{$400$} & \multirow{2}{*}{$5$} & $7$ & \multirow{2}{*}{$0.001$} & \multirow{2}{*}{$1$}  & \multirow{2}{*}{4} & $5$ & \multirow{2}{*}{$2$} & \multirow{2}{*}{$3$} \\
-& &  & $12$ &  & & & $10$ & &  \\
+\multirow{2}{*}{Exp-$radius$} & \multirow{2}{*}{$400$} & \multirow{2}{*}{$5$} & $7$ & \multirow{2}{*}{$0.25$} &  \multirow{2}{*}{$0.001$} & \multirow{2}{*}{$1$}  & \multirow{2}{*}{$4$} & $5$ & \multirow{2}{*}{$2$} & \multirow{2}{*}{$3$} \\
+& &  & $12$ & &  & & & $10$ & &  \\
 \hline
 \end{tabular}
-\caption{Parameters listing for the constrained Elastica experiments. The headers $LS,FF,BF,GF$ highlights parameters that are exclusive for the LocalSearch, FlipFlow, BalanceFlow and GraphFlow models, respectively.}
+\caption{Parameters listing for the free Elastica experiments. The headers $LS,FF,BF,GF$ highlights parameters that are exclusive for the LocalSearch, FlipFlow, BalanceFlow and GraphFlow models, respectively.}
 \label{tab:free-elastica-parameters-summary}
 \end{table}
 
@@ -67,7 +67,7 @@ Flower & 26321 & 4.7s/it & 1.23s/it & 0.94s/it & 0.14s/it\\
 Bean  & 25130 & 3s/it & 1.2s/it & 1.17s/it & 0.16s/it\\
 \hline
 \end{tabular}
-\caption{Running time and input size of the General experiment for the free Elastica.}
+\caption{Running time and input size of Exp-General experiment for the free Elastica.}
 \label{tab:rtime-free-elastica-general} 
 \end{figure}
 
@@ -161,31 +161,112 @@ $r=12$ & \raisebox{-.5\height}{\includegraphics[scale=0.15]{figures/chapter9/fre
 
 \section{Constrained Elastica}
 
-The constrained Elastica problem consists in to find the shape of minimum digital Elastica that respects some set of constraints. We approach the problem by iteractively evolving some initial shape. We realized experiments with two different set of constraints. In the first, we impose that a set of pixels in the digital boundary of the initial shape must persist in the final shape. In the second, we evolve a curve, instead of a shape, which the endpoints are fixed. 
+The constrained Elastica problem consists in to find the shape of minimum digital Elastica that respects some set of constraints. We approach the problem by iteractively evolving some initial shape. We realized experiments with two different set of constraints. In the first, we impose that a set of pixels in the digital boundary of the initial shape must persist in the final shape. In the second, we evolve a curve which the endpoints are fixed. 
 
-For the constrained Elastica, only LocalSearch and GraphFlow were evaluated. The FlipFlow and BalanceFlow can be modified to evolve the constrained Elastica, but its implementation is tiresome and we believe the results will not be better than those given by LocalSearch and GraphFlow. Moreover, for a $0$-neighborhood, the GraphFlow behaves very similarly to FlipFlow and BalanceFlow.
+For the constrained Elastica, only LocalSearch and GraphFlow were evaluated. The FlipFlow and BalanceFlow can be modified to evolve the constrained Elastica, but such modifications were not implemented in this thesis.~\cref{tab:constrained-elastica-parameters-summary} lists the parameters' used in the experiments and~\cref{tab:rtime-constrained-elastica-general} the running time of Exp-$\alpha$.
 
-\subsection{General experiment}
+We remark that for every experiment in this section the grid step is set to $h=1.0$, i.e., the Euclidean and digital radius are the same. Differently from the previous section where all the shapes had a closed parametric formula, some of the tested shapes in this section are ad-hoc and a decision about the grid step in this case becomes arbitrary.
 
-\subsection{Radius choice}
+\subsection{Discussion}
+
+Differently from LocalSearch, the GraphFlow model encounters some difficult to evolve both Curve-1 and Curve-2, as illustrated in~\cref{fig:results-constrained-elastica-general}. We recall that the LS model employs a more heterogeneous neighborhood than GF. The probe set of GF is created by applying erosions and dilations in the initial shape, which promotes quite rough transformations in the shape, i.e., they do not preserve any part of the contour. We believe that by refining the neighborhood, possibly a random one, we could obtain better results for the GraphFlow. Besides that, the GF evolves the Flower instances, though it stops at a shape of higher digital Elastica value than LS.
+
+In~\cref{fig:results-constrained-elastica-radius} displays the results of experiment Exp-$radius$ in which the models are executed with different values for the radius of the estimation disk. As expected, a larger radius can estimate a large range of curvature values and it is particular important in the case where $\alpha=0.001$. In this case the shape tends to grow and the estimator should be precise enough to identify small variations in curvature. Otherwise, the shape stops to evolve prematurely. Nonetheless, a radius too large (see~\ref{}) results in a misleading estimation of the curvature, and the curves do not evolve as expected.
+
 
 \begin{table}
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
-\cline{7-9}
-\multicolumn{6}{c|}{} & $LS$ & \multicolumn{2}{|c|}{$GF$}\\
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+\cline{8-10}
+\multicolumn{7}{c|}{} & $LS$ & \multicolumn{2}{|c|}{$GF$}\\
 \hline
-Experiment & $maxIt$ & $vRadius$ & $eRadius$ & $\alpha$ & $\beta$  & $nc$ & $a$ & $ob$ \\
+Experiment & $maxIt$ & $vRadius$ & $eRadius$ & $h$ & $\alpha$ & $\beta$  & $nc$ & $a$ & $ob$ \\
 \hline
-General & $400$ & $5$ & $7$ & $0.01$ & $1$  & $4$  & $2$ & $3$ \\
+\multirow{2}{*}{Exp-$\alpha$} & \multirow{2}{*}{$400$} & \multirow{2}{*}{$15$} & \multirow{2}{*}{$15$} & \multirow{2}{*}{$1.0$} & $0.002$ & \multirow{2}{*}{$1$}  & \multirow{2}{*}{$4$} & \multirow{2}{*}{$1$} & \multirow{2}{*}{$2$} \\
+& & & & & $0.0002$ & & &\\
 \hline
-\multirow{2}{*}{Radius-choice} & \multirow{2}{*}{$400$} & \multirow{2}{*}{$5$} & $7$ & \multirow{2}{*}{$0.001$} & \multirow{2}{*}{$1$}  & \multirow{2}{*}{4}  & \multirow{2}{*}{$2$} & \multirow{2}{*}{$3$} \\
-& &  & $12$ &  & &  & &  \\
+\multirow{2}{*}{Exp-$radius$} & \multirow{2}{*}{$400$} & $7$ & $7$ & \multirow{2}{*}{$1.0$} & \multirow{2}{*}{$0.0002$} & \multirow{2}{*}{$1$}  & \multirow{2}{*}{$4$} & \multirow{2}{*}{$1$} & \multirow{2}{*}{$2$} \\
+& & $50$ & $50$ & & & & &\\
 \hline
 \end{tabular}
-\caption{Parameters listing for the free Elastica experiments. The headers $LS,GF$ highlights parameters that are exclusive for the LocalSearch and GraphFlow models, respectively.}
+\caption{Parameters listing for the constrained Elastica experiments. The headers $LS,GF$ highlights parameters that are exclusive for the LocalSearch and GraphFlow models, respectively.}
 \label{tab:constrained-elastica-parameters-summary}
 \end{table}
+
+\begin{figure}
+\center
+\subfloat[]{
+\includegraphics[scale=0.5]{figures/chapter9/constrained-elastica/curve-2/composite-fixed-pixels.png}
+}
+\subfloat[]{
+\includegraphics[scale=0.5]{figures/chapter9/constrained-elastica/curve-3/composite-fixed-pixels.png}
+}
+\subfloat[]{
+\includegraphics[scale=0.5]{figures/chapter9/constrained-elastica/curve-2/too-big-radius.png}
+}
+\caption{The underlying shapes of Curve-1 and Curve-2 for constrained Elastica experiments. Pixels in red are forced to persist in the solution. In figure (c), an example of a too large radius value $(50)$ for this curve.}
+\label{fig:constrained-elastica-underlying-curve-shapes}
+\end{figure}
+
+
+\begin{figure}
+\center
+\begin{tabular}{cccc}
+\multicolumn{2}{c}{LocalSearch} & \multicolumn{2}{c}{GraphFlow}\\
+$\alpha=0.002$ & $\alpha=0.0002$ & $\alpha=0.002$ & $\alpha=0.0002$\\
+\includegraphics[scale=0.2]{figures/chapter9/constrained-elastica/localsearch/curve-2/len_pen-0.002/radius-15/nc-4/h1.0/summary.pdf} &
+\includegraphics[scale=0.2]{figures/chapter9/constrained-elastica/localsearch/curve-2/len_pen-0.0002/radius-15/nc-4/h1.0/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter9/constrained-elastica/graphflow/curve-2/len_pen-0.002/radius-15/N-1/h1.0/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter9/constrained-elastica/graphflow/curve-2/len_pen-0.0002/radius-15/N-1/h1.0/summary.pdf}\\
+\includegraphics[scale=0.2]{figures/chapter9/constrained-elastica/localsearch/curve-3/len_pen-0.002/radius-15/nc-4/h1.0/summary.pdf} &
+\includegraphics[scale=0.2]{figures/chapter9/constrained-elastica/localsearch/curve-3/len_pen-0.0002/radius-15/nc-4/h1.0/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter9/constrained-elastica/graphflow/curve-3/len_pen-0.002/radius-15/N-1/h1.0/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter9/constrained-elastica/graphflow/curve-3/len_pen-0.0002/radius-15/N-1/h1.0/summary.pdf}\\
+\includegraphics[scale=0.2]{figures/chapter9/constrained-elastica/localsearch/flower-1/len_pen-0.002/radius-15/nc-4/h1.0/summary.pdf} &
+\includegraphics[scale=0.2]{figures/chapter9/constrained-elastica/localsearch/flower-1/len_pen-0.0002/radius-15/nc-4/h1.0/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter9/constrained-elastica/graphflow/flower-1/len_pen-0.002/radius-15/N-1/h1.0/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter9/constrained-elastica/graphflow/flower-1/len_pen-0.0002/radius-15/N-1/h1.0/summary.pdf}\\
+\includegraphics[scale=0.2]{figures/chapter9/constrained-elastica/localsearch/flower-2/len_pen-0.002/radius-15/nc-4/h1.0/summary.pdf} &
+\includegraphics[scale=0.2]{figures/chapter9/constrained-elastica/localsearch/flower-2/len_pen-0.0002/radius-15/nc-4/h1.0/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter9/constrained-elastica/graphflow/flower-2/len_pen-0.002/radius-15/N-1/h1.0/summary.pdf} &
+\includegraphics[scale=0.25]{figures/chapter9/constrained-elastica/graphflow/flower-2/len_pen-0.0002/radius-15/N-1/h1.0/summary.pdf}\\
+\end{tabular}
+\caption{General experiment for the constrained Elastica problem.}
+\label{fig:results-constrained-elastica-general}
+\end{figure}
+
+\begin{figure}
+\center
+\begin{tabular}{cccc}
+\multicolumn{2}{c}{LocalSearch} & \multicolumn{2}{c}{GraphFlow}\\
+$r=7$ & $r=50$ & $r=7$ & $r=50$\\
+
+\includegraphics[scale=0.2]{figures/chapter9/constrained-elastica/localsearch/curve-2/len_pen-0.0002/radius-7/nc-4/h1.0/summary.pdf} &
+\includegraphics[scale=0.2]{figures/chapter9/constrained-elastica/localsearch/curve-2/len_pen-0.0002/radius-50/nc-4/h1.0/summary.pdf} &
+\includegraphics[scale=0.2]{figures/chapter9/constrained-elastica/graphflow/curve-2/len_pen-0.0002/radius-7/N-1/h1.0/summary.pdf} &
+\includegraphics[scale=0.2]{figures/chapter9/constrained-elastica/graphflow/curve-2/len_pen-0.0002/radius-50/N-1/h1.0/summary.pdf}\\
+
+\includegraphics[scale=0.2]{figures/chapter9/constrained-elastica/localsearch/curve-3/len_pen-0.0002/radius-7/nc-4/h1.0/summary.pdf} &
+\includegraphics[scale=0.2]{figures/chapter9/constrained-elastica/localsearch/curve-3/len_pen-0.0002/radius-50/nc-4/h1.0/summary.pdf} &
+\includegraphics[scale=0.2]{figures/chapter9/constrained-elastica/graphflow/curve-3/len_pen-0.0002/radius-7/N-1/h1.0/summary.pdf} &
+\includegraphics[scale=0.2]{figures/chapter9/constrained-elastica/graphflow/curve-3/len_pen-0.0002/radius-50/N-1/h1.0/summary.pdf}\\
+
+\includegraphics[scale=0.2]{figures/chapter9/constrained-elastica/localsearch/flower-1/len_pen-0.0002/radius-7/nc-4/h1.0/summary.pdf} &
+\includegraphics[scale=0.2]{figures/chapter9/constrained-elastica/localsearch/flower-1/len_pen-0.0002/radius-50/nc-4/h1.0/summary.pdf} &
+\includegraphics[scale=0.2]{figures/chapter9/constrained-elastica/graphflow/flower-1/len_pen-0.0002/radius-7/N-1/h1.0/summary.pdf} &
+\includegraphics[scale=0.2]{figures/chapter9/constrained-elastica/graphflow/flower-1/len_pen-0.0002/radius-50/N-1/h1.0/summary.pdf}\\
+
+\includegraphics[scale=0.2]{figures/chapter9/constrained-elastica/localsearch/flower-2/len_pen-0.0002/radius-7/nc-4/h1.0/summary.pdf} &
+\includegraphics[scale=0.2]{figures/chapter9/constrained-elastica/localsearch/flower-2/len_pen-0.0002/radius-50/nc-4/h1.0/summary.pdf} &
+\includegraphics[scale=0.2]{figures/chapter9/constrained-elastica/graphflow/flower-2/len_pen-0.0002/radius-7/N-1/h1.0/summary.pdf} &
+\includegraphics[scale=0.2]{figures/chapter9/constrained-elastica/graphflow/flower-2/len_pen-0.0002/radius-50/N-1/h1.0/summary.pdf}\\
+
+
+\end{tabular}
+\caption{General experiment for the constrained Elastica problem.}
+\label{fig:results-constrained-elastica-radius}
+\end{figure}
+
 
 \begin{figure}
 \center
@@ -194,56 +275,74 @@ General & $400$ & $5$ & $7$ & $0.01$ & $1$  & $4$  & $2$ & $3$ \\
 \hline
 & Pixels & LocalSearch & GraphFlow \\
 \hline
-Curve-1 & 8315 & 1.7s/it & 0.14s/it\\
-Curve-2 & 12769 & 1s/it & 0.12s/it\\
-Flower-1  & 10038 & 1.3s/it & 0.1s/it \\
-Flower-2 & 26321 & 4.7s/it & 0.14s/it\\
+Curve-1 & 12306 & 4.7s/it & 1s/it\\
+Curve-2 & 11527 & 6.2s/it & 1s/it\\
+Flower-1  & 7481 & 4.5s/it & 0.3s/it \\
+Flower-2 & 7481 & 2.5s/it & 0.21s/it\\
 \hline
 \end{tabular}
-\caption{Running time and input size of the General experiment for the constrained Elastica.}
+\caption{Running time and input size of the Exp-General experiment for the constrained Elastica. The pixels columns is with respect the number of pixels in the shape. In the case of the curves, it is with respect the underlying shapes of~\cref{fig:constrained-elastica-underlying-curve-shapes}}
 \label{tab:rtime-constrained-elastica-general} 
 \end{figure}
 
 %The parameters used in the comparison are listed in table~\cref{} and the running times in table~\cref{}. The results are displayed in figures~\cref{} and~\cref{}, one for each value of $\alpha$. 
 
-The LocalSearch approach behaves as expected in both experiments, both the GraphFlow encounters some difficults to evolve in the case of fixed endpoint orientations. We recall that the GraphFlow uses as neighborhood a set of dilations and erosions of the initial shape. Instead, if we use a neighborhood in which just some pixels of the inner or outer boundary are changed (in a similar fashion of what is done in the LocalSearch neighborhood, but with fewer members) we believe that we can recover better results.
-
 \section{Image segmentation}
 
-The FlipFlow,BalanceFlow and GraphFlow can be extended to do image segmentation. In this section we show the results of several experiments that illustrates the influence of the weight parameters (length,curvature,data) in the final segmentation. At the last section we compare our results with the Schoenemann linear curvature regularization (SLCR). 
+The FlipFlow,BalanceFlow and GraphFlow can be extended to do image segmentation. In this section we show the results of several experiments that illustrates the influence of each of the the weights parameters (length,curvature,data) and the radius of the estimation ball in the produced segmentation. At the last section we compare our results with the Schoenemann linear curvature regularization (SLCR) \cite{schoenemann09linear}. 
 
 All three models (FF,BF,GF) need a initial segmentation as input. This segmentation is given by a single iteration of the Grabcut algorithm.~\cref{tab:image-segmentation-parameters-summary} lists the parameters configuration for each experiment and~\cref{tab:rtime-image-segmentation-general} summarizes their running times. 
 
-We categorize the experiments in two sections. In the first, we study the influence of eqch parameter in the produced segmentation and in the second we compare our segmentations with those produced by SLCR.
+The experiments are divided in two sections. In the first, we study the influence of each parameter in the produced segmentation and in the second we compare our results with those produced by SLCR. For the same reason described in the previous section, the grid step in all experiments is set to $h=1.0$.
 
 
 \begin{table}
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
-\cline{7-12}
-\multicolumn{6}{c|}{} & \multicolumn{2}{|c|}{$FF,BF$} & \multicolumn{4}{|c|}{$GF$}\\
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\cline{8-13}
+\multicolumn{7}{c|}{} & \multicolumn{2}{|c|}{$FF,BF$} & \multicolumn{4}{|c|}{$GF$}\\
 \hline
-Experiment & $maxIt$ & $vRadius$ & $eRadius$ & $\alpha$ & $\beta$  & $\gamma$ & $d$ & $a$ & $ob$ & $\lambda_r$ & $\lambda_b$ \\
+Experiment & $maxIt$ & $vRadius$ & $bRadius$ & $h$ & $\alpha$ & $\beta$  & $\gamma$ & $d$ & $a$ & $ob$ & $\lambda_r$ & $\lambda_b$ \\
 \hline
-\multirow{3}{*}{Exp-$\alpha$} & \multirow{3}{*}{$200$} & \multirow{3}{*}{$7$} & \multirow{3}{*}{$7$} & $0$ & \multirow{3}{*}{$0$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$0$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$2$} \\
-&  & & & $0.5$ & & & & & & &\\
-&  & & & $1$ & & & & & & &\\
+\multirow{3}{*}{Exp-$\alpha$} & \multirow{3}{*}{$200$} & \multirow{3}{*}{$7$} & \multirow{3}{*}{$7$} & \multirow{3}{*}{$1.0$} & $0$ & \multirow{3}{*}{$0$} & \multirow{3}{*}{$1$} & \multirow{3}{*}{$0$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$1$} & \multirow{3}{*}{$0$} \\
+&  & & & & $0.5$ & & & & & & &\\
+&  & & & & $3.0$ & & & & & & &\\
 \hline
-\multirow{3}{*}{Exp-$\beta$} & \multirow{3}{*}{$200$} & \multirow{3}{*}{$7$} & \multirow{3}{*}{$7$} & \multirow{3}{*}{$0.1$} & $0.1$ & \multirow{3}{*}{$2$} & \multirow{3}{*}{$0$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$2$} \\
-&  & & & & $1$ & & & & & &\\
-&  & & & & $3$ & & & & & &\\
+\multirow{3}{*}{Exp-$\beta$} & \multirow{3}{*}{$200$} & \multirow{3}{*}{$7$} & \multirow{3}{*}{$7$} & \multirow{3}{*}{$1.0$} & \multirow{3}{*}{$0$} & $0.1$ & \multirow{3}{*}{$1$} & \multirow{3}{*}{$0$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$1$} & \multirow{3}{*}{$1$} \\
+&  & & & & & $1$ & & & & & &\\
+&  & & & & & $2$ & & & & & &\\
 \hline
-\multirow{3}{*}{Exp-$\gamma$} & \multirow{3}{*}{$200$} & \multirow{3}{*}{$7$} & \multirow{3}{*}{$7$} & \multirow{3}{*}{$0.1$} & \multirow{3}{*}{$1$} & $0$ & \multirow{3}{*}{$0$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$2$} & $0$ & $0$ \\
-&  & & & & & $1$ & & & & $1$ & $1$\\
-&  & & & & & $5$ & & & & $5$ & $5$\\
+\multirow{3}{*}{Exp-$\gamma$} & \multirow{3}{*}{$200$} & \multirow{3}{*}{$7$} & \multirow{3}{*}{$7$} & \multirow{3}{*}{$1.0$} & \multirow{3}{*}{$0$} & \multirow{3}{*}{$1$} & $1$ & \multirow{3}{*}{$0$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$2$} & $1$ & $1$ \\
+&  & & & & & & $2$ & & & & $2$ & $2$\\
+&  & & & & & & $5$ & & & & $5$ & $5$\\
 \hline
-\multirow{3}{*}{Exp-$radius$} & \multirow{3}{*}{$200$} & $3$ & $3$ & \multirow{3}{*}{$0.1$} & \multirow{3}{*}{$1$} & \multirow{3}{*}{$1$} & \multirow{3}{*}{$0$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$1$} & \multirow{3}{*}{$1$} \\
-&  & $7$ & $7$ & & & & & & & & \\
-&  & $12$ & $12$ & & & & & & & & \\
+\multirow{3}{*}{Exp-$radius$} & \multirow{3}{*}{$200$} & $3$ & $3$ & \multirow{3}{*}{$1.0$} &  \multirow{3}{*}{$0$} & \multirow{3}{*}{$1$} & \multirow{3}{*}{$1$} & \multirow{3}{*}{$0$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$1$} & \multirow{3}{*}{$1$} \\
+&  & $12$ & $12$ & & & & & & & & & \\
+&  & $25$ & $25$ & & & & & & & & & \\
 \hline
 \end{tabular}
-\caption{Parameters listing for the image segmentation experiments. The headers $FF,BF,GF$ highlights parameters that are exclusive for the FlipFLow, BalanceFlow and GraphFlow models, respectively.}
+\caption{Parameters for the image segmentation experiments. The headers $FF,BF,GF$ identifies parameters that are exclusive of FlipFlow, BalanceFlow and GraphFlow models, respectively.}
 \label{tab:image-segmentation-parameters-summary}
+\end{table}
+
+
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{13}{|c|}{Exp-Comparison}\\
+\hline
+Model & $maxIt$ & $vRadius$ & $bRadius$ & $h$ & $\alpha$ & $\beta$  & $\gamma$ & $d$ & $a$ & $ob$ & $\lambda_r$ & $\lambda_b$ \\
+\hline
+FF,BF & $200$ & $7$ & $7$ & $1.0$ & $0.5$ & $1.0$ & $1.0$ & $0$ & - & - & - & -\\
+\hline
+GF & $200$ & $7$ & $7$ & $1.0$ & $0.0002$ & $1.0$ & - & - & $2$ & $2$ & $1$ & $1$\\
+\hline
+SCLR & - & - & - & - & - & $2.0$ & $1.0$ & - & - & - & - & -\\
+\hline
+\end{tabular}
+\caption{Parameters for the comparison experiments.}
+\label{tab:image-segmentation-comparison-summary}
 \end{table}
 
 \begin{figure}
@@ -264,15 +363,15 @@ GraphFlow & 0 & 1s/it & 0.12s/it\\
 \end{figure}
 
 \subsection{Parameters influence}
-The models offer parameters to control the weight of length $(\alpha)$, curvature $(\beta)$ and data ($\gamma,\lambda _r, \lambda _b$). We recall that FF and BF accept a single regional parameter $\gamma$ for data, while GF accepts $\lambda _r$ to ponderate a regional term and $\lambda _b$ to weight a boundary term. The Grabcut input and its result are shown in~\cref{fig:grabcut-input-image-segmentation}. The results are displayed in~\cref{fig:exp-alpha-image-segmentation,fig:exp-beta-image-segmentation,fig:exp-gamma-image-segmentation,fig:exp-radius-image-segmentation}. 
+The models offer parameters to control the relative weight of length $(\alpha)$, curvature $(\beta)$ and data ($\gamma,\lambda _r, \lambda _b$). We recall that FF and BF accept a single regional parameter $\gamma$ for data, while GF accepts $\lambda _r$ to ponderate a regional term and $\lambda _b$ to weight a boundary term. The Grabcut input and its result are shown in~\cref{fig:grabcut-input-image-segmentation}. The experiment results are displayed in~\cref{fig:exp-alpha-image-segmentation,fig:exp-beta-image-segmentation,fig:exp-gamma-image-segmentation,fig:exp-radius-image-segmentation}. 
 
-The FlipFlow and BalanceFlow present similar results for all experiments, as expected. The Exp-$\alpha$ experiment regularizes only length, and we can observe that the segmentations produced by all three models tend to be staircased. 
+The FlipFlow and BalanceFlow present similar results for all experiments, as expected. The Exp-$\alpha$ experiment regularizes only length, and we can observe that the segmentations produced by all three models tend to be staircased. We remark that in the GF model, length penalization is not present in the cost function of the candidate graph, but in the validation function only. In particular, we need  a $a$-probe set with $a>0$ to have length penalization an influence in the produced segmentation.
 
-We remark that there is no length penalization in the cost function of the candidate graph. In the GF model, the length regularization plays a role in the validation function, and its influence is noticed for probe-sets with $a>1$. 
+In experiment Exp-$\beta$ we vary the squared curvature weigth coefficient. We observe in~\cref{fig:exp-beta-image-segmentation} that the produced segmentation smooths out for increasing values of $\beta$. We recall that the shrink/growing behaviour in the GF is controlled by the value of $\alpha$, which in Exp-$\beta$ is set to $\alpha=0.1$. The FF, and BF grow in concavities, but unless a local optimum is found, it tends to shrink.
 
-On the other hand, experiment Exp-$\beta$ illustrates how the curvature can be used to produce smoother curves in these models. We recall that the shrink or growing behaviour in the case of the GF is controlled by the value of $\alpha$, which in Exp-$\beta$ is set to $\alpha=0.1$. The FF, and BF can grow in concavities, but it presents a general shrinking behaviour.
+The models' response for the variation of the data term is shown in~\cref{fig:exp-gamma-image-segmentation}. A higher value of $\gamma$ tends to produce results similar to the initial segmentation given by Grabcut, while the importance of digital Elastica in the minimization energy is increased by when lower weight is given for the data term.
 
-Finally, Exp-$\gamma$ illustrates the role of data term in the final segmentation result and Exp-$radius$ the effect of the estimation ball radius. It is clear that all three models regularizes the initial segmentation given by Grabcut with respect to the squared curvature, the regularization amount being parameterized by the relation between the data ($\gamma, \theta_r, \theta_b$) and curvature ($\beta$) weights. The best choice of parameters depends on the object to be segmented.
+Finally, Exp-$radius$ illustrates how the choice of the estimation ball radius influences in the results. In~\cref{fig:exp-radius-image-segmentation} we observe that lower radius imply segmentations contours with sharp changes of angle (first row), a consequence of the limited number of different estimations that can be given by a ball of small radius. As the radius increase, a richer variation of estimations is possible, and we have smoother contours (second-row and third row). A large radius, on the other hand, smooths out regions of low curvature even if these regions should be present in the segmentation (coala's hands). That suggests that a multiradius approach may be successful.
 
 
 \begin{figure}
@@ -285,61 +384,80 @@ Finally, Exp-$\gamma$ illustrates the role of data term in the final segmentatio
 \label{fig:grabcut-input-image-segmentation}
 \end{figure}
 
+\newcommand\figTable[2]{\raisebox{-.5\height}{\includegraphics[scale=#1]{#2}}}
+
+\newcommand\expAlphaFF[2]{figures/chapter9/segmentation/exp-alpha/#1/h-1.0/dalpha-False/neigh-0/alpha-#2/beta-0.0/lb-1.0/lr-1.0/coala/corrected_seg.png}
+\newcommand\expAlphaGF[2]{figures/chapter9/segmentation/exp-alpha/#1/h-1.0/dalpha-False/neigh-2/alpha-#2/beta-0.0/lb-0.0/lr-1.0/coala/corrected_seg.png}
+
 \begin{figure}
 \centering
 \begin{tabular}{cccc}
 & FlipFlow & BalanceFlow & GraphFlow\\
-$\alpha=0.0$ & \raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-alpha/flipseg/dalpha-False/neigh-0/alpha-0.0/beta-0.0/lb-2.0/lr-2.0/coala/corrected_seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-alpha/balanceseg/dalpha-False/neigh-0/alpha-0.0/beta-0.0/lb-2.0/lr-2.0/coala/corrected_seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-alpha/graphseg/dalpha-False/neigh-2/alpha-0.0/beta-0.0/lb-2.0/lr-2.0/coala/corrected_seg.png}}\\[10em]
+$\alpha=0.0$ & 
+\figTable{0.4}{\expAlphaFF{flipseg}{0.0}} &
+\figTable{0.4}{\expAlphaFF{balanceseg}{0.0}} &
+\figTable{0.4}{\expAlphaGF{graphseg}{0.0}}\\[10em]
 
-$\alpha=0.5$ & \raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-alpha/flipseg/dalpha-False/neigh-0/alpha-0.5/beta-0.0/lb-2.0/lr-2.0/coala/corrected_seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-alpha/balanceseg/dalpha-False/neigh-0/alpha-0.5/beta-0.0/lb-2.0/lr-2.0/coala/corrected_seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-alpha/graphseg/dalpha-False/neigh-2/alpha-0.5/beta-0.0/lb-2.0/lr-2.0/coala/corrected_seg.png}}\\[10em]
+$\alpha=0.5$ & 
+\figTable{0.4}{\expAlphaFF{flipseg}{0.5}} &
+\figTable{0.4}{\expAlphaFF{balanceseg}{0.5}} &
+\figTable{0.4}{\expAlphaGF{graphseg}{0.5}}\\[10em]
 
-$\alpha=1.0$ & \raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-alpha/flipseg/dalpha-False/neigh-0/alpha-1.0/beta-0.0/lb-2.0/lr-2.0/coala/corrected_seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-alpha/balanceseg/dalpha-False/neigh-0/alpha-1.0/beta-0.0/lb-2.0/lr-2.0/coala/corrected_seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-alpha/graphseg/dalpha-False/neigh-2/alpha-1.0/beta-0.0/lb-2.0/lr-2.0/coala/corrected_seg.png}}
+$\alpha=3.0$ & 
+\figTable{0.4}{\expAlphaFF{flipseg}{3.0}} &
+\figTable{0.4}{\expAlphaFF{balanceseg}{3.0}} &
+\figTable{0.4}{\expAlphaGF{graphseg}{3.0}}
 \end{tabular}
 \caption{Exp-$\alpha$}
 \label{fig:exp-alpha-image-segmentation}
 \end{figure}
 
+\newcommand\expBetaFF[2]{figures/chapter9/segmentation/exp-beta/#1/h-1.0/dalpha-False/neigh-0/alpha-0.0/beta-#2/lb-1.0/lr-1.0/coala/corrected_seg.png}
+\newcommand\expBetaGF[2]{figures/chapter9/segmentation/exp-beta/#1/h-1.0/dalpha-False/neigh-2/alpha-0.0/beta-#2/lb-1.0/lr-1.0/coala/corrected_seg.png}
+
 \begin{figure}
 \begin{tabular}{cccc}
 & FlipFlow & BalanceFlow & GraphFlow\\
-$\beta=0.1$ & \raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-beta/flipseg/dalpha-False/neigh-0/alpha-0.1/beta-0.1/lb-2.0/lr-2.0/coala/corrected_seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-beta/balanceseg/dalpha-False/neigh-0/alpha-0.1/beta-0.1/lb-2.0/lr-2.0/coala/corrected_seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-beta/graphseg/dalpha-False/neigh-2/alpha-0.1/beta-0.1/lb-2.0/lr-2.0/coala/corrected_seg.png}}\\[10em]
+$\beta=0.1$ & 
+\figTable{0.4}{\expBetaFF{flipseg}{0.1}} &
+\figTable{0.4}{\expBetaFF{balanceseg}{0.1}} &
+\figTable{0.4}{\expBetaGF{graphseg}{0.1}}\\[10em]
 
-$\beta=1$ & \raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-beta/flipseg/dalpha-False/neigh-0/alpha-0.1/beta-1.0/lb-2.0/lr-2.0/coala/corrected_seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-beta/balanceseg/dalpha-False/neigh-0/alpha-0.1/beta-1.0/lb-2.0/lr-2.0/coala/corrected_seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-beta/graphseg/dalpha-False/neigh-2/alpha-0.1/beta-1.0/lb-2.0/lr-2.0/coala/corrected_seg.png}}\\[10em]
+$\beta=1.0$ & 
+\figTable{0.4}{\expBetaFF{flipseg}{1.0}} &
+\figTable{0.4}{\expBetaFF{balanceseg}{1.0}} &
+\figTable{0.4}{\expBetaGF{graphseg}{1.0}}\\[10em]
 
-$\beta=2$ & \raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-beta/flipseg/dalpha-False/neigh-0/alpha-0.1/beta-3.0/lb-2.0/lr-2.0/coala/corrected_seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-beta/balanceseg/dalpha-False/neigh-0/alpha-0.1/beta-3.0/lb-2.0/lr-2.0/coala/corrected_seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-beta/graphseg/dalpha-False/neigh-2/alpha-0.1/beta-3.0/lb-2.0/lr-2.0/coala/corrected_seg.png}}
+$\beta=2.0$ & 
+\figTable{0.4}{\expBetaFF{flipseg}{2.0}} &
+\figTable{0.4}{\expBetaFF{balanceseg}{2.0}} &
+\figTable{0.4}{\expBetaGF{graphseg}{2.0}}
 
 \end{tabular}
 \caption{Exp-$\beta$}
 \label{fig:exp-beta-image-segmentation}
 \end{figure}
 
+\newcommand\expGamaFF[2]{figures/chapter9/segmentation/exp-gamma/#1/h-1.0/dalpha-False/neigh-0/alpha-0.0/beta-1.0/lb-#2/lr-#2/coala/corrected_seg.png}
+\newcommand\expGamaGF[2]{figures/chapter9/segmentation/exp-gamma/#1/h-1.0/dalpha-False/neigh-2/alpha-0.0/beta-1.0/lb-#2/lr-#2/coala/corrected_seg.png}
+
 \begin{figure}
 \begin{tabular}{cccc}
 & FlipFlow & BalanceFlow & GraphFlow\\
-$\gamma =0$ & \raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-gamma/flipseg/dalpha-False/neigh-0/alpha-0.1/beta-1.0/lb-0.0/lr-0.0/coala/corrected_seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-gamma/balanceseg/dalpha-False/neigh-0/alpha-0.1/beta-1.0/lb-0.0/lr-0.0/coala/corrected_seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-gamma/graphseg/dalpha-False/neigh-2/alpha-0.1/beta-1.0/lb-0.0/lr-0.0/coala/corrected_seg.png}}\\[10em]
+$\gamma =1.0$ & 
+\figTable{0.4}{\expGamaFF{flipseg}{1.0}} &
+\figTable{0.4}{\expGamaFF{balanceseg}{1.0}} &
+\figTable{0.4}{\expGamaGF{graphseg}{1.0}}\\[10em]
 
-$\gamma = 1$ & \raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-gamma/flipseg/dalpha-False/neigh-0/alpha-0.1/beta-1.0/lb-1.0/lr-1.0/coala/corrected_seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-gamma/balanceseg/dalpha-False/neigh-0/alpha-0.1/beta-1.0/lb-1.0/lr-1.0/coala/corrected_seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-gamma/graphseg/dalpha-False/neigh-2/alpha-0.1/beta-1.0/lb-1.0/lr-1.0/coala/corrected_seg.png}}\\[10em]
+$\gamma =2.0$ & 
+\figTable{0.4}{\expGamaFF{flipseg}{2.0}} &
+\figTable{0.4}{\expGamaFF{balanceseg}{2.0}} &
+\figTable{0.4}{\expGamaGF{graphseg}{2.0}}\\[10em]
 
-$\gamma = 5$ & \raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-gamma/flipseg/dalpha-False/neigh-0/alpha-0.1/beta-1.0/lb-5.0/lr-5.0/coala/corrected_seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-gamma/balanceseg/dalpha-False/neigh-0/alpha-0.1/beta-1.0/lb-5.0/lr-5.0/coala/corrected_seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-gamma/graphseg/dalpha-False/neigh-2/alpha-0.1/beta-1.0/lb-5.0/lr-5.0/coala/corrected_seg.png}}
-
+$\gamma =5.0$ & 
+\figTable{0.4}{\expGamaFF{flipseg}{5.0}} &
+\figTable{0.4}{\expGamaFF{balanceseg}{5.0}} &
+\figTable{0.4}{\expGamaGF{graphseg}{5.0}}
 
 \end{tabular}
 \caption{Exp-$\gamma$}
@@ -347,20 +465,26 @@ $\gamma = 5$ & \raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter
 \end{figure}
 
 
+\newcommand\expRadiusFF[2]{figures/chapter9/segmentation/exp-radius/#1/h-1.0/alpha-0.0/beta-1.0/gamma-1.0/radius-#2/corrected-seg.png}
+\newcommand\expRadiusGF[2]{figures/chapter9/segmentation/exp-radius/#1/h-1.0/alpha-0.0/beta-1.0/gamma-1.0/radius-#2/corrected-seg.png}
+
 \begin{figure}
 \begin{tabular}{cccc}
 & FlipFlow & BalanceFlow & GraphFlow\\
-$r=3$ & \raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/flipseg/alpha-0.1/beta-1.0/gamma-1.0/radius-3/corrected-seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/balanceseg/alpha-0.1/beta-1.0/gamma-1.0/radius-3/corrected-seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/graphseg/alpha-0.1/beta-1.0/gamma-1.0/radius-3/corrected-seg.png}} \\[10em]
+$r=3$ & 
+\figTable{0.4}{\expRadiusFF{flipseg}{3}} &
+\figTable{0.4}{\expRadiusFF{balanceseg}{3}} &
+\figTable{0.4}{\expRadiusGF{graphseg}{3}}\\[10em]
 
-$r=7$ & \raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/flipseg/alpha-0.1/beta-1.0/gamma-1.0/radius-7/corrected-seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/balanceseg/alpha-0.1/beta-1.0/gamma-1.0/radius-7/corrected-seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/graphseg/alpha-0.1/beta-1.0/gamma-1.0/radius-7/corrected-seg.png}} \\[10em]
+$r=12$ & 
+\figTable{0.4}{\expRadiusFF{flipseg}{12}} &
+\figTable{0.4}{\expRadiusFF{balanceseg}{12}} &
+\figTable{0.4}{\expRadiusGF{graphseg}{12}}\\[10em]
 
-$r=12$ & \raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/flipseg/alpha-0.1/beta-1.0/gamma-1.0/radius-12/corrected-seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/balanceseg/alpha-0.1/beta-1.0/gamma-1.0/radius-12/corrected-seg.png}} &
-\raisebox{-.5\height}{\includegraphics[scale=0.4]{figures/chapter9/segmentation/exp-radius/graphseg/alpha-0.1/beta-1.0/gamma-1.0/radius-12/corrected-seg.png}}
+$r=25$ & 
+\figTable{0.4}{\expRadiusFF{flipseg}{25}} &
+\figTable{0.4}{\expRadiusFF{balanceseg}{25}} &
+\figTable{0.4}{\expRadiusGF{graphseg}{25}}
 \end{tabular}
 \caption{Exp-$radius$}
 \label{fig:exp-radius-image-segmentation}
@@ -377,37 +501,38 @@ The second criteria to take into account is the desired range of curvature value
 
 %In figure~\cref{} we illustrate how the choice of radius may change the segmentation results in the GraphFlow model. A radius larger than the reach of the initial segments does not help us in to find the desired segmentation. Using a smaller radius and tunning the weight coefficients, we recover a better result.
 
-\newcommand\figTable[2]{\raisebox{-.5\height}{\includegraphics[scale=#1]{#2}}}
-\newcommand\segComparison[2]{figures/chapter9/segmentation/comparison/#1/#2/alpha-0.01/beta-1.0/gamma-3.0/radius-7}
+\newcommand\segComparisonGF[2]{figures/chapter9/segmentation/comparison/#1/#2/alpha-0.0002/beta-1.0/gamma-3.0/radius-7}
+\newcommand\segComparisonFF[2]{figures/chapter9/segmentation/comparison/#1/#2/alpha-0.5/beta-1.0/gamma-3.0/radius-7}
+\newcommand\segComparisonScho[2]{figures/chapter9/segmentation/comparison/#1/lambda-2.0/gamma-1.0/#2}
 
 \newcommand\compTable[5]{
 	\begin{figure}
 	\center
 	\begin{tabular}{m{0.25cm}ccc}
 	\rotatebox{90}{GrabCut} & 
-	\figTable{0.32}{\segComparison{flipseg}{#1}/gc-seg.png} & 
-	\figTable{0.32}{\segComparison{flipseg}{#2}/gc-seg.png} & 
-	\figTable{0.32}{\segComparison{flipseg}{#3}/gc-seg.png} \\[6em]
+	\figTable{0.32}{\segComparisonFF{flipseg}{#1}/gc-seg.png} & 
+	\figTable{0.32}{\segComparisonFF{flipseg}{#2}/gc-seg.png} & 
+	\figTable{0.32}{\segComparisonFF{flipseg}{#3}/gc-seg.png} \\[6em]
 	
 	\rotatebox{90}{SCLR} & 
-	\figTable{0.32}{\segComparison{flipseg}{#1}/corrected-seg.png} & 
-	\figTable{0.32}{\segComparison{flipseg}{#2}/gc-seg.png} & 
-	\figTable{0.32}{\segComparison{flipseg}{#3}/corrected-seg.png}\\[6em]
+	\figTable{0.32}{\segComparisonScho{schoenemann}{#1}/#1.png} & 
+	\figTable{0.32}{\segComparisonScho{schoenemann}{#2}/#2.png} & 
+	\figTable{0.32}{\segComparisonScho{schoenemann}{#3}/#3.png}\\[6em]
 	
 	\rotatebox{90}{FlipFlow} & 
-	\figTable{0.32}{\segComparison{flipseg}{#1}/corrected-seg.png} & 
-	\figTable{0.32}{\segComparison{flipseg}{#2}/corrected-seg.png} & 
-	\figTable{0.32}{\segComparison{flipseg}{#3}/corrected-seg.png} \\[6em]
+	\figTable{0.32}{\segComparisonFF{flipseg}{#1}/corrected-seg.png} & 
+	\figTable{0.32}{\segComparisonFF{flipseg}{#2}/corrected-seg.png} & 
+	\figTable{0.32}{\segComparisonFF{flipseg}{#3}/corrected-seg.png} \\[6em]
 	
 	\rotatebox{90}{BalanceFlow} & 
-	\figTable{0.32}{\segComparison{balanceseg}{#1}/corrected-seg.png} & 
-	\figTable{0.32}{\segComparison{balanceseg}{#2}/corrected-seg.png} & 
-	\figTable{0.32}{\segComparison{balanceseg}{#3}/corrected-seg.png}\\[6em]
+	\figTable{0.32}{\segComparisonFF{balanceseg}{#1}/corrected-seg.png} & 
+	\figTable{0.32}{\segComparisonFF{balanceseg}{#2}/corrected-seg.png} & 
+	\figTable{0.32}{\segComparisonFF{balanceseg}{#3}/corrected-seg.png}\\[6em]
 	
 	\rotatebox{90}{GraphFlow} & 
-	\figTable{0.32}{\segComparison{graphseg}{#1}/corrected-seg.png} & 
-	\figTable{0.32}{\segComparison{graphseg}{#2}/corrected-seg.png} & 
-	\figTable{0.32}{\segComparison{graphseg}{#3}/corrected-seg.png}
+	\figTable{0.32}{\segComparisonGF{graphseg}{#1}/corrected-seg.png} & 
+	\figTable{0.32}{\segComparisonGF{graphseg}{#2}/corrected-seg.png} & 
+	\figTable{0.32}{\segComparisonGF{graphseg}{#3}/corrected-seg.png}
 	\end{tabular}
 	\caption{#4}
 	\label{#5}
@@ -430,17 +555,17 @@ The second criteria to take into account is the desired range of curvature value
 	\center
 	\begin{tabular}{ccccc}
 
-	\figTable{0.32}{\segComparison{flipseg}{long-snake}/gc-seg.png} & 
-	\figTable{0.32}{\segComparison{flipseg}{long-snake}/corrected-seg.png} & 
-	\figTable{0.32}{\segComparison{flipseg}{long-snake}/corrected-seg.png} & 		
-	\figTable{0.32}{\segComparison{balanceseg}{long-snake}/corrected-seg.png} & 			
-	\figTable{0.32}{\segComparison{graphseg}{long-snake}/corrected-seg.png} \\[10em]	
+	\figTable{0.32}{\segComparisonFF{flipseg}{man-hat}/gc-seg.png} & 
+	\figTable{0.32}{\segComparisonScho{schoenemann}{man-hat}/man-hat.png} & 
+	\figTable{0.32}{\segComparisonFF{flipseg}{man-hat}/corrected-seg.png} & 		
+	\figTable{0.32}{\segComparisonFF{balanceseg}{man-hat}/corrected-seg.png} & 			
+	\figTable{0.32}{\segComparisonGF{graphseg}{man-hat}/corrected-seg.png} \\[10em]	
 	
-	\figTable{0.32}{\segComparison{flipseg}{statues}/gc-seg.png} & 
-	\figTable{0.32}{\segComparison{flipseg}{statues}/corrected-seg.png} & 
-	\figTable{0.32}{\segComparison{flipseg}{statues}/corrected-seg.png} & 		
-	\figTable{0.32}{\segComparison{balanceseg}{statues}/corrected-seg.png} & 			
-	\figTable{0.32}{\segComparison{graphseg}{statues}/corrected-seg.png}
+	\figTable{0.32}{\segComparisonFF{flipseg}{statues}/gc-seg.png} & 
+	\figTable{0.32}{\segComparisonScho{schoenemann}{statues}/statues.png} & 
+	\figTable{0.32}{\segComparisonFF{flipseg}{statues}/corrected-seg.png} & 		
+	\figTable{0.32}{\segComparisonFF{balanceseg}{statues}/corrected-seg.png} & 			
+	\figTable{0.32}{\segComparisonGF{graphseg}{statues}/corrected-seg.png}
 	
 	
 	\end{tabular}
