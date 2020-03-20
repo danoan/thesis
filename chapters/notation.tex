@@ -1,39 +1,45 @@
 \chapter{Notation}
 \label{chapter:notation}
 
-\[
-\begin{array}{lll}
-\text{Domains} & &\\
-&\mathbb{B}: & \{0,1\}\\
-&\mathbb{U}: & [0,1]\\
-&\mathbb{Z}: & \text{Integers}\\
-&\mathbb{R}: & \text{Reals}\\
+\begin{tabular}{p{1cm}ll}
+\multicolumn{3}{l}{Domains}\\
+& $\mathbb{B}$: & $\{0,1$\\\
+& $\mathbb{U}$: & $[0,1]$\\
+& $\mathbb{Z}$: & Integers\\
+& $\mathbb{R}$: & Reals\\[1em]
 
-\text{Vector and matrix} & &\\
-&\mathbf{A}: & \text{Matrix}\\
-&\mathbf{A}_i: & \text{$i$th column of matrix $\mathbf{A}$}\\
-&\mathbf{A}_{i,j}: & \text{Element in the $i$th row and $j$th column of matrix $\mathbf{A}$}\\
-&\mathbf{x}: & \text{Vector}\\
-&\mathbf{x}_i: & \text{$i$th coefficient of vector $\mathbf{x}$}\\
+\multicolumn{3}{l}{Vectors and matrices}\\
+& $\mathbf{A}$: & Matrix\\
+& $\mathbf{A}_i$: & $i$-th column of matrix $\mathbf{A}$\\
+& $\mathbf{A}_{i,j}$: & Element in the $i$th row and $j$th column of matrix $\mathbf{A}$\\
+& $\mathbf{x}$: & Vector\\
+& $\mathbf{x}_i$: & $i$th coefficient of vector $\mathbf{x}$\\[1em]
 
-\text{Functions} & &\\
-&f,g: & \text{Functions}\\
-& x,y,z: & \text{Variables} \\
-& a,b,c: & \text{Constants} \\
-&\hat{f}: & \text{Estimation function}\\
-&E_{\boldsymbol{\theta}}: & \text{Functional }E \text{ with parameter vector } \boldsymbol{\theta} \\
+\multicolumn{3}{l}{Functions}\\
+& $f,g$: & Functions\\
+& $x,y,z$: & Variables \\
+& $a,b,c$: & Constants \\
+& $\hat{f}$: & Estimation function\\
+& $E_{\boldsymbol{\theta}}$: & Functional $E$  with parameter vector $\boldsymbol{\theta}$ \\[1em]
 
-\text{Sets} & &\\
-& A: & A set\\
-& \mathbbm{1}_A: & \text{Active vector for set $A$}\\
-& \mathcal{A}: & A family of sets\\
-
-\text{Digital and continuous shapes} & &\\
-&S: & \text{Bidimensional Euclidean shape, i.e.,} S \subset \mathbb{R}^2\\
-&D_h(S): & \text{Digitization of Euclidean shape }S \text{ using a grid of size }h\\
-&D: & \text{Bidimensional digital shape, i.e., }D \subset \mathbb{Z}^2\\
-&B_r(p): & \text{Digital ball of radius }r \text{ in a grid of size } h=1 \\
+\multicolumn{3}{l}{Sets}\\
+& $A$: & A set\\
+& $\mathcal{A}$: & A family of sets\\
+& $\mathbbm{1}_A$: & Active vector for set $A$\\[1em]
 
 
-\end{array}
-\]
+\multicolumn{3}{l}{Digital and continuous shapes}\\
+& $S$: & Bidimensional Euclidean shape, i.e.,  $S \subset \mathbb{R}^2$\\
+& $D_h(S)$: & Digitization of Euclidean shape $S$  using a grid of size $h$\\
+& $D$: & Bidimensional digital shape, i.e., $D \subset \mathbb{Z}^2$\\
+& $B_r(p)$: & Digital ball of radius $r$  in a grid of size $h=1$ \\[1em]
+
+
+\multicolumn{3}{l}{FlipFlow and BalanceFlow}\\
+& $\Ds^{(k)}$ & The $k$-th digital shape in the evolution\\
+& $I^{(k)} = I(\Ds^{(k)})$ & The inner pixel boundary of the $k$-th digital shape\\
+& $X^{(k)} = X(I(\Ds^{(k)}))$ & The $k$-th set of optimization variables in the evolution\\
+& $F^{(k)} = \Ds^{(k)} \setminus I^{(k)}$ & The $k$-th trust foreground \\
+& $F_r^{(k)}(p),I_r^{(k)}(p),X_r^{(k)}(p)$ & Intersection of $k$th sets F,I,X with $B_r(p)$\\[1em]
+
+\end{tabular}
