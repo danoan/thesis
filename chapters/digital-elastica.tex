@@ -1,20 +1,20 @@
 \chapter{A combinatorial model for digital Elastica shape optimization}
 \label{chapter:digital-elastica}
 
-In this chapter we review the Elastica energy and some of its properties. Next, we introduce the digital version of the Elastica using multigrind convergent estimators of length and curvature. We present a combinatorial optimization model capable to evolve a shape to another of lower digital Elastica value. In several occasions, the final shape is indeed the optimal one, which confirms the pertinence of using multigrid convergent estimators to optimize geometric-related energies in digital sets. Finally, we discuss several naive attempts to derive a global model to minimize a simplification of the digital Elastica and why they fail.
+In this chapter we review the Elastica energy and some of its properties. Next, we introduce the digital version of the Elastica using multigrind convergent estimators of length and curvature. We present a combinatorial optimization model capable to evolve a shape to another of lower digital Elastica value. In several occasions, the final shape is indeed the optimal one, which confirms the pertinence of using multigrid convergent estimators to optimize geometric-related energies in digital sets. Finally, we present several attempts to derive a global model to minimize a simplification of the digital Elastica and we discuss why they fail.
 
 \section{Continuous and digital Elastica}
 \label{ch6:sec:continuous-digital-elastica}
 	\sketch{To be further developed...}
 
-	The Elastica energy of parameters $\alpha, \beta \geq 0$ for some Euclidean shape $X \subset \mathbb{R}^2$ is defined as
+	The Elastica energy of parameters $\Theta=(\alpha, \beta) \geq 0$ for some Euclidean shape $X \subset \mathbb{R}^2$ is defined as
 	
 	\begin{align*}
-	E(X) &= \int_{\partial X}{ \alpha + \beta \kappa(s)^2 ds}.
+	E_{\Theta}(X) &= \int_{\partial X}{ \alpha + \beta \kappa(s)^2 ds}.
 	\end{align*}
 	
 	
-On the other hand, the digital Elastica $\hat{E}$ of some digitization $D_h(X)$ of $X$ is defined as
+On the other hand, the digital Elastica $\hat{E}_{\Theta}$ of some digitization $D_h(X)$ of $X$ is defined as
 	\begin{align}
 	\hat{E}_{\Theta}( D_h(X) ) = \sum_{\dot{\vec{e}} \in \partial D_h(X)}{ \hat{s}( \dot{\vec{e}})\left(\; \alpha + \beta \hat{\kappa}_{r}^2(D_h(X),\dot{\vec{e}},h) \; \right)},
 	\label{eq:digital-elastica}
@@ -414,34 +414,34 @@ We argue that~\cref{eq:simplified-digital-elastica} is a reasonable approximatio
 \subsection{Optimization model for simplified digital Elastica}
 \label{ch6:subsec:optimization-model-simplified-digital-elastica}
 
-Differently from the previous section, the model described here is designed for the integral invariant estimator only. Let $D \in \frac{1}{2}\mathbb{Z}^2$ be the digitization of some shape $S \in \mathbb{R}^2$ using grid step $h$ in half-integer coordinates space. We assume that $D$ has $m$ pixels (located at integer coordinates) and $n$ linels (one and only one of its coordinates is $\frac{1}{2}$). Optimization variables are represented as vectors $x \in \mathbb{B}^{m},\, y \in \mathbb{B}^{n}$ and its $i$th coefficients denoted  $x_i,y_i$.  Further, let $A \in \mathbb{B}^{m\times n}$ the matrix defined as
+Differently from the previous section, the model described here is designed for the integral invariant estimator only. Let $S \in \frac{1}{2}\mathbb{Z}^2$ be the digitization of some shape $X \in \mathbb{R}^2$ using grid step $h$ in half-integer coordinates space. We assume that $S$ has $m$ pixels (located at integer coordinates) and $n$ linels (one and only one of its coordinates is $\frac{1}{2}$). Optimization variables are represented as column vectors $\vec{x} \in \mathbb{B}^{m},\, \vec{y} \in \mathbb{B}^{n}$ and its $i$-th coefficients are denoted  $\vec{x}_i,\vec{y}_i$.  Further, let $\vec{A} \in \mathbb{B}^{m\times n}$ the matrix defined as
 
 \[
-	A_{i,j} = \left\{ \begin{array}{ll}
+	\vec{A}_{i,j} = \left\{ \begin{array}{ll}
 		1,\; x_j \in B_{r}(y_i)\\
 		0,\; \text{otherwise}.
 	\end{array}\right.
 \]
 
-In other words, the column vector $A_i$ of $A$ represents the pixels that are in the interior of  the disk $B_{r}(y_i)$ of radius $r$ centered at $y_i$. 
+In other words, the column vector $\vec{A}_i$ of $\vec{A}$ represents the pixels that are in the interior of the disk $B_{r}(y_i)$ of radius $r$ centered at $\vec{y}_i$. 
 
 
 \begin{align}
-	E_{\Theta}^{simp}(x,y) =& \sum_{y_i \in y}{ y_i \left(\; \alpha + \beta \hat{\kappa}_{r}^2(D,y_i) \; \right)}\\\nonumber
-			   =& \sum_{y_i \in y}{ y_i \left(\; \alpha  + \beta \big( \frac{3}{r^3}(\frac{\pi}{r^2} - |B_r(y_i)|)\big)^2\right)}\\\nonumber
-			   =& \sum_{y_i \in y}{ y_i \left(\; \alpha + \frac{9}{r^6}\beta \big(c^2 - 2cA_i^T\vec{x} + \vec{x}^TA_iA_i^T\vec{x}\big)\right)},			   
+	E_{\Theta}^{simp}(\vec{x},\vec{y}) =& \sum_{\vec{y}_i \in \vec{y}}{ \vec{y}_i \left(\; \alpha + \beta \hat{\kappa}_{r}^2(D,\vec{y}_i) \; \right)}\\\nonumber
+			   =& \sum_{\vec{y}_i \in \vec{y}}{ \vec{y}_i \left(\; \alpha  + \beta \big( \frac{3}{r^3}(\frac{\pi}{r^2} - |B_r(\vec{y}_i)|)\big)^2\right)}\\\nonumber
+			   =& \sum_{\vec{y}_i \in \vec{y}}{ \vec{y}_i \left(\; \alpha + \frac{9}{r^6}\beta \big(c^2 - 2c\vec{A}_i^T\vec{x} + \vec{x}^T\vec{A}_i\vec{A}_i^T\vec{x}\big)\right)},			   
 	\end{align}
 	
 where $c =  \pi r^2/2$. We remark that linels and pixels in the solution must be topologicaly consistent, .i.e., linels must form connected closed curves and the pixels must lie in the interior of those curves. This restriction is encoded in a set of topological constraints $T(x,y)$ detailed later. So far we have
 
 \begin{align*}
-	\min_{x \in \mathbb{B}^{|X|}, y \in \mathbb{B}^{|Y|}}{E_{\Theta}^{simp}(x,y)}, \quad \text{subject to } T(x,y). \quad (P0)
+	\min_{\vec{x} \in \mathbb{B}^{|X|}, \vec{y} \in \mathbb{B}^{|Y|}}{E_{\Theta}^{simp}(\vec{x},\vec{y})}, \quad \text{subject to } T(\vec{x},\vec{y}). \quad (P0)
 \end{align*}
 
 Additionaly, in real applications involving the minimization of Elastica, we have a set of constraints $R$ that plays the role of regularization. For example, we may force some of the pixels in the original shape to be part of the solution; for imaging problems, we may add a data attachment term, and so on. Finally, we can write the general optimization problem as
 
 \begin{align*}
-	\min_{x \in \mathbb{B}^{|X|}, y \in \mathbb{B}^{|Y|}}{E_{\Theta}^{simp}(x,y)}, \quad \text{subject to } T(x,y), R(x) \quad (P1)
+	\min_{\vec{x} \in \mathbb{B}^{|X|}, \vec{y} \in \mathbb{B}^{|Y|}}{E_{\Theta}^{simp}(\vec{x},\vec{y})}, \quad \text{subject to } T(\vec{x},\vec{y}), R(x) \quad (P1)
 \end{align*}
 
 	Formulation $P1$ is a constrained binary non-convex third order problem and likely difficult to be solved optimally. Nonetheless, we can use standard optimization techniques to acquire some intuition on the model. 	
@@ -449,25 +449,25 @@ Additionaly, in real applications involving the minimization of Elastica, we hav
 \subsection{Topological constraints}
 \label{ch6:subsec:topological-constraints}
 
-The estimation ball should be applied in the digital boundary of the shape, which oblige us to impose topological constraints in the model to avoid inconsistent solutions. In order to accomplish that, we set an arbitraty orientation for the faces and another for the edges. We choose counter-clockwise for faces; right for horizontal edges; and up for vertical edges.
+The estimation ball should be applied in the digital boundary of the shape, which oblige us to impose topological constraints in the model to avoid inconsistent solutions. In order to accomplish that, we set an arbitrary orientation for the faces and another for the edges. We choose counter-clockwise for faces; left-to-right for horizontal edges; and bottom-to-up for vertical edges.
 
 
-For each linel $y_i$ we create variables $z_{2i},z_{2i+1}$, one for each possible orientation $y_i$ may assume. We denote this extended set as $Z$. Next, we extend the linel incidence matrix defined in~\cref{app:pixel-incidence-matrix} to hold incidence with respect to oriented edges. The new matrix $\mathbf{C} \in \mathbb{B}^{n \times m + 2n}$ is defined as
+We create the vector $\vec{z} \in \mathbb{B}^{2n}$. We map each linel identified by variable $\vec{y}_i$ to components $\vec{z}_{2i},\vec{z}_{2i+1}$, one for each possible orientation the linel may assume. Next, we extend the linel incidence matrix defined in~\cref{app:pixel-incidence-matrix} to hold incidence with respect to oriented edges. The new matrix $\vec{T} \in \mathbb{B}^{n \times m + 2n}$ is defined as
 
 \[
-	0 \leq j < m, \quad \mathbf{T}_{i,j} = \left\{ \begin{array}{ll}
+	0 \leq j < m, \quad \vec{T}_{i,j} = \left\{ \begin{array}{ll}
 	
-	1,& \text{Pixel $j$ is positive incident to linel $i$}\\
-	-1,& \text{Pixel $j$ is negative incident to linel $i$}\\	
+	1,& \text{Pixel $j$ is positively incident to linel $i$}\\
+	-1,& \text{Pixel $j$ is negatively incident to linel $i$}\\	
 	0,& \text{otherwise},
 	\end{array}\right.
 \]
 
 \[
-	m \leq j < m + 2n, \quad \mathbf{T}_{i,j} = \left\{ \begin{array}{ll}
+	m \leq j < m + 2n, \quad \vec{T}_{i,j} = \left\{ \begin{array}{ll}
 	
-	1,& \text{Edge $j$ is positive incident to linel $i$}\\
-	-1,& \text{Edge $j$ is negative incident to linel $i$}\\	
+	1,& \text{Edge $j$ is positively incident to linel $i$}\\
+	-1,& \text{Edge $j$ is negatively incident to linel $i$}\\	
 	0,& \text{otherwise}.
 	\end{array}\right.
 \]
@@ -476,73 +476,78 @@ Rewriting formulation (P1)
 
 \[
 \begin{array}{ll}
-& \displaystyle	\min \sum_{z_i \in Z}{ z_i \left(\; \alpha + \frac{9}{r^6}\beta \big(c^2 - 2cA_i^T\vec{x} + \vec{x}^TA_iA_i^T\vec{x}\big)\right)} \\
+& \displaystyle	\min \sum_{z_i \in \vec{z}}{ \vec{z}_i \left(\; \alpha + \frac{9}{r^6}\beta \big(c^2 - 2c\vec{A}_i^T\vec{x} + \vec{x}^T\vec{A}_i\vec{A}_i^T\vec{x}\big)\right)} \\
 \text{subject to}\\
-&	\mathbf{T}[ \mathbf{x}, \mathbf{z}] = 0,\\
-&   R(\mathbf{x}),\\
-&   \mathbf{x} \in \mathbb{B}^{m}, \mathbf{z} \in \mathbb{B}^{2n}.
+&	\vec{T} \times  \left[ \begin{array}{c}
+							\vec{x} \\ 
+							\vec{z} 
+						   \end{array} \right] = 0 \\
+&   R(\vec{x}),\\
+&   \vec{x} \in \mathbb{B}^{m}, \vec{z} \in \mathbb{B}^{2n}.
 \end{array}
 \]
 
 
-We observe that for a linel $y_i$, constraints $\mathbf{T}$ allows its both edge variables $z_{2i},z_{2i+1}$ to be evaluated to one. However, since we are minimizing a squared energy, this doesn't pose an issue.
-
-
+We observe that for a linel identified by variable $\vec{y}_i$, constraints $\vec{T}$ forces at most one of the variables $\vec{z}_{2i},\vec{z}_{2i+1}$ to be evaluated to one. 
 
 
 \subsection{Linear relaxation of $P1$}
 \label{ch6:subsec:linear-relaxation}
 
-	The simplest model we can derive from (P1) consists in to relax the optimization variables to be in $\mathbb{U}$, and linearize all second and third order terms. 
+	The simplest model we can derive from (P1) consists in to relax the optimization variables, i.e., we impose $\vec{x} \in \mathbb{U}^m$ and $\vec{z} \in \mathbb{U}^{2n}$, and we linearize all second and third order terms. 
 	
-	Let $T_i$ be a term of the summation. A term is an ordered sequence of optimization variables. For example, the term $x_2^2x_4$ is encoded as the sequence $(x_2,x_2,x_4)$. The order of term $T_i$ is the cardinality of its sequence, and it is denoted $|T_i|$. In order to linearize (P1), for each term $T_i$ of order two or higher, we create variable $z_i$ and enforce $|T_i|+1$ new constraints in the model
-	
-	\begin{align*}
-		z_i &\leq t, \quad \forall t \in T_i \\
-		z_i &\geq \sum_{t \in T_i}{t} - |T_i| + 1.		
-	\end{align*}
-
-	The final solution $x_S$ is given by a simple rounding criteria
+	Consider the summation in (P1). An opt-term is an ordered sequence of optimization variables, e.g., the opt-term $\vec{x}_2^2\vec{x}_4$ is encoded as the sequence $(\vec{x}_2,\vec{x}_2,\vec{x}_4)$. Let $\mathcal{T}$ the collection of opt-terms of order two or higher in (P1) and $\mathcal{T}_i \in \mathcal{T}$ a member of this collection. To linearize (P1), we associate a variable $\vec{u_i}$ for each term of $\mathcal{T}$, i.e., $\vec{u} \in \mathbb{U}^{|\mathcal{T}|}$ and we enforce $|\mathcal{T}_i|+1$ new constraints. In other words, we add the following set of linearization constraints.
 	
 \[
-	x_S(i) = \left\{ \begin{array}{ll}
+	L(\vec{u}) = \left\{ \Big\{ \vec{u}_i \leq t, \quad \forall t \in \mathcal{T}_i \Big\} \cup \Big\{ \vec{u}_i \geq \displaystyle \sum_{t \in \mathcal{T}_i}{t} - |\mathcal{T}_i| + 1 \Big\} \; \Big| \; \forall \mathcal{T}_i \in \mathcal{T} \right\}
+\]
 
-		 	1,& x_S(i) > 0.5\\
-		 	0,& \text{otherwise}.
- 	
-	\end{array}\right.
-\]	
+The linearization of (P1) is written as
 
-	For an instance with $n$ pixels we have about $2n$ linels. After linearization, we can expect to have up to $O(n^3)$ variables, dampening our attempts to solve it globally even for low resolution images. One can also try quadratic formulations by linearizing only the third order terms. Unfortunately, the matrix of quadratic terms is not semi-definite positive, fundamental condition for efficient optimization of the model.
+\[
+\begin{array}{ll}
+& \displaystyle	\min \sum_{z_i \in \vec{z}}{ \vec{z}_i \left(\; \alpha + \frac{9}{r^6}\beta \big(c^2 - 2c\vec{A}_i^T\vec{x} + \vec{x}^T\vec{A}_i\vec{A}_i^T\vec{x}\big)\right)} \\
+\text{subject to}\\
+&	\vec{T} \times  \left[ \begin{array}{c}
+							\vec{x} \\ 
+							\vec{z} 
+						   \end{array} \right] = 0 \\
+&   R(\vec{x}),\\
+&   L(\vec{u}),\\
+&   \vec{x} \in \mathbb{U}^{m}, \vec{z} \in \mathbb{U}^{2n}, \vec{u} \in \mathbb{U}^{|\mathcal{T}|} 
+\end{array}
+\]
+
+	Finally, to obtain a binary vector we round the partial solution vector $\vec{x^{\star}} \in \mathbb{U}^m$. For an instance with $m$ pixels we have about $2m$ linels. After linearization, we can expect to have up to $O(m^3)$ variables, dampening our attempts to solve it globally even for low resolution images. One can also try quadratic formulations by linearizing only the third order terms. Unfortunately, the matrix of quadratic terms is not semi-definite positive, fundamental condition for efficient optimization of the model.
 	
 
 
 \subsection{Unconstrained version of P1}
 \label{ch6:subsec:unconstrained-version}
 
-We can use the pixel incidence matrix defined in~\cref{app:pixel-incidence-matrix} to define an unconstrained version of P1. The linel incidence vector $\mathbf{q} \in \mathbb{Z}^n$ for pixels $\mathbf{x} \in \mathbb{B}^{m}$ is 
+We can use the pixel incidence matrix defined in~\cref{app:pixel-incidence-matrix} to define an unconstrained version of P1. The pixel incidence vector $\vec{q} \in \mathbb{Z}^m$ for pixels $\vec{x} \in \mathbb{B}^{m}$ is 
 	
 	\begin{align*}
-		\mathbf{q} &= \mathbf{P} \mathbf{x}
+		\vec{q} &= \vec{P}^T\vec{P} \vec{x}
 	\end{align*}
 
-In order to supress the sign, we define diagonal matrix $\mathbf{Q} \in \mathbb{R}^{n \times n }$ as
+In order to supress the sign, we define diagonal matrix $\vec{Q} \in \mathbb{R}^{m \times m }$ as
 
 \begin{align*}
-	\mathbf{Q} = diag(\mathbf{q})diag(\mathbf{q})
+	\vec{Q} = diag(\vec{q})diag(\vec{q})
 \end{align*}
 
-Let $\mathbf{B} \in \mathbb{B}^{m\times m}$ such that column vector $\mathbf{B}_j$ represents the pixels in the interior of a disk of radius $R$ centered at pixel $i$. Finally, we search for solutions of
+Let $\vec{B} \in \mathbb{B}^{m\times m}$ such that column vector $\vec{B}_j$ represents the pixels in the interior of a disk of radius $R$ centered at pixel $i$. Finally, we search for solutions of
 
 \begin{align}
-	\min_{\mathbf{x}} \frac{9}{R^6}\sum_{j}^{m}{\left( \frac{\pi R^2}{2} - \boldsymbol{\mathbbm{1}}^T{\mathbf{Q}}\mathbf{B}_j \right)^2}.
+	\min_{\vec{x}} \frac{9}{R^6}\sum_{j}^{m}{\left( \frac{\pi R^2}{2} - \frac{1}{2}\boldsymbol{\mathbf{1}}^T{\vec{Q}}\vec{B}_j \right)^2},
 	\label{eq:unconstrained-digital-elastica}
 \end{align}
 
 
-~\cref{eq:unconstrained-digital-elastica} involves the minimization of a sixth order equation and therefore hard to be optimized.
+where $\mathbf{1} = (1,1, \cdots , 1)^T \in \mathbb{R}^m$. ~\cref{eq:unconstrained-digital-elastica} involves the minimization of a fourth order equation and therefore hard to be optimized.
 
 \section{Conclusion}
 \label{ch6:sec:conclusion}
-We gave a historical review of the Elastica and we defined the digital Elastica energy in~\cref{ch6:sec:continuous-digital-elastica}. The local combinatorial scheme defined in~\cref{ch6:sec:local-combinatorial-scheme} can evolve different shapes guided by the minimization of digital Elastica energy and it eventually reaches global optima in the free Elastica problem, justifying the interest for multigrid convergent estimators. The model can also be used to solve the constrained Elastica problem, but its more likely to stop in a local optimal. Finnaly, we sketch some global optimization models in~\cref{ch6:sec:global-optimization} for minimizing the simplified Elastica using standard techniques of optimization. The difficulties we pointed out suggest that a practical global optimization model is unlikely to exist. In the next chapter we explore a model that decreases the Elastica energy and that can be used in practice.
+We gave a historical review of the Elastica and we defined the digital Elastica energy in~\cref{ch6:sec:continuous-digital-elastica}. The local combinatorial scheme defined in~\cref{ch6:sec:local-combinatorial-scheme} can evolve different shapes guided by the minimization of digital Elastica energy and it eventually reaches global optimum in the free Elastica problem, justifying the interest for multigrid convergent estimators. The model can also be used to solve the constrained Elastica problem, but its more likely to stop in a local optimum. Finnaly, we sketch some global optimization models in~\cref{ch6:sec:global-optimization} for minimizing the simplified Elastica using standard techniques of optimization. The difficulties we pointed out suggest that a practical global optimization model is unlikely to exist. In the next chapter we explore a model that decreases the Elastica energy and that can be used in practice.
 
