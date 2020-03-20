@@ -1,38 +1,38 @@
 \chapter{Notation}
-\label{chapter:notation}
+\label{chapternotation}
 
-\begin{longtable}{p{1cm}ll}
+\begin{longtable}{p{0.5cm}ll}
 \multicolumn{3}{l}{Domains}\\
-& $\mathbb{B}$: & $\{0,1\}$\\\
-& $\mathbb{U}$: & $[0,1]$\\
-& $\mathbb{Z}$: & Integers\\
-& $\mathbb{R}$: & Reals\\[1em]
+& $\mathbb{B}$ & $\{0,1\}$\\\
+& $\mathbb{U}$ & $[0,1]$\\
+& $\mathbb{Z}$ & Integers\\
+& $\mathbb{R}$ & Reals\\[1em]
 
 \multicolumn{3}{l}{Vectors and matrices}\\
-& $\mathbf{A}$: & Matrix\\
-& $\mathbf{A}_i$: & $i$-th column of matrix $\mathbf{A}$\\
-& $\mathbf{A}_{i,j}$: & Element in the $i$th row and $j$th column of matrix $\mathbf{A}$\\
-& $\mathbf{x}$: & Vector\\
-& $\mathbf{x}_i$: & $i$th coefficient of vector $\mathbf{x}$\\[1em]
+& $\mathbf{A}$ & Matrix\\
+& $\mathbf{A}_i$ & $i$-th column of matrix $\mathbf{A}$\\
+& $\mathbf{A}_{i,j}$ & Element in the $i$th row and $j$th column of matrix $\mathbf{A}$\\
+& $\mathbf{x}$ & Vector\\
+& $\mathbf{x}_i$ & $i$th coefficient of vector $\mathbf{x}$\\[1em]
 
 \multicolumn{3}{l}{Functions}\\
-& $f,g$: & Functions\\
-& $x,y,z$: & Variables \\
-& $a,b,c$: & Constants \\
-& $\hat{f}$: & Estimation function\\
-& $E_{\boldsymbol{\theta}}$: & Functional $E$  with parameter vector $\boldsymbol{\theta}$ \\[1em]
+& $f,g$ & Functions\\
+& $x,y,z$ & Variables \\
+& $a,b,c$ & Constants \\
+& $\hat{f}$ & Estimation function\\
+& $E_{\boldsymbol{\theta}}$ & Functional $E$  with parameter vector $\boldsymbol{\theta}$ \\[1em]
 
 \multicolumn{3}{l}{Sets}\\
-& $A$: & A set\\
-& $\mathcal{A}$: & A family of sets\\
-& $\mathbbm{1}_A$: & Active vector for set $A$\\[1em]
+& $A$ & A set\\
+& $\mathcal{A}$ & A family of sets\\
+& $\mathbbm{1}_A$ & Active vector for set $A$\\[1em]
 
 
 \multicolumn{3}{l}{Digital and continuous shapes}\\
-& $S$: & Bidimensional Euclidean shape, i.e.,  $S \subset \mathbb{R}^2$\\
-& $D_h(S)$: & Digitization of Euclidean shape $S$  using a grid of size $h$\\
-& $D$: & Bidimensional digital shape, i.e., $D \subset \mathbb{Z}^2$\\
-& $B_r(p)$: & Digital ball of radius $r$  in a grid of size $h=1$ \\[1em]
+& $S$ & Bidimensional Euclidean shape, i.e.,  $S \subset \mathbb{R}^2$\\
+& $D_h(S)$ & Digitization of Euclidean shape $S$  using a grid of size $h$\\
+& $D$ & Bidimensional digital shape, i.e., $D \subset \mathbb{Z}^2$\\
+& $B_r(p)$ & Digital ball of radius $r$  in a grid of size $h=1$ \\[1em]
 
 \multicolumn{3}{l}{LocalSearch}\\
 & $d_D$ & Signed Euclidean distance transform of shape $D$\\
@@ -44,11 +44,11 @@
 & $I^{(k)} = I(\Ds^{(k)})$ & The inner pixel boundary of the $k$-th digital shape\\
 & $X^{(k)} = X(I(\Ds^{(k)}))$ & The $k$-th set of optimization variables in the evolution\\
 & $F^{(k)} = \Ds^{(k)} \setminus I^{(k)}$ & The $k$-th trust foreground \\
-& $F_r^{(k)}(p),I_r^{(k)}(p),X_r^{(k)}(p)$ & Intersection of $k$th sets F,I,X with $B_r(p)$\\
+& $F_r^{(k)}(p),I_r^{(k)}(p),X_r^{(k)}(p)$ & Intersection of $k$-th sets F,I,X with $B_r(p)$\\
 & $H_F,H_B$ & Mixed Gaussian distributions\\[1em]
 
 \multicolumn{3}{l}{BalanceFlow}\\
-& $\O^{(k)}$ & Incident pixels (inner,outer) of $\partial D^{(k)}$\\
+& $O^{(k)}$ & Incident pixels (inner,outer) of $\partial D^{(k)}$\\
 & $u_r(D,p)$ & Balance coefficient for digital shape $D$ centered at $p$\\[1em]
 
 \multicolumn{3}{l}{GraphFlow}\\
