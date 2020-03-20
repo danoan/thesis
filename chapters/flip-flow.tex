@@ -83,7 +83,7 @@ Expanding~\cref{eq:curvature-estimator-pixels}, we get
 where $C=c_2^2 - 2c_2 \cdot |F_{r}^{(k)}(p)| + |F_{r}^{(k)}(p)|^2$ is a constant. As~\cref{eq:digital-squared-curvature-term} is a term to be optimized, we can ignore constants and multiplication factors. Moreover, as we are in a binary optimization setting, we can  further simplify~\cref{eq:digital-squared-curvature-term} by exploiting the binary character of variables and eliminating monomials of second order. We define the following family
 of energies for given parameters $\vec{\theta}=(\alpha,\beta ) \geq 0$
 \begin{align}
-  E_{(\vec{\theta},m)}^{flip}(X^{(k)}) =& \sum_{x_j \in X^{(k)}}{\alpha s(x_j)} + \nonumber \\ 
+  E_{(\vec{\theta},m)}^{flip}(\Ds^{(k)},X^{(k)}) =& \sum_{x_j \in X^{(k)}}{\alpha s(x_j)} + \nonumber \\ 
   & \sum_{ \substack{p \in \\ R_m(\Ds^{(k)})}}{ 2c_1 \beta  \Big( { (1/2+ |F_{r}^{(k)}(p)|-c_2) \cdot \sum_{ \substack{ x_j \in \\ X_{r}^{(k)}(p)}}{x_j} } + \sum_{ \substack{j<l, \\ x_j,x_l \in \\ X_{r}^{(k)}(p) } }{x_jx_l} \Big) },
   \label{eq:energy-family}
 \end{align}
@@ -116,12 +116,12 @@ We recall that $R_m$ refers to the $m-ring$ defined in~\cref{ch6:sec:local-combi
  \While{ \It $<$ \MIt  }{ 	
 	\comment{Shrinking mode}
 	\If{ \It is even }{	 
-	 	$x^{(k-1)} \longleftarrow \displaystyle \argmin_{X^{(k-1)}} E_{(\vec{\theta},m)}^{flip}(1-X^{(k-1)})$\; 	
+	 	$x^{(k-1)} \longleftarrow \displaystyle \argmin_{X^{(k-1)}} E_{(\vec{\theta},m)}^{flip}(\Ds^{(k-1)},1-X^{(k-1)})$\; 	
  		$\Ds^{(k)} \longleftarrow F^{(k-1)} + x^{(k-1)}$\;
  	}
 	\comment{Expansion mode} 	
  	\Else{	
-	 	$\overline{x}^{(k-1)} \longleftarrow \displaystyle \argmin_{\overline{X}^{(k-1)}} E_{(\vec{\theta},m)}^{flip}(1-\overline{X}^{(k-1)})$\;
+	 	$\overline{x}^{(k-1)} \longleftarrow \displaystyle \argmin_{\overline{X}^{(k-1)}} E_{(\vec{\theta},m)}^{flip}(\Ds^{(k-1)},1-\overline{X}^{(k-1)})$\;
  		$\Ds^{(k)} \longleftarrow \overline{ \overline{F}^{(k-1)} + \overline{x}^{(k-1)}}$\; 	
  	}
  	
@@ -153,7 +153,7 @@ We recall that $R_m$ refers to the $m-ring$ defined in~\cref{ch6:sec:local-combi
 As discussed in~\cref{ch6:sec:global-optimization}, the topological constraints are a fundamental part in a global optimization model for the digital Elastica but the complexity added to it dampens any hope of optimizing it efficiently. In the proposed FlipFlow model, we exclude topological constraints and we end up with the tractable binary second order~\cref{eq:energy-family}. However, due the lack of contour information, the minimization of~\cref{eq:energy-family} for $\Ds^{(k)}$ results in undesirable shapes of even higher digital Elastica energy values  (see~\cref{fig:contour-info}). Interestingly, by using the inverse of the optimal assignement, we can derive a shape of lower digital Elastica energy. Therefore, the next shape is given by
 
 \begin{align*}
-	\Ds^{(k+1)} = \Ds^{(k)} - \argmin _{}{E_{(\vec{\theta},m)}^{flip}\big(1-X^{(k)}} \big).
+	\Ds^{(k+1)} = \Ds^{(k)} - \argmin _{}{E_{(\vec{\theta},m)}^{flip}\big(\Ds^{(k)},1-X^{(k)}} \big).
 \end{align*}
 
 Recall that the integral invariant estimator approaches curvature by computing the difference between half of the area
@@ -400,22 +400,22 @@ is set to the data fidelity term~\cref{eq:data-fidelity}.
  
  	\comment{Shrinking mode}
 	\If{ \It is even }{	 
-	 	$x^{(k-1)} \longleftarrow \displaystyle \argmin_{X^{(k-1)}} E_{(\vec{\theta},m)}^{flip}(1-X^{(k-1)}) + \gamma g(X^{(k-1)})$\; 	
+	 	$x^{(k-1)} \longleftarrow \displaystyle \argmin_{X^{(k-1)}} E_{(\vec{\theta},m)}^{flip}(\Ds^{(k-1)},1-X^{(k-1)}) + \gamma g(X^{(k-1)})$\; 	
  		$\Ds^{(k)} \longleftarrow F^{(k-1)} + x^{(k-1)}$\;
  	}
 	\comment{Expansion mode} 	
  	\Else{	
-	 	$\overline{x}^{(k-1)} \longleftarrow \displaystyle \argmin_{\overline{X}^{(k-1)}} E_{(\vec{\theta},m)}^{flip}(1-\overline{X}^{(k-1)}) + \gamma g(\overline{X}^{(k-1)})$\;
+	 	$\overline{x}^{(k-1)} \longleftarrow \displaystyle \argmin_{\overline{X}^{(k-1)}} E_{(\vec{\theta},m)}^{flip}(\Ds^{(k-1)},1-\overline{X}^{(k-1)}) + \gamma g(\overline{X}^{(k-1)})$\;
  		$\Ds^{(k)} \longleftarrow \overline{ \overline{F}^{(k-1)} + \overline{x}^{(k-1)}}$\; 	
  	}
  
 
- 	\Delta $\longleftarrow \Ds^{(k)} - \Ds^{(k+1)}|$\;
+ 	\Delta $\longleftarrow |\Ds^{(k)} \setminus \Ds^{(k+1)}|$\;
 
 	\It $\longleftarrow$ \It $+1$\;
 	
  }
- \caption{Contour correction algorithm.}
+ \caption{FlipFlow algorithm for segmentation.}
   \label{alg:contour-correction} 
 \end{algorithm}	
 
@@ -440,7 +440,7 @@ An illustration of the application of the FlipFlow model in image segmentation i
 
 \section{Conclusion}
 \label{ch7:sec:conclusion}
-We presented the FlipFlow model in~\cref{ch7:sec:flipflow-model}, an evolution process that produces shapes of decreasing digital Elastica until a certain point.~\cref{alg:evolution-model} operates in two distint modes: the shrinking and the dilation modes. They are responsible for the treatment of convexities and concavities regions, respectively. 
+We presented the FlipFlow model in~\cref{ch7:sec:flipflow-model}, an evolution process that produces shapes of decreasing digital Elastica until a certain inflexion point.~\cref{alg:evolution-model} operates in two distint modes: the shrinking and the dilation modes. They are responsible for the treatment of convexities and concavities regions, respectively. 
 
 
 ~\cref{ch7:sec:optimization-method} briefly describes some properties of QPBO method and its variants used to solve the quadratic binary problem that appears at every iteration of ~\cref{alg:evolution-model}. In~\cref{ch7:sec:evaluation-across-rings} we point out the submodularization effect of evaluating the FlipFlow model at outer $m$-rings. For larger values of $m$, all pixels are labeled by QPBOP. Finnaly, we extended~\cref{alg:evolution-model} in order to include a data term regularization and do image segmentation using~\cref{alg:contour-correction}.
