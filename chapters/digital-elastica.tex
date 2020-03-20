@@ -7,41 +7,41 @@ In this chapter we review the Elastica energy and some of its properties. Next, 
 \label{ch6:sec:continuous-digital-elastica}
 	\sketch{To be further developed...}
 
-	The Elastica energy of parameters $\Theta=(\alpha, \beta) \geq 0$ for some Euclidean shape $X \subset \mathbb{R}^2$ is defined as
+	The Elastica energy of parameters $\Theta=(\alpha, \beta) \geq 0$ for some Euclidean shape $S \subset \mathbb{R}^2$ is defined as
 	
 	\begin{align*}
-	E_{\Theta}(X) &= \int_{\partial X}{ \alpha + \beta \kappa(s)^2 ds}.
+	E_{\Theta}(S) &= \int_{\partial S}{ \alpha + \beta \kappa(s)^2 ds}.
 	\end{align*}
 	
 	
-On the other hand, the digital Elastica $\hat{E}_{\Theta}$ of some digitization $D_h(X)$ of $X$ is defined as
+On the other hand, the digital Elastica $\hat{E}_{\Theta}$ of some digitization $D_h(S)$ of $S$ is defined as
 	\begin{align}
-	\hat{E}_{\Theta}( D_h(X) ) = \sum_{\dot{\vec{e}} \in \partial D_h(X)}{ \hat{s}( \dot{\vec{e}})\left(\; \alpha + \beta \hat{\kappa}_{r}^2(D_h(X),\dot{\vec{e}},h) \; \right)},
+	\hat{E}_{\Theta}( D_h(S) ) = \sum_{\dot{\vec{e}} \in \partial D_h(S)}{ \hat{s}( \dot{\vec{e}})\left(\; \alpha + \beta \hat{\kappa}_{r}^2(D_h(S),\dot{\vec{e}},h) \; \right)},
 	\label{eq:digital-elastica}
 	\end{align}
 	
 where $\dot{\vec{e}}$ denotes the center of the edge $\vec{e}$. In the
-expression above, we will substitute an arbitrary subset $Z$ of
-$\mathbb{Z}^2$ to $D_h(X)$ since the continuous shape $X$ is unknown.
+expression above, we will substitute an arbitrary subset $\Ds$ of
+$\mathbb{Z}^2$ to $D_h(S)$ since the continuous shape $S$ is unknown.
 In the following we omit the grid step $h$ to simplify expressions
 (or, putting it differently, we assume that the shape of interest is
 rescaled by $1/h$ and we set $h=1$). 
 
-In the next section, we describe a combinatorial scheme that permit us to find the minimum digital shape with respect the digital Elastica energy for some neighborhood of shapes of $S$. 
+In the next section, we describe a combinatorial scheme that permit us to find the minimum digital shape with respect the digital Elastica energy for some neighborhood of shapes of $\Ds$. 
 
 \section{Local combinatorial scheme}
 \label{ch6:sec:local-combinatorial-scheme}
 
-Given a digital shape $S^{(0)}$ we describe a process that generates a
-sequence $S^{(i)}$ of shapes with non-increasing Elastica energy. The
+Given a digital shape $\Ds^{(0)}$ we describe a process that generates a
+sequence $\Ds^{(i)}$ of shapes with non-increasing Elastica energy. The
 idea is to define a neighborhood of shapes $\mathcal{N}^{(i)}$ to the
-shape $S^{(i)}$ and choose the element of $\mathcal{N}^{(i)}$ with
+shape $\Ds^{(i)}$ and choose the element of $\mathcal{N}^{(i)}$ with
 lowest energy.  The process is suited for the integral invariant
 estimator but also for other curvature estimators, for example, MDCA
 \cite{roussillon11mdca}. As a matter of fact, our experiments have
 shown that either estimators induce similar results.
 
-Let $S$ be a $2$-dimensional digital shape embedded in a domain $\Omega \subset \mathbb{Z}^2$. We adopt the cellular-grid model to represent $S$, i.e., pixels and its lower dimensional counterparts, linels and pointels, are part of $S$ (see~\cref{fig:cellular-grid-model}). In particular, we denote by $\partial S$ the topological boundary of $S$, i.e., the connected sequence of linels such that for each linel we have one of its incident pixels in $S$ and the other not in $S$.
+Let $\Ds$ be a $2$-dimensional digital shape embedded in a domain $\Omega \subset \mathbb{Z}^2$. We adopt the cellular-grid model to represent $\Ds$, i.e., pixels and its lower dimensional counterparts, linels and pointels, are part of $\Ds$ (see~\cref{fig:cellular-grid-model}). In particular, we denote by $\partial \Ds$ the topological boundary of $\Ds$, i.e., the connected sequence of linels such that for each linel we have one of its incident pixels in $\Ds$ and the other not in $\Ds$.
 
 \begin{figure}[]
 	\center
@@ -58,42 +58,43 @@ Let $S$ be a $2$-dimensional digital shape embedded in a domain $\Omega \subset 
 	\label{fig:cellular-grid-model}
 \end{figure}
 
+Let $d_{\Ds}:\Omega \rightarrow \mathbb{R}$ be the signed Euclidean distance transformation with respect to shape $\Ds$. The value $d_{\Ds}(p)$ gives the Euclidean distance between $p \notin \Ds$ and the closest pixel in $\Ds$. For points $p \in \Ds$, $d_{\Ds}(p)$ gives the distance between $p$ and the closest pixel not in $\Ds$.
 
-Consider the following set of neighbor candidates to $S$:
+\begin{definition}{m-Ring Set}
+Given a digital shape $\Ds \in\Omega$, its signed distance transformation $d_{\Ds}$ and natural number $m \neq 0$, the {\em $m$-ring set of $\Ds$} is defined as
 \begin{align*}
-\mathcal{U}(S) = \{ D \; | D \subset R_1(S) \cup S \; \text{and} \; \text{$D$ is connected} \}.
+	R_m(\Ds) &:= L_m \cup L_{-m},
+\end{align*}
+where
+\begin{align*}
+	L_m(\Ds) &:= \left\{ \quad \begin{array}{cc}
+		\left\{ p \in \Omega \; | \; m-1 < d_{\Ds}(p) \leq m \right\} & , \quad m>0\\
+		\left\{ p \in \Omega \; | \; m+1 > d_{\Ds}(p) \geq m \right\} & , \quad m<0
+		\end{array} \right.
+\end{align*}
+\end{definition}
+
+
+Consider the following set of neighbor candidates to $\Ds$:
+\begin{align*}
+\mathcal{U}(\Ds) = \{ Q \; | \; Q \subset R_1(\Ds) \cup \Ds \; \text{and} \; \text{$Q$ is connected} \}.
 \end{align*}
 
 
 Such set can be extremely large and its complete exhaustion is prohibitively expensive.  Instead, we are going to use a subset of it.
 
-Let $d_{S}:\Omega \rightarrow \mathbb{R}$ be the signed Euclidean distance transformation with respect to shape $S$. The value $d_S(p)$ gives the Euclidean distance between $p \notin S$ and the closest pixel in $S$. For points $p \in S$, $d_S(p)$ gives the distance between $p$ and the closest pixel not in $S$.
-
-
-\begin{definition}{m-Ring Set}
-Given a digital shape $S\in\Omega$, its signed distance transformation $d_S$ and natural number $m \neq 0$, the {\em $m$-ring set of $S$} is defined as
-\begin{align*}
-	R_m(S) &:= L_m \cup L_{-m},
-\end{align*}
-where
-\begin{align*}
-	L_m(S) &:= \left\{ \quad \begin{array}{cc}
-		\left\{ p \in \Omega \; | \; m-1 < d_S(p) \leq m \right\} & , \quad m>0\\
-		\left\{ p \in \Omega \; | \; m+1 > d_S(p) \geq m \right\} & , \quad m<0
-		\end{array} \right.
-\end{align*}
-\end{definition}
 
 \begin{definition}{$n$-neighborhood}
 
-	Given a digital shape $S \in \Omega$, its $n$-neigh\-bor\-hood $\mathcal{N}_n(S)$ is defined as the set of digital shapes that can be built from $S$ by adding or removing a sequence of $k \in [0,n]$ connected pixels in $R_1(S)$.
+	Given a digital shape $\Ds \in \Omega$, its $n$-neigh\-bor\-hood $\mathcal{N}_n(\Ds)$ is defined as the set of digital shapes that can be built from $\Ds$ by adding or removing a sequence of $k \in [0,n]$ connected pixels in $R_1(\Ds)$.
 
 \end{definition}
 
 
-At first glance, we may be tempted to set the local-search neighborhood at the $k$-th iteration as the union of all $n$-neighborhood for $1<n<|\partial S^{(k)}|$. However, that is often unecessary and timing consuming, as the greatest reduction in digital Elastica for a member of $\mathcal{N}_n$ is likely very close to the greatest reduction for a member of $\mathcal{N}_{n-1}$. Moreover, we can improve running time by implementing a multiscaling approach, i.e., we look for reductions in digital Elastica for larger values of $n$ first, and in case of a negative answer we refine our search by choosing a smaller $n$.
 
-~\cref{alg:local-search} describes the local combinatorial process.  The results are presented in~\cref{fig:local-comb-square-results} for four different initial shapes. The algorithm is suitable for any type of digital estimator. To estimate length we use MDSS and to estimate curvature we execute experiments with the MDCA and II-$r$ estimators ($r$ denoting the radius of the estimation ball). 
+At first glance, we may be tempted to set the local-search neighborhood at the $k$-th iteration as the union of all $n$-neighborhood for $1<n<|\partial \Ds^{(k)}|$. However, that is often unecessary and timing consuming, as the greatest reduction in digital Elastica for a member of $\mathcal{N}_n$ is likely very close to the greatest reduction for a member of $\mathcal{N}_{n-1}$. Moreover, we can improve running time by implementing a multiscaling approach, i.e., we look for reductions in digital Elastica for larger values of $n$ first, and in case of a negative answer we refine our search by choosing a smaller $n$.
+
+~\cref{alg:local-search} describes the local combinatorial process and is suitable for any type of digital estimator. To estimate length we use MDSS and to estimate curvature we execute~\cref{alg:local-search} with the MDCA and II-$r$ estimators ($r$ denoting the radius of the estimation ball) to solve the free and constrained Elastica problems. 
 	
 
 \begin{figure}[]
@@ -122,42 +123,72 @@ At first glance, we may be tempted to set the local-search neighborhood at the $
  \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
  \SetKwComment{comment}{//}{}
  
- \Input{A digital set $S$; weight coefficients $\Theta=(\alpha , \beta)$; the number of curve segments $nc$; the maximum number of iterations \MIt}
+ \Input{A digital set $\Ds$; weight coefficients $\Theta=(\alpha , \beta)$; the number of curve segments $nc$; the maximum number of iterations \MIt}
  \BlankLine
  $t \longleftarrow 1$ \tcp*[l]{level of multiscaling}
  $k \longleftarrow 0$	\tcp*[l]{current iteration}
- $S^{(0)} \longleftarrow S$\;
- \While{ \It $<$ \MIt \bf{and} $t < \log_2{|\partial S^{(k)}|}$ }
+ $\Ds^{(0)} \longleftarrow \Ds$\;
+ \While{ \It $<$ \MIt \bf{and} $t < \log_2{|\partial \Ds^{(k)}|}$ }
  { 	
-	$M^{(k,t)}  \longleftarrow |\partial S|/2^t$  	\tcp*[l]{Maximum $n$-neighborhood value.}
+	$M^{(k,t)}  \longleftarrow |\partial \Ds^{(k)}|/2^t$  	\tcp*[l]{Maximum $n$-neighborhood value.}
 	
 	$J \longleftarrow \{ j \cdot \frac{M^{(k,t)}}{nc} \; | \; 1 \leq j \leq nc \} $\;
 	
-	$\displaystyle \mathcal{N}^{(k,t)} \longleftarrow \displaystyle \Cup_{J}{\mathcal{N}_{j}(S^{(k)})}$\;
- 
-  	\For{$ X \in \mathcal{N}^{(k,t)} $}
+	$\displaystyle \mathcal{N}^{(k,t)} \longleftarrow \displaystyle \Cup_{J}{\mathcal{N}_{j}(\Ds^{(k)})}$\;
+	\BlankLine
+	
+	\comment{Find neighbor shape with lowest energy.} 
+	$Q^{\star} \longleftarrow D^{(k-1)}$\;
+  	\For{$ Q \in \mathcal{N}^{(k,t)} $}
 	{
-		\If{ $\hat{E}_{\Theta}(X)$ $<$ $\hat{E}_{\Theta}(X^\star)$ }
+		\If{ $\hat{E}_{\Theta}(Q)$ $<$ $\hat{E}_{\Theta}(Q^\star)$ }
 		{
-			$X^\star \longleftarrow X$\; 
+			$Q^\star \longleftarrow Q$\; 
 		}	
 	}
-	\Delta $\longleftarrow$ $\hat{E}_{\Theta}(S^{(k-1)}) - \hat{E}_{\Theta}(S^{(k)})$\;	
+	\BlankLine
 	
-	\If{ \Delta $\leq 0$ }
+
+	\Delta $\longleftarrow$ $\hat{E}_{\Theta}(\Ds^{(k-1)}) - \hat{E}_{\Theta}(\Ds^{(k)})$\;	
+	
+	\If{ \Delta $\leq 0$ } 
 	{
-		$t \longleftarrow t+1$ \tcp*[l]{Better solution not found. Refine the scale.}
+		\comment{Better solution not found. Refine the scale.}
+		$t \longleftarrow t+1$ 
 	}		
-	\Else{
+	\Else 
+	{ 
+		\comment{Better solution found. Set $D^{(k)}$ and reset multiscaling.}
 		$t \longleftarrow 1$\;	
-		$S^{(k)} \longleftarrow X^\star$\;
+		$\Ds^{(k)} \longleftarrow Q^\star$\;
 		\It $\longleftarrow$ \It $+1$\;		
 	}
 	
  }
- \caption{Local combinatorial optimization for Elastica minimization.}
+ \caption{LocalSearch algorithm for Elastica minimization.}
   \label{alg:local-search} 
 \end{algorithm}
+
+\subsection{Free digital Elastica}
+\label{ch6:subsec:free-digital-elastica}
+In the free digital Elastica energy we optimize~\cref{eq:digital-elastica} without any constraint. We observe that for $\alpha=0, \beta >0$ the Elastica becomes the integration of the squared curvature  along the shape contour which has the ball of infinite radius as its minimizer. For $\alpha > 0, \beta=0$, minimize Elastica becomes minimize perimeter (curvature flow). It is easy to see that for $\alpha, \beta > 0$, the optimal shape for the Elastica is a disk of radius $r$. We can easily find the value of $r$.
+
+\begin{align*}
+	\frac{d}{dr}\big( \int_{\partial B(r)}{ (\alpha + \beta \kappa ^2) ds} \big ) &= 0\\
+	\frac{d}{dr}\big( \alpha 2\pi r + \beta \pi/r \big) &= 0\\
+	r &= \alpha^{-1/2}.
+\end{align*}  
+
+Therefore, the optimal shape for the free digital Elastica is a digital disk of finite radius $\alpha^{-1/2}$.
+
+
+In~\cref{fig:local-comb-estimators-plots-lp001} we present the digital Elastica evolution for parameters $\alpha=0.01, \beta=1$ and three different curvature estimators in three different scales. The shapes evolution using the II-$5$ estimator are shown in~\cref{fig:local-comb-ii5-results}. We observe that both II-$5$ and II-$10$ evolve the shapes to disks of radius close to the optimum value of $10$. The II-$3$ estimator stops prematurely at a local optimum due its limited sensibility compared to II-$5$ or II-$10$, while MDCA encounters some difficults to evolve in a high resolution setting and it also stops at some local optimum. In fact, the MDCA estimator, although with higher convergence speed, is more sensitive to noise than II, as illustrated in~\cref{fig:mdca-sensitivity}. Nonetheless, the results can be improved by using a larger neighborhood, as illustrates~\cref{fig:mdca-larger-neighborhood}.
+
+
+
+We have executed the same experiments for different parameters $\alpha$ to confirm the effectiveness of our approach. We observe that the plots for $\alpha=0.001$ in~\cref{fig:local-comb-estimators-plots-lp0001} follows a pattern similar to those in~\cref{fig:local-comb-estimators-plots-lp001} for $\alpha=0.01$. In particular, the remarks for the II-$3$ and MDCA estimator are the same. Further, we point out that II-$5$ values are slightly farther from the optimum for $\alpha=0.001$. The reason being that the shapes evolve to a ball of higher radius compared to the case $\alpha=0.01$. At some point of the evolution for $\alpha=0.001$, the sensibility of II-$5$ is not sufficient to escape from local optimum. We remark that the adoption of an automatic selection of the estimation ball radius may attenuate this problem.
+
+
 
 \begin{figure}[]
 \center
@@ -242,52 +273,39 @@ At first glance, we may be tempted to set the local-search neighborhood at the $
 
 	\includegraphics[scale=0.25]{figures/chapter5/flow/ellipse/radius_5/ii/elastica/len_pen_0.01000/jonctions_1/curve_segs_4/best/gs_0.25000/summary.pdf}				
 \end{tabular}
-		\caption{Local combinatorial optimization process results for several shapes with $\alpha=0.01,\beta=1$. The initial contour is colored in red; the final contour is colored in blue; and the optimal contour is colored in green.}	
+		\caption{LocalSearch algorithm evolutions for several shapes with $\alpha=0.01,\beta=1$. The initial contour is colored in red; the final contour is colored in blue; and the optimal contour is colored in green.}	
 		\label{fig:local-comb-ii5-results}
 \end{figure}
 
 \begin{figure}
 \center
-\begin{tabular}{ccc}
-$h=1.0$ & $h=0.5$ & $h=0.25$\\[2em]
-\includegraphics[scale=0.25]{figures/chapter5/flow/flower/radius_3/mdca/elastica/len_pen_0.01000/jonctions_1/curve_segs_4/best/gs_1.00000/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter5/flow/flower/radius_3/mdca/elastica/len_pen_0.01000/jonctions_1/curve_segs_4/best/gs_0.50000/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter5/flow/flower/radius_3/mdca/elastica/len_pen_0.01000/jonctions_1/curve_segs_4/best/gs_0.25000/summary.pdf}\\[2em]
-\includegraphics[scale=0.25]{figures/chapter5/mdca-larger-neighborhood/flower/0.01/1.0/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter5/mdca-larger-neighborhood/flower/0.01/0.5/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter5/mdca-larger-neighborhood/flower/0.01/0.25/summary.pdf}\\[2em]
+\begin{tabular}{cccc}
+& $h=1.0$ & $h=0.5$ & $h=0.25$\\[2em]
+\multirow{2}{*}{\rotatebox{90}{$n$-neighborhood}} & 
+\figTable{0.25}{figures/chapter5/flow/triangle/radius_3/mdca/elastica/len_pen_0.01000/jonctions_1/curve_segs_4/best/gs_1.00000/summary.pdf} &
+\figTable{0.25}{figures/chapter5/flow/triangle/radius_3/mdca/elastica/len_pen_0.01000/jonctions_1/curve_segs_4/best/gs_0.50000/summary.pdf} &
+\figTable{0.25}{figures/chapter5/flow/triangle/radius_3/mdca/elastica/len_pen_0.01000/jonctions_1/curve_segs_4/best/gs_0.25000/summary.pdf}\\
+& \figTable{0.25}{figures/chapter5/flow/flower/radius_3/mdca/elastica/len_pen_0.01000/jonctions_1/curve_segs_4/best/gs_1.00000/summary.pdf} &
+\figTable{0.25}{figures/chapter5/flow/flower/radius_3/mdca/elastica/len_pen_0.01000/jonctions_1/curve_segs_4/best/gs_0.50000/summary.pdf} &
+\figTable{0.25}{figures/chapter5/flow/flower/radius_3/mdca/elastica/len_pen_0.01000/jonctions_1/curve_segs_4/best/gs_0.25000/summary.pdf}\\[8em]
 
-\includegraphics[scale=0.25]{figures/chapter5/flow/triangle/radius_3/mdca/elastica/len_pen_0.01000/jonctions_1/curve_segs_4/best/gs_1.00000/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter5/flow/triangle/radius_3/mdca/elastica/len_pen_0.01000/jonctions_1/curve_segs_4/best/gs_0.50000/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter5/flow/triangle/radius_3/mdca/elastica/len_pen_0.01000/jonctions_1/curve_segs_4/best/gs_0.25000/summary.pdf}\\[2em]
+\hline\\[2em]
 
-\includegraphics[scale=0.25]{figures/chapter5/mdca-larger-neighborhood/triangle/0.01/1.0/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter5/mdca-larger-neighborhood/triangle/0.01/0.5/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter5/mdca-larger-neighborhood/triangle/0.01/0.25/summary.pdf}\\[2em]
+\multirow{2}{*}{\rotatebox{90}{Extended $n$-neighborhood}} & 
+\figTable{0.25}{figures/chapter5/mdca-larger-neighborhood/triangle/0.01/1.0/summary.pdf} &
+\figTable{0.25}{figures/chapter5/mdca-larger-neighborhood/triangle/0.01/0.5/summary.pdf} &
+\figTable{0.25}{figures/chapter5/mdca-larger-neighborhood/triangle/0.01/0.25/summary.pdf}\\
+
+& \figTable{0.25}{figures/chapter5/mdca-larger-neighborhood/flower/0.01/1.0/summary.pdf} &
+\figTable{0.25}{figures/chapter5/mdca-larger-neighborhood/flower/0.01/0.5/summary.pdf} &
+\figTable{0.25}{figures/chapter5/mdca-larger-neighborhood/flower/0.01/0.25/summary.pdf}
+
+
 \end{tabular}
-\caption{In the top row, the MDCA evolution for the neighborhood as presented in~\cref{alg:local-search}. In the bottom row, the flow using the extended neighborhood. The extended neighborhood additionaly includes the dilation and erosion of the initial shape by a square of side $1$.}
+\caption{In the top row, the MDCA evolution for the neighborhood as presented in~\cref{alg:local-search}. In the bottom row, the flow using the extended neighborhood. The extended neighborhood additionaly includes the $n$-neighborhood of the dilation and the erosion of the initial shape by a square of side $1$.}
 \label{fig:mdca-larger-neighborhood}
 \end{figure}
 
-
-\subsection{Free digital Elastica}
-\label{ch6:subsec:free-digital-elastica}
-In the free digital Elastica energy we optimize~\cref{eq:digital-elastica} without any constraint. We observe that for $\alpha=0, \beta >0$ the Elastica becomes the integration of the squared curvature integration along the shape contour which has the ball of infinite radius as its minimizer. For $\alpha > 0, \beta=0$, minimize Elastica becomes minimize perimeter (curvature flow). It is easy to see that for $\alpha, \beta > 0$, the optimal shape for the Elastica is a disk of radius $r$. We can easily find the value of $r$.
-
-\begin{align*}
-	\frac{d}{dr}\big( \int_{\partial B(r)}{ (\alpha + \beta \kappa ^2) ds} \big ) &= 0\\
-	\frac{d}{dr}\big( \alpha 2\pi r + \beta \pi/r \big) &= 0\\
-	r &= \alpha^{-1/2}.
-\end{align*}  
-
-Therefore, the optimal shape for the free digital Elastica is a digital disk of finite radius $\alpha^{-1/2}$.
-
-
-In~\cref{fig:local-comb-ii5-results} we present several flows generated by~\cref{alg:local-search} for parameters $\alpha=0.01, \beta=1$. We observe that both II-$5$ and II-$10$ evolve the shapes to disks of radius close to the optimal value of $10$ (see~\cref{fig:local-comb-estimators-plots-lp001}). The II-$3$ estimator stops prematurely at a local optima due its limited sensibility compared to II-$5$ or II-$10$, while MDCA encounters some difficults to evolve in a high resolution setting and it also stops at some local optima. In fact, the MDCA estimator, although with higher convergence speed, is more sensitive to noise than II, as illustrated in~\cref{fig:mdca-sensitivity}. Nonetheless, the results can be improved by using a larger neighborhood, as illustrates~\cref{fig:mdca-larger-neighborhood}.
-
-
-
-We have executed the same experiments for different parameters $\alpha$ to confirm the effectiveness of our approach. We observe that the plots for $\alpha=0.001$ in~\cref{fig:local-comb-estimators-plots-lp0001} follows a pattern similar to those in~\cref{fig:local-comb-estimators-plots-lp001} for $\alpha=0.01$. In particular, the remarks for the II-$3$ and MDCA estimator are the same. Further, we point out that II-$5$ values are slightly farther from the optima for $\alpha=0.001$. The reason being that the shapes evolve to a ball of higher radius compared to the case $\alpha=0.01$. At some point of the evolution for $\alpha=0.001$, the sensibility of II-$5$ is not sufficient to escape from local optima. We remark that the adoption of an automatic selection of the estimation ball radius may attenuate this problem.
 
 
 \begin{figure}[]
@@ -305,7 +323,7 @@ We have executed the same experiments for different parameters $\alpha$ to confi
 Red  & 5.54 & 3.93\\
 Blue & 5.55 & 3.84\\
 \hline
-$| \Delta E / \Delta S |$ & 70 & 1400
+$| \Delta E / \Delta \Ds |$ & 70 & 1400
 \end{tabular}
 \end{minipage}
 \caption{A slight variation in the shape boundary (in this example, a $0.07\%$ change or $4$ pixels over $5310$) inflicts a considerably higher change in the energy value when using MDCA than when using II. }
@@ -317,6 +335,7 @@ $| \Delta E / \Delta S |$ & 70 & 1400
 
 An important advantage of~\cref{alg:local-search} is that constraints can be imposed with minimum effort. We present results for two types of constraints. In the first type, we force some pixels to be part of the final solution and in the second we impose orientations at the endpoints of a curve. In~\cref{fig:constrained-elastica} we compare the flows for different values of $\alpha$.
 
+We remark that~\cref{alg:local-search} is sensitive to the parameter $\alpha$. For higher values of $\alpha$, the shapes tends to shrink and the curves are closer to a straight line. For lower values of $\alpha$, the shapes tends to grow and the curves make more turns. 
 
 \begin{figure}
 \center
@@ -344,10 +363,10 @@ $\alpha=0.1$ & $\alpha=0.01$ & $\alpha=0.001$\\[2em]
 \label{ch6:subsec:running-time}
 
 The running time of~\cref{alg:local-search} is summarized in table~\cref{tab:summary-local-comb-rtime}. All the experiments in this thesis were executed on a $32$-core $2.4Ghz$ CPU. Although its use in practical applications is
-limited, we demonstrate that digital estimators are effective in their measurements and the flows evolve as expected, reaching the global optima for some shapes. We
+limited, we demonstrated that digital estimators are effective in their measurements and the flows evolve as expected, reaching the global optimum for some shapes. We
 observe that it is a complete digital approach, and we do not suffer from discretization and rounding problems, a common
 issue in continuous models.  Furthermore we have checked that this approach works indifferently with Integral Invariant
-curvature estimator and Maximal Digital Circular Arc curvature estimator. So the convergence of the digital curvature
+curvature estimator and Maximal Digital Circular Arc curvature estimator, given an appropriate neighborhood. So the convergence of the digital curvature
 estimator seems to be the cornerstone to get a digital curve behaving like a continuous Elastica. 
 
 \begin{figure}[h!]
@@ -359,14 +378,14 @@ estimator seems to be the cornerstone to get a digital curve behaving like a con
 \hline
 & Pixels & Time & Pixels & Time & Pixels & Time\\
 \hline
-Triangle & 521 & 2s (0.07s/it)  & 2080 & 43s (0.81s/it) & 8315 & 532(4.8s/it)\\
+Triangle & 521 & 2s (0.07s/it)  & 2080 & 43s (0.81s/it) & 8315 & 532s(4.8s/it)\\
 Square & 841 & 0.9s (0.09s/it) & 3249 & 8s (0.3s/it) & 12769 & 102s (2s/it)\\
 Flower & 1641 & 13s (0.24s/it) & 6577 & 209s (1.68s/it) & 26321 & 3534s (12.3s/it)\\
 Bean  & 1574 & 7s (0.16s/it) & 6278 & 88s (1.08s/it) & 25130 & 1131s (6.4s/it)\\
 Ellipse  & 626 & 1s (0.14s/it) & 2506 & 16s (0.44s/it) & 10038 & 286s (3.1s/it)\\
 \hline
 \end{tabular}
-\caption{Running time and input size for different grid steps.}
+\caption{Running time of LocalSearch for the free Elastica problem.}
 \label{tab:summary-local-comb-rtime} 
 \end{figure}
 
@@ -385,7 +404,7 @@ In this section we turn to a global optimization approach. However, instead of m
 The simplified digital Elastica is defined as
 
 	\begin{align}
-	\hat{E}_{\Theta}^{simp}( D_h(X) ) = \sum_{\dot{\vec{e}} \in \partial D_h(X)}{ \alpha + \beta \hat{\kappa}_{r}^2(D_h(X),\dot{\vec{e}},h) }.
+	\hat{E}_{\Theta}^{simp}( D_h(S) ) = \sum_{\dot{\vec{e}} \in \partial D_h(S)}{ \alpha + \beta \hat{\kappa}_{r}^2(D_h(S),\dot{\vec{e}},h) }.
 	\label{eq:simplified-digital-elastica}
 	\end{align}
 	
@@ -414,7 +433,7 @@ We argue that~\cref{eq:simplified-digital-elastica} is a reasonable approximatio
 \subsection{Optimization model for simplified digital Elastica}
 \label{ch6:subsec:optimization-model-simplified-digital-elastica}
 
-Differently from the previous section, the model described here is designed for the integral invariant estimator only. Let $S \in \frac{1}{2}\mathbb{Z}^2$ be the digitization of some shape $X \in \mathbb{R}^2$ using grid step $h$ in half-integer coordinates space. We assume that $S$ has $m$ pixels (located at integer coordinates) and $n$ linels (one and only one of its coordinates is $\frac{1}{2}$). Optimization variables are represented as column vectors $\vec{x} \in \mathbb{B}^{m},\, \vec{y} \in \mathbb{B}^{n}$ and its $i$-th coefficients are denoted  $\vec{x}_i,\vec{y}_i$.  Further, let $\vec{A} \in \mathbb{B}^{m\times n}$ the matrix defined as
+Differently from the previous section, the model described here is designed for the integral invariant estimator only. Let $\Ds \in \frac{1}{2}\mathbb{Z}^2$ be the digitization of some shape $S \in \mathbb{R}^2$ using grid step $h$ in half-integer coordinates space. We assume that $\Ds$ has $m$ pixels (located at integer coordinates) and $n$ linels (one and only one of its coordinates is $\frac{1}{2}$). Optimization variables are represented as column vectors $\vec{x} \in \mathbb{B}^{m},\, \vec{y} \in \mathbb{B}^{n}$ and its $i$-th coefficients are denoted  $\vec{x}_i,\vec{y}_i$.  Further, let $\vec{A} \in \mathbb{B}^{m\times n}$ the matrix defined as
 
 \[
 	\vec{A}_{i,j} = \left\{ \begin{array}{ll}
