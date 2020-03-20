@@ -29,17 +29,17 @@ We make a distinction between the radius used to compute the balance coefficient
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
 \cline{8-11}
-\multicolumn{7}{c|}{} & $LS$ & $FF,BF$ & \multicolumn{2}{|c|}{$GF$}\\
+\multicolumn{7}{c|}{} & LS & FF,BF & \multicolumn{2}{|c|}{GF}\\
 \hline
 Experiment & $maxIt$ & $vRadius$ & $bRadius$ & $h$ & $\alpha$ & $\beta$  & $nc$ & $m$ & $a$ & $ob$ \\
 \hline
 Exp-General & $400$ & $5$ & $7$ & $0.25$ & $0.01$ & $1$  & $4$ & $5$ & $2$ & $3$ \\
 \hline
-\multirow{2}{*}{Exp-$radius$} & \multirow{2}{*}{$400$} & \multirow{2}{*}{$5$} & $7$ & \multirow{2}{*}{$0.25$} &  \multirow{2}{*}{$0.001$} & \multirow{2}{*}{$1$}  & \multirow{2}{*}{$4$} & $5$ & \multirow{2}{*}{$2$} & \multirow{2}{*}{$3$} \\
+\multirow{2}{*}{Exp-Radius} & \multirow{2}{*}{$400$} & \multirow{2}{*}{$5$} & $7$ & \multirow{2}{*}{$0.25$} &  \multirow{2}{*}{$0.001$} & \multirow{2}{*}{$1$}  & \multirow{2}{*}{$4$} & $5$ & \multirow{2}{*}{$2$} & \multirow{2}{*}{$3$} \\
 & &  & $12$ & &  & & & $10$ & &  \\
 \hline
 \end{tabular}
-\caption{Parameters listing for the free Elastica experiments. The headers $LS,FF,BF,GF$ highlights parameters that are exclusive for the LocalSearch, FlipFlow, BalanceFlow and GraphFlow models, respectively.}
+\caption{Parameter settings for the free Elastica experiments. The headers LS,FF,BF,GF identifies parameters that are exclusive for the LocalSearch, FlipFlow, BalanceFlow and GraphFlow models, respectively.}
 \label{tab:free-elastica-parameters-summary}
 \end{table}
 
@@ -58,13 +58,13 @@ At the first iterations, FlipFlow and BalanceFlow produce shapes with lower digi
 \captionsetup{type=table}
 \begin{tabular}{|l|c|c|c|c|c|}
 \hline
-& Pixels & LocalSearch & FlipFlow & BalanceFlow & GraphFlow \\
+& Pixels (initial shape) & LocalSearch & FlipFlow & BalanceFlow & GraphFlow \\
 \hline
-Triangle & 8315 & 1.7s/it & 0.4s/it & 0.38s/it & 0.14s/it\\
-Square & 12769 & 1s/it & 0.51s/it & 0.47s/it & 0.12s/it\\
-Ellipse  & 10038 & 1.3s/it & 0.64s/it & 0.57s/it & 0.1s/it \\
-Flower & 26321 & 4.7s/it & 1.23s/it & 0.94s/it & 0.14s/it\\
-Bean  & 25130 & 3s/it & 1.2s/it & 1.17s/it & 0.16s/it\\
+Triangle & 8315 & 4.8s/it & 0.4s/it & 0.38s/it & 0.14s/it\\
+Square & 12769 & 2s/it & 0.51s/it & 0.47s/it & 0.12s/it\\
+Ellipse  & 10038 & 3.1s/it & 0.64s/it & 0.57s/it & 0.1s/it \\
+Flower & 26321 & 12.3s/it & 1.23s/it & 0.94s/it & 0.14s/it\\
+Bean  & 25130 & 6.4s/it & 1.2s/it & 1.17s/it & 0.16s/it\\
 \hline
 \end{tabular}
 \caption{Running time and input size of Exp-General experiment for the free Elastica.}
@@ -96,7 +96,7 @@ LocalSearch & FlipFlow & BalanceFlow & GraphFlow\\[1em]
 \includegraphics[scale=0.2]{figures/chapter9/free-elastica/balanceflow/bean/len_pen-0.01/radius-7/summary.pdf} &
 \includegraphics[scale=0.2]{figures/chapter9/free-elastica/graphflow/bean/len_pen-0.01/radius-7/summary.pdf} 
 \end{tabular}
-\caption{Evolutions of the General experiment for the free Elastica.}
+\caption{Results of Exp-General experiment for the free Elastica. Initial contour is colored in red, final contour is colored in blue and optimal contour is colored in green. Curves are drawn every $10$ iterations.}
 \label{fig:results-free-elastica-general}
 \end{figure}
 
@@ -108,19 +108,19 @@ LocalSearch & FlipFlow & BalanceFlow & GraphFlow\\[1em]
 \includegraphics[scale=0.45]{figures/chapter9/free-elastica/plots/iteration/main_experiment/len_pen_0.01/radius-7/flower.pdf}\\[1em]
 \includegraphics[scale=0.45]{figures/chapter9/free-elastica/plots/iteration/main_experiment/len_pen_0.01/radius-7/bean.pdf}
 \end{tabular}
-\caption{Digital Elastica value evolution per iteration of the General experiment for the free Elastica.}
+\caption{Evolution of digital Elastica value per iteration in the Exp-General experiment for the free Elastica. The dashed line marks the optimum value.}
 \label{fig:plots-free-elastica-general}
 \end{figure}
 
-\subsection{Radius choice}
+\subsection{Radius choice experiment}
 
-In the Radius-choice experiment, we set the length penalization parameter to $\alpha=0.001$. Compared to the General experiment, the expected behaviour is that the shapes will grow till reach the optimal disk of radius $1/0.001^{0.5} \approx 31$. This experiment evidentiates the natural observation that the choice of the $eRadius$ parameter is important to the optimal shape achievement.
+In the Exp-Radius experiment, we set the length penalization parameter to $\alpha=0.001$. Compared to the Exp-General, the expected behaviour is that the shapes will grow till reach the optimal disk of radius $1/0.001^{0.5} \approx 31$. This experiment evidentiates the natural observation that the choice of the $bRadius$ parameter is important to the optimal shape achievement.
 
-In the case of FlipFlow and BalanceFlow, the evolution goes faster with a larger radius, but the shape never grows, it only shrinks. On the other hand, LocalSearch and GraphFlow are sensitive to the value of $\alpha$ and they can grow or shrink the shape acoordingly. Moreover, the choice of $eRadius$ defines how closer the solution will be from the optimum.
+In the case of FlipFlow and BalanceFlow, the evolution goes faster with a larger radius, but the shape never grows, it only shrinks. On the other hand, LocalSearch and GraphFlow are sensitive to the value of $\alpha$ and they can grow or shrink the shape acoordingly. Moreover, the choice of $bRadius$ defines how closer the solution will be from the optimum.
 
 We recall that the II estimator measures curvature by using a disk of a given radius. The radius parameter defines the range of values estimated by the estimator. At first glance, a larger radius returns a more precise estimation, but we should be careful in not use a radius larger than the shape reach at the point of estimation.
 
-However, for the Radius-choice experiment, a value $eRadius=7$ is too small to identify the small variations that a shape that grows till become a disk of radius $31$ suffers. Therefore, when we set $eRadius=12$ both LocalSearch and GraphFlow return solutions closer to the optimal as we can check in~\cref{fig:results-free-elastica-radius-choice,fig:plots-free-elastica-radius-choice}.
+However, for the Radius-choice experiment, a value $bRadius=7$ is too small to identify the small variations that a shape that grows till become a disk of radius $31$ suffers. Therefore, when we set $bRadius=12$ both LocalSearch and GraphFlow return solutions closer to the optimal as we can check in~\cref{fig:results-free-elastica-radius-choice,fig:plots-free-elastica-radius-choice}.
 
 
 \begin{figure}
@@ -143,7 +143,7 @@ $r=12$ & \raisebox{-.5\height}{\includegraphics[scale=0.15]{figures/chapter9/fre
 \raisebox{-.5\height}{\includegraphics[scale=0.15]{figures/chapter9/free-elastica/balanceflow/flower/len_pen-0.001/radius-12/summary.pdf}} &
 \raisebox{-.5\height}{\includegraphics[scale=0.15]{figures/chapter9/free-elastica/graphflow/flower/len_pen-0.001/radius-12/summary.pdf}}
 \end{tabular}
-\caption{Evolutions of the Radius-choice experiment for the free Elastica.}
+\caption{Results of Exp-Radius experiment for the free Elastica. Initial contour is colored in red, final contour is colored in blue and optimal contour is colored in green. Curves are drawn every $10$ iterations.}
 \label{fig:results-free-elastica-radius-choice}
 \end{figure}
 
@@ -161,50 +161,50 @@ $r=12$ & \raisebox{-.5\height}{\includegraphics[scale=0.15]{figures/chapter9/fre
 
 \section{Constrained Elastica}
 
-The constrained Elastica problem consists in to find the shape of minimum digital Elastica that respects some set of constraints. We approach the problem by iteractively evolving some initial shape. We realized experiments with two different set of constraints. In the first, we impose that a set of pixels in the digital boundary of the initial shape must persist in the final shape. In the second, we evolve a curve which the endpoints are fixed. 
+The constrained Elastica problem consists in to find the shape of minimum digital Elastica that respects some set of constraints. We realized experiments with two different set of constraints. In the first, we impose that a set of pixels in the digital boundary of the initial shape must persist in the final shape. In the second, we evolve a curve which the endpoints are fixed. 
 
-For the constrained Elastica, only LocalSearch and GraphFlow were evaluated. The FlipFlow and BalanceFlow can be modified to evolve the constrained Elastica, but such modifications were not implemented in this thesis.~\cref{tab:constrained-elastica-parameters-summary} lists the parameters' used in the experiments and~\cref{tab:rtime-constrained-elastica-general} the running time of Exp-$\alpha$.
+For the constrained Elastica, only LocalSearch and GraphFlow were evaluated. We believe that both FlipFlow and BalanceFlow can be modified to evolve the constrained Elastica, but such modifications were not implemented in this thesis.~\cref{tab:constrained-elastica-parameters-summary} lists the parameters' used in the experiments and~\cref{tab:rtime-constrained-elastica-general} the running time of Exp-$\alpha$ experiment.
 
 We remark that for every experiment in this section the grid step is set to $h=1.0$, i.e., the Euclidean and digital radius are the same. Differently from the previous section where all the shapes had a closed parametric formula, some of the tested shapes in this section are ad-hoc and a decision about the grid step in this case becomes arbitrary.
 
 \subsection{Discussion}
 
-Differently from LocalSearch, the GraphFlow model encounters some difficult to evolve both Curve-1 and Curve-2, as illustrated in~\cref{fig:results-constrained-elastica-general}. We recall that the LS model employs a more heterogeneous neighborhood than GF. The probe set of GF is created by applying erosions and dilations in the initial shape, which promotes quite rough transformations in the shape, i.e., they do not preserve any part of the contour. We believe that by refining the neighborhood, possibly a random one, we could obtain better results for the GraphFlow. Besides that, the GF evolves the Flower instances, though it stops at a shape of higher digital Elastica value than LS.
+Differently from LocalSearch, the GraphFlow model encounters some difficult to evolve both Curve-1 and Curve-2, as illustrated in~\cref{fig:results-constrained-elastica-general}. We recall that the LS model employs a more heterogeneous neighborhood than GF. The probe set of GF is created by applying erosions and dilations in the initial shape, which promotes quite rough transformations, i.e., they do not preserve any part of the contour. We believe that by refining the neighborhood, possibly a random one, we could obtain better results for the GraphFlow. Besides that, the GF evolves the Flower instances, though it stops at a shape of higher digital Elastica value than LS.
 
-In~\cref{fig:results-constrained-elastica-radius} displays the results of experiment Exp-$radius$ in which the models are executed with different values for the radius of the estimation disk. As expected, a larger radius can estimate a large range of curvature values and it is particular important in the case where $\alpha=0.001$. In this case the shape tends to grow and the estimator should be precise enough to identify small variations in curvature. Otherwise, the shape stops to evolve prematurely. Nonetheless, a radius too large (see~\ref{}) results in a misleading estimation of the curvature, and the curves do not evolve as expected.
+In~\cref{fig:results-constrained-elastica-radius} displays the results of experiment Exp-$bRadius$ in which the models are executed with different values for the radius of the estimation disk. As expected, a larger radius can estimate a large range of curvature values and it is particular important in the case where $\alpha=0.0002$. In this case the shape tends to grow and the estimator should be precise enough to identify small variations in curvature. Otherwise, the shape prematurely stops to evolve. Nonetheless, a radius that is too large (see~\cref{fig:constrained-elastica-underlying-curve-shapes}) may not be appropriated, and the curves do not evolve as expected.
 
 
 \begin{table}
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 \cline{8-10}
-\multicolumn{7}{c|}{} & $LS$ & \multicolumn{2}{|c|}{$GF$}\\
+\multicolumn{7}{c|}{} & LS & \multicolumn{2}{|c|}{GF}\\
 \hline
-Experiment & $maxIt$ & $vRadius$ & $eRadius$ & $h$ & $\alpha$ & $\beta$  & $nc$ & $a$ & $ob$ \\
+Experiment & $maxIt$ & $vRadius$ & $bRadius$ & $h$ & $\alpha$ & $\beta$  & $nc$ & $a$ & $ob$ \\
 \hline
 \multirow{2}{*}{Exp-$\alpha$} & \multirow{2}{*}{$400$} & \multirow{2}{*}{$15$} & \multirow{2}{*}{$15$} & \multirow{2}{*}{$1.0$} & $0.002$ & \multirow{2}{*}{$1$}  & \multirow{2}{*}{$4$} & \multirow{2}{*}{$1$} & \multirow{2}{*}{$2$} \\
 & & & & & $0.0002$ & & &\\
 \hline
-\multirow{2}{*}{Exp-$radius$} & \multirow{2}{*}{$400$} & $7$ & $7$ & \multirow{2}{*}{$1.0$} & \multirow{2}{*}{$0.0002$} & \multirow{2}{*}{$1$}  & \multirow{2}{*}{$4$} & \multirow{2}{*}{$1$} & \multirow{2}{*}{$2$} \\
+\multirow{2}{*}{Exp-$bRadius$} & \multirow{2}{*}{$400$} & $7$ & $7$ & \multirow{2}{*}{$1.0$} & \multirow{2}{*}{$0.0002$} & \multirow{2}{*}{$1$}  & \multirow{2}{*}{$4$} & \multirow{2}{*}{$1$} & \multirow{2}{*}{$2$} \\
 & & $50$ & $50$ & & & & &\\
 \hline
 \end{tabular}
-\caption{Parameters listing for the constrained Elastica experiments. The headers $LS,GF$ highlights parameters that are exclusive for the LocalSearch and GraphFlow models, respectively.}
+\caption{Parameter settings for the constrained Elastica experiments. The headers LS,GF identifies parameters that are exclusive for the LocalSearch and GraphFlow models, respectively.}
 \label{tab:constrained-elastica-parameters-summary}
 \end{table}
 
 \begin{figure}
 \center
-\subfloat[]{
+\subfloat[Curve-1]{
 \includegraphics[scale=0.5]{figures/chapter9/constrained-elastica/curve-2/composite-fixed-pixels.png}
 }
-\subfloat[]{
+\subfloat[Curve-2]{
 \includegraphics[scale=0.5]{figures/chapter9/constrained-elastica/curve-3/composite-fixed-pixels.png}
 }
-\subfloat[]{
+\subfloat[Too large radius]{
 \includegraphics[scale=0.5]{figures/chapter9/constrained-elastica/curve-2/too-big-radius.png}
 }
-\caption{The underlying shapes of Curve-1 and Curve-2 for constrained Elastica experiments. Pixels in red are forced to persist in the solution. In figure (c), an example of a too large radius value $(50)$ for this curve.}
+\caption{The underlying shapes of Curve-1 and Curve-2 for constrained Elastica experiments are shown in figures (a) and (b). Pixels in red are forced to persist in the solution. In figure (c), an example of a too large radius value $(50)$.}
 \label{fig:constrained-elastica-underlying-curve-shapes}
 \end{figure}
 
@@ -231,7 +231,7 @@ $\alpha=0.002$ & $\alpha=0.0002$ & $\alpha=0.002$ & $\alpha=0.0002$\\
 \includegraphics[scale=0.25]{figures/chapter9/constrained-elastica/graphflow/flower-2/len_pen-0.002/radius-15/N-1/h1.0/summary.pdf} &
 \includegraphics[scale=0.25]{figures/chapter9/constrained-elastica/graphflow/flower-2/len_pen-0.0002/radius-15/N-1/h1.0/summary.pdf}\\
 \end{tabular}
-\caption{General experiment for the constrained Elastica problem.}
+\caption{Results of Exp-$\alpha$ for the constrained Elastica. Initial contour is colored in red and final contour is colored in blue. The green pixels indicates pixels forced to persist in the final contour, or a forced orientation. Curves are drawn every $10$ iterations.}
 \label{fig:results-constrained-elastica-general}
 \end{figure}
 
@@ -263,7 +263,7 @@ $r=7$ & $r=50$ & $r=7$ & $r=50$\\
 
 
 \end{tabular}
-\caption{General experiment for the constrained Elastica problem.}
+\caption{Results of Exp-$bRadius$ for the constrained Elastica. Initial contour is colored in red and final contour is colored in blue. The green pixels indicates pixels forced to persist in the final contour, or a forced orientation. Curves are drawn every $10$ iterations.}
 \label{fig:results-constrained-elastica-radius}
 \end{figure}
 
@@ -273,7 +273,7 @@ $r=7$ & $r=50$ & $r=7$ & $r=50$\\
 \captionsetup{type=table}
 \begin{tabular}{|l|c|c|c|c|c|}
 \hline
-& Pixels & LocalSearch & GraphFlow \\
+& Pixels (initial shape) & LocalSearch & GraphFlow \\
 \hline
 Curve-1 & 12306 & 4.7s/it & 1s/it\\
 Curve-2 & 11527 & 6.2s/it & 1s/it\\
@@ -281,7 +281,7 @@ Flower-1  & 7481 & 4.5s/it & 0.3s/it \\
 Flower-2 & 7481 & 2.5s/it & 0.21s/it\\
 \hline
 \end{tabular}
-\caption{Running time and input size of the Exp-General experiment for the constrained Elastica. The pixels columns is with respect the number of pixels in the shape. In the case of the curves, it is with respect the underlying shapes of~\cref{fig:constrained-elastica-underlying-curve-shapes}}
+\caption{Running time and input size of the Exp-$\alpha$ experiment for the constrained Elastica. The pixels columns is with respect the number of pixels in the shape. In the case of the curves, it is with respect the underlying shapes of~\cref{fig:constrained-elastica-underlying-curve-shapes}}
 \label{tab:rtime-constrained-elastica-general} 
 \end{figure}
 
@@ -300,7 +300,7 @@ The experiments are divided in two sections. In the first, we study the influenc
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \cline{8-13}
-\multicolumn{7}{c|}{} & \multicolumn{2}{|c|}{$FF,BF$} & \multicolumn{4}{|c|}{$GF$}\\
+\multicolumn{7}{c|}{} & \multicolumn{2}{|c|}{FF,BF} & \multicolumn{4}{|c|}{GF}\\
 \hline
 Experiment & $maxIt$ & $vRadius$ & $bRadius$ & $h$ & $\alpha$ & $\beta$  & $\gamma$ & $d$ & $a$ & $ob$ & $\lambda_r$ & $\lambda_b$ \\
 \hline
@@ -316,12 +316,12 @@ Experiment & $maxIt$ & $vRadius$ & $bRadius$ & $h$ & $\alpha$ & $\beta$  & $\gam
 &  & & & & & & $2$ & & & & $2$ & $2$\\
 &  & & & & & & $5$ & & & & $5$ & $5$\\
 \hline
-\multirow{3}{*}{Exp-$radius$} & \multirow{3}{*}{$200$} & $3$ & $3$ & \multirow{3}{*}{$1.0$} &  \multirow{3}{*}{$0$} & \multirow{3}{*}{$1$} & \multirow{3}{*}{$1$} & \multirow{3}{*}{$0$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$1$} & \multirow{3}{*}{$1$} \\
+\multirow{3}{*}{Exp-$rbRadius$} & \multirow{3}{*}{$200$} & $3$ & $3$ & \multirow{3}{*}{$1.0$} &  \multirow{3}{*}{$0$} & \multirow{3}{*}{$3$} & \multirow{3}{*}{$1$} & \multirow{3}{*}{$0$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$2$} & \multirow{3}{*}{$1$} & \multirow{3}{*}{$1$} \\
+&  & $7$ & $7$ & & & & & & & & & \\
 &  & $12$ & $12$ & & & & & & & & & \\
-&  & $25$ & $25$ & & & & & & & & & \\
 \hline
 \end{tabular}
-\caption{Parameters for the image segmentation experiments. The headers $FF,BF,GF$ identifies parameters that are exclusive of FlipFlow, BalanceFlow and GraphFlow models, respectively.}
+\caption{Parameter settings for the image segmentation experiments. The headers FF,BF,GF identifies parameters that are exclusive of FlipFlow, BalanceFlow and GraphFlow models, respectively.}
 \label{tab:image-segmentation-parameters-summary}
 \end{table}
 
@@ -332,46 +332,48 @@ Experiment & $maxIt$ & $vRadius$ & $bRadius$ & $h$ & $\alpha$ & $\beta$  & $\gam
 \hline
 \multicolumn{13}{|c|}{Exp-Comparison}\\
 \hline
-Model & $maxIt$ & $vRadius$ & $bRadius$ & $h$ & $\alpha$ & $\beta$  & $\gamma$ & $d$ & $a$ & $ob$ & $\lambda_r$ & $\lambda_b$ \\
+Model & $maxIt$ & $vRadius$ & $bRadius$ & $h$ & $\alpha$ & $\beta (\lambda)$  & $\gamma$ & $d$ & $a$ & $ob$ & $\lambda_r$ & $\lambda_b$ \\
 \hline
 FF,BF & $200$ & $7$ & $7$ & $1.0$ & $0.5$ & $1.0$ & $1.0$ & $0$ & - & - & - & -\\
 \hline
-GF & $200$ & $7$ & $7$ & $1.0$ & $0.0002$ & $1.0$ & - & - & $2$ & $2$ & $1$ & $1$\\
+GF & $200$ & $7$ & $7$ & $1.0$ & $0.0002$ & $1.0$ & - & - & $2$ & $2$ & $3$ & $3$\\
 \hline
 SCLR & - & - & - & - & - & $2.0$ & $1.0$ & - & - & - & - & -\\
 \hline
 \end{tabular}
-\caption{Parameters for the comparison experiments.}
+\caption{Parameter settings for the comparison experiments. The $\beta$ parameter in FF,BF,GF corresponds to the $\lambda$ parameter in SCLR.}
 \label{tab:image-segmentation-comparison-summary}
 \end{table}
 
 \begin{figure}
 \center
 \captionsetup{type=table}
-\begin{tabular}{|l|c|c|c|}
+\begin{tabular}{|c|c|c|c|}
 \hline
-& \multicolumn{3}{|c|}{Running time}\\
-& Minimum & Maximum & Average \\
+\multicolumn{4}{|c|}{Exp-Comparison Running time}\\
 \hline
-FlipFlow & 0 & 1.7s/it & 0.14s/it\\
-BalanceFlow & 0 & 1s/it & 0.12s/it\\
-GraphFlow & 0 & 1s/it & 0.12s/it\\
+Model & Minimum & Maximum & Average \\
+\hline
+FlipFlow & 60s & 297s & 156s\\
+BalanceFlow & 37s & 184s & 93.7s\\
+GraphFlow & 11s & 150s & 75s\\
+SLCR & 2.87min & 52.24min & 18.4min\\
 \hline
 \end{tabular}
-\caption{Running time and input size of Exp-eRadius for the image segmentation problem and $eRadius=7$.}
+\caption{Running time and input size of Exp-$bRadius$ for the image segmentation problem and $bRadius=7$.}
 \label{tab:rtime-image-segmentation-general} 
 \end{figure}
 
 \subsection{Parameters influence}
 The models offer parameters to control the relative weight of length $(\alpha)$, curvature $(\beta)$ and data ($\gamma,\lambda _r, \lambda _b$). We recall that FF and BF accept a single regional parameter $\gamma$ for data, while GF accepts $\lambda _r$ to ponderate a regional term and $\lambda _b$ to weight a boundary term. The Grabcut input and its result are shown in~\cref{fig:grabcut-input-image-segmentation}. The experiment results are displayed in~\cref{fig:exp-alpha-image-segmentation,fig:exp-beta-image-segmentation,fig:exp-gamma-image-segmentation,fig:exp-radius-image-segmentation}. 
 
-The FlipFlow and BalanceFlow present similar results for all experiments, as expected. The Exp-$\alpha$ experiment regularizes only length, and we can observe that the segmentations produced by all three models tend to be staircased. We remark that in the GF model, length penalization is not present in the cost function of the candidate graph, but in the validation function only. In particular, we need  a $a$-probe set with $a>0$ to have length penalization an influence in the produced segmentation.
+The FlipFlow and BalanceFlow present similar results for all experiments, as expected. The Exp-$\alpha$ experiment regularizes only length, and we can observe that the segmentations produced by all three models tend to be staircased. We remark that in the GF model, length penalization is not present in the cost function of the candidate graph, but only in the validation function. In particular, we need  a $a$-probe set with $a>0$ to have length penalization an influence in the produced segmentation.
 
-In experiment Exp-$\beta$ we vary the squared curvature weigth coefficient. We observe in~\cref{fig:exp-beta-image-segmentation} that the produced segmentation smooths out for increasing values of $\beta$. We recall that the shrink/growing behaviour in the GF is controlled by the value of $\alpha$, which in Exp-$\beta$ is set to $\alpha=0.1$. The FF, and BF grow in concavities, but unless a local optimum is found, it tends to shrink.
+In experiment Exp-$\beta$ we vary the squared curvature weigth coefficient. We observe in~\cref{fig:exp-beta-image-segmentation} that the produced segmentation smooths out for increasing values of $\beta$. We recall that the shrink/growing behaviour in the GF is controlled by the value of $\alpha$. The FF, and BF grow in concavities, but unless a local optimum is found, it tends to shrink.
 
-The models' response for the variation of the data term is shown in~\cref{fig:exp-gamma-image-segmentation}. A higher value of $\gamma$ tends to produce results similar to the initial segmentation given by Grabcut, while the importance of digital Elastica in the minimization energy is increased by when lower weight is given for the data term.
+The models' response for the variation of data term is shown in~\cref{fig:exp-gamma-image-segmentation}. A higher value of $\gamma$ tends to produce results similar to the initial segmentation given by Grabcut, i.e., with almost no length or curvature regularization.
 
-Finally, Exp-$radius$ illustrates how the choice of the estimation ball radius influences in the results. In~\cref{fig:exp-radius-image-segmentation} we observe that lower radius imply segmentations contours with sharp changes of angle (first row), a consequence of the limited number of different estimations that can be given by a ball of small radius. As the radius increase, a richer variation of estimations is possible, and we have smoother contours (second-row and third row). A large radius, on the other hand, smooths out regions of low curvature even if these regions should be present in the segmentation (coala's hands). That suggests that a multiradius approach may be successful.
+Finally, Exp-$bRadius$ illustrates how the choice of the estimation ball radius influences the segmentation. In~\cref{fig:exp-radius-image-segmentation} we observe that a small radius results in contours with sharp changes of angle (first row), a consequence of the limited number of different estimations that can be given by a ball of small radius. As the radius increase, a richer variation of estimations is possible, and we have smoother contours (second-row). However, a big radius may omit important details of the object, as the coala's ears in the last row of~\cref{fig:exp-radius-image-segmentation}. That suggests that a multiradius approach may deliver improved segmentations.
 
 
 \begin{figure}
@@ -380,7 +382,7 @@ Finally, Exp-$radius$ illustrates how the choice of the estimation ball radius i
 \includegraphics[scale=0.4]{figures/chapter9/segmentation/seeds.png} &
 \includegraphics[scale=0.4]{figures/chapter9/segmentation/gc-seg.png}
 \end{tabular}
-\caption{The Grabcut foreground(blue) and background(seeds) on the left and the resulting segmentation on the right.}
+\caption{Foreground (green) and background (blue) seeds are shown in the left and the resulting Grabcut segmentation int the right.}
 \label{fig:grabcut-input-image-segmentation}
 \end{figure}
 
@@ -465,8 +467,8 @@ $\gamma =5.0$ &
 \end{figure}
 
 
-\newcommand\expRadiusFF[2]{figures/chapter9/segmentation/exp-radius/#1/h-1.0/alpha-0.0/beta-1.0/gamma-1.0/radius-#2/corrected-seg.png}
-\newcommand\expRadiusGF[2]{figures/chapter9/segmentation/exp-radius/#1/h-1.0/alpha-0.0/beta-1.0/gamma-1.0/radius-#2/corrected-seg.png}
+\newcommand\expRadiusFF[2]{figures/chapter9/segmentation/exp-radius/#1/h-1.0/alpha-0.0/beta-3.0/gamma-1.0/radius-#2/corrected-seg.png}
+\newcommand\expRadiusGF[2]{figures/chapter9/segmentation/exp-radius/#1/h-1.0/alpha-0.0/beta-3.0/gamma-1.0/radius-#2/corrected-seg.png}
 
 \begin{figure}
 \begin{tabular}{cccc}
@@ -476,30 +478,34 @@ $r=3$ &
 \figTable{0.4}{\expRadiusFF{balanceseg}{3}} &
 \figTable{0.4}{\expRadiusGF{graphseg}{3}}\\[10em]
 
+$r=7$ & 
+\figTable{0.4}{\expRadiusFF{flipseg}{7}} &
+\figTable{0.4}{\expRadiusFF{balanceseg}{7}} &
+\figTable{0.4}{\expRadiusGF{graphseg}{7}}\\[10em]
+
 $r=12$ & 
 \figTable{0.4}{\expRadiusFF{flipseg}{12}} &
 \figTable{0.4}{\expRadiusFF{balanceseg}{12}} &
-\figTable{0.4}{\expRadiusGF{graphseg}{12}}\\[10em]
-
-$r=25$ & 
-\figTable{0.4}{\expRadiusFF{flipseg}{25}} &
-\figTable{0.4}{\expRadiusFF{balanceseg}{25}} &
-\figTable{0.4}{\expRadiusGF{graphseg}{25}}
+\figTable{0.4}{\expRadiusGF{graphseg}{12}}
 \end{tabular}
-\caption{Exp-$radius$}
+\caption{Exp-$bRadius$}
 \label{fig:exp-radius-image-segmentation}
 \end{figure}
 
 
 \subsection{Comparison}
 
-The choice of parameters is input-dependent. The weights coefficients are standard in image segmentation models, and no further discussion of them will take place here. However, we are going to say few words with respect the choice of the balance coefficient and estimation disk radii.
+In~\cref{fig:exp-comparison-image-segmentation-1,fig:exp-comparison-image-segmentation-2,fig:exp-comparison-image-segmentation-3,fig:exp-comparison-image-segmentation-4} we show the segmentation results of several images for the three models developed in this thesis and the SLCR model. We opt to set the same parameters in all instances, although a better segmentation could be obtained by setting them separately.
 
-The II-$r$ estimator is not appropriate to be used in shapes with reach value lower than $r$. In such cases, the non-intersection area of the disk may be disconnected, violating one of the estimator premisses. Therefore, the first recommendation is to choose a radius greater than the shape reach.
+The curvature regularization in the FF,BF models are well perceived in the airplane, camel and man-in-white pictures, but those models are not able to correctly segment the brown-snake in~\cref{fig:exp-comparison-image-segmentation-4}. They also have a hard time to segment the birds in~\cref{fig:exp-comparison-image-segmentation-2} due to the object large curvature interval jointly with the single radius approach adopted in this experiments. Nonetheless, they correctly segmented the green-snake in~\cref{fig:exp-comparison-image-segmentation-3} while the Grabcut return three disconnected components.
 
-The second criteria to take into account is the desired range of curvature values to be contemplated by the estimator. A small value of radius can make fewer unique estimations than a disk of larger radius. At first glance, a larger radius seems a better choice, but one should not forget the first criteria in the last paragraph.
+For the chosen parameters the GraphFlow did not evolved the Grabcut segmentationn to much, except for the brown-snake in~\cref{fig:exp-comparison-image-segmentation-4}, which GF and SLCR presented the best segmentation. However, the GF has the best lowest running time among the four models.
 
-%In figure~\cref{} we illustrate how the choice of radius may change the segmentation results in the GraphFlow model. A radius larger than the reach of the initial segments does not help us in to find the desired segmentation. Using a smaller radius and tunning the weight coefficients, we recover a better result.
+The SLCR tends to oversegment, notably in the man-in-white and the camel pictures. We observe that the contours present sharp turns due to the low precision of the curvature estimator. The precision could be improved by increasing the pixels connectivity (set to $8$), but is likely to follow a increase in running time, which is already the highest between the models tested.
+
+
+
+
 
 \newcommand\segComparisonGF[2]{figures/chapter9/segmentation/comparison/#1/#2/alpha-0.0002/beta-1.0/gamma-3.0/radius-7}
 \newcommand\segComparisonFF[2]{figures/chapter9/segmentation/comparison/#1/#2/alpha-0.5/beta-1.0/gamma-3.0/radius-7}
@@ -540,7 +546,7 @@ The second criteria to take into account is the desired range of curvature value
 }
 
 
-\compTable{airplane}{kite-surf}{eagle}{Comparison 1}{fig:exp-comparison-image-segmentation-1}
+\compTable{airplane}{kite-surf}{mans-music}{Comparison 1}{fig:exp-comparison-image-segmentation-1}
 \compTable{birds}{brown-snake}{tiger}{Comparison 2}{fig:exp-comparison-image-segmentation-2}
 \compTable{camel}{green-snake}{peacock}{Comparison 3}{fig:exp-comparison-image-segmentation-3}
 %\compTable{long-snake}{mushroom}{statues}{Comparison 4}{fig:exp-comparison-image-segmentation-4}
@@ -554,12 +560,12 @@ The second criteria to take into account is the desired range of curvature value
 	\begin{figure}
 	\center
 	\begin{tabular}{ccccc}
-
-	\figTable{0.32}{\segComparisonFF{flipseg}{man-hat}/gc-seg.png} & 
-	\figTable{0.32}{\segComparisonScho{schoenemann}{man-hat}/man-hat.png} & 
-	\figTable{0.32}{\segComparisonFF{flipseg}{man-hat}/corrected-seg.png} & 		
-	\figTable{0.32}{\segComparisonFF{balanceseg}{man-hat}/corrected-seg.png} & 			
-	\figTable{0.32}{\segComparisonGF{graphseg}{man-hat}/corrected-seg.png} \\[10em]	
+	GrabCut & SLCR & FlipFlow & BalanceFlow & GraphFlow\\
+	\figTable{0.32}{\segComparisonFF{flipseg}{long-snake}/gc-seg.png} & 
+	\figTable{0.32}{\segComparisonScho{schoenemann}{long-snake}/long-snake.png} & 
+	\figTable{0.32}{\segComparisonFF{flipseg}{long-snake}/corrected-seg.png} & 		
+	\figTable{0.32}{\segComparisonFF{balanceseg}{long-snake}/corrected-seg.png} & 			
+	\figTable{0.32}{\segComparisonGF{graphseg}{long-snake}/corrected-seg.png} \\[10em]	
 	
 	\figTable{0.32}{\segComparisonFF{flipseg}{statues}/gc-seg.png} & 
 	\figTable{0.32}{\segComparisonScho{schoenemann}{statues}/statues.png} & 
@@ -580,6 +586,8 @@ The second criteria to take into account is the desired range of curvature value
 
 
 \section{Conclusion}
+
+All the four models described in this thesis can be used to produce shapes of lower digital Elastica. Moreover, the FlipFlow,BalanceFlow and GraphFlow can be extended to do image segmentation with curvature regularization. In particular, the GraphFlow is a straightforward extension of the standard Grabcut model, which originally does not implement geometric regularization, and presents lower running times than FF and BF. Finally, our models have shown to be competitive with the SLCR segmentation algorithm that employs curvature regularization.
 
 
 

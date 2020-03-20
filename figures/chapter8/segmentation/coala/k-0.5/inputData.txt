@@ -7,9 +7,9 @@ Energy:elastica
 Length penalization:0.05
 Regional term:1
 Boundary term:1
-Curvature term:0
+Curvature term:0.5
 Iterations:-1
 neighborhood size:2
 Max number of threads:5
-Output folder:/home/daniel/Projects/GIT/PhD/thesis-figures/chapter8/segmentation/data/coala/k-0.0
+Output folder:/home/daniel/Projects/GIT/PhD/thesis-figures/chapter8/segmentation/data/coala/k-0.5
 Pixel mask filepath:
