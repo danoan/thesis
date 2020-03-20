@@ -1,9 +1,9 @@
 \chapter{Notation}
 \label{chapter:notation}
 
-\begin{tabular}{p{1cm}ll}
+\begin{longtable}{p{1cm}ll}
 \multicolumn{3}{l}{Domains}\\
-& $\mathbb{B}$: & $\{0,1$\\\
+& $\mathbb{B}$: & $\{0,1\}$\\\
 & $\mathbb{U}$: & $[0,1]$\\
 & $\mathbb{Z}$: & Integers\\
 & $\mathbb{R}$: & Reals\\[1em]
@@ -34,12 +34,27 @@
 & $D$: & Bidimensional digital shape, i.e., $D \subset \mathbb{Z}^2$\\
 & $B_r(p)$: & Digital ball of radius $r$  in a grid of size $h=1$ \\[1em]
 
+\multicolumn{3}{l}{LocalSearch}\\
+& $d_D$ & Signed Euclidean distance transform of shape $D$\\
+& $R_m(D)$ & $m$-ring set of digital set $D$\\
+& $\mathcal{N}_n(D)$ & $n$-neighborhood of shape $D$\\[1em]
 
-\multicolumn{3}{l}{FlipFlow and BalanceFlow}\\
+\multicolumn{3}{l}{FlipFlow}\\
 & $\Ds^{(k)}$ & The $k$-th digital shape in the evolution\\
 & $I^{(k)} = I(\Ds^{(k)})$ & The inner pixel boundary of the $k$-th digital shape\\
 & $X^{(k)} = X(I(\Ds^{(k)}))$ & The $k$-th set of optimization variables in the evolution\\
 & $F^{(k)} = \Ds^{(k)} \setminus I^{(k)}$ & The $k$-th trust foreground \\
-& $F_r^{(k)}(p),I_r^{(k)}(p),X_r^{(k)}(p)$ & Intersection of $k$th sets F,I,X with $B_r(p)$\\[1em]
+& $F_r^{(k)}(p),I_r^{(k)}(p),X_r^{(k)}(p)$ & Intersection of $k$th sets F,I,X with $B_r(p)$\\
+& $H_F,H_B$ & Mixed Gaussian distributions\\[1em]
 
-\end{tabular}
+\multicolumn{3}{l}{BalanceFlow}\\
+& $\O^{(k)}$ & Incident pixels (inner,outer) of $\partial D^{(k)}$\\
+& $u_r(D,p)$ & Balance coefficient for digital shape $D$ centered at $p$\\[1em]
+
+\multicolumn{3}{l}{GraphFlow}\\
+& $\mathcal{G}(\mathcal{V},\mathcal{E})$ & Unordered graph with vertex set $\mathcal{V}$ and edge set $\mathcal{E}$ \\
+& $I$ & $3$-channel colored image\\
+& $O_n$ & Optimization band of width $n$\\
+
+
+\end{longtable}
