@@ -1,0 +1,45 @@
+\documentclass[12pt]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[toc,page]{appendix}
+\usepackage{amstext,amsmath,amssymb,bm,bbm,mathtools,accents}
+\usepackage{graphicx,wrapfig,xcolor,subfig}
+\usepackage{array,multirow}
+\usepackage{hyperref}
+
+\usepackage[style=authortitle]{biblatex}
+
+\addbibresource{bibliography/image-processing.bib}
+\addbibresource{bibliography/regularization.bib}
+
+\addbibresource{bibliography/optimization-techniques.bib}
+
+\addbibresource{bibliography/digital-geometry.bib}
+\addbibresource{bibliography/multigrid-convergent-estimators.bib}
+
+
+
+
+\begin{document}
+	\title{Bibliography Review}
+	\author{Daniel Antunes}
+	\date{}
+	\maketitle
+	
+	\tableofcontents	
+	\include{chapters/image-processing}			
+	\include{chapters/regularization}	
+
+	
+	\include{chapters/optimization-techniques}	
+
+	\include{chapters/digital-geometry}			
+	\include{chapters/multigrid-convergent-estimators}		
+
+	
+
+	
+
+%\nocite{*}
+\printbibliography
+	
+\end{document}

@@ -3,3 +3,8 @@
 *.blg
 *.synctex.gz
 *.toc
+*.dvi
+*.xml
+*.bbl
+*.bcf
+*.out
