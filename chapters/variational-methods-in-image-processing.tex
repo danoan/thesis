@@ -1,5 +1,5 @@
-\chapter{Regularization in Image Processing}
-\label{chapter:regularization}
+\chapter{Variational methods in Image Processing}
+\label{chapter:variational-methods-in-image-processing}
 
 \section{Inverse problems}
 %In the music world, nothing is as complex as an orchestra score. You have plenty of instruments following different tones, dynamics, intensities, rhythms and so on. But no matter the complexity, given the orchestra score a software can reproduce with perfection the piece of music. It is a totally  different story if you ask it to create the orchestra score from an audio file. Reading the score is a forward problem, and creating the score is an inverse problem.
@@ -42,9 +42,7 @@ In mathematics, uncertainty is very often translated in to ill-posed problems. A
 
 In~\cref{ch1:tab:inverse-problems-list} all the inverse problems are ill-posed. In order to solve ill-posed problems one should include additional information, i.e., create assumptions over the properties of searched solution. For example, one may assume that vector $v$ is at some distant $d$ of $P(v)$ for the projection problem. The solution set, in this case, is restricted to two. The process of including additional information in ill-posed problems is called \emph{regularization} and its goal is to transform ill-posed problems in well-posed ones.
 
-
-\section{Stochastic interpretation of regularization}
-
+\section{Image model}
 As remarked in the previous section, inverse problems involve some level of uncertainty about the solution. In order to solve an ill-posed problem we need to regularize it by including additional information, or assumptions. To simplify notation, we limit our discussion to grayscale images, the concepts being extendable to multichannel images. It is convenient to have in mind two different representations of an image. \\
 
 \begin{center}
@@ -54,9 +52,12 @@ As remarked in the previous section, inverse problems involve some level of unce
 \end{tabular}
 \end{center}
 
-where $\mathbb{F}$ is a finite set, e.g., $\{ i \; | \; i \in \mathbb{Z}, 0 \leq i \leq 255 \}$. The discrete representation is interpreted as a sampling of $m \times n$ elements (pixels) of the continuous function $f_I$. 
+where $\mathbb{F}$ is a finite set, e.g., $\{ i \; | \; i \in \mathbb{N}, i \leq 255 \}$. The discrete representation is interpreted as a sampling of $m \times n$ elements (pixels) of the continuous function $f_I$. 
 
-\subsection{A Bayesian interpretation to image denoising}
+\section{Image denoising}
+
+\subsection{Bayesian rationale}
+
 Let's consider the denoising problem in the discrete scenario. We are given a corrupted image $\vec{\widetilde{I}} \in \mathbb{U}^{m \times n}$ and we wish to recover the original image $\vec{I}$. As our first assumption, we assume that the corrupted image $\widetilde{I}$ is produced by a matrix $\vec{N} \in \mathbb{U}^{m \times n}$ of random variables $\vec{N}_{i,j}$ following a normal Gaussian distribution, i.e, 
 
 \begin{align}
@@ -100,18 +101,16 @@ Finnaly, solving~\cref{ch1:eq:probability-maximization-expanded} is equivalent t
 
 The first term appears so often in image processing that it has a special name: \emph{data fidelity}. In the denoising problem, the data fidelity term appeared as a consequence of the Gaussian noise model assumption. The second term is also a regularization term, in this case modeling our assumption that the original image is piecewise smooth. We can follow this reasoning for each new assumption we made. The consequence being an additional term in~\cref{ch1:eq:minimization-form}.
 
-\subsection{A Bayesian interpretation to image inpainting}
+\subsubsection{ Euler-Lagrange equation }
 
-\section{Solving by a continuous$\rightarrow$discrete strategy }
-
-A popular way to optimize~\cref{ch1:eq:minimization-form} is to shift it to a continuous setting, solve it analytically and then transform it back to discrete. The continuous reformulation of~\cref{ch1:eq:minimization-form} consists in to optimize the energy functional below
+A popular way to optimize~\cref{ch1:eq:minimization-form} is to shift it to a continuous setting, analytically derive optimization properties and then use this properties to solve the problem in a discrete setting. The continuous reformulation of~\cref{ch1:eq:minimization-form} consists in to optimize the energy functional below
 
 \begin{align}
 	f_{I^{\star}} &= \argmin_{f} F(f) = \frac{1}{2} \int_{\Omega}{ \norm{ f_{\widetilde{I}} - f}^2dx} + R(f)
 	\label{ch1:eq:variational-formulation}
 \end{align}
 
-\subsection{Denoising an image with Tikhonov regularization}
+\subsection{Tikhonov regularization}
 
 The Tikhonov regularization sets term $R(f)$ as
 
@@ -141,7 +140,7 @@ Therefore, $h$ achieves an extreme value for $\epsilon=0$. Thus,
 	&= \int_{\Omega}{ (f_{\widetilde{I}} - g)w + (\nabla g)\nabla w}. 	
 \end{align*}
 
-Applying integration by parts
+Applying integration by parts and using the fact that $w(x)=0,\; \forall x \in \partial Omega$.
 
 \begin{align*}
 		0 &= \int_{\Omega} ( f_{\widetilde{I}} - g - \Delta g )w
@@ -156,9 +155,9 @@ Since $w$ could be any function, we can write
 
 %Therefore, if $g$ is a minimum of~\cref{ch1:eq:variational-formulation}, then it respects ~\cref{ch1:eq:variational-condition}. ~\cref{ch1:eq:variational-formulation} can be proven to be convex. Hence, given an initial solution $f$, one can define a finite differences scheme for $\nabla f$ and apply a descent method (gradient descent) which evolves $f_0$ accordingly with the vector  The next step would be to apply some finite difference scheme to estimate $\nabla g$
 
-Therefore, if $g$ is a minimum of~\cref{ch1:eq:variational-formulation}, then it respects ~\cref{ch1:eq:variational-necessary-condition}. ~\cref{ch1:eq:variational-formulation} can be proven to be convex. Hence, given an initial solution $f$, one can execute a descent method (gradient descent, for example) to find the minimum of~\cref{ch1:eq:variational-formulation}. In practice, ~\cref{ch1:eq:variational-formulation} is discretized using the samplings $I,\widetilde{I}$ of $f_I,f_{\widetilde{I}}$ and a finite differences scheme is defined to estimate the laplacian $\Delta$.
+Therefore, if $g$ is a minimum of~\cref{ch1:eq:variational-formulation}, then it respects ~\cref{ch1:eq:variational-necessary-condition}. ~\cref{ch1:eq:variational-formulation} can be proven to be convex. Hence, given an initial solution $f$, one can execute a descent method (gradient descent, for example) to find the minimum of~\cref{ch1:eq:variational-formulation}. In practice, ~\cref{ch1:eq:variational-formulation} is discretized using the samplings $I,\widetilde{I}$ of $f_I,f_{\widetilde{I}}$ and a finite differences scheme is defined to estimate the Laplacian $\Delta$.
 
-\subsection{Denoising an image with Total variation}
+\subsection{Total variation regularization}
 An alternative to Tikhonov regularization is to use the so called total variation of the image function. The problem to be minimized is then defined as
 
 \begin{align}
@@ -184,14 +183,16 @@ The $L1$ norm favors smooth interiors and it is less aggressive in the boundarie
 \label{ch1:fig:denoising-results}
 \end{figure}
 
+\section{Image segmentation}
+\subsection{Length regularization terms}
+\subsection{Mumford-Sha}
+\subsection{Chan-Vese}
+\subsection{Active contours}
+
+\section{Image inpainting}
+\subsection{Level sets completion}
 
 
-\section{Solving by a discrete strategy}
-	\subsection{MRF and Gibbs distribution equivalence}
-	\subsection{Potts model}
-	\subsection{Graph-cuts}
-
-\section{Digital approach}
 
 %There is an equivalence between Gibbs distributions and MRF.
 %
