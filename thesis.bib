@@ -121,9 +121,216 @@ issn="1573-7683"
  keywords = {Convex optimization, convex optimization, fast gradient-based methods, image deblurring, image denoising, total variation}
 } 
 
+
+%%%%%%%%%%% MUMFORD-SHAH %%%%%%%%%%%%%
+
+@article{degiorgi89,
+    author = {De Giorgi, Ennio and Carriero, Michelle and Leaci, Antion},
+    title = {Existence theorem for a minimum problem with free discontinuity set},
+    journal = {Archive for Rational Mechanics and Analysis},
+    volume={108},
+    number={4},
+    year = {1989},
+    pages = {195--218}
+}
+
+@article{mumford89,
+    author = {Mumford, David and Shah, Jayant},
+    title = {Optimal approximation by piecewise smooth functions and associated variational problems},
+    journal = {Communications on pure and applied mathematics},
+    volume={42},
+    number={5},
+    year = {1989},
+    pages = {577--685}
+}
+
+@article{ambrosio90,
+author = {Ambrosio, Luigi and Tortorelli, Vincenzo Maria},
+title = {Approximation of functional depending on jumps by elliptic functional via t-convergence},
+journal = {Communications on Pure and Applied Mathematics},
+volume = {43},
+number = {8},
+pages = {999-1036},
+year = {1990}
+}
+
+
+@article{chambolle99,
+author={Chambolle, Antoine},
+title={Finite-differences discretizations of the Mumford-Shah functional},
+year={1999},
+journal={Mathematical Modelling and Numerical Analysis},
+volume={33},
+number={2},
+pages={261--288}
+}
+
+@InProceedings{grady08,
+author="Grady, Leo
+and Alvino, Christopher",
+editor="Forsyth, David
+and Torr, Philip
+and Zisserman, Andrew",
+title="Reformulating and Optimizing the Mumford-Shah Functional on a Graph --- A Faster, Lower Energy Solution",
+booktitle="Computer Vision -- ECCV 2008",
+year="2008",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="248--261",
+}
+
+
+@InProceedings{pock09, 
+author={T. {Pock} and D. {Cremers} and H. {Bischof} and A. {Chambolle}}, 
+booktitle={2009 IEEE 12th International Conference on Computer Vision}, 
+title={An algorithm for minimizing the Mumford-Shah functional}, 
+year={2009}, 
+volume={}, 
+number={}, 
+pages={1133-1140}
+} 
+
+@Inbook{bar11,
+author="Bar, Leah and Chan, Tony F. and Chung, Ginmo and Jung, Miyoun
+and Kiryati, Nahum and Mohieddine, Rami and Sochen, Nir and Vese, Luminita A.",
+title="Mumford and Shah Model and its Applications to Image Segmentation andImage Restoration",
+bookTitle="Handbook of Mathematical Methods in Imaging",
+year="2011",
+publisher="Springer New York",
+address="New York, NY",
+pages="1095--1157",
+}
+
+
+@InProceedings{strekalovskiy14,
+author={Strekalovskiy, Evgeny and Cremers, Daniel},
+editor={Fleet, David and Pajdla, Tomas and Schiele, Bernt and Tuytelaars, Tinne},
+title="Real-Time Minimization of the Piecewise Smooth Mumford-Shah Functional",
+booktitle="Computer Vision -- ECCV 2014",
+year="2014",
+publisher="Springer International Publishing",
+address="Cham",
+pages="127--141",
+isbn="978-3-319-10605-2"
+}
+
+@InProceedings{foare17,
+author="Foare, Marion
+and Lachaud, Jacques-Olivier
+and Talbot, Hugues",
+editor="Kerautret, Bertrand
+and Colom, Miguel
+and Monasse, Pascal",
+title="Numerical Implementation of the Ambrosio-Tortorelli Functional Using Discrete Calculus and Application to Image Restoration and Inpainting",
+booktitle="Reproducible Research in Pattern Recognition",
+year="2017",
+publisher="Springer International Publishing",
+address="Cham",
+pages="91--103",
+isbn="978-3-319-56414-2"
+}
+
+
+
+%%%%%%%%%%%%%%% ACTIVE CONTOURS %%%%%%%%%%%%%%%%%
+
+@article{kass88,
+author={Kass, Michael and Witkin, Andrew and Terzopoulos, Demetri},
+title={Snakes: Active contour models},
+year={1988},
+journal={International Journal of Computer Vision},
+pages={321--331},
+volume={1},
+issue={4},
+issn={1573-1405},
+doi={10.1007/BF00133570}
+}
+
+@INPROCEEDINGS{mcinerney95, 
+author={T. {McInerney} and D. {Terzopoulos}}, 
+title={Topologically adaptable snakes}, 
+booktitle={Proceedings of IEEE International Conference on Computer Vision}, 
+year={1995}, 
+pages={840-845}
+} 
+
+@ARTICLE{mcinerney99, 
+author={ T., McInerney and D., Terzopoulos},
+year={1996},
+title={Deformable Models in Medical Image Analysis: A Survey}, 
+journal={Medical Image Analysis},
+volume={1},
+number={2}
+}
+
+@ARTICLE{mcinemey99, 
+title={Topology adaptive deformable surfaces for medical image volume segmentation},
+author={T. {McInemey} and D. {Terzopoulos}}, 
+journal={IEEE Transactions on Medical Imaging}, 
+year={1999}, 
+volume={18}, 
+number={10}, 
+pages={840-850}
+} 
+
+
+%%%%%%%%%%%% CHAN-VESE %%%%%%%%%%%%%
+
+@ARTICLE{chan01,
+author={Chan, Tony F. and Vese, Luminita A.},
+journal={IEEE Transactions on Image Processing},
+title={Active contours without edges},
+year={2001},
+volume={10},
+number={2},
+pages={266-277},
+doi={10.1109/83.902291},
+ISSN={1057-7149},
+month={Feb}
+}
+
+@ARTICLE{vese02,
+author={Vese, Luminita A. and Chan, Tony F.},
+journal={International Journal of Computer Vision},
+title={A Multiphase Level Set Framework for Image Segmentation Using the Mumford and Shah Model},
+year={2002},
+volume={50},
+issue={3},
+pages={271-293},
+doi={10.1109/83.902291},
+ISSN={1573-1405},
+month={Dec},
+doi={10.1023/A:1020874308076}
+}
+
+
+@article{getreuer12,
+    title   = {{Chan-Vese Segmentation}},
+    author  = {Getreuer, Pascal},
+    journal = {{Image Processing On Line}},
+    volume  = {2},
+    pages   = {214--224},
+    year    = {2012},
+    doi     = {10.5201/ipol.2012.g-cv},
+}
+
+
+
 %%%%%%%%%% GEODESICS %%%%%%%%%%%%
 
-@Article{casseles97geodesic,
+@article{caselles93,
+  title={A geometric model for active contours in image processing},
+  author={Caselles, Vicent and Catt{\'e}, Francine and Coll, Tomeu and Dibos, Fran{\c{c}}oise},
+  journal={Numerische mathematik},
+  volume={66},
+  number={1},
+  pages={1--31},
+  year={1993},
+  publisher={Springer}
+}
+
+
+@Article{caselles97,
 author="Caselles, Vicent
 and Kimmel, Ron
 and Sapiro, Guillermo",
@@ -136,6 +343,24 @@ volume="22",
 number="1",
 pages="61--79",
 }
+
+@article{chen06,
+  title={GACV: geodesic-aided C--V method},
+  author={Chen, Li and Zhou, Yue and Wang, Yonggang and Yang, Jie},
+  journal={Pattern Recognition},
+  volume={39},
+  number={7},
+  pages={1391--1395},
+  year={2006},
+  publisher={Elsevier}
+}
+
+
+
+%%%%%%%%%% DIGITAL GEOMETRY %%%%%%%%%%%%%
+
+
+%A Morphological Approach to Curvature-based Evolution of Curves and Surfaces, Pablo Márquez-Neila, Luis Baumela, Luis Álvarez. In IEEE Transactions on Pattern Analysis and Machine Intelligence (PAMI), 2014
 
 @article{coeurjolly04comparative,
 author={D. Coeurjolly and R. Klette},
@@ -558,16 +783,6 @@ doi = {10.1137/130939493}
   publisher={Springer}
 }
 
-@article{kass1988snakes,
-  title={Snakes: Active contour models},
-  author={Kass, Michael and Witkin, Andrew and Terzopoulos, Demetri},
-  journal={International journal of computer vision},
-  volume={1},
-  number={4},
-  pages={321--331},
-  year={1988},
-  publisher={Springer}
-}
 
 @article{droske2004level,
   title={A level set formulation for Willmore flow},

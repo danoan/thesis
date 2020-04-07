@@ -19,6 +19,11 @@
 \newcounter{theorem}[section]
 \newenvironment{theorem}[1]{\refstepcounter{theorem} \par\medskip \noindent  \textbf{Theorem~\thetheorem(#1):}}{\medskip}
 
+
+\newcounter{assumption}[section]
+\newenvironment{assumption}{ \refstepcounter{assumption} \renewcommand{\theequation}{A.\arabic{assumption}} }{\renewcommand{\theequation}{\arabic{section}.\arabic{equation}}}
+
+
 \crefname{algocf}{alg.}{algs.}
 \Crefname{algocf}{Algorithm}{Algorithms}
 \Crefname{appsec}{Appendix}{Appendices}
@@ -29,6 +34,7 @@
 \DeclareMathOperator*{\argmax}{arg\,max}
 \renewcommand{\vec}[1]{\bm{#1}}
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+\DeclarePairedDelimiter\bignorm{\Big\lVert}{\Big\rVert}%
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}%
 
 \newcommand{\sketch}[1]{{\color{red}{#1}}}
