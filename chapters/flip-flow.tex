@@ -1,12 +1,13 @@
 \chapter{A 2-step evolution model driven by digital Elastica minimization}
+\chaptermark{A 2-step evolution model}
 \label{chapter:flip-flow}
 
-In the previous chapter we have presented a local combinatorial model using multigrid convergent estimator that proved to be very sucessfull in optimizing the digital Elastica but too slow to be used in practice. We have also attempted to derive a global optimization model, but unfortunately such model is unlikely to be solved in the current state of art of binary optimization techniques. In this chapter we present a second local optimization model that is much faster than~\cref{alg:local-search} but with fewer guarantees of optimality.
+In the previous chapter we have presented a local combinatorial model using multigrid convergent estimator that proved to be very successful in optimizing the digital Elastica but too slow to be used in practice. We have also attempted to derive a global optimization model, but unfortunately such model is unlikely to be solved in the current state of art of binary optimization techniques. In this chapter we present a second local optimization model that is much faster than~\cref{alg:local-search} but with fewer guarantees of optimality.
 
 \section{FlipFlow model}
 \label{ch7:sec:flipflow-model}
 
-In this section we describe the FlipFlow model that aims to evolve a initial digital shape $\Ds$ into another of lower digial Elastica value. The FlipFlow algorithm consists into decide, at each iteration $k$, which pixels in the \emph{inner boundary} of $\Ds^{(k)}$ are to be removed  and which are to be kept. 
+In this section we describe the FlipFlow model that aims to evolve a initial digital shape $\Ds$ into another of lower digital Elastica value. The FlipFlow algorithm consists into deciding, at each iteration $k$, which pixels in the \emph{inner boundary} of $\Ds^{(k)}$ are to be removed  and which are to be kept. 
 
 \subsection{Definitions}
 \label{ch7:subsec:definitions}
@@ -19,7 +20,7 @@ We assume an ordering in $\Omega$, i.e., there exists a bijective function $\ome
 	X_{\omega}(\Omega) := \left\{ x_{\omega(p)} \in \{0,1\} \; | \; p \in \Omega \right\}.
 \end{align*}
 
-We'll simply write $X(\Omega)$, assuming that exists an underlying ordering function $\omega$.
+We will simply write $X(\Omega)$, assuming that exists an underlying ordering function $\omega$.
 
 A $\{0,1\}$ assignment of the variables in $X(\Omega)$ is denoted $x(\Omega)$. We define the sum of a digital set $\Ds$ and an assignment $x(\Omega)$ as
 
@@ -99,7 +100,7 @@ where $s(\cdot)$ denotes the length penalization term, written as
 \end{align}
 
 
-We recall that $R_m$ refers to the $m-ring$ defined in~\cref{ch6:sec:local-combinatorial-scheme}. Each choice of $m$ generates a different flow, which is generally described in the FlipFlow~\cref{alg:evolution-model}. To optimize~\cref{eq:energy-family} we use the QPBOI algorithm \cite{rother07qpbo}.
+We recall that $R_m$ refers to the $m-ring$ defined in~\cref{ch6:sec:local-combinatorial-scheme}. Each choice of $m$ generates a different flow, which is generally described in the \emph{FlipFlow}~\cref{alg:evolution-model}. To optimize~\cref{eq:energy-family} we use the QPBOI algorithm \cite{rother07qpbo}.
 
 
 \begin{algorithm}
@@ -136,17 +137,17 @@ We recall that $R_m$ refers to the $m-ring$ defined in~\cref{ch6:sec:local-combi
 \label{ch7:subsec:flipflow-algorithm-discussion}
 
 \begin{figure}
-\begin{minipage}{0.5\textwidth}
+\begin{minipage}{0.49\textwidth}
 \center
-\includegraphics[scale=0.2]{figures/chapter6/contour-information/before-opt.pdf}
+\includegraphics[scale=0.15]{figures/chapter6/contour-information/before-opt.pdf}
 \label{fig:contour-info-1}
 \end{minipage}%
-\begin{minipage}{0.5\textwidth}
+\begin{minipage}{0.49\textwidth}
 \center
-\includegraphics[scale=0.2]{figures/chapter6/contour-information/after-opt.pdf}
+\includegraphics[scale=0.15]{figures/chapter6/contour-information/after-opt.pdf}
 \label{fig:contour-info-2}
 \end{minipage}%
-\caption{ Directly using the optimization result of~\cref{eq:energy-family} doesn't decrease squared curvature because contour information is not present in the energy.}
+\caption{ Direct use of the optimization result of~\cref{eq:energy-family} does not decrease squared curvature because contour information is not present in the energy.}
 \label{fig:contour-info}
 \end{figure}
 
@@ -164,7 +165,7 @@ the center of the estimation ball towards the interior of the shape, which means
 why we take the complement of the optimization solution.
 
 
-The explanation above covers the treatment of convex parts, but the way to treat concavities it's not much different. Indeed, concave regions are convex in the shape complement. The FlipFlow~\cref{alg:evolution-model} is made of two modes: shrinking and expansion. The shrinking mode handles convexities and its reasoning is explained in the last paragraph. The expansion mode operates exactly in the same way, but at the image complement, and by doing this we are able to handle
+The explanation above covers the treatment of convex parts, but the way to treat concavities is not much different. Indeed, concave regions are convex in the shape complement. The FlipFlow~\cref{alg:evolution-model} is made of two modes: shrinking and expansion. The shrinking mode handles convexities and its reasoning is explained in the last paragraph. The expansion mode operates exactly in the same way, but at the image complement, and by doing this we are able to handle
 concavities. It is called expansion mode because the optimization region, in this case, is the outer pixel boundary of
 the original shape. Table~\cref{tab:flow-summary} sums up these arguments.
 
@@ -198,7 +199,7 @@ the original shape. Table~\cref{tab:flow-summary} sums up these arguments.
 \end{table}
 
 
-In~\cref{fig:m1-square-flow} we show the results of the FlipFlow algorithm for $m=1,\alpha=0, \beta=1$. We observe a global evolution towards rounder shapes, but several artifacts are formed along the boundary. An estimation ball of higher radius evolves the shapes faster, but the contours become noisier. Setting $\alpha >0$ attenuates the problem for lower radius but the produced shapes doesn't match with our intuition of what a flow driven by the squared curvature must be like. In the next section we investigate how the energy properties and optimization method used can explain this behavior.
+In~\cref{fig:m1-square-flow} we show the results of the FlipFlow algorithm for $m=1,\alpha=0, \beta=1$. We observe a global evolution towards rounder shapes, but several artifacts are formed along the boundary. An estimation ball of higher radius evolves the shapes faster, but the contours become noisier. Setting $\alpha >0$ attenuates the problem for lower radius but the produced shapes does not match with our intuition of what a flow driven by the squared curvature must be like. In the next section we investigate how the energy properties and optimization method used can explain this behavior.
 
 \begin{figure}
 \center
@@ -265,7 +266,7 @@ varies across values of $m$ differs from shape to shape, as is illustrated in~\c
   indicates that $E_{(\vec{\theta},r)-flip}$ is an easy instance of the general non-submodular energy $E_{(\vec{\theta},m)}^{flip}$, but this remains to be
   proved. The number of pairwise terms in $E_{(\vec{\theta},r)-flip}$ is roughly half of those in $E_{(\vec{\theta},1)-flip}$ (see~\cref{fig:ratio-pairwise-terms}), which also explains the higher number of labeled variables.
 
-  We have used QPBOI to solve $E_{(\vec{\theta},m)}^{flip}$. Naturally, in the case where all pixels are labeled by QPBOP, QPBOI returns the same labeling as QPBOP. In the next section we show that by evaluating the estimation ball at outer rings, we eliminate the artifacts and we produce smoother flows while preserving a qualitatively measure of curvature.
+  We have used QPBOI to solve $E_{(\vec{\theta},m)}^{flip}$. Naturally, in the case where all pixels are labeled by QPBOP, QPBOI returns the same labeling as QPBOP. In the next section we show that by evaluating the estimation ball at outer rings, we eliminate the artifacts and we produce smoother flows while preserving a qualitative measure of curvature.
 
 
 \begin{figure}
@@ -299,11 +300,11 @@ varies across values of $m$ differs from shape to shape, as is illustrated in~\c
 
 The QPBOP method leaves many pixels unlabeled for $m=0$, but the ratio of unlabeled pixels tends to decrease as we take higher values of $m$. In this section, we argue that by evaluating the estimation ball along outer rings we obtain smoother evolutions by focusing the optimization process only on regions of high squared curvature value.
 
-In~\cref{fig:mrings-r5-evolution,fig:mrings-r9-evolution} we evaluate several flows for different energies $E_{(\vec{\theta},m)}^{flip}$. As expected, the number of artifacts decrease as the value of $m$ increases, but the process still tends to shrink the shape to a single point, resembling the curvature flow. 
+In~\cref{fig:mrings-r5-evolution,fig:mrings-r9-evolution} we evaluate several flows for different energies $E_{(\vec{\theta},m)}^{flip}$. As expected, the number of artifacts decrease as the value of $m$ increases, while the process still tends to shrink the shape to a single point, resembling the curvature flow. 
 
 We confirm the stability of the model by looking at the plots of the digital Elastica energy values for the produced shapes. Moreover, the produced flow has no difficulties in handling changes on topology, and it presents different speeds for regions with low and high curvature values, as illustrated in~\cref{fig:handle-topology-different-speed}.
 
-The computation of estimation balls at outer rings raises the question about its validity as a curvature estimator. In fact, one can estimate the curvature using outer balls (see~\cref{app:curvature-and-distant-disks}), but we were not able to prove its multigrid convergence. However, this relation suggests that curvature information is at least qualitatevely present in the outer balls computation, and this computation is preferred, as it is easier to optimize acordingly to the experiments illustrated in~\cref{fig:mrings-r5-evolution,fig:mrings-r9-evolution,fig:unlabeled-versus-iterations,fig:mrings-plots-r5-r9}.
+The computation of estimation balls at outer rings raises the question about its validity as a curvature estimator. In fact, one can estimate the curvature using outer balls (see~\cref{app:curvature-and-distant-disks}), but we were not able to prove its multigrid convergence. However, this relation suggests that curvature information is at least qualitatively present in the outer balls computation, and this computation is preferred, as it is easier to optimize accordingly to the experiments illustrated in~\cref{fig:mrings-r5-evolution,fig:mrings-r9-evolution,fig:unlabeled-versus-iterations,fig:mrings-plots-r5-r9}.
 
 \begin{figure}
 \center
@@ -440,11 +441,11 @@ An illustration of the application of the FlipFlow model in image segmentation i
 
 \section{Conclusion}
 \label{ch7:sec:conclusion}
-We presented the FlipFlow model in~\cref{ch7:sec:flipflow-model}, an evolution process that produces shapes of decreasing digital Elastica until a certain inflexion point.~\cref{alg:evolution-model} operates in two distint modes: the shrinking and the dilation modes. They are responsible for the treatment of convexities and concavities regions, respectively. 
+We presented the FlipFlow model in~\cref{ch7:sec:flipflow-model}, an evolution process that produces shapes of decreasing digital Elastica until a certain inflexion point.~\cref{alg:evolution-model} operates in two distinct modes: the shrinking and the dilation modes. They are responsible for the treatment of convexities and concavities regions, respectively. 
 
 
-~\cref{ch7:sec:optimization-method} briefly describes some properties of QPBO method and its variants used to solve the quadratic binary problem that appears at every iteration of ~\cref{alg:evolution-model}. In~\cref{ch7:sec:evaluation-across-rings} we point out the submodularization effect of evaluating the FlipFlow model at outer $m$-rings. For larger values of $m$, all pixels are labeled by QPBOP. Finnaly, we extended~\cref{alg:evolution-model} in order to include a data term regularization and do image segmentation using~\cref{alg:contour-correction}.
+~\cref{ch7:sec:optimization-method} briefly describes some properties of QPBO method and its variants used to solve the quadratic binary problem that appears at every iteration of ~\cref{alg:evolution-model}. In~\cref{ch7:sec:evaluation-across-rings} we point out the submodularization effect of evaluating the FlipFlow model at outer $m$-rings. For larger values of $m$, all pixels are labeled by QPBOP. Finally, we extended~\cref{alg:evolution-model} in order to include a data term regularization and do image segmentation using~\cref{alg:contour-correction}.
 
 
-In the next chapter we identify the key concept behind the FlipFlow model to define an easier to implement version of it.
+In the next chapter we identify the key concept behind the FlipFlow model to define a variant of this algorithm which is easier to implement.
 
