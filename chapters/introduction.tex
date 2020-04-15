@@ -1,24 +1,24 @@
 \chapter*{Introduction}\label{chapter:introduction}
 \addcontentsline{toc}{chapter}{Introduction}
-Our main object of study is the function $\mathcal{I}:\Omega \subset \mathbb{Z}^j \rightarrow [0,1]^k$. We have a grayscale digital image for $(j=2,k=1)$ and a three dimensional colored object for $(j=3,k=3)$ if we assume the RGB color scheme. Such objects are created by sampling a continuous domain and its quality is directly related with its resolution, or the number of samples one uses to discretize the domain. 
-
-Digital image processing has been developed since the 60s, but still an active field of research. Among the reasons, we can cite the advances in acquisition, which exponentially increases the amount of data to be treated; and the popularization of digital cameras. In fact, applications involving digital images are numerous. An autonomous vehicle must partition the frames coming from its camera in meaningful regions in order to identify roads, traffic signs, people, landscape and other vehicles (segmentation); satellite images are usually degraded due to limitations in transmission and storage devices and should be processed to enhance quality (denoising); in cinema, post-production editors might be faced with undesired objects in the scenes as cables or cameras that should be removed smoothly (inpainting). 
-
-The classical approach consists to solve an optimization problem. It is a reasonable strategy, as we are interested to find the best segmentation or the best image inpainting, the definition of best being application-based. Using information or assumptions intrinsic to the problem, we can make use of prior terms to guide the optimization process, as for example, the geometry of objects we wish to segment. In chapter \ref{chapter:regularization} we describe some classical models in image segmentation and the role of geometric priors.
-
-The curvature is an example of geometric prior with properties that makes it suitable for the segmentation of long and thin structures as blood vessels. Its use and the difficulties that come along with it are discussed in chapter \ref{chapter:curvature-prior}, which sets the ground for our digital approach. In chapter \ref{chapter:digital-geometry} we introduce some concepts of digital geometry, among them the multigrid convergence of a digital estimator. The goal of this chapter is to argue that multigrid convergent estimators of curvature should be preferred when computing curvature in digital data. 
-
-Finally, we describe the main product of this work in chapter \ref{chapter:digital-flow} and illustrate its results with several experiments and comparisons. In the appendix, the reader can found three other models developed during this thesis and considered relevant by the author for future investigation in the subject.
-
-\section*{Curvature and Elastica energy}
-\section*{Curvature as a prior}
-\section*{Continuous x Discrete x Digital}
-
-\section*{Contribution}
-\sketch{
-\begin{itemize}
-\item{Thesis structure}
-\item{Link between models}
-\item{Pros,cons each model}
-\end{itemize}
-}
+%Our main object of study is the function $\mathcal{I}:\Omega \subset \mathbb{Z}^j \rightarrow [0,1]^k$. We have a grayscale digital image for $(j=2,k=1)$ and a three dimensional colored object for $(j=3,k=3)$ if we assume the RGB color scheme. Such objects are created by sampling a continuous domain and its quality is directly related with its resolution, or the number of samples one uses to discretize the domain. 
+%
+%Digital image processing has been developed since the 60s, but still an active field of research. Among the reasons, we can cite the advances in acquisition, which exponentially increases the amount of data to be treated; and the popularization of digital cameras. In fact, applications involving digital images are numerous. An autonomous vehicle must partition the frames coming from its camera in meaningful regions in order to identify roads, traffic signs, people, landscape and other vehicles (segmentation); satellite images are usually degraded due to limitations in transmission and storage devices and should be processed to enhance quality (denoising); in cinema, post-production editors might be faced with undesired objects in the scenes as cables or cameras that should be removed smoothly (inpainting). 
+%
+%The classical approach consists to solve an optimization problem. It is a reasonable strategy, as we are interested to find the best segmentation or the best image inpainting, the definition of best being application-based. Using information or assumptions intrinsic to the problem, we can make use of prior terms to guide the optimization process, as for example, the geometry of objects we wish to segment. In chapter \ref{chapter:regularization} we describe some classical models in image segmentation and the role of geometric priors.
+%
+%The curvature is an example of geometric prior with properties that makes it suitable for the segmentation of long and thin structures as blood vessels. Its use and the difficulties that come along with it are discussed in chapter \ref{chapter:curvature-prior}, which sets the ground for our digital approach. In chapter \ref{chapter:digital-geometry} we introduce some concepts of digital geometry, among them the multigrid convergence of a digital estimator. The goal of this chapter is to argue that multigrid convergent estimators of curvature should be preferred when computing curvature in digital data. 
+%
+%Finally, we describe the main product of this work in chapter \ref{chapter:digital-flow} and illustrate its results with several experiments and comparisons. In the appendix, the reader can found three other models developed during this thesis and considered relevant by the author for future investigation in the subject.
+%
+%\section*{Curvature and Elastica energy}
+%\section*{Curvature as a prior}
+%\section*{Continuous x Discrete x Digital}
+%
+%\section*{Contribution}
+%\sketch{
+%\begin{itemize}
+%\item{Thesis structure}
+%\item{Link between models}
+%\item{Pros,cons each model}
+%\end{itemize}
+%}

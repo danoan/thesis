@@ -53,19 +53,35 @@ location = {Ann Arbor, Michigan},
 series = {CONLL ’05}
 }
 
-
-%%%%%%%%%%%%%%%% MRF, GIBBS, Stochastic Relaxation %%%%%%%%%%%%%
-
-@ARTICLE{geman84,
-author={S. {Geman} and D. {Geman}},
-journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
-title={Stochastic Relaxation, Gibbs Distributions, and the Bayesian Restoration of Images},
-year={1984},
-volume={PAMI-6},
-number={6},
-pages={721-741},
-month={Nov}
+@article{fedorov15,
+    title   = {{Variational Framework for Non-Local Inpainting}},
+    author  = {Fedorov, Vadim and Facciolo, Gabriele and Arias, Pablo},
+    journal = {{Image Processing On Line}},
+    volume  = {5},
+    pages   = {362--386},
+    year    = {2015},
+    doi     = {10.5201/ipol.2015.136},
 }
+
+@techreport{chambolle08,
+title={A convex approach for computing minimal partitions},
+author={Chambolle, Antonin and Cremers, Daniel and Pock, Thomas},
+number={649},
+institution={CMAP, Ecole Polytechnique, France},
+year={2008}
+}
+
+@article{beck09a,
+  title={A fast iterative shrinkage-thresholding algorithm for linear inverse problems},
+  author={Beck, Amir and Teboulle, Marc},
+  journal={SIAM journal on imaging sciences},
+  volume={2},
+  number={1},
+  pages={183--202},
+  year={2009},
+  publisher={SIAM}
+}
+
 
 %%%%%%%%%% TOTAL VARIATION %%%%%%%%%%%%
 
@@ -101,7 +117,7 @@ pages="89--97",
 issn="1573-7683"
 }
 
-@article{beck09,
+@article{beck09b,
  author = {Beck, Amir and Teboulle, Marc},
  title = {Fast Gradient-based Algorithms for Constrained Total Variation Image Denoising and Deblurring Problems},
  journal = {Trans. Img. Proc.},
@@ -122,7 +138,7 @@ issn="1573-7683"
 } 
 
 
-%%%%%%%%%%% MUMFORD-SHAH %%%%%%%%%%%%%
+%%%%%%%%%%% MUMFORD-SHAH CONTINUOUS %%%%%%%%%%%%%
 
 @article{degiorgi89,
     author = {De Giorgi, Ennio and Carriero, Michelle and Leaci, Antion},
@@ -156,7 +172,7 @@ year = {1990}
 
 
 @article{chambolle99,
-author={Chambolle, Antoine},
+author={Chambolle, Antonin},
 title={Finite-differences discretizations of the Mumford-Shah functional},
 year={1999},
 journal={Mathematical Modelling and Numerical Analysis},
@@ -164,31 +180,6 @@ volume={33},
 number={2},
 pages={261--288}
 }
-
-@InProceedings{grady08,
-author="Grady, Leo
-and Alvino, Christopher",
-editor="Forsyth, David
-and Torr, Philip
-and Zisserman, Andrew",
-title="Reformulating and Optimizing the Mumford-Shah Functional on a Graph --- A Faster, Lower Energy Solution",
-booktitle="Computer Vision -- ECCV 2008",
-year="2008",
-publisher="Springer Berlin Heidelberg",
-address="Berlin, Heidelberg",
-pages="248--261",
-}
-
-
-@InProceedings{pock09, 
-author={T. {Pock} and D. {Cremers} and H. {Bischof} and A. {Chambolle}}, 
-booktitle={2009 IEEE 12th International Conference on Computer Vision}, 
-title={An algorithm for minimizing the Mumford-Shah functional}, 
-year={2009}, 
-volume={}, 
-number={}, 
-pages={1133-1140}
-} 
 
 @Inbook{bar11,
 author="Bar, Leah and Chan, Tony F. and Chung, Ginmo and Jung, Miyoun
@@ -212,6 +203,23 @@ publisher="Springer International Publishing",
 address="Cham",
 pages="127--141",
 isbn="978-3-319-10605-2"
+}
+
+
+%%%%%%%%%%% MUMFORD-SHAH DISCRETE %%%%%%%%%%%%%
+
+@InProceedings{grady08,
+author="Grady, Leo
+and Alvino, Christopher",
+editor="Forsyth, David
+and Torr, Philip
+and Zisserman, Andrew",
+title="Reformulating and Optimizing the Mumford-Shah Functional on a Graph --- A Faster, Lower Energy Solution",
+booktitle="Computer Vision -- ECCV 2008",
+year="2008",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="248--261",
 }
 
 @InProceedings{foare17,
@@ -344,6 +352,17 @@ number="1",
 pages="61--79",
 }
 
+@article{cohen97,
+  title={Global minimum for active contour models: A minimal path approach},
+  author={Cohen, Laurent D and Kimmel, Ron},
+  journal={International journal of computer vision},
+  volume={24},
+  number={1},
+  pages={57--78},
+  year={1997},
+  publisher={Springer}
+}
+
 @article{chen06,
   title={GACV: geodesic-aided C--V method},
   author={Chen, Li and Zhou, Yue and Wang, Yonggang and Yang, Jie},
@@ -355,6 +374,134 @@ pages="61--79",
   publisher={Elsevier}
 }
 
+@article{jbabdi08,
+  title={Accurate anisotropic fast marching for diffusion-based geodesic tractography},
+  author={Jbabdi, Sa{\^a}d and Bellec, Pierre and Toro, Roberto and Daunizeau, Jean and P{\'e}l{\'e}grini-Issac, M{\'e}lanie and Benali, Habib},
+  journal={International journal of biomedical imaging},
+  volume={2008},
+  year={2008},
+  publisher={Hindawi}
+}
+
+
+@article{benmansour09,
+  title={Fast object segmentation by growing minimal paths from a single point on 2D or 3D images},
+  author={Benmansour, Fethallah and Cohen, Laurent D},
+  journal={Journal of Mathematical Imaging and Vision},
+  volume={33},
+  number={2},
+  pages={209--221},
+  year={2009},
+  publisher={Springer}
+}
+
+@article{benmansour11,
+  title={Tubular structure segmentation based on minimal path method and anisotropic enhancement},
+  author={Benmansour, Fethallah and Cohen, Laurent D},
+  journal={International Journal of Computer Vision},
+  volume={92},
+  number={2},
+  pages={192--210},
+  year={2011},
+  publisher={Springer}
+}
+
+
+@article{peyre10,
+  title={Geodesic methods in computer vision and graphics},
+  author={Peyr{\'e}, Gabriel and P{\'e}chaud, Mickael and Keriven, Renaud and Cohen, Laurent D and others},
+  journal={Foundations and Trends{\textregistered} in Computer Graphics and Vision},
+  volume={5},
+  number={3--4},
+  pages={197--397},
+  year={2010},
+  publisher={Now Publishers, Inc.}
+}
+
+
+%%%%%%%%%%%%%%%%%% CONVEXIFICATION %%%%%%%%%%%%%%%%%%%%%
+
+@article{chan99,
+  title={A nonlinear primal-dual method for total variation-based image restoration},
+  author={Chan, Tony F and Golub, Gene H and Mulet, Pep},
+  journal={SIAM journal on scientific computing},
+  volume={20},
+  number={6},
+  pages={1964--1977},
+  year={1999},
+  publisher={SIAM}
+}
+
+
+@article{chan06,
+  title={Algorithms for finding global minimizers of image segmentation and denoising models},
+  author={Chan, Tony F and Esedoglu, Selim and Nikolova, Mila},
+  journal={SIAM journal on applied mathematics},
+  volume={66},
+  number={5},
+  pages={1632--1648},
+  year={2006},
+  publisher={SIAM}
+}
+
+@inproceedings{pock08,
+  title={A convex formulation of continuous multi-label problems},
+  author={Pock, Thomas and Schoenemann, Thomas and Graber, Gottfried and Bischof, Horst and Cremers, Daniel},
+  booktitle={European conference on computer vision},
+  pages={792--805},
+  year={2008},
+  organization={Springer}
+}
+
+@inproceedings{zach09,
+author={Zach, Christopher and Gallup, David and Frahm, Jan-Michael and Niethammer, Marc},
+title={Fast global labeling for real-time stereo using multiple plane sweeps},
+booktitle={Workshop on Vision, Modeling and Visualization},
+year={2009}
+}
+
+@inproceedings{pock09,
+  title={An algorithm for minimizing the Mumford-Shah functional},
+  author={Pock, Thomas and Cremers, Daniel and Bischof, Horst and Chambolle, Antonin},
+  booktitle={2009 IEEE 12th International Conference on Computer Vision},
+  pages={1133--1140},
+  year={2009},
+  organization={IEEE}
+}
+
+@article{chambolle11,
+  title={A first-order primal-dual algorithm for convex problems with applications to imaging},
+  author={Chambolle, Antonin and Pock, Thomas},
+  journal={Journal of mathematical imaging and vision},
+  volume={40},
+  number={1},
+  pages={120--145},
+  year={2011},
+  publisher={Springer}
+}
+
+@inproceedings{strekalovskiy12,
+  title={A convex representation for the vectorial Mumford-Shah functional},
+  author={Strekalovskiy, Evgeny and Chambolle, Antonin and Cremers, Daniel},
+  booktitle={2012 IEEE Conference on Computer Vision and Pattern Recognition},
+  pages={1712--1719},
+  year={2012},
+  organization={IEEE}
+}
+
+
+%%%%%%%%%%%%%%%% MRF, GIBBS, Stochastic Relaxation %%%%%%%%%%%%%
+
+@ARTICLE{geman84,
+author={S. {Geman} and D. {Geman}},
+journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
+title={Stochastic Relaxation, Gibbs Distributions, and the Bayesian Restoration of Images},
+year={1984},
+volume={PAMI-6},
+number={6},
+pages={721-741},
+month={Nov}
+}
 
 
 %%%%%%%%%% DIGITAL GEOMETRY %%%%%%%%%%%%%

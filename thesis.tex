@@ -5,22 +5,29 @@
 \usepackage{graphicx,wrapfig,xcolor,subfig}
 \usepackage{algorithm2e,float}
 \usepackage{listings}
+\usepackage{rotating}
+\usepackage{enumitem}
 \usepackage{array,multirow}
-\usepackage{hyperref}
+\usepackage{chronosys}
+\usepackage{geometry}
+\usepackage[hidelinks,colorlinks]{hyperref}
 \usepackage[noabbrev,capitalise,nameinlink]{cleveref}
 \usepackage{pdflscape}
 \usepackage{afterpage}
 \usepackage{longtable}
 
 
-\usepackage{natbib}
-\bibliographystyle{alpha}
+%\usepackage{natbib}
+%\bibliographystyle{alpha}
+\usepackage[style=alphabetic,maxbibnames=99,backref=true]{biblatex}
+\addbibresource{thesis.bib}
 
-\addtolength{\oddsidemargin}{-0.5in}
-\addtolength{\evensidemargin}{-0.5in}
-\addtolength{\textwidth}{1in}
-\addtolength{\topmargin}{-.875in}
-\addtolength{\textheight}{1.75in}
+
+%\addtolength{\oddsidemargin}{-0.5in}
+%\addtolength{\evensidemargin}{-0.5in}
+%\addtolength{\textwidth}{0.5in}
+%\addtolength{\topmargin}{-.875in}
+%\addtolength{\textheight}{1.75in}
 
 \widowpenalty10000
 \clubpenalty10000
@@ -28,7 +35,7 @@
 \include{style/my-definitions}
 
 \begin{document}
-	\title{Thesis Sketch}
+	\title{Geometric constraints and variational approaches to image analysis}
 	\author{Daniel Antunes}
 	\date{}
 	\maketitle
@@ -40,13 +47,13 @@
 	\include{chapters/abstract-french}
 	
 	\tableofcontents	
-	%\include{chapters/notation}
-	%\include{chapters/introduction}
+	\include{chapters/notation}
+	\include{chapters/introduction}
 	\part{Image Processing and Digital Geometry}
-	%\include{chapters/variational-methods-in-image-processing}	
-	%\include{chapters/discrete-methods-in-image-processing}
-%	\include{chapters/curvature-prior}
-%	\include{chapters/digital-geometry}
+	\include{chapters/variational-methods-in-image-processing}
+	\include{chapters/discrete-methods-in-image-processing}
+	\include{chapters/curvature-prior}
+	\include{chapters/digital-geometry}
 	\part{Contribution}	
 	\include{chapters/digital-elastica}
 	\include{chapters/flip-flow}
@@ -55,8 +62,8 @@
 	\include{chapters/results-analysis}
 	\begin{appendices}
 		\crefalias{chapter}{appsec}
-%		\include{chapters/appendix-curvature-distant-balls}			
-%		\include{chapters/appendix-pixel-incidence-matrix}
+		\include{chapters/appendix-curvature-distant-balls}			
+		\include{chapters/appendix-pixel-incidence-matrix}
 %		\include{chapters/appendix-grabcut}				
 %		\include{chapters/appendix-submodularity}		
 %		\include{chapters/appendix-bayesian-network}			
@@ -66,7 +73,8 @@
 	
 
 %\nocite{*}
-\bibliography{thesis}
+%\bibliography{thesis}
+\printbibliography
 	
 \end{document}
 
