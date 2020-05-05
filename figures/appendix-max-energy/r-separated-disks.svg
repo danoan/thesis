@@ -2218,6 +2218,78 @@
        effect="spiro"
        id="path-effect5676-5-0-8-7-7-5-11"
        is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect5994-7-3"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect5998-4-2"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect5528-9-0-6"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect7074-0"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect5528-9-0-9-6"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect5418-3-2-6-0-9"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect5676-2-0-6"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect5676-5-0-8-8"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect5676-5-9-6-5-08"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect5676-5-3-3-1-6"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect5676-5-6-7-0-7"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect5676-5-5-6-30-5"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect5676-5-56-8-7-4"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect5676-5-62-3-3-4"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect5418-3-2-9-5-4-6"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect5418-3-2-2-5-2-0"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect5676-5-0-2-0-5"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect5676-5-0-0-52-5"
+       is_visible="true" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -2226,9 +2298,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.044194174"
-     inkscape:cx="-5784.2372"
-     inkscape:cy="-11974.997"
+     inkscape:zoom="0.1767767"
+     inkscape:cx="-1980.7393"
+     inkscape:cy="-3107.3376"
      inkscape:document-units="mm"
      inkscape:current-layer="g5101"
      showgrid="false"
@@ -3101,7 +3173,7 @@
              id="tspan2260-0"
              x="-1487.5668"
              y="285.63538"
-             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#808080;fill-opacity:1;stroke-width:0.84554559">Λ<tspan
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#808080;fill-opacity:1;stroke-width:0.84554559">Γ<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
    id="tspan2853">i</tspan>={0,1} ∀i ∈ [1,7]</tspan></text>
         <g
@@ -3287,15 +3359,15 @@
              id="text2262-8-5"
              y="691.41333"
              x="-1537.8363"
-             style="font-style:normal;font-weight:normal;font-size:41.81116867px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.98999999;fill:#808080;fill-opacity:1;stroke:none;stroke-width:1.04527915;stroke-opacity:1"
+             style="font-style:normal;font-weight:normal;font-size:41.81116867px;line-height:1.25;font-family:'TeX Gyre DejaVu Math';letter-spacing:0px;word-spacing:0px;opacity:0.98999999;fill:#808080;fill-opacity:1;stroke:none;stroke-width:1.04527915;stroke-opacity:1;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-stretch:normal;font-variant:normal;"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#808080;fill-opacity:1;stroke:none;stroke-width:1.04527915;stroke-opacity:1"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre DejaVu Math';-inkscape-font-specification:'TeX Gyre DejaVu Math';fill:#808080;fill-opacity:1;stroke:none;stroke-width:1.04527915;stroke-opacity:1;"
                y="691.41333"
                x="-1537.8363"
                id="tspan2260-1-7"
                sodipodi:role="line">C<tspan
    id="tspan2264-07-3"
-   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:27.17725754px;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';baseline-shift:sub;fill:#808080;fill-opacity:1;stroke:none;stroke-width:1.04527915;stroke-opacity:1">123</tspan></tspan></text>
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:27.17725754px;font-family:'TeX Gyre DejaVu Math';-inkscape-font-specification:'TeX Gyre DejaVu Math';baseline-shift:sub;fill:#808080;fill-opacity:1;stroke:none;stroke-width:1.04527915;stroke-opacity:1;">123</tspan></tspan></text>
           <rect
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
@@ -3324,19 +3396,19 @@
              id="text2262-8-1-9"
              y="538.24213"
              x="-1311.8256"
-             style="font-style:normal;font-weight:normal;font-size:41.81116867px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.96425997;fill:#808080;fill-opacity:1;stroke:none;stroke-width:1.04527915;stroke-opacity:1"
+             style="font-style:normal;font-weight:normal;font-size:41.81116867px;line-height:1.25;font-family:'TeX Gyre DejaVu Math';letter-spacing:0px;word-spacing:0px;opacity:0.96425997;fill:#808080;fill-opacity:1;stroke:none;stroke-width:1.04527915;stroke-opacity:1;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-stretch:normal;font-variant:normal;"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#808080;fill-opacity:1;stroke:none;stroke-width:1.04527915;stroke-opacity:1"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre DejaVu Math';-inkscape-font-specification:'TeX Gyre DejaVu Math';fill:#808080;fill-opacity:1;stroke:none;stroke-width:1.04527915;stroke-opacity:1;"
                y="538.24213"
                x="-1311.8256"
                id="tspan2260-1-0-5"
                sodipodi:role="line">C<tspan
    id="tspan2264-07-2-5"
-   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:27.17725754px;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';baseline-shift:sub;fill:#808080;fill-opacity:1;stroke:none;stroke-width:1.04527915;stroke-opacity:1">45</tspan></tspan></text>
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:27.17725754px;font-family:'TeX Gyre DejaVu Math';-inkscape-font-specification:'TeX Gyre DejaVu Math';baseline-shift:sub;fill:#808080;fill-opacity:1;stroke:none;stroke-width:1.04527915;stroke-opacity:1;">45</tspan></tspan></text>
         </g>
         <text
            xml:space="preserve"
-           style="font-style:normal;font-weight:normal;font-size:33.82182693px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:1;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.84554559"
+           style="font-style:normal;font-weight:normal;font-size:33.82182693px;line-height:1.25;font-family:'TeX Gyre DejaVu Math';letter-spacing:0px;word-spacing:0px;opacity:1;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.84554559;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-stretch:normal;font-variant:normal;"
            x="-1581.5952"
            y="984.00092"
            id="text2262-2-3"
@@ -3347,8 +3419,8 @@
              id="tspan2260-0-8"
              x="-1581.5952"
              y="984.00092"
-             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#808080;fill-opacity:1;stroke-width:0.84554559">Λ<tspan
-   style="font-size:21.98418617px;baseline-shift:sub;stroke-width:0.84554559"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre DejaVu Math';-inkscape-font-specification:'TeX Gyre DejaVu Math';fill:#808080;fill-opacity:1;stroke-width:0.84554559;">Γ<tspan
+   style="font-size:21.98418617px;baseline-shift:sub;stroke-width:0.84554559;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-family:'TeX Gyre DejaVu Math';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;"
    id="tspan2853-6">i</tspan>={0,1} ∀i ∈ [1,5]</tspan></text>
         <g
            id="g3181"
@@ -3628,7 +3700,7 @@
            inkscape:export-ydpi="96" />
         <text
            xml:space="preserve"
-           style="font-style:normal;font-weight:normal;font-size:26.94688988px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:1;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.67367214"
+           style="font-style:normal;font-weight:normal;font-size:26.94688988px;line-height:1.25;font-family:'TeX Gyre DejaVu Math';letter-spacing:0px;word-spacing:0px;opacity:1;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.67367214;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-stretch:normal;font-variant:normal;"
            x="-783.987"
            y="-555.60962"
            id="text2262-2-3-4-9-0"
@@ -3640,12 +3712,12 @@
              id="tspan2260-0-8-0-9-0"
              x="-783.987"
              y="-555.60962"
-             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#808080;fill-opacity:1;stroke-width:0.67367214">ψ<tspan
-   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.67367214"
-   id="tspan3508-8-6">12</tspan>(x<tspan
-   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.67367214"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre DejaVu Math';-inkscape-font-specification:'TeX Gyre DejaVu Math';fill:#808080;fill-opacity:1;stroke-width:0.67367214;">ϕ<tspan
+   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.67367214;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-family:'TeX Gyre DejaVu Math';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;"
+   id="tspan3508-8-6">2</tspan>(x<tspan
+   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.67367214;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-family:'TeX Gyre DejaVu Math';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;"
    id="tspan3510-02-3">i</tspan>,x<tspan
-   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.67367214"
+   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.67367214;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-family:'TeX Gyre DejaVu Math';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;"
    id="tspan3661">j</tspan>)</tspan></text>
         <text
            xml:space="preserve"
@@ -3780,15 +3852,15 @@
              x="-726.07349"
              style="font-style:normal;font-weight:normal;font-size:26.94688988px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:1;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.6736722"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#808080;fill-opacity:1;stroke-width:0.6736722"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre DejaVu Math';-inkscape-font-specification:'TeX Gyre DejaVu Math';fill:#808080;fill-opacity:1;stroke-width:0.6736722"
                y="686.95233"
                x="-726.07349"
                id="tspan2260-0-8-0"
-               sodipodi:role="line">ψ<tspan
+               sodipodi:role="line">ϕ<tspan
    id="tspan3508"
-   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.6736722">1</tspan>(x<tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.51547813px;font-family:'TeX Gyre DejaVu Math';-inkscape-font-specification:'TeX Gyre DejaVu Math';baseline-shift:sub;stroke-width:0.6736722">1</tspan>(x<tspan
    id="tspan3510"
-   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.6736722">i</tspan>)</tspan></text>
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.51547813px;font-family:'TeX Gyre DejaVu Math';-inkscape-font-specification:'TeX Gyre DejaVu Math';baseline-shift:sub;stroke-width:0.6736722">i</tspan>)</tspan></text>
         </g>
         <g
            id="g3696"
@@ -3810,17 +3882,17 @@
              id="text2262-2-3-4-5"
              y="684.55151"
              x="-481.64108"
-             style="font-style:normal;font-weight:normal;font-size:26.94688988px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:1;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.6736722"
+             style="font-style:normal;font-weight:normal;font-size:26.94688988px;line-height:1.25;font-family:'TeX Gyre DejaVu Math';letter-spacing:0px;word-spacing:0px;opacity:1;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.6736722;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-stretch:normal;font-variant:normal;"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#808080;fill-opacity:1;stroke-width:0.6736722"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre DejaVu Math';-inkscape-font-specification:'TeX Gyre DejaVu Math';fill:#808080;fill-opacity:1;stroke-width:0.6736722;"
                y="684.55151"
                x="-481.64108"
                id="tspan2260-0-8-0-8"
-               sodipodi:role="line">ψ<tspan
+               sodipodi:role="line">ϕ<tspan
    id="tspan3508-5"
-   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.6736722">1</tspan>(x<tspan
+   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.6736722;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-family:'TeX Gyre DejaVu Math';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;">1</tspan>(x<tspan
    id="tspan3510-0"
-   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.6736722">j</tspan>)</tspan></text>
+   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.6736722;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-family:'TeX Gyre DejaVu Math';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;">j</tspan>)</tspan></text>
         </g>
         <g
            id="g3703"
@@ -3842,17 +3914,17 @@
              id="text2262-2-3-4-9"
              y="841.69641"
              x="-731.5918"
-             style="font-style:normal;font-weight:normal;font-size:26.94688988px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:1;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.6736722"
+             style="font-style:normal;font-weight:normal;font-size:26.94688988px;line-height:1.25;font-family:'TeX Gyre DejaVu Math';letter-spacing:0px;word-spacing:0px;opacity:1;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.6736722;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-stretch:normal;font-variant:normal;"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#808080;fill-opacity:1;stroke-width:0.6736722"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre DejaVu Math';-inkscape-font-specification:'TeX Gyre DejaVu Math';fill:#808080;fill-opacity:1;stroke-width:0.6736722;"
                y="841.69641"
                x="-731.5918"
                id="tspan2260-0-8-0-9"
-               sodipodi:role="line">ψ<tspan
+               sodipodi:role="line">ϕ<tspan
    id="tspan3508-8"
-   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.6736722">1</tspan>(x<tspan
+   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.6736722;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-family:'TeX Gyre DejaVu Math';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;">1</tspan>(x<tspan
    id="tspan3510-02"
-   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.6736722">k</tspan>)</tspan></text>
+   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.6736722;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-family:'TeX Gyre DejaVu Math';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;">k</tspan>)</tspan></text>
         </g>
         <g
            id="g3741"
@@ -3874,19 +3946,19 @@
              id="text2262-2-3-4-9-0-0"
              y="803.43341"
              x="-696.86011"
-             style="font-style:normal;font-weight:normal;font-size:26.94688988px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:1;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.67367214"
+             style="font-style:normal;font-weight:normal;font-size:26.94688988px;line-height:1.25;font-family:'TeX Gyre DejaVu Math';letter-spacing:0px;word-spacing:0px;opacity:1;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.67367214;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-stretch:normal;font-variant:normal;"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#808080;fill-opacity:1;stroke-width:0.67367214"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre DejaVu Math';-inkscape-font-specification:'TeX Gyre DejaVu Math';fill:#808080;fill-opacity:1;stroke-width:0.67367214;"
                y="803.43341"
                x="-696.86011"
                id="tspan2260-0-8-0-9-0-8"
-               sodipodi:role="line">ψ<tspan
+               sodipodi:role="line">ϕ<tspan
    id="tspan3508-8-6-3"
-   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.67367214">12</tspan>(x<tspan
+   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.67367214;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-family:'TeX Gyre DejaVu Math';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;">2</tspan>(x<tspan
    id="tspan3510-02-3-8"
-   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.67367214">i</tspan>,x<tspan
+   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.67367214;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-family:'TeX Gyre DejaVu Math';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;">i</tspan>,x<tspan
    id="tspan3661-7"
-   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.67367214">k</tspan>)</tspan></text>
+   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.67367214;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-family:'TeX Gyre DejaVu Math';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;">k</tspan>)</tspan></text>
         </g>
         <g
            id="g4577"
@@ -4538,17 +4610,17 @@
              id="text2262-2-3-4-2"
              y="686.95233"
              x="-726.07349"
-             style="font-style:normal;font-weight:normal;font-size:26.94688988px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:1;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.6736722"
+             style="font-style:normal;font-weight:normal;font-size:26.94688988px;line-height:1.25;font-family:'TeX Gyre DejaVu Math';letter-spacing:0px;word-spacing:0px;opacity:1;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.6736722;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-stretch:normal;font-variant:normal;"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#808080;fill-opacity:1;stroke-width:0.6736722"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre DejaVu Math';-inkscape-font-specification:'TeX Gyre DejaVu Math';fill:#808080;fill-opacity:1;stroke-width:0.6736722;"
                y="686.95233"
                x="-726.07349"
                id="tspan2260-0-8-0-5"
-               sodipodi:role="line">ψ<tspan
+               sodipodi:role="line">ϕ<tspan
    id="tspan3508-9"
-   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.6736722">1</tspan>(x<tspan
+   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.6736722;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-family:'TeX Gyre DejaVu Math';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;">1</tspan>(x<tspan
    id="tspan3510-1"
-   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.6736722">i</tspan>)</tspan></text>
+   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.6736722;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-family:'TeX Gyre DejaVu Math';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;">i</tspan>)</tspan></text>
         </g>
         <g
            id="g3741-7"
@@ -4570,19 +4642,19 @@
              id="text2262-2-3-4-9-0-0-4"
              y="803.43341"
              x="-696.86011"
-             style="font-style:normal;font-weight:normal;font-size:26.94688988px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:1;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.67367214"
+             style="font-style:normal;font-weight:normal;font-size:26.94688988px;line-height:1.25;font-family:'TeX Gyre DejaVu Math';letter-spacing:0px;word-spacing:0px;opacity:1;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.67367214;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-stretch:normal;font-variant:normal;"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#808080;fill-opacity:1;stroke-width:0.67367214"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre DejaVu Math';-inkscape-font-specification:'TeX Gyre DejaVu Math';fill:#808080;fill-opacity:1;stroke-width:0.67367214;"
                y="803.43341"
                x="-696.86011"
                id="tspan2260-0-8-0-9-0-8-1"
-               sodipodi:role="line">ψ<tspan
+               sodipodi:role="line">ϕ<tspan
    id="tspan3508-8-6-3-1"
-   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.67367214">12</tspan>(x<tspan
+   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.67367214;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-family:'TeX Gyre DejaVu Math';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;">2</tspan>(x<tspan
    id="tspan3510-02-3-8-9"
-   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.67367214">i</tspan>,x<tspan
+   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.67367214;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-family:'TeX Gyre DejaVu Math';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;">i</tspan>,x<tspan
    id="tspan3661-7-1"
-   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.67367214">k</tspan>)</tspan></text>
+   style="font-size:17.51547813px;baseline-shift:sub;stroke-width:0.67367214;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-family:'TeX Gyre DejaVu Math';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;">k</tspan>)</tspan></text>
         </g>
         <g
            id="g3741-7-3"
@@ -4607,19 +4679,19 @@
              id="text2262-2-3-4-9-0-0-4-7"
              y="824.58881"
              x="-487.81186"
-             style="font-style:normal;font-weight:normal;font-size:14.03572273px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:1;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.35089305"
+             style="font-style:normal;font-weight:normal;font-size:14.03572273px;line-height:1.25;font-family:'TeX Gyre DejaVu Math';letter-spacing:0px;word-spacing:0px;opacity:1;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.35089305;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-stretch:normal;font-variant:normal;"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#808080;fill-opacity:1;stroke-width:0.35089305"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre DejaVu Math';-inkscape-font-specification:'TeX Gyre DejaVu Math';fill:#808080;fill-opacity:1;stroke-width:0.35089305;"
                y="824.58881"
                x="-487.81186"
                id="tspan2260-0-8-0-9-0-8-1-4"
-               sodipodi:role="line">ψ<tspan
+               sodipodi:role="line">ϕ<tspan
    id="tspan3508-8-6-3-1-9"
-   style="font-size:9.12322044px;baseline-shift:sub;stroke-width:0.35089305">12</tspan>(x<tspan
+   style="font-size:9.12322044px;baseline-shift:sub;stroke-width:0.35089305;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-family:'TeX Gyre DejaVu Math';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;">2</tspan>(x<tspan
    id="tspan3510-02-3-8-9-3"
-   style="font-size:9.12322044px;baseline-shift:sub;stroke-width:0.35089305">i</tspan>,x<tspan
+   style="font-size:9.12322044px;baseline-shift:sub;stroke-width:0.35089305;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-family:'TeX Gyre DejaVu Math';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;">i</tspan>,x<tspan
    id="tspan3661-7-1-1"
-   style="font-size:9.12322044px;baseline-shift:sub;stroke-width:0.35089305">j</tspan>)</tspan></text>
+   style="font-size:9.12322044px;baseline-shift:sub;stroke-width:0.35089305;-inkscape-font-specification:'TeX Gyre DejaVu Math';font-family:'TeX Gyre DejaVu Math';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;">j</tspan>)</tspan></text>
         </g>
         <path
            style="fill:none;stroke:#808080;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -5082,7 +5154,12 @@
            inkscape:export-xdpi="96"
            inkscape:export-ydpi="96" />
         <g
-           id="g8202">
+           id="g8202"
+           transform="matrix(0.87322395,0,0,0.87322395,-410.84121,1161.7541)"
+           style="opacity:0.98999999"
+           inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph-1.png"
+           inkscape:export-xdpi="96"
+           inkscape:export-ydpi="96">
           <path
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
@@ -5618,7 +5695,10 @@
         </g>
         <g
            id="g8265"
-           transform="translate(-568.74955,83.815724)">
+           transform="matrix(0.61035319,0,0,0.61035319,-2758.5425,2191.0403)"
+           inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph-2.png"
+           inkscape:export-xdpi="96"
+           inkscape:export-ydpi="96">
           <path
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
@@ -6164,80 +6244,83 @@
                sodipodi:role="line">1</tspan></text>
         </g>
         <g
-           id="g8329"
-           transform="translate(-1418.8805,-53.881537)">
+           id="g8937"
+           transform="translate(-35.921024,23.94735)"
+           inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph-3.png"
+           inkscape:export-xdpi="96"
+           inkscape:export-ydpi="96">
           <path
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
-             inkscape:original-d="m -1984.8261,2732.3621 v 295.6851"
+             inkscape:original-d="m -3409.0906,3373.4937 v 180.4724"
              inkscape:path-effect="#path-effect5994-7"
              inkscape:connector-curvature="0"
              id="path5992-53"
-             d="m -1984.8261,2732.3621 v 295.6851"
-             style="fill:none;stroke:#808080;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             d="m -3409.0906,3373.4937 v 180.4724"
+             style="fill:none;stroke:#808080;stroke-width:4.88282537;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <path
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
-             inkscape:original-d="m -1646.1595,2732.3621 v 297.2726"
+             inkscape:original-d="M -3202.3844,3373.4937 V 3554.935"
              inkscape:path-effect="#path-effect5998-4"
              inkscape:connector-curvature="0"
              id="path5996-1"
-             d="m -1646.1595,2732.3621 v 297.2726"
-             style="fill:none;stroke:#800180;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             d="M -3202.3844,3373.4937 V 3554.935"
+             style="fill:none;stroke:#808080;stroke-width:4.88282537;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <path
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
-             inkscape:original-d="m -2112.3552,2873.6496 127.5291,-141.2875 h 338.6666 l 136.525,138.1125 -119.0625,171.9792 h -361.9499 z"
+             inkscape:original-d="m -3486.9284,3459.729 77.8378,-86.2353 h 206.7062 l 83.3285,84.2974 -72.6702,104.9681 h -220.9173 z"
              inkscape:path-effect="#path-effect5528-9-0"
              inkscape:connector-curvature="0"
              id="path5526-3-4"
-             d="m -2112.3552,2873.6496 127.5291,-141.2875 h 338.6666 l 136.525,138.1125 -119.0625,171.9792 h -361.9499 z"
-             style="fill:none;stroke:#808080;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             d="m -3486.9284,3459.729 77.8378,-86.2353 h 206.7062 l 83.3285,84.2974 -72.6702,104.9681 h -220.9173 z"
+             style="fill:none;stroke:#808080;stroke-width:4.88282537;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <path
              sodipodi:nodetypes="cc"
-             inkscape:original-d="m -1636.7598,2741.6039 114.8725,116.7433"
+             inkscape:original-d="m -3196.6473,3379.1345 70.1128,71.2546"
              inkscape:path-effect="#path-effect7074"
              inkscape:connector-curvature="0"
              id="path7072"
-             d="m -1636.7598,2741.6039 114.8725,116.7433"
-             style="fill:none;stroke:#800180;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             d="m -3196.6473,3379.1345 70.1128,71.2546"
+             style="fill:none;stroke:#808080;stroke-width:4.88282537;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <path
              sodipodi:nodetypes="cccc"
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
-             inkscape:original-d="m -1509.6345,2870.4747 -119.0625,171.9791 h -361.95 l -121.7083,-168.8041"
+             inkscape:original-d="m -3119.0559,3457.7912 -72.6702,104.968 h -220.9173 l -74.2851,-103.0301"
              inkscape:path-effect="#path-effect5528-9-0-9"
              inkscape:connector-curvature="0"
              id="path5526-3-4-4"
-             d="m -1509.6345,2870.4747 -119.0625,171.9791 h -361.95 l -121.7083,-168.8041"
-             style="fill:none;stroke:#800180;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             d="m -3119.0559,3457.7912 -72.6702,104.968 h -220.9173 l -74.2851,-103.0301"
+             style="fill:none;stroke:#800180;stroke-width:4.88282537;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <circle
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              transform="rotate(13.617735)"
-             r="34.569244"
-             cy="3288.4287"
-             cx="-1373.5559"
+             r="21.099449"
+             cy="4182.3579"
+             cx="-2572.6042"
              id="path4556-7-1-3-2-5-3-087-2"
-             style="opacity:0.97399998;fill:#007eff;fill-opacity:1;stroke:#007eff;stroke-width:0.21968958;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="opacity:0.97399998;fill:#007eff;fill-opacity:1;stroke:#007eff;stroke-width:0.13408823;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <text
              transform="scale(0.96809291,1.0329587)"
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              id="text2262-1-40-8-6-0"
-             y="2799.7512"
-             x="-2196.3381"
-             style="font-style:normal;font-weight:normal;font-size:71.63108826px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.79077721"
+             y="3360.1982"
+             x="-3610.6191"
+             style="font-style:normal;font-weight:normal;font-size:43.72026443px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.09300661"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#ffffff;fill-opacity:1;stroke-width:1.79077721"
-               y="2799.7512"
-               x="-2196.3381"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#ffffff;fill-opacity:1;stroke-width:1.09300661"
+               y="3360.1982"
+               x="-3610.6191"
                id="tspan2260-3-3-7-5-1"
                sodipodi:role="line">s</tspan></text>
           <circle
@@ -6245,84 +6328,84 @@
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              transform="rotate(13.617735)"
-             r="34.569244"
-             cy="3121.7261"
-             cx="-1283.2666"
+             r="21.099449"
+             cy="4080.6106"
+             cx="-2517.4961"
              id="path4556-7-1-3-2-5-3-3-2-3"
-             style="opacity:0.97399998;fill:#007eff;fill-opacity:1;stroke:#007eff;stroke-width:0.21968958;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="opacity:0.97399998;fill:#007eff;fill-opacity:1;stroke:#007eff;stroke-width:0.13408823;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <circle
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              transform="rotate(13.617735)"
-             r="34.569244"
-             cy="3075.469"
-             cx="-1114.7966"
+             r="21.099449"
+             cy="4052.3774"
+             cx="-2414.6699"
              id="path4556-7-1-3-2-5-3-8-4-0"
-             style="opacity:0.97399998;fill:#007eff;fill-opacity:1;stroke:#007eff;stroke-width:0.21968958;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="opacity:0.97399998;fill:#007eff;fill-opacity:1;stroke:#007eff;stroke-width:0.13408823;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <circle
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              transform="rotate(13.617735)"
-             r="34.569244"
-             cy="3036.3164"
-             cx="-957.67285"
+             r="21.099449"
+             cy="4028.4805"
+             cx="-2318.7688"
              id="path4556-7-1-3-2-5-3-84-0-0"
-             style="opacity:0.97399998;fill:#007eff;fill-opacity:1;stroke:#007eff;stroke-width:0.21968958;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="opacity:0.97399998;fill:#007eff;fill-opacity:1;stroke:#007eff;stroke-width:0.13408823;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <circle
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              transform="rotate(13.617735)"
-             r="34.569244"
-             cy="3414.3098"
-             cx="-1218.9209"
+             r="21.099449"
+             cy="4259.1899"
+             cx="-2478.2224"
              id="path4556-7-1-3-2-5-3-0-0-4"
-             style="opacity:0.97399998;fill:#007eff;fill-opacity:1;stroke:#007eff;stroke-width:0.21968958;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="opacity:0.97399998;fill:#007eff;fill-opacity:1;stroke:#007eff;stroke-width:0.13408823;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <circle
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              transform="rotate(13.617735)"
-             r="34.569244"
-             cy="3377.6228"
-             cx="-1040.51"
+             r="21.099449"
+             cy="4236.7979"
+             cx="-2369.3286"
              id="path4556-7-1-3-2-5-3-08-6-8"
-             style="opacity:0.97399998;fill:#007eff;fill-opacity:1;stroke:#007eff;stroke-width:0.21968958;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="opacity:0.97399998;fill:#007eff;fill-opacity:1;stroke:#007eff;stroke-width:0.13408823;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <circle
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              transform="rotate(13.617735)"
-             r="34.569244"
-             cy="3338.094"
-             cx="-881.84302"
+             r="21.099449"
+             cy="4212.6714"
+             cx="-2272.4858"
              id="path4556-7-1-3-2-5-3-6-8-2"
-             style="opacity:0.97399998;fill:#007eff;fill-opacity:1;stroke:#007eff;stroke-width:0.21968958;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="opacity:0.97399998;fill:#007eff;fill-opacity:1;stroke:#007eff;stroke-width:0.13408823;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <circle
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              transform="rotate(13.617735)"
-             r="34.569244"
-             cy="3142.2517"
-             cx="-792.62463"
+             r="21.099449"
+             cy="4093.1384"
+             cx="-2218.031"
              id="path4556-7-1-3-2-5-3-82-5-2"
-             style="opacity:0.97399998;fill:#007eff;fill-opacity:1;stroke:#007eff;stroke-width:0.21968958;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="opacity:0.97399998;fill:#007eff;fill-opacity:1;stroke:#007eff;stroke-width:0.13408823;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <text
-             transform="scale(1.0531948,0.94949197)"
+             transform="scale(1.0531948,0.94949196)"
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              id="text2262-1-40-8-3-4-0"
-             y="3041.1301"
-             x="-1446.21"
-             style="font-style:normal;font-weight:normal;font-size:65.63835907px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.64095891"
+             y="3652.6904"
+             x="-2969.3457"
+             style="font-style:normal;font-weight:normal;font-size:40.06258011px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.0015645"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#ffffff;fill-opacity:1;stroke-width:1.64095891"
-               y="3041.1301"
-               x="-1446.21"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#ffffff;fill-opacity:1;stroke-width:1.0015645"
+               y="3652.6904"
+               x="-2969.3457"
                id="tspan2260-3-3-7-8-9-2"
                sodipodi:role="line">t</tspan></text>
           <text
@@ -6333,13 +6416,13 @@
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              id="text2262-1-40-8-5-5-3-4-45"
-             y="3166.0417"
-             x="-1753.1313"
-             style="font-style:normal;font-weight:normal;font-size:60.76931px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.51923275"
+             y="3704.8242"
+             x="-3185.0564"
+             style="font-style:normal;font-weight:normal;font-size:37.09074402px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.92726856"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#ffffff;fill-opacity:1;stroke-width:1.51923275"
-               y="3166.0417"
-               x="-1753.1313"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#ffffff;fill-opacity:1;stroke-width:0.92726856"
+               y="3704.8242"
+               x="-3185.0564"
                id="tspan2260-3-3-7-0-9-6-6-8"
                sodipodi:role="line">y</tspan></text>
           <text
@@ -6350,30 +6433,30 @@
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              id="text2262-1-40-8-5-5-3-7-8-4"
-             y="3004.4849"
-             x="-1686.1217"
-             style="font-style:normal;font-weight:normal;font-size:63.14812851px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.57870317"
+             y="3513.4216"
+             x="-3261.0078"
+             style="font-style:normal;font-weight:normal;font-size:38.54266357px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.96356654"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#ffffff;fill-opacity:1;stroke-width:1.57870317"
-               y="3004.4849"
-               x="-1686.1217"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#ffffff;fill-opacity:1;stroke-width:0.96356654"
+               y="3513.4216"
+               x="-3261.0078"
                id="tspan2260-3-3-7-0-9-6-8-3-0"
                sodipodi:role="line">x</tspan></text>
           <text
-             transform="scale(0.96961187,1.0313405)"
+             transform="scale(0.96961188,1.0313405)"
              inkscape:transform-center-y="-331.41467"
              inkscape:transform-center-x="-51.500571"
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              id="text2262-1-40-8-5-5-3-7-7-2-8"
-             y="2957.4963"
-             x="-2067.9116"
-             style="font-style:normal;font-weight:normal;font-size:68.16737366px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.70418429"
+             y="3459.0693"
+             x="-3528.6775"
+             style="font-style:normal;font-weight:normal;font-size:41.60617447px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.04015434"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#ffffff;fill-opacity:1;stroke-width:1.70418429"
-               y="2957.4963"
-               x="-2067.9116"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#ffffff;fill-opacity:1;stroke-width:1.04015434"
+               y="3459.0693"
+               x="-3528.6775"
                id="tspan2260-3-3-7-0-9-6-8-2-3-4"
                sodipodi:role="line">z</tspan></text>
           <text
@@ -6384,13 +6467,13 @@
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              id="text2262-1-40-8-5-5-3-2-6-2"
-             y="2845.8486"
-             x="-1753.2644"
-             style="font-style:normal;font-weight:normal;font-size:60.76931px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.51923275"
+             y="3509.3933"
+             x="-3185.1375"
+             style="font-style:normal;font-weight:normal;font-size:37.09074402px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.92726856"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#ffffff;fill-opacity:1;stroke-width:1.51923275"
-               y="2845.8486"
-               x="-1753.2644"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#ffffff;fill-opacity:1;stroke-width:0.92726856"
+               y="3509.3933"
+               x="-3185.1375"
                id="tspan2260-3-3-7-0-9-6-9-2-5"
                sodipodi:role="line">y</tspan></text>
           <text
@@ -6401,13 +6484,13 @@
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              id="text2262-1-40-8-5-5-3-7-7-7-2-4"
-             y="2660.3467"
-             x="-1716.8737"
-             style="font-style:normal;font-weight:normal;font-size:68.16737366px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.70418429"
+             y="3277.7031"
+             x="-3314.4204"
+             style="font-style:normal;font-weight:normal;font-size:41.60617447px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.04015434"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#ffffff;fill-opacity:1;stroke-width:1.70418429"
-               y="2660.3467"
-               x="-1716.8737"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#ffffff;fill-opacity:1;stroke-width:1.04015434"
+               y="3277.7031"
+               x="-3314.4204"
                id="tspan2260-3-3-7-0-9-6-8-2-0-4-2"
                sodipodi:role="line">z</tspan></text>
           <text
@@ -6418,38 +6501,38 @@
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              id="text2262-1-40-8-5-5-3-7-6-7-75"
-             y="2706.7617"
-             x="-2031.5128"
-             style="font-style:normal;font-weight:normal;font-size:63.14812851px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.57870317"
+             y="3331.7053"
+             x="-3471.8184"
+             style="font-style:normal;font-weight:normal;font-size:38.54266357px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.96356654"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#ffffff;fill-opacity:1;stroke-width:1.57870317"
-               y="2706.7617"
-               x="-2031.5128"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#ffffff;fill-opacity:1;stroke-width:0.96356654"
+               y="3331.7053"
+               x="-3471.8184"
                id="tspan2260-3-3-7-0-9-6-8-6-0-75"
                sodipodi:role="line">x</tspan></text>
           <path
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
-             inkscape:original-d="m -2003.2732,2710.6663 h 40.5983"
+             inkscape:original-d="m -3420.3499,3360.2516 h 24.7793"
              inkscape:path-effect="#path-effect5418-3-2-6-0"
              inkscape:connector-curvature="0"
              id="path5416-7-3-4-2"
-             d="m -2003.2732,2710.6663 h 40.5983"
-             style="fill:none;stroke:#ffffff;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             d="m -3420.3499,3360.2516 h 24.7793"
+             style="fill:none;stroke:#ffffff;stroke-width:3.05176592;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <text
              transform="scale(0.96809291,1.0329587)"
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              id="text2262-1-40-8-7-9-2"
-             y="2693.8"
-             x="-2178.9861"
-             style="font-style:normal;font-weight:normal;font-size:71.63108826px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.79077721"
+             y="3295.5305"
+             x="-3600.0283"
+             style="font-style:normal;font-weight:normal;font-size:43.72026443px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.09300661"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.79077721"
-               y="2693.8"
-               x="-2178.9861"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.09300661"
+               y="3295.5305"
+               x="-3600.0283"
                id="tspan2260-3-3-7-89-6-8"
                sodipodi:role="line">0</tspan></text>
           <text
@@ -6458,13 +6541,13 @@
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              id="text2262-1-40-8-7-4-5-6"
-             y="2626.0266"
-             x="-1977.1677"
-             style="font-style:normal;font-weight:normal;font-size:71.63108826px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.79077721"
+             y="3254.1648"
+             x="-3476.8479"
+             style="font-style:normal;font-weight:normal;font-size:43.72026443px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.09300661"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.79077721"
-               y="2626.0266"
-               x="-1977.1677"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.09300661"
+               y="3254.1648"
+               x="-3476.8479"
                id="tspan2260-3-3-7-89-1-46-6"
                sodipodi:role="line">1</tspan></text>
           <text
@@ -6473,13 +6556,13 @@
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              id="text2262-1-40-8-7-4-6-4-0"
-             y="2624.4431"
-             x="-1802.8999"
-             style="font-style:normal;font-weight:normal;font-size:71.63108826px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.79077721"
+             y="3253.1982"
+             x="-3370.4829"
+             style="font-style:normal;font-weight:normal;font-size:43.72026443px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.09300661"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.79077721"
-               y="2624.4431"
-               x="-1802.8999"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.09300661"
+               y="3253.1982"
+               x="-3370.4829"
                id="tspan2260-3-3-7-89-1-4-2-0"
                sodipodi:role="line">2</tspan></text>
           <text
@@ -6488,73 +6571,73 @@
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              id="text2262-1-40-8-7-4-6-3-5-9"
-             y="2901.6345"
-             x="-2188.7332"
-             style="font-style:normal;font-weight:normal;font-size:71.63108826px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.79077721"
+             y="3422.3831"
+             x="-3605.9775"
+             style="font-style:normal;font-weight:normal;font-size:43.72026443px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.09300661"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.79077721"
-               y="2901.6345"
-               x="-2188.7332"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.09300661"
+               y="3422.3831"
+               x="-3605.9775"
                id="tspan2260-3-3-7-89-1-4-5-1-1"
-               sodipodi:role="line">2</tspan></text>
+               sodipodi:role="line">3</tspan></text>
           <text
              transform="scale(0.96809291,1.0329587)"
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              id="text2262-1-40-8-7-4-6-3-4-6-2"
-             y="2703.8936"
-             x="-1616.2109"
-             style="font-style:normal;font-weight:normal;font-size:71.63108826px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.79077721"
+             y="3301.6912"
+             x="-3256.5369"
+             style="font-style:normal;font-weight:normal;font-size:43.72026443px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.09300661"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.79077721"
-               y="2703.8936"
-               x="-1616.2109"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.09300661"
+               y="3301.6912"
+               x="-3256.5369"
                id="tspan2260-3-3-7-89-1-4-5-8-1-6"
-               sodipodi:role="line">2</tspan></text>
+               sodipodi:role="line">3</tspan></text>
           <text
              transform="scale(0.96809291,1.0329587)"
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              id="text2262-1-40-8-7-4-6-7-3-9"
-             y="3008.1892"
-             x="-1989.7678"
-             style="font-style:normal;font-weight:normal;font-size:71.63108826px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.79077721"
+             y="3487.4189"
+             x="-3484.5383"
+             style="font-style:normal;font-weight:normal;font-size:43.72026443px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.09300661"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.79077721"
-               y="3008.1892"
-               x="-1989.7678"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.09300661"
+               y="3487.4189"
+               x="-3484.5383"
                id="tspan2260-3-3-7-89-1-4-3-7-48"
-               sodipodi:role="line">1</tspan></text>
+               sodipodi:role="line">2</tspan></text>
           <text
              transform="scale(0.96809291,1.0329587)"
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              id="text2262-1-40-8-7-4-3-7-2"
-             y="3011.7288"
-             x="-1802.8999"
-             style="font-style:normal;font-weight:normal;font-size:71.63108826px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.79077721"
+             y="3489.5793"
+             x="-3370.4829"
+             style="font-style:normal;font-weight:normal;font-size:43.72026443px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.09300661"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.79077721"
-               y="3011.7288"
-               x="-1802.8999"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.09300661"
+               y="3489.5793"
+               x="-3370.4829"
                id="tspan2260-3-3-7-89-1-5-1-8"
-               sodipodi:role="line">0</tspan></text>
+               sodipodi:role="line">1</tspan></text>
           <text
              transform="scale(0.96809291,1.0329587)"
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              id="text2262-1-40-8-7-0-2-2"
-             y="2897.5361"
-             x="-1606.5684"
-             style="font-style:normal;font-weight:normal;font-size:71.63108826px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.79077721"
+             y="3419.8816"
+             x="-3250.6514"
+             style="font-style:normal;font-weight:normal;font-size:43.72026443px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.09300661"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.79077721"
-               y="2897.5361"
-               x="-1606.5684"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.09300661"
+               y="3419.8816"
+               x="-3250.6514"
                id="tspan2260-3-3-7-89-14-1-78"
                sodipodi:role="line">0</tspan></text>
           <path
@@ -6562,144 +6645,144 @@
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              sodipodi:nodetypes="ccc"
-             inkscape:original-d="m -2038.8367,2759.5249 32.9813,-6.3149 c -71.833,-30.9194 5.4386,20.0798 -1.7968,31.7076"
+             inkscape:original-d="m -3442.0562,3390.0726 20.1303,-3.8543 c -43.8435,-18.8717 3.3194,12.2558 -1.0967,19.3528"
              inkscape:path-effect="#path-effect5676-2-0"
              inkscape:connector-curvature="0"
              id="path5674-0-6"
-             d="m -2038.8367,2759.5249 32.9813,-6.3149 -1.7968,31.7076"
-             style="fill:none;stroke:#808080;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             d="m -3442.0562,3390.0726 20.1303,-3.8543 -1.0967,19.3528"
+             style="fill:none;stroke:#808080;stroke-width:4.27247238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <path
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              sodipodi:nodetypes="ccc"
-             inkscape:original-d="m -1861.0821,2710.6597 24.9377,22.489 c -18.6913,-75.9383 -12.73,16.4537 -26.3682,17.7008"
+             inkscape:original-d="m -3333.5631,3360.2476 15.2208,13.7262 c -11.4083,-46.3492 -7.7698,10.0426 -16.0939,10.8038"
              inkscape:path-effect="#path-effect5676-5-0-8"
              inkscape:connector-curvature="0"
              id="path5674-7-8-7"
-             d="m -1861.0821,2710.6597 24.9377,22.489 -26.3682,17.7008"
-             style="fill:none;stroke:#808080;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             d="m -3333.5631,3360.2476 15.2208,13.7262 -16.0939,10.8038"
+             style="fill:none;stroke:#808080;stroke-width:4.27247238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <path
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              sodipodi:nodetypes="ccc"
-             inkscape:original-d="m -1699.7727,2710.1683 24.9377,22.489 c -18.6914,-75.9383 -12.73,16.4537 -26.3682,17.7008"
+             inkscape:original-d="m -3235.1074,3359.9477 15.2208,13.7262 c -11.4083,-46.3492 -7.7698,10.0426 -16.0939,10.8037"
              inkscape:path-effect="#path-effect5676-5-9-6-5"
              inkscape:connector-curvature="0"
              id="path5674-7-9-9-7"
-             d="m -1699.7727,2710.1683 24.9377,22.489 -26.3682,17.7008"
-             style="fill:none;stroke:#808080;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             d="m -3235.1074,3359.9477 15.2208,13.7262 -16.0939,10.8037"
+             style="fill:none;stroke:#808080;stroke-width:4.27247238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <path
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              sodipodi:nodetypes="ccc"
-             inkscape:original-d="m -1537.8721,2813.8319 5.9813,33.0434 c 31.6434,-71.517 -20.1336,5.2355 -31.6878,-2.1169"
+             inkscape:original-d="m -3136.2908,3423.2191 3.6507,20.1681 c 19.3136,-43.6506 -12.2886,3.1955 -19.3408,-1.292"
              inkscape:path-effect="#path-effect5676-5-3-3-1"
              inkscape:connector-curvature="0"
              id="path5674-7-94-0-09"
-             d="m -1537.8721,2813.8319 5.9813,33.0434 -31.6878,-2.1169"
-             style="fill:none;stroke:#800180;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             d="m -3136.2908,3423.2191 3.6507,20.1681 -19.3408,-1.292"
+             style="fill:none;stroke:#808080;stroke-width:4.27247238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <path
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              sodipodi:nodetypes="ccc"
-             inkscape:original-d="m -1557.2642,2900.6514 32.6518,-7.8425 c -73.1938,-27.5438 6.3669,19.805 -0.3197,31.7568"
+             inkscape:original-d="m -3148.1269,3476.2096 19.9292,-4.7867 c -44.6741,-16.8114 3.886,12.0881 -0.1952,19.3829"
              inkscape:path-effect="#path-effect5676-5-6-7-0"
              inkscape:connector-curvature="0"
              id="path5674-7-4-1-4"
-             d="m -1557.2642,2900.6514 32.6518,-7.8425 -0.3197,31.7568"
-             style="fill:none;stroke:#800180;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             d="m -3148.1269,3476.2096 19.9292,-4.7867 -0.1952,19.3829"
+             style="fill:none;stroke:#800180;stroke-width:4.27247238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <path
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              sodipodi:nodetypes="ccc"
-             inkscape:original-d="m -1694.966,3021.4118 24.9377,22.489 c -18.6913,-75.9383 -12.73,16.4537 -26.3682,17.7008"
+             inkscape:original-d="m -3232.1736,3549.9161 15.2208,13.7263 c -11.4083,-46.3492 -7.7698,10.0425 -16.0939,10.8037"
              inkscape:path-effect="#path-effect5676-5-5-6-30"
              inkscape:connector-curvature="0"
              id="path5674-7-5-3-5"
-             d="m -1694.966,3021.4118 24.9377,22.489 -26.3682,17.7008"
-             style="fill:none;stroke:#800180;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             d="m -3232.1736,3549.9161 15.2208,13.7263 -16.0939,10.8037"
+             style="fill:none;stroke:#800180;stroke-width:4.27247238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <path
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              sodipodi:nodetypes="ccc"
-             inkscape:original-d="m -1859.9206,3021.1096 24.9377,22.489 c -18.6913,-75.9383 -12.73,16.4537 -26.3682,17.7008"
+             inkscape:original-d="m -3332.8542,3549.7317 15.2208,13.7262 c -11.4083,-46.3492 -7.7698,10.0426 -16.0939,10.8038"
              inkscape:path-effect="#path-effect5676-5-56-8-7"
              inkscape:connector-curvature="0"
              id="path5674-7-0-4-4"
-             d="m -1859.9206,3021.1096 24.9377,22.489 -26.3682,17.7008"
-             style="fill:none;stroke:#800180;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             d="m -3332.8542,3549.7317 15.2208,13.7262 -16.0939,10.8038"
+             style="fill:none;stroke:#800180;stroke-width:4.27247238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <path
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              sodipodi:nodetypes="ccc"
-             inkscape:original-d="m -2015.0218,2976.6859 1.8612,33.5288 c 40.2205,-67.0694 -20.6256,2.7129 -31.185,-6.0082"
+             inkscape:original-d="m -3427.5207,3522.6175 1.136,20.4644 c 24.5487,-40.936 -12.5889,1.6559 -19.0339,-3.6671"
              inkscape:path-effect="#path-effect5676-5-62-3-3"
              inkscape:connector-curvature="0"
              id="path5674-7-6-8-2"
-             d="m -2015.0218,2976.6859 1.8612,33.5288 -31.185,-6.0082"
-             style="fill:none;stroke:#800180;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             d="m -3427.5207,3522.6175 1.136,20.4644 -19.0339,-3.6671"
+             style="fill:none;stroke:#800180;stroke-width:4.27247238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <path
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
-             inkscape:original-d="m -1826.2555,2703.1385 h 40.5984"
+             inkscape:original-d="m -3312.3066,3355.657 h 24.7794"
              inkscape:path-effect="#path-effect5418-3-2-9-5-4"
              inkscape:connector-curvature="0"
              id="path5416-7-3-9-5-2"
-             d="m -1826.2555,2703.1385 h 40.5984"
-             style="fill:none;stroke:#ffffff;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             d="m -3312.3066,3355.657 h 24.7794"
+             style="fill:none;stroke:#ffffff;stroke-width:3.05176592;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <path
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
-             inkscape:original-d="m -2007.5444,3008.6543 h 40.5983"
+             inkscape:original-d="m -3422.9568,3542.1295 h 24.7793"
              inkscape:path-effect="#path-effect5418-3-2-2-5-2"
              inkscape:connector-curvature="0"
              id="path5416-7-3-96-8-3"
-             d="m -2007.5444,3008.6543 h 40.5983"
-             style="fill:none;stroke:#ffffff;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             d="m -3422.9568,3542.1295 h 24.7793"
+             style="fill:none;stroke:#ffffff;stroke-width:3.05176592;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <path
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              sodipodi:nodetypes="ccc"
-             inkscape:original-d="m -1963.8846,2787.0998 -20.7738,-26.3836 c 74.5209,23.7199 -17.2669,11.6029 -19.4219,25.1274"
+             inkscape:original-d="m -3396.3089,3406.9031 -12.6794,-16.1034 c 45.4841,14.4776 -10.5389,7.0819 -11.8542,15.3366"
              inkscape:path-effect="#path-effect5676-5-0-2-0"
              inkscape:connector-curvature="0"
              id="path5674-7-8-2-9"
-             d="m -1963.8846,2787.0998 -20.7738,-26.3836 -19.4219,25.1274"
-             style="fill:none;stroke:#808080;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             d="m -3396.3089,3406.9031 -12.6794,-16.1034 -11.8542,15.3366"
+             style="fill:none;stroke:#808080;stroke-width:4.27247238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <path
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              sodipodi:nodetypes="ccc"
-             inkscape:original-d="m -1624.8498,2782.733 -21.2472,-26.0038 c 74.9374,22.3691 -17.0544,11.9132 -18.9645,25.4744"
+             inkscape:original-d="m -3189.378,3404.2378 -12.9683,-15.8715 c 45.7383,13.653 -10.4092,7.2712 -11.575,15.5483"
              inkscape:path-effect="#path-effect5676-5-0-0-52"
              inkscape:connector-curvature="0"
              id="path5674-7-8-6-6"
-             d="m -1624.8498,2782.733 -21.2472,-26.0038 -18.9645,25.4744"
-             style="fill:none;stroke:#800180;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             d="m -3189.378,3404.2378 -12.9683,-15.8715 -11.575,15.5483"
+             style="fill:none;stroke:#808080;stroke-width:4.27247238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
           <text
              transform="scale(0.96809291,1.0329587)"
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              id="text2262-1-40-8-7-0-2-3-5"
-             y="2808.9265"
-             x="-2039.864"
-             style="font-style:normal;font-weight:normal;font-size:71.63108826px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.79077721"
+             y="3365.7983"
+             x="-3515.1147"
+             style="font-style:normal;font-weight:normal;font-size:43.72026443px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.09300661"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.79077721"
-               y="2808.9265"
-               x="-2039.864"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.09300661"
+               y="3365.7983"
+               x="-3515.1147"
                id="tspan2260-3-3-7-89-14-1-6-7"
                sodipodi:role="line">1</tspan></text>
           <text
@@ -6708,19 +6791,22 @@
              inkscape:export-xdpi="96"
              inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
              id="text2262-1-40-8-7-0-2-1-4"
-             y="2810.3757"
-             x="-1750.7549"
-             style="font-style:normal;font-weight:normal;font-size:71.63108826px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.79077721"
+             y="3366.6829"
+             x="-3338.656"
+             style="font-style:normal;font-weight:normal;font-size:43.72026443px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.09300661"
              xml:space="preserve"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.79077721"
-               y="2810.3757"
-               x="-1750.7549"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.09300661"
+               y="3366.6829"
+               x="-3338.656"
                id="tspan2260-3-3-7-89-14-1-0-3"
-               sodipodi:role="line">0</tspan></text>
+               sodipodi:role="line">1</tspan></text>
         </g>
         <g
            id="g8392"
-           transform="translate(-502.89434,-760.32835)">
+           transform="matrix(0.61035319,0,0,0.61035319,-1260.6588,1253.2797)"
+           inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph-5.png"
+           inkscape:export-xdpi="96"
+           inkscape:export-ydpi="96">
           <path
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
@@ -7267,7 +7353,10 @@
         </g>
         <g
            id="g8494"
-           transform="translate(-2376.7744,-47.894699)">
+           transform="matrix(0.87747682,0,0,0.87747682,-2483.4111,787.87656)"
+           inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph-6.png"
+           inkscape:export-xdpi="96"
+           inkscape:export-ydpi="96">
           <path
              inkscape:export-ydpi="96"
              inkscape:export-xdpi="96"
@@ -8134,6 +8223,563 @@
                x="-1279.6969"
                id="tspan2260-3-3-7-89-1-46-6-9-6-7-6-9-2-1-1"
                sodipodi:role="line">1</tspan></text>
+        </g>
+        <g
+           id="g9001"
+           inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph-4.png"
+           inkscape:export-xdpi="96"
+           inkscape:export-ydpi="96">
+          <path
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             inkscape:original-d="m -2930.5563,3377.9895 v 180.4724"
+             inkscape:path-effect="#path-effect5994-7-3"
+             inkscape:connector-curvature="0"
+             id="path5992-53-91"
+             d="m -2930.5563,3377.9895 v 180.4724"
+             style="fill:none;stroke:#808080;stroke-width:4.88282537;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             inkscape:original-d="m -2723.8501,3377.9895 v 181.4413"
+             inkscape:path-effect="#path-effect5998-4-2"
+             inkscape:connector-curvature="0"
+             id="path5996-1-5"
+             d="m -2723.8501,3377.9895 v 181.4413"
+             style="fill:none;stroke:#800180;stroke-width:4.88282537;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             inkscape:original-d="m -3008.3941,3464.2248 77.8378,-86.2353 h 206.7062 l 83.3285,84.2974 -72.6702,104.9681 h -220.9173 z"
+             inkscape:path-effect="#path-effect5528-9-0-6"
+             inkscape:connector-curvature="0"
+             id="path5526-3-4-0"
+             d="m -3008.3941,3464.2248 77.8378,-86.2353 h 206.7062 l 83.3285,84.2974 -72.6702,104.9681 h -220.9173 z"
+             style="fill:none;stroke:#808080;stroke-width:4.88282537;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             sodipodi:nodetypes="cc"
+             inkscape:original-d="m -2718.113,3383.6303 70.1128,71.2546"
+             inkscape:path-effect="#path-effect7074-0"
+             inkscape:connector-curvature="0"
+             id="path7072-4"
+             d="m -2718.113,3383.6303 70.1128,71.2546"
+             style="fill:none;stroke:#800180;stroke-width:4.88282537;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             sodipodi:nodetypes="ccc"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             inkscape:original-d="m -2713.1918,3567.255 h -220.9173 l -74.2851,-103.0301"
+             inkscape:path-effect="#path-effect5528-9-0-9-6"
+             inkscape:connector-curvature="0"
+             id="path5526-3-4-4-9"
+             d="m -2713.1918,3567.255 h -220.9173 l -74.2851,-103.0301"
+             style="fill:none;stroke:#800180;stroke-width:4.88282537;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <circle
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             transform="rotate(13.617735)"
+             r="21.099449"
+             cy="4074.0601"
+             cx="-2106.4641"
+             id="path4556-7-1-3-2-5-3-087-2-6"
+             style="opacity:0.97399998;fill:#007eff;fill-opacity:1;stroke:#007eff;stroke-width:0.13408823;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <text
+             transform="scale(0.96809291,1.0329587)"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             id="text2262-1-40-8-6-0-7"
+             y="3364.5505"
+             x="-3116.313"
+             style="font-style:normal;font-weight:normal;font-size:43.72026443px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.09300661"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#ffffff;fill-opacity:1;stroke-width:1.09300661"
+               y="3364.5505"
+               x="-3116.313"
+               id="tspan2260-3-3-7-5-1-4"
+               sodipodi:role="line">s</tspan></text>
+          <circle
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             transform="rotate(13.617735)"
+             r="21.099449"
+             cy="3972.3125"
+             cx="-2051.3557"
+             id="path4556-7-1-3-2-5-3-3-2-3-3"
+             style="opacity:0.97399998;fill:#007eff;fill-opacity:1;stroke:#007eff;stroke-width:0.13408823;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <circle
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             transform="rotate(13.617735)"
+             r="21.099449"
+             cy="3944.0793"
+             cx="-1948.5294"
+             id="path4556-7-1-3-2-5-3-8-4-0-0"
+             style="opacity:0.97399998;fill:#007eff;fill-opacity:1;stroke:#007eff;stroke-width:0.13408823;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <circle
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             transform="rotate(13.617735)"
+             r="21.099449"
+             cy="3920.1824"
+             cx="-1852.6284"
+             id="path4556-7-1-3-2-5-3-84-0-0-9"
+             style="opacity:0.97399998;fill:#007eff;fill-opacity:1;stroke:#007eff;stroke-width:0.13408823;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <circle
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             transform="rotate(13.617735)"
+             r="21.099449"
+             cy="4150.8921"
+             cx="-2012.082"
+             id="path4556-7-1-3-2-5-3-0-0-4-6"
+             style="opacity:0.97399998;fill:#007eff;fill-opacity:1;stroke:#007eff;stroke-width:0.13408823;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <circle
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             transform="rotate(13.617735)"
+             r="21.099449"
+             cy="4128.5"
+             cx="-1903.1884"
+             id="path4556-7-1-3-2-5-3-08-6-8-6"
+             style="opacity:0.97399998;fill:#007eff;fill-opacity:1;stroke:#007eff;stroke-width:0.13408823;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <circle
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             transform="rotate(13.617735)"
+             r="21.099449"
+             cy="4104.3735"
+             cx="-1806.3455"
+             id="path4556-7-1-3-2-5-3-6-8-2-0"
+             style="opacity:0.97399998;fill:#007eff;fill-opacity:1;stroke:#007eff;stroke-width:0.13408823;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <circle
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             transform="rotate(13.617735)"
+             r="21.099449"
+             cy="3984.8403"
+             cx="-1751.8907"
+             id="path4556-7-1-3-2-5-3-82-5-2-4"
+             style="opacity:0.97399998;fill:#007eff;fill-opacity:1;stroke:#007eff;stroke-width:0.13408823;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <text
+             transform="scale(1.0531948,0.94949196)"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             id="text2262-1-40-8-3-4-0-5"
+             y="3657.4253"
+             x="-2514.9812"
+             style="font-style:normal;font-weight:normal;font-size:40.06258011px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.0015645"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#ffffff;fill-opacity:1;stroke-width:1.0015645"
+               y="3657.4253"
+               x="-2514.9812"
+               id="tspan2260-3-3-7-8-9-2-8"
+               sodipodi:role="line">t</tspan></text>
+          <text
+             transform="scale(1.0390627,0.96240583)"
+             inkscape:transform-center-y="-275.69928"
+             inkscape:transform-center-x="-49.199891"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             id="text2262-1-40-8-5-5-3-4-45-2"
+             y="3709.4956"
+             x="-2724.5122"
+             style="font-style:normal;font-weight:normal;font-size:37.09074402px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.92726856"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#ffffff;fill-opacity:1;stroke-width:0.92726856"
+               y="3709.4956"
+               x="-2724.5122"
+               id="tspan2260-3-3-7-0-9-6-6-8-8"
+               sodipodi:role="line">y</tspan></text>
+          <text
+             transform="scale(0.98466212,1.0155768)"
+             inkscape:transform-center-y="-302.31963"
+             inkscape:transform-center-x="-48.449116"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             id="text2262-1-40-8-5-5-3-7-8-4-6"
+             y="3517.8484"
+             x="-2775.0195"
+             style="font-style:normal;font-weight:normal;font-size:38.54266357px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.96356654"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#ffffff;fill-opacity:1;stroke-width:0.96356654"
+               y="3517.8484"
+               x="-2775.0195"
+               id="tspan2260-3-3-7-0-9-6-8-3-0-8"
+               sodipodi:role="line">x</tspan></text>
+          <text
+             transform="scale(0.96961188,1.0313405)"
+             inkscape:transform-center-y="-331.41467"
+             inkscape:transform-center-x="-51.500571"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             id="text2262-1-40-8-5-5-3-7-7-2-8-5"
+             y="3463.4287"
+             x="-3035.1458"
+             style="font-style:normal;font-weight:normal;font-size:41.60617447px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.04015434"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#ffffff;fill-opacity:1;stroke-width:1.04015434"
+               y="3463.4287"
+               x="-3035.1458"
+               id="tspan2260-3-3-7-0-9-6-8-2-3-4-3"
+               sodipodi:role="line">z</tspan></text>
+          <text
+             transform="scale(1.0390627,0.96240583)"
+             inkscape:transform-center-y="-275.69928"
+             inkscape:transform-center-x="-49.199891"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             id="text2262-1-40-8-5-5-3-2-6-2-4"
+             y="3514.0647"
+             x="-2724.5933"
+             style="font-style:normal;font-weight:normal;font-size:37.09074402px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.92726856"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#ffffff;fill-opacity:1;stroke-width:0.92726856"
+               y="3514.0647"
+               x="-2724.5933"
+               id="tspan2260-3-3-7-0-9-6-9-2-5-0"
+               sodipodi:role="line">y</tspan></text>
+          <text
+             transform="scale(0.96961188,1.0313405)"
+             inkscape:transform-center-y="-331.41467"
+             inkscape:transform-center-x="-51.500571"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             id="text2262-1-40-8-5-5-3-7-7-7-2-4-1"
+             y="3282.0623"
+             x="-2820.8884"
+             style="font-style:normal;font-weight:normal;font-size:41.60617447px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.04015434"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#ffffff;fill-opacity:1;stroke-width:1.04015434"
+               y="3282.0623"
+               x="-2820.8884"
+               id="tspan2260-3-3-7-0-9-6-8-2-0-4-2-7"
+               sodipodi:role="line">z</tspan></text>
+          <text
+             transform="scale(0.98466212,1.0155768)"
+             inkscape:transform-center-y="-302.31963"
+             inkscape:transform-center-x="-48.449116"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             id="text2262-1-40-8-5-5-3-7-6-7-75-7"
+             y="3336.1321"
+             x="-2985.8301"
+             style="font-style:normal;font-weight:normal;font-size:38.54266357px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.96356654"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#ffffff;fill-opacity:1;stroke-width:0.96356654"
+               y="3336.1321"
+               x="-2985.8301"
+               id="tspan2260-3-3-7-0-9-6-8-6-0-75-8"
+               sodipodi:role="line">x</tspan></text>
+          <path
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             inkscape:original-d="m -2941.8156,3364.7474 h 24.7793"
+             inkscape:path-effect="#path-effect5418-3-2-6-0-9"
+             inkscape:connector-curvature="0"
+             id="path5416-7-3-4-2-0"
+             d="m -2941.8156,3364.7474 h 24.7793"
+             style="fill:none;stroke:#ffffff;stroke-width:3.05176592;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <text
+             transform="scale(0.96809291,1.0329587)"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             id="text2262-1-40-8-7-9-2-8"
+             y="3299.8828"
+             x="-3105.7222"
+             style="font-style:normal;font-weight:normal;font-size:43.72026443px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.09300661"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.09300661"
+               y="3299.8828"
+               x="-3105.7222"
+               id="tspan2260-3-3-7-89-6-8-9"
+               sodipodi:role="line">0</tspan></text>
+          <text
+             transform="scale(0.96809291,1.0329587)"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             id="text2262-1-40-8-7-4-5-6-7"
+             y="3258.5171"
+             x="-2982.5417"
+             style="font-style:normal;font-weight:normal;font-size:43.72026443px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.09300661"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.09300661"
+               y="3258.5171"
+               x="-2982.5417"
+               id="tspan2260-3-3-7-89-1-46-6-8"
+               sodipodi:role="line">1</tspan></text>
+          <text
+             transform="scale(0.96809291,1.0329587)"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             id="text2262-1-40-8-7-4-6-4-0-3"
+             y="3257.5508"
+             x="-2876.1768"
+             style="font-style:normal;font-weight:normal;font-size:43.72026443px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.09300661"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.09300661"
+               y="3257.5508"
+               x="-2876.1768"
+               id="tspan2260-3-3-7-89-1-4-2-0-9"
+               sodipodi:role="line">2</tspan></text>
+          <text
+             transform="scale(0.96809291,1.0329587)"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             id="text2262-1-40-8-7-4-6-3-5-9-7"
+             y="3426.7354"
+             x="-3111.6714"
+             style="font-style:normal;font-weight:normal;font-size:43.72026443px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.09300661"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.09300661"
+               y="3426.7354"
+               x="-3111.6714"
+               id="tspan2260-3-3-7-89-1-4-5-1-1-2"
+               sodipodi:role="line">2</tspan></text>
+          <text
+             transform="scale(0.96809291,1.0329587)"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             id="text2262-1-40-8-7-4-6-3-4-6-2-5"
+             y="3306.0435"
+             x="-2762.2305"
+             style="font-style:normal;font-weight:normal;font-size:43.72026443px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.09300661"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.09300661"
+               y="3306.0435"
+               x="-2762.2305"
+               id="tspan2260-3-3-7-89-1-4-5-8-1-6-0"
+               sodipodi:role="line">2</tspan></text>
+          <text
+             transform="scale(0.96809291,1.0329587)"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             id="text2262-1-40-8-7-4-6-7-3-9-2"
+             y="3491.7712"
+             x="-2990.2322"
+             style="font-style:normal;font-weight:normal;font-size:43.72026443px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.09300661"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.09300661"
+               y="3491.7712"
+               x="-2990.2322"
+               id="tspan2260-3-3-7-89-1-4-3-7-48-48"
+               sodipodi:role="line">1</tspan></text>
+          <text
+             transform="scale(0.96809291,1.0329587)"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             id="text2262-1-40-8-7-4-3-7-2-0"
+             y="3493.9316"
+             x="-2876.1768"
+             style="font-style:normal;font-weight:normal;font-size:43.72026443px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.09300661"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.09300661"
+               y="3493.9316"
+               x="-2876.1768"
+               id="tspan2260-3-3-7-89-1-5-1-8-6"
+               sodipodi:role="line">0</tspan></text>
+          <text
+             transform="scale(0.96809291,1.0329587)"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             id="text2262-1-40-8-7-0-2-2-2"
+             y="3424.2339"
+             x="-2756.3452"
+             style="font-style:normal;font-weight:normal;font-size:43.72026443px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.09300661"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.09300661"
+               y="3424.2339"
+               x="-2756.3452"
+               id="tspan2260-3-3-7-89-14-1-78-6"
+               sodipodi:role="line">0</tspan></text>
+          <path
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             sodipodi:nodetypes="ccc"
+             inkscape:original-d="m -2963.5219,3394.5684 20.1303,-3.8543 c -43.8435,-18.8717 3.3194,12.2558 -1.0967,19.3528"
+             inkscape:path-effect="#path-effect5676-2-0-6"
+             inkscape:connector-curvature="0"
+             id="path5674-0-6-5"
+             d="m -2963.5219,3394.5684 20.1303,-3.8543 -1.0967,19.3528"
+             style="fill:none;stroke:#808080;stroke-width:4.27247238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             sodipodi:nodetypes="ccc"
+             inkscape:original-d="m -2855.0288,3364.7434 15.2208,13.7262 c -11.4083,-46.3492 -7.7698,10.0426 -16.0939,10.8038"
+             inkscape:path-effect="#path-effect5676-5-0-8-8"
+             inkscape:connector-curvature="0"
+             id="path5674-7-8-7-6"
+             d="m -2855.0288,3364.7434 15.2208,13.7262 -16.0939,10.8038"
+             style="fill:none;stroke:#808080;stroke-width:4.27247238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             sodipodi:nodetypes="ccc"
+             inkscape:original-d="m -2756.5731,3364.4435 15.2208,13.7262 c -11.4083,-46.3492 -7.7698,10.0426 -16.0939,10.8037"
+             inkscape:path-effect="#path-effect5676-5-9-6-5-08"
+             inkscape:connector-curvature="0"
+             id="path5674-7-9-9-7-63"
+             d="m -2756.5731,3364.4435 15.2208,13.7262 -16.0939,10.8037"
+             style="fill:none;stroke:#808080;stroke-width:4.27247238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             sodipodi:nodetypes="ccc"
+             inkscape:original-d="m -2657.7565,3427.7149 3.6507,20.1681 c 19.3136,-43.6506 -12.2886,3.1955 -19.3408,-1.292"
+             inkscape:path-effect="#path-effect5676-5-3-3-1-6"
+             inkscape:connector-curvature="0"
+             id="path5674-7-94-0-09-4"
+             d="m -2657.7565,3427.7149 3.6507,20.1681 -19.3408,-1.292"
+             style="fill:none;stroke:#800180;stroke-width:4.27247238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             sodipodi:nodetypes="ccc"
+             inkscape:original-d="m -2669.5926,3480.7054 19.9292,-4.7867 c -44.6741,-16.8114 3.886,12.0881 -0.1952,19.3829"
+             inkscape:path-effect="#path-effect5676-5-6-7-0-7"
+             inkscape:connector-curvature="0"
+             id="path5674-7-4-1-4-1"
+             d="m -2669.5926,3480.7054 19.9292,-4.7867 -0.1952,19.3829"
+             style="fill:none;stroke:#808080;stroke-width:4.27247238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             sodipodi:nodetypes="ccc"
+             inkscape:original-d="m -2753.6393,3554.4119 15.2208,13.7263 c -11.4083,-46.3492 -7.7698,10.0425 -16.0939,10.8037"
+             inkscape:path-effect="#path-effect5676-5-5-6-30-5"
+             inkscape:connector-curvature="0"
+             id="path5674-7-5-3-5-7"
+             d="m -2753.6393,3554.4119 15.2208,13.7263 -16.0939,10.8037"
+             style="fill:none;stroke:#800180;stroke-width:4.27247238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             sodipodi:nodetypes="ccc"
+             inkscape:original-d="m -2854.3199,3554.2275 15.2208,13.7262 c -11.4083,-46.3492 -7.7698,10.0426 -16.0939,10.8038"
+             inkscape:path-effect="#path-effect5676-5-56-8-7-4"
+             inkscape:connector-curvature="0"
+             id="path5674-7-0-4-4-1"
+             d="m -2854.3199,3554.2275 15.2208,13.7262 -16.0939,10.8038"
+             style="fill:none;stroke:#800180;stroke-width:4.27247238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             sodipodi:nodetypes="ccc"
+             inkscape:original-d="m -2948.9864,3527.1133 1.136,20.4644 c 24.5487,-40.936 -12.5889,1.6559 -19.0339,-3.6671"
+             inkscape:path-effect="#path-effect5676-5-62-3-3-4"
+             inkscape:connector-curvature="0"
+             id="path5674-7-6-8-2-3"
+             d="m -2948.9864,3527.1133 1.136,20.4644 -19.0339,-3.6671"
+             style="fill:none;stroke:#800180;stroke-width:4.27247238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             inkscape:original-d="m -2833.7723,3360.1528 h 24.7794"
+             inkscape:path-effect="#path-effect5418-3-2-9-5-4-6"
+             inkscape:connector-curvature="0"
+             id="path5416-7-3-9-5-2-0"
+             d="m -2833.7723,3360.1528 h 24.7794"
+             style="fill:none;stroke:#ffffff;stroke-width:3.05176592;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             inkscape:original-d="m -2944.4225,3546.6253 h 24.7793"
+             inkscape:path-effect="#path-effect5418-3-2-2-5-2-0"
+             inkscape:connector-curvature="0"
+             id="path5416-7-3-96-8-3-82"
+             d="m -2944.4225,3546.6253 h 24.7793"
+             style="fill:none;stroke:#ffffff;stroke-width:3.05176592;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             sodipodi:nodetypes="ccc"
+             inkscape:original-d="m -2917.7746,3411.3989 -12.6794,-16.1034 c 45.4841,14.4776 -10.5389,7.0819 -11.8542,15.3366"
+             inkscape:path-effect="#path-effect5676-5-0-2-0-5"
+             inkscape:connector-curvature="0"
+             id="path5674-7-8-2-9-9"
+             d="m -2917.7746,3411.3989 -12.6794,-16.1034 -11.8542,15.3366"
+             style="fill:none;stroke:#808080;stroke-width:4.27247238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             sodipodi:nodetypes="ccc"
+             inkscape:original-d="m -2710.8437,3408.7336 -12.9683,-15.8715 c 45.7383,13.653 -10.4092,7.2712 -11.575,15.5483"
+             inkscape:path-effect="#path-effect5676-5-0-0-52-5"
+             inkscape:connector-curvature="0"
+             id="path5674-7-8-6-6-0"
+             d="m -2710.8437,3408.7336 -12.9683,-15.8715 -11.575,15.5483"
+             style="fill:none;stroke:#800180;stroke-width:4.27247238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <text
+             transform="scale(0.96809291,1.0329587)"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             id="text2262-1-40-8-7-0-2-3-5-1"
+             y="3370.1506"
+             x="-3020.8086"
+             style="font-style:normal;font-weight:normal;font-size:43.72026443px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.09300661"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.09300661"
+               y="3370.1506"
+               x="-3020.8086"
+               id="tspan2260-3-3-7-89-14-1-6-7-0"
+               sodipodi:role="line">1</tspan></text>
+          <text
+             transform="scale(0.96809291,1.0329587)"
+             inkscape:export-ydpi="96"
+             inkscape:export-xdpi="96"
+             inkscape:export-filename="/home/daniel/Projects/GIT/PhD/thesis/figures/chapter3/posiform-graph.png"
+             id="text2262-1-40-8-7-0-2-1-4-8"
+             y="3371.0352"
+             x="-2844.3499"
+             style="font-style:normal;font-weight:normal;font-size:43.72026443px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:0.97399998;fill:#00d03e;fill-opacity:1;stroke:none;stroke-width:1.09300661"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Bonum Math';-inkscape-font-specification:'TeX Gyre Bonum Math';fill:#00d03e;fill-opacity:1;stroke-width:1.09300661"
+               y="3371.0352"
+               x="-2844.3499"
+               id="tspan2260-3-3-7-89-14-1-0-3-1"
+               sodipodi:role="line">0</tspan></text>
         </g>
       </g>
       <path
