@@ -3,9 +3,9 @@
 
 A track should be constructed to connect some point in space $A$ to a lower altitude point $B$. Which form the track should take if we wish that a ball released at $A$ reaches $B$ in the shortest time? The curve known as brachistochrone or tautochrone is the answer of this puzzle solved by Jean Bernoulli and a classical problem of the \emph{calculus of variations}. 
 
-The main object of calculus of variations are called \emph{functionals} or \emph{energies}, and a simple way to describe it is as a function which the variable is itself function. Minimizing functionals is a more intricate problem than minimizing a normal function, as the variable in a functional has infinite dimension. Nonetheless, by means of the so called \emph{variations}, one can model infinitely small variations in the functional and do a rigorous analysis of its extremum, which the main tool is the \emph{Euler-Lagrange} equation.
+The main object of calculus of variations are called \emph{functionals} or \emph{energies}, and a simple way to describe it is as a function whose variable is itself a function. Minimizing functionals is a more intricate problem than minimizing an usual function, as the variable in a functional has infinite dimension. Nonetheless, by means of the so called \emph{variations}, one can model infinitely small variations in the functional and do a rigorous analysis of its extremum, the main tool of which is the \emph{Euler-Lagrange} equation.
 
-The calculus of variations founded in image processing a fertile field of applications, as image themselves can be seen as a function, and image processing tasks can be modeled as being the results of a functional minimization. In this chapter we present some popular variational techniques to approach image processing tasks, with a particular focus to image segmentation. 
+The calculus of variations found in image processing a fertile field of applications, as images themselves can be seen as functions, and image processing tasks can be modeled as being the results of some functional minimization. In this chapter we present some popular variational techniques to approach image processing tasks, with a particular focus on image segmentation. 
 
 %\startchronology[startyear=1980,stopyear=2020, startdate=false, color=blue!40, stopdate=false, arrow=true, height=3pt]
 %\setupchronoevent{textstyle=\tiny,date=false}
@@ -15,11 +15,11 @@ The calculus of variations founded in image processing a fertile field of applic
 \section{Inverse problems in imaging}
 %In the music world, nothing is as complex as an orchestra score. You have plenty of instruments following different tones, dynamics, intensities, rhythms and so on. But no matter the complexity, given the orchestra score a software can reproduce with perfection the piece of music. It is a totally  different story if you ask it to create the orchestra score from an audio file. Reading the score is a forward problem, and creating the score is an inverse problem.
 
-An archaeological museum decided to digitize some of its collections and make them available for digital visits over the internet. The chosen method of digitization consists into take a set of pictures for each object, in different camera positions, execute a \emph{stereo} algorithm to estimate point depths and \emph{reconstruct} finally reconstruct the 3D object. The stereo and reconstruction are examples of \emph{inverse problems} in imaging.
+An archaeological museum decided to digitize some of its collections and make them available for digital visits over the internet. The chosen method of digitization consists into take a set of pictures for each object, in different camera positions, execute a \emph{stereo} algorithm to estimate point depths and finally reconstruct the 3D object. The stereo and reconstruction are examples of \emph{inverse problems} in imaging.
 
 Usually, inverse problems are characterized by a degree of \emph{uncertainty} or \emph{lack of information}. The 2D pictures in the problem above miss depth information, that should be \emph{inferred} by the stereo algorithm. On the other hand, if the shape geometry was known, e.g., the values of mean curvature were known for every infinitesimal point of the shape, then constructing a digital 3D representation would be a \emph{forward problem}. 
 
-We can find examples of inverse problems in several branches of mathematics~\cite{kirsch96}, geophysics~\cite{zhdanov15}, natural language processing~\cite{stroppa05}, astronomy~\cite{lucy94} and the list goes on. The image processing field itself is plenty of them~\cite{bertero98}. In fact, a great part of real world applications consists into infer parameters of some model, i.e., an inverse problem. In~\cref{ch1:tab:inverse-problems-list} we list some examples of inverse problems and its corresponding forward version.
+We can find examples of inverse problems in several branches of mathematics~\cite{kirsch96}, geophysics~\cite{zhdanov15}, natural language processing~\cite{stroppa05}, astronomy~\cite{lucy94} and the list goes on. The image processing field itself is plenty of them~\cite{bertero98}. In fact, a great part of real world applications consists into inferring parameters of some model, i.e., an inverse problem. In~\cref{ch1:tab:inverse-problems-list} we list some examples of inverse problems and its corresponding forward version.
 
 \begin{table}
 \renewcommand{\arraystretch}{1.5}
@@ -28,7 +28,7 @@ We can find examples of inverse problems in several branches of mathematics~\cit
 \hline
 \multicolumn{1}{|c|}{\textbf{Inverse problem}} & \multicolumn{1}{c|}{\textbf{Forward problem}} \\
 \hline
-\textbf{Projection}: Compute vector $v \in \mathbb{R}^3$ which projection is $P(v) \in \mathbb{R}^2$ & Compute the projection $P(v) \in \mathbb{R}^2$ of vector $v \in R^3$\\
+\textbf{Projection}: Compute vector $v \in \mathbb{R}^3$ whose projection is $P(v) \in \mathbb{R}^2$ & Compute the projection $P(v) \in \mathbb{R}^2$ of vector $v \in R^3$\\
 \hline
 \textbf{Parameters inference}: Given a set of observations $\Gamma$, infer the parameters $(\mu,\sigma)$ of the Gaussian distribution that describes $\Gamma$ & Given a random variable $X$ following a Gaussian distribution with parameters $(\mu=0,\sigma=1)$, compute the probability $P(X \leq 0.42)$\\
 \hline
@@ -45,7 +45,7 @@ We can find examples of inverse problems in several branches of mathematics~\cit
 
 %Predictive text; speech recognition
 
-Another characteristic of inverse problems is that they are usually \emph{ill-posed}. A problem is said to be ill-posed if at least one of the properties below are not respected
+Another characteristic of inverse problems is that they are usually \emph{ill-posed}. A problem is said to be ill-posed if at least one of the properties below is not respected
 
 \begin{enumerate}
 \item{A solution exists and it is unique;}
@@ -54,12 +54,12 @@ Another characteristic of inverse problems is that they are usually \emph{ill-po
 
 
 
-In order to solve ill-posed problems one should include additional information, i.e., create assumptions over the properties of the searched solution. In the museum problem, for example, one may assume that missing patches of the reconstructed surface should be filled by patches of minimal area. The process of including additional information in ill-posed problems is called \emph{regularization} and its goal is to better condition an ill-posed problem and in the best scenario, transform it into a well-posed one. 
+In order to solve ill-posed problems one should include additional information, i.e., create assumptions over the properties of the sought solution. In the museum problem, for example, one may assume that missing patches of the reconstructed surface should be filled by patches of minimal area. The process of including additional information in ill-posed problems is called \emph{regularization} and its goal is to better condition an ill-posed problem and in the best scenario, transform it into a well-posed one. 
 
-Next, we describe the image model used in this thesis and give a precise definition of the main image problems discussed further on. Examples are given in~\cref{ch1:fig:imaging-problems-examples}
+Next, we describe the image model used in this thesis and give a precise definition of the main image problems discussed further on. Examples of such applications can be seen in~\cref{ch1:fig:imaging-problems-real-applications,ch1:fig:imaging-problems-example}.
 
 \subsubsection{Image model}
-For matters of simplicity, we limit our discussion to grayscale images, the concepts being extendable to multichannel images. It is convenient to have in mind two different representations of an image. \\
+For matters of simplicity, we limit our discussion to grayscale images, the concepts being mostly extendable to multichannel images. It is convenient to have in mind two different representations of an image. \\
 
 \begin{center}
 \begin{tabular}{rl}
@@ -76,6 +76,30 @@ where $\mathbb{F}$ is a finite set. In this thesis, we define such set as
 
 The discrete representation is interpreted as a sampling of $m \times n$ elements (pixels) of the continuous representation $f_{\vec{I}}$. 
 
+\begin{figure}
+\center
+\subfloat[$1$ of $2$ aerial images]{
+\includegraphics[scale=0.2]{figures/chapter3/applications-gallery/depth-1.png}
+}
+\subfloat[Depth reconstruction~\cite{pock08}]{
+\includegraphics[scale=0.2]{figures/chapter3/applications-gallery/depth-2.png}
+}\\
+\subfloat[Photo restoration~\cite{masnou98inpainting}]{
+\includegraphics[scale=0.5]{figures/chapter3/applications-gallery/inpainting.png}
+}
+\subfloat[Vessel segmentation \cite{peyre10,cohen97}.]{
+\includegraphics[scale=0.42]{figures/chapter3/applications-gallery/vessel-segmentation.png}
+}\\
+\subfloat[Input image]{
+\includegraphics[scale=0.6]{figures/chapter3/applications-gallery/seg-1.png}
+}
+\subfloat[Multilabel segmentation~\cite{souiai2013co}]{
+\includegraphics[scale=0.6]{figures/chapter3/applications-gallery/seg-2.png}
+}
+\caption{\textbf{Real applications of imaging problems}.}
+\label{ch1:fig:imaging-problems-real-applications}
+\end{figure}
+
 \subsubsection{Image denoising}
 Given an image $f_{\vec{\widetilde{I}}}$ corrupted with some noise from an external source, \emph{image denoising} consists in to find an estimation $f_{\widehat{\vec{I}}}$ of the original image that respects some quality criteria, usually encoded by the minimum of a functional $E$. 
 
@@ -84,10 +108,10 @@ Given $f_{\widetilde{\vec{I}}}$, find estimation $f_{\widehat{\vec{I}}}$ such th
 	f_{\widehat{\vec{I}}} &= \argmin_f E(f,f_{\vec{\widetilde{I}}})
 \end{align*}
 
-\textbf{Applications:} Restauration of old pictures; enhancement of satellite images.
+\textbf{Applications:} Restoration of old pictures; enhancement of satellite images.
 
 \subsubsection{Image segmentation}
-Given an image $f_{\vec{I}}$, the \emph{image segmentation} problem consists in to find partition $\mathcal{I}$ of $f_{\vec{I}}$ such that each element of $\mathcal{I}$ is identified with some desired property, usually encoded by the minimum of some functional $E$
+Given an image $f_{\vec{I}}$, the \emph{image segmentation} problem consists in finding a partition $\mathcal{I}$ of $f_{\vec{I}}$ such that each element of $\mathcal{I}$ is identified with some desired property, usually encoded by the minimum of some functional $E$
 
 %
 
@@ -113,7 +137,7 @@ Given $f_{\widetilde{\vec{I}}}$ and missing patches $\mathcal{P}$, find image $f
 	f_{\vec{I}} &= \argmin_f E(f,f_{\widetilde{\vec{I}}}) \quad \text{subject to}\; f(\Omega \setminus \mathcal{P}) = f_{\widetilde{\vec{I}}}(\Omega \setminus \mathcal{P}).
 \end{align*}
 
-\textbf{Applications:} removal of undesired objects in a scene; restauration of old pictures. 
+\textbf{Applications:} removal of undesired objects in a scene; restoration of old pictures. 
 
 \begin{figure}
 \center
@@ -135,14 +159,14 @@ Given $f_{\widetilde{\vec{I}}}$ and missing patches $\mathcal{P}$, find image $f
 \subfloat[Inpainted image with~\cite{fedorov15}]{
 \includegraphics[scale=0.36]{figures/chapter2/inverse-problems/pock-sunflower-inpainted.png}
 }%
-\caption{Imaging problems examples}
+\caption{\textbf{Imaging problems applications}. From top to bottom row, an example of image segmentation, denoising and inpainting.}
 \label{ch1:fig:imaging-problems-example}
 \end{figure}
 
 
 \section{Bayesian rationale and total variation}
 \label{ch1:sec:bayesian-rationale}
-As remarked in the previous section, inverse problems involve some level of uncertainty about the solution. In order to solve an ill-posed problem we need to regularize it by including additional information, or make assumptions.
+As remarked in the previous section, inverse problems involve some level of uncertainty about the solution. In order to solve an ill-posed problem we need to regularize it by including additional information, otherwise said, make assumptions.
 
 The maximum a posteriori method was first introduced in the image processing community in the work of~\cite{geman84} and we are going to reproduce here the rational for image denoising. We make two assumptions
 
@@ -154,13 +178,13 @@ The maximum a posteriori method was first introduced in the image processing com
 		\label{ch1:denoising-assumption-1}
 		\end{align} 
 		\end{assumption}
-where $\vec{N}$ is a $(m \times n)$ matrix of random variables $\vec{N}_{i,j}$ and $Pr\big( \vec{N}_{i,j} = n \big) = \frac{1}{\sqrt{2\pi}}exp( \frac{n^2}{2} )$.		
+where $\vec{N}$ is a $(m \times n)$ matrix of random variables $\vec{N}_{i,j}$ and $Pr\big( \vec{N}_{i,j} = n \big) = \frac{1}{\sqrt{2\pi}}\exp(- \frac{n^2}{2} )$.		
 	}
 	\item{Given some function $\rho$, a candidate image estimation $\vec{C}$ has probability
 	
 	\begin{assumption}
 	\begin{align}
-		Pr(\vec{C}) = exp(-\rho(\vec{C})).
+		Pr(\vec{C}) = \exp(-\rho(\vec{C})).
 		\label{ch1:denoising-assumption-2}
 	\end{align}	 
 	\end{assumption}
@@ -179,28 +203,28 @@ where $\vec{N}$ is a $(m \times n)$ matrix of random variables $\vec{N}_{i,j}$ a
 We have already all the elements to expand~\cref{ch1:eq:probability-maximization}. The probability of having the corrupted image $\vec{\widetilde{I}}$ given a candidate image $\vec{C}$ is derived from~\cref{ch1:denoising-assumption-1}, i.e.,
 
 \begin{align}
-	Pr(\vec{\widetilde{I}} \; | \; \vec{C}) &= Pr( \vec{N} = \vec{\widetilde{I}} - \vec{C} ) = \frac{1}{\sqrt{2\pi}}exp\Big(- \frac{ \norm{\vec{\widetilde{I}} - \vec{C} }^2}{2} \Big).
+	Pr(\vec{\widetilde{I}} \; | \; \vec{C}) &= Pr( \vec{N} = \vec{\widetilde{I}} - \vec{C} ) = \frac{1}{\sqrt{2\pi}}\exp\Big(- \frac{ \norm{\vec{\widetilde{I}} - \vec{C} }^2}{2} \Big).
 	\label{ch1:eq:probability-corrupted-image-given-original}
 \end{align}
 
 The denominator term is computed as the joint probability
 
 \begin{align}
-	Pr(\widetilde{\vec{I}}) &= \sum_{\vec{J} \in \mathbb{F}^{m \times n}}{Pr(\vec{\widetilde{I}}\;|\; \vec{J})Pr(\vec{J})} = \frac{1}{\sqrt{2 \pi}}\sum_{\vec{J} \in \mathbb{F}^{m \times n}}{exp\bigg(-\frac{1}{2}\norm{\widetilde{\vec{I}}-\vec{J}}^2 - \rho(\vec{J})}\bigg).
+	Pr(\widetilde{\vec{I}}) &= \sum_{\vec{J} \in \mathbb{F}^{m \times n}}{Pr(\vec{\widetilde{I}}\;|\; \vec{J})Pr(\vec{J})} = \frac{1}{\sqrt{2 \pi}}\sum_{\vec{J} \in \mathbb{F}^{m \times n}}{\exp\bigg(-\frac{1}{2}\norm{\widetilde{\vec{I}}-\vec{J}}^2 - \rho(\vec{J})}\bigg).
 	\label{ch1:eq:joint-probability}
 \end{align}
 
 Substituting~\cref{ch1:eq:probability-corrupted-image-given-original,ch1:eq:joint-probability} in~\cref{ch1:eq:probability-maximization} we obtain
 
 \begin{align}
-	\vec{\widehat{I}} & = \argmax _{\vec{C}} \frac{1}{\sqrt{2\pi}} \frac{exp\Big(- \frac{1}{2}\norm{\vec{\widetilde{I}} - \vec{C}}^2 - \rho(\vec{C}) \Big) }{ \sum_{\vec{J} \in \mathbb{F}^{m \times n}}{exp\bigg(-\frac{1}{2}\norm{\widetilde{\vec{I}}-\vec{J}}^2 - \rho(\vec{J})}\bigg) }
+	\vec{\widehat{I}} & = \argmax _{\vec{C}} \frac{1}{\sqrt{2\pi}} \frac{\exp\Big(- \frac{1}{2}\norm{\vec{\widetilde{I}} - \vec{C}}^2 - \rho(\vec{C}) \Big) }{ \sum_{\vec{J} \in \mathbb{F}^{m \times n}}{\exp\bigg(-\frac{1}{2}\norm{\widetilde{\vec{I}}-\vec{J}}^2 - \rho(\vec{J})}\bigg) }
 	\label{ch1:eq:probability-maximization-expanded}
 \end{align}
 
 Finnaly, solving~\cref{ch1:eq:probability-maximization-expanded} is equivalent to solve
 
 \begin{align}
-	\vec{\widehat{I}} &= \argmin _{\vec{C}} \frac{1}{2}\norm{\vec{\widetilde{I}} + \vec{C}}^2 + \rho(\vec{C}).
+	\vec{\widehat{I}} &= \argmin _{\vec{C}} \frac{1}{2}\norm{\vec{\widetilde{I}} - \vec{C}}^2 + \rho(\vec{C}).
 	\label{ch1:eq:minimization-form}
 \end{align}
 
@@ -209,7 +233,7 @@ The first term appears so often in imaging problems that it has a special name: 
 
 \subsubsection{Tikhonov regularization}
 \label{ch1:subsec:tikhonov-regularization}
-The classical way to optimize~\cref{ch1:eq:minimization-form} is to shift it to a continuous setting, analytically derive some optimization properties and then use this properties to solve the problem in a discrete setting. The continuous reformulation of~\cref{ch1:eq:minimization-form} consists in to optimize the energy functional below
+The classical way to optimize~\cref{ch1:eq:minimization-form} is to shift it to a continuous setting, analytically derive some optimization properties and then use this properties to solve the problem in a discrete setting. The continuous reformulation of~\cref{ch1:eq:minimization-form} consists in optimizing the energy functional below
 
 \begin{align}
 	f_{\vec{\widehat{I}}} &= \argmin_{f} F(f) = \frac{1}{2} \int_{\Omega}{ \norm{ f_{\vec{\widetilde{I}}} - f}^2dx} + R(f),
@@ -261,7 +285,7 @@ Since $w$ could be any function, we can write
 
 Therefore, if $g$ is a minimum of~\cref{ch1:eq:variational-formulation}, then it respects the convex~\cref{ch1:eq:variational-necessary-condition}. Hence, given an initial solution $f$, one can execute a descent method (gradient descent, for example) to find its minimum. In practice, ~\cref{ch1:eq:variational-formulation} is discretized using the samplings $\vec{\widehat{I}}, \vec{\widetilde{I}}$ of $f_{\vec{\widehat{I}}},f_{\vec{\widetilde{I}}}$ and a finite differences scheme is defined to estimate the Laplacian $\Delta$.
 
-The Tikhonov term favors images with smooth variations in color, but the smoothness is not restricted to the interior of regions. Thus, Tikhonov tends to obfuscate the discontinuities that will likely be present in the edges and we have the impression that the image is blurred (see~\cref{ch1:fig:denoising-results}). Nonetheless, Tikhonov term is attractive due to its optimization properties.
+The Tikhonov term favors images with smooth variations in color, but the smoothness is not restricted to the interior of regions. Thus, Tikhonov tends to obfuscate the discontinuities that will likely be present in the contour of regions and we have the impression that the image is blurred (see~\cref{ch1:fig:denoising-results}). Nonetheless, Tikhonov term is attractive due to its optimization properties.
 
 \begin{figure}
 \center
@@ -277,7 +301,7 @@ The Tikhonov term favors images with smooth variations in color, but the smoothn
 \subfloat[Total Variation]{
 \includegraphics[scale=0.35]{figures/chapter2/denoising/coala-fista.png}
 }%
-\caption{Denoising algorithms results for the Tikhonov and Total variation regulararization terms.}
+\caption{\textbf{Tikhonov x Total variation denoising}. Total variation is capable to better preserve discontinuities across edges than Tikhonov. }
 \label{ch1:fig:denoising-results}
 \end{figure}
 
@@ -305,19 +329,19 @@ where $\phi$ is vector-valued infinitely differentiable function with compact su
 
 The ROF model~\cite{rudin92} assumes the image representation is smooth, and from the Euler-Lagrange equation of~\cref{ch1:eq:total-variation-denoising} the following gradient flow is derived:
 \begin{align*}
-	\frac{df}{dt} &= \nabla \cdot \left( \frac{\nabla f}{\norm{ \nabla f} } \right) - \lambda (f_{\widetilde{\vec{I}}} - f)
+	\frac{\partial f}{\partial t} &= \nabla \cdot \left( \frac{\nabla f}{\norm{ \nabla f} } \right) - \lambda (f_{\widetilde{\vec{I}}} - f)
 \end{align*}
 
 The left term is not differentiable, and a small $epsilon >0$ is added to the denominator in order to avoid numerical instability. However, the calibration of $\epsilon$ might be delicate, since a small $\epsilon$ might not be sufficient to avoid instability and a larger $\epsilon$ may disfigure the model. In~\cite{chambolle04} the total variation definition is exploited to create a convergent algorithm that works by successive projections and that solves model~\cref{ch1:eq:total-variation-denoising}. In~\cite{beck09a} a modified version of the previous algorithm has proven to have faster convergence. 
 
-The total variation term is characterizes by its smooth properties while partially preserving some discontinuities in the edges. In this sense, total variation models produce results with sharper edges than those produced by the Tikhonov term (see~\cref{ch1:fig:denoising-results}) .
+The total variation term is characterized by its smooth properties while partially preserving some discontinuities across the edges. In this sense, total variation models produce results with sharper edges than those produced by the Tikhonov term (see~\cref{ch1:fig:denoising-results}) .
 
 \section{Standard techniques}
 
 In this section we give an overview of the key techniques in variational models for problems in image processing. We start by describing the most influential model in this category.
 
 \subsubsection{Mumford-Shah}
-The $L2$-norm regularization has nice optimization properties, but it does not preserve discontinuities along the object boundaries. This effect is attenuate using a $L1$-norm, but it it not sufficient to avoid blurred edges. The\emph{Mumford-Shah} functional~\cite{mumford89} handles this issue by incorporating the edges in its formulation in the form of a set of discontinuities $\mathcal{K}$ and limiting the $L2$-norm regularization to points in the interior of objects, i.e.,  $\Omega \setminus \mathcal{K}$. Moreover, the set $\mathcal{K}$ itself is compelled to be of small length. The Mumford-Shah model consists in to minimize the following functional 
+The $L2$-norm regularization has nice optimization properties, but it does not preserve discontinuities along the object boundaries. This effect is attenuate using a $L1$-norm, but it it not sufficient to avoid blurred edges. The\emph{Mumford-Shah} functional~\cite{mumford89} handles this issue by incorporating the edges in its formulation in the form of a set of discontinuities $\mathcal{K}$ and limiting the $L2$-norm regularization to points in the interior of objects, i.e.,  $\Omega \setminus \mathcal{K}$. Moreover, the set $\mathcal{K}$ itself is compelled to be of small length. The Mumford-Shah model consists in minimizing the following functional 
 
 
 \begin{align}
@@ -346,7 +370,7 @@ The snakes method was devised having an interactive framework in mind. First of 
 
 The active contours is an influential paradigm for image segmentation and it was particularly popular for segmenting medical images~\cite{mcinerney99}. Variations of the original model include extension to 3D-segmentation~\cite{mcinemey99} and topologically adaptable snakes~\cite{mcinerney95}.
 
-Some minus in the active contours formulation includes its non-intrinsic definition, i.e., the curve is not defined in terms of its geometric properties and its representation depends on the chosen parametrization; and, partially as consequence of the latter, its inability to change the initial curve topology. One needs to initialize several snakes in order to correctly segment a picture with several holes, for example. 
+Some drawbacks in the active contours formulation include its non-intrinsic definition, i.e., the curve is not defined in terms of its geometric properties and its representation depends on the chosen parametrization; and, partially as consequence of the latter, its inability to change the initial curve topology. One needs to initialize several snakes in order to correctly segment a picture with several holes, for example. 
 
 %This approach is also non-
 %intrinsic, since the energy depends on the parametriza-
@@ -491,7 +515,7 @@ Let $u:\Omega \subset \mathbb{R}^2 \rightarrow [0,1]$ be a $C^2$ function. The c
 \end{align*}
 
 
-The \emph{geometric active contour} model consists into evolve an extension of $u$, by including an artificial time parameter $t$, and compute the steady solution of the flow
+The \emph{geometric active contour} model consists into evolving an extension of $u$, by including an artificial time parameter $t$, and compute the steady solution of the flow
 
 \begin{align}
 	u(0,x,y) &= u(x,y) \nonumber \\
@@ -516,13 +540,13 @@ Differently from the snakes, the geometric active contours handle changes in top
 \subfloat[Chan-Vese]{
 \includegraphics[scale=0.5]{figures/chapter2/segmentation/chan-vese-seg-don.png}
 }%
-\caption{Illustration of evolution curve models. The initial curve ($0$-level set) is colored in red and the final one is colored in green.}
+\caption{\textbf{Curve evolution models}. Segmentation results of three curve evolution models. From top row to bottom: active contours, geometric active contours and Chan-Vese. The initial curve ($0$-level set) is colored in red and the final one is colored in green.}
 \label{ch1:fig:comparison-curve-evolution}
 \end{figure}
 
 
 \subsection{Level set}
-	The active contour and its geometric version are both edge-based methods, a natural strategy for image segmentation but with limitations, e.g., the models may encounter some difficulties to segment objects with holes. The \emph{Chan-Vese} method proposes the inclusion of a region-based term and it generalizes the level-set approach already presented in the geomtric active contour model. 
+	The active contour and its geometric version are both edge-based methods, a natural strategy for image segmentation but with limitations, e.g., the models may encounter some difficulties to segment objects with holes. The \emph{Chan-Vese} method proposes the inclusion of a region-based term and it generalizes the level-set approach already presented in the geometric active contour model. 
 	
 	Let $f_{\vec{I}}:\Omega \subset \mathbb{R}^2 \rightarrow \mathbb{U}^2$ a grayscale image and $F \subset \Omega$ an open set such that the pair $(F,\Omega \setminus F)$ is the searched binary partition. Further, assume that there exists a function $\phi: \Omega \rightarrow \mathbb{R}$ with bounded first derivative. The image partitions are identified in the following fashion
 	
@@ -593,14 +617,14 @@ The initial level set function can be set as any function with bounded first der
 
 In a sequel work, the authors of geometric active contours established a link between their geometric model in~\cite{caselles93} and the computation of geodesics in a regular surface~\cite{caselles97}. 
 
-The length of a parametric curve $C(q)$ accordingly with an isotropic metric of potential $W(C)$ is calculated as 
+The length of a parametric curve $C(q)$ according to an isotropic metric of potential $W(C)$ is calculated as 
 
 \begin{align}
 	L(C) &= \int{W(C)\norm{C_q} dq}.
 	\label{ch1:eq:length-isotropic-metric}
 \end{align}
 
-~\cref{ch1:eq:length-isotropic-metric} is used to compute shortest paths between two points accordingly to the given metric. By properly setting the potential $W$, we can make object boundaries in an image $f_{\vec{I}}$ to match the curves of shortest length, for example, letting $W=g(\norm{\nabla f_I})$ as in~\cref{ch1:geometric-active-contour} we obtain
+~\cref{ch1:eq:length-isotropic-metric} is used to compute shortest paths between two points according to the given metric. By properly setting the potential $W$, we can make object boundaries in an image $f_{\vec{I}}$ to match the curves of shortest length, for example, letting $W=g(\norm{\nabla f_I})$ as in~\cref{ch1:geometric-active-contour} we obtain
 
 \begin{align}
 	L(C) &= \int{g\big(\norm{\nabla f_I(C(q))}\big)\norm{C_q} dq}.
@@ -651,7 +675,7 @@ Ideally, one would look for the so called convex envelope of $f$, which is the t
 The biconjugate $f^{\star \star}$ is the convex envelope of $f$. In fact, if $f$ is convex and lower-semicontinuous, $f^{\star \star}=f$ (Frenchel's inequality). Unfortunately, the computation of the biconjugate is known only for a few functions. Nonetheless, the conjugate is key to prove properties on convex optimization algorithms as those based on the proximal operator~\cite{chambolle04,beck09a}. 
 
 
-In order to use tools from convex optimization one needs to define a convex energy. Very often in imaging problems the functionals are defined over a non-convex function space, for example, in the binary denoising or the multilabeling problem, in which the optimization function has a discrete range. A straightforward approach is to simply relax the range to a continuous set and execute a standard optimization method. The discrete solution is then obtained by simple rounding. However, fewer are the cases in which the projected solution is optimum or even meaningful to the original problem. An technique that gives guarantees with respect to the quality of the back projected solution is \emph{functional lifting}.
+In order to use tools from convex optimization one needs to define a convex energy. Very often in imaging problems the functionals are defined over a non-convex function space, for example, in the binary denoising or the multilabeling problem, in which the optimization function has a discrete range. A straightforward approach is to simply relax the range to a continuous set and execute a standard optimization method. The discrete solution is then obtained by simple rounding. However, fewer are the cases in which the projected solution is optimum or even meaningful to the original problem. A technique that gives guarantees with respect to the quality of the back projected solution is \emph{functional lifting}.
 
 \subsubsection{Functional lifting}
 
@@ -665,11 +689,11 @@ Consider the binary image denoising problem. Let $f_{\widetilde{\vec{I}}}$ the o
 This model is not convex, as the optimization  variable $f_{\vec{I}}$ belongs to the non-convex domain of binary functions. The corresponding level-set formulation of~\cref{ch1:eq:binary-denoising-model} (in the same spirit of the Chan-Vese model) is given by
 
 \begin{align}
-	\min_{}{ \int_{\Omega}{ \norm{\nabla H(\phi(x))} } + \lambda \int_{\Omega}{\left( H(\phi(x)) - f_{\widetilde{\vec{I}}}(x) \right)^2}}
+	\min_{}{ \int_{\Omega}{ \norm{\nabla H(\phi(x))} } + \lambda \int_{\Omega}{\left( H(\phi(x)) - f_{\widetilde{\vec{I}}}(x) \right)^2}}.
 	\label{ch1:eq:2-den-level-set-energy}
 \end{align}
 
-Which a local minimum is a steady solution of
+Whose a local minimum is a steady solution of
 
 \begin{align}
 	\frac{d\phi}{dt} &= H_{\epsilon}^{\prime}(\phi)\left(  \nabla \cdot \left( \frac{ \nabla \phi}{\norm{\nabla \phi}}\right) + 2\lambda(f_{\widetilde{\vec{I}}}(x) - H_{\epsilon}(\phi)) \right)
@@ -694,7 +718,7 @@ We reproduce the example given in~\cite{chan06} to illustrate a situation in whi
 
 Therefore, for $R \in (1/\lambda, 2/\lambda)$, the flow of~\cref{ch1:eq:level-set-ball-flow} is going to stop at the local minimum $r=R$, even the global minimum being located at $r=0$. 
 
-The parameter $\lambda$ is set by the user to calibrate the denoise capabilities of the model. In~\cref{ch1:fig:local-solution-level-set} it indicates which ball radius should be considered an object or a noise element. In the illustrated case, with $\lambda=1$, the optimal solution consists to segment only the ball of larger radius, but Chan-Vese fails to converge to this solution.
+The parameter $\lambda$ is set by the user to calibrate the denoise capabilities of the model. In the example of~\cref{ch1:fig:local-solution-level-set}, it indicates whether a ball of certain radius should be considered as an object or as a noise element. In the illustrated case, with $\lambda=1$, the optimal solution consists to segment only the ball of largest radius in the picture, but Chan-Vese fails to converge to this solution.
 
 \begin{figure}
 \center
@@ -704,7 +728,7 @@ The parameter $\lambda$ is set by the user to calibrate the denoise capabilities
 \subfloat[Result of level-set method for $\lambda=1$]{
 \includegraphics[scale=0.5]{figures/chapter2/convex/lbda_1.png}
 }%
-\caption{Level-set result of~\cref{ch1:eq:binary-denoising-model} stops at a local minimum in the right, instead of the green contour in the left.}
+\caption{\textbf{Level-sets return local optimum solutions.} Level-set result of~\cref{ch1:eq:binary-denoising-model} stops at a local minimum in the right, instead of the green contour in the left.}
 \label{ch1:fig:local-solution-level-set}
 \end{figure}
 
