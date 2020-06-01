@@ -554,6 +554,8 @@ month={Nov}
   publisher={Wiley Online Library}
 }
 
+%%%%%%%%%%%%%%%% Pseudo-boolean functions %%%%%%%%%%%%%%%%
+
 @article{hammer84,
   title={Roof duality, complementation and persistency in quadratic 0--1 optimization},
   author={Hammer, Peter L and Hansen, Pierre and Simeone, Bruno},
@@ -571,6 +573,18 @@ month={Nov}
   year={1991},
   institution={Technical Report RRR 17-1991, RUTCOR}
 }
+
+@article{boros02pseudo,
+title = "Pseudo-Boolean optimization",
+journal = "Discrete Applied Mathematics",
+volume = "123",
+number = "1",
+pages = "155 - 225",
+year = "2002",
+author = "Endre Boros and Peter L. Hammer"
+}
+
+
 
 @inproceedings{boykov01graphcut,
 author={Y. Y. Boykov and M. P. Jolly},
@@ -593,15 +607,32 @@ month={},}
   publisher={IEEE}
 }
 
-@article{boros02pseudo,
-title = "Pseudo-Boolean optimization",
-journal = "Discrete Applied Mathematics",
-volume = "123",
-number = "1",
-pages = "155 - 225",
-year = "2002",
-author = "Endre Boros and Peter L. Hammer"
+
+@book{koller09,
+  title={Probabilistic Graphical Models: Principles and Techniques},
+  author={Koller, D. and Friedman, N.},
+  isbn={9780262013192},
+  lccn={2009008615},
+  series={Adaptive computation and machine learning},
+  year={2009},
+  publisher={MIT Press}
 }
+
+@article{orlin09faster,
+  title={A faster strongly polynomial time algorithm for submodular function minimization},
+  author={Orlin, James B},
+  journal={Mathematical Programming},
+  volume={118},
+  number={2},
+  pages={237--251},
+  year={2009},
+  publisher={Springer}
+}
+
+
+
+%%%%%%%%%%%%%%%%%%% Graph cuts %%%%%%%%%%%%%%%%%%%
+
 
 @INPROCEEDINGS{boykov03geodesics,
 author={Y. Boykov and V. Kolmogorov},
@@ -634,6 +665,21 @@ number={2},
 pages={147-159},
 month={Feb},}
 
+@article{rother04grabcut,
+ author = {Rother, Carsten and Kolmogorov, Vladimir and Blake, Andrew},
+ title = {"GrabCut": Interactive Foreground Extraction Using Iterated Graph Cuts},
+ journal = {ACM Trans. Graph.},
+ issue_date = {August 2004},
+ volume = {23},
+ number = {3},
+ month = aug,
+ year = {2004},
+ issn = {0730-0301},
+ pages = {309--314},
+ numpages = {6},
+ publisher = {ACM}
+} 
+
 @inproceedings{szeliski06comparative,
   title={A comparative study of energy minimization methods for markov random fields},
   author={Szeliski, Richard and Zabih, Ramin and Scharstein, Daniel and Veksler, Olga and Kolmogorov, Vladimir and Agarwala, Aseem and Tappen, Marshall and Rother, Carsten},
@@ -649,6 +695,16 @@ month={Feb},}
   journal={2007 IEEE Conference on Computer Vision and Pattern Recognition},
   year={2007},
   pages={1-8}
+}
+
+@inproceedings{kolmogorov07nonsubmodular,
+author = {Kolmogorov, Vladimir and Rother, Carsten},
+title = {Minimizing non-submodular functions with graph cuts - a review},
+booktitle = {},
+year = {2007},
+month = {January},
+journal = {PAMI},
+volume = {29},
 }
 
 @inproceedings{veksler07graph,
@@ -699,27 +755,6 @@ month={Feb},}
 }
 
 
-@book{koller09,
-  title={Probabilistic Graphical Models: Principles and Techniques},
-  author={Koller, D. and Friedman, N.},
-  isbn={9780262013192},
-  lccn={2009008615},
-  series={Adaptive computation and machine learning},
-  year={2009},
-  publisher={MIT Press}
-}
-
-@article{orlin09faster,
-  title={A faster strongly polynomial time algorithm for submodular function minimization},
-  author={Orlin, James B},
-  journal={Mathematical Programming},
-  volume={118},
-  number={2},
-  pages={237--251},
-  year={2009},
-  publisher={Springer}
-}
-
 @inproceedings{ramalingam08,
   title={Exact inference in multi-label CRFs with higher order cliques},
   author={Ramalingam, Srikumar and Kohli, Pushmeet and Alahari, Karteek and Torr, Philip HS},
@@ -747,6 +782,222 @@ month={Feb},}
   publisher={Mit Press}
 }
 
+%%%%%%%%%%%%% TV and Curvature Flow %%%%%%%%%%%%%%%%%%
+
+@article{huisken84flow,
+  title={Flow by mean curvature of convex surfaces into spheres},
+  author={Huisken, Gerhard and others},
+  journal={Journal of Differential Geometry},
+  volume={20},
+  number={1},
+  pages={237--266},
+  year={1984},
+  publisher={Lehigh University}
+}
+
+@article{gage86heat,
+  title={The heat equation shrinking convex plane curves},
+  author={Gage, Michael and Hamilton, Richard S and others},
+  journal={Journal of Differential Geometry},
+  volume={23},
+  number={1},
+  pages={69--96},
+  year={1986},
+  publisher={Lehigh University}
+}
+
+@article{osher88fronts,
+  title={Fronts propagating with curvature-dependent speed: algorithms based on Hamilton-Jacobi formulations},
+  author={Osher, Stanley and Sethian, James A},
+  journal={Journal of computational physics},
+  volume={79},
+  number={1},
+  pages={12--49},
+  year={1988},
+  publisher={Elsevier}
+}
+
+
+@article{bellettini02total,
+  title={The total variation flow in RN},
+  author={Bellettini, Giovanni and Caselles, Vicent and Novaga, Matteo},
+  journal={Journal of Differential Equations},
+  volume={184},
+  number={2},
+  pages={475--525},
+  year={2002},
+  publisher={Elsevier}
+}
+
+@article{ecker08heat,
+  title={Heat equations in geometry and topology},
+  author={Ecker, Klaus},
+  journal={Jahresber. Deutsch. Math.-Verein},
+  volume={110},
+  number={3},
+  pages={117--141},
+  year={2008}
+}
+
+
+%%%%%%%%%% INPAINTING  %%%%%%%%%%%%%%%%
+
+@article{chan01nontexture,
+  title={Nontexture inpainting by curvature-driven diffusions},
+  author={Chan, Tony F and Shen, Jianhong},
+  journal={Journal of Visual Communication and Image Representation},
+  volume={12},
+  number={4},
+  pages={436--449},
+  year={2001},
+  publisher={Elsevier}
+}
+
+@inproceedings{bertalmio00image,
+  title={Image inpainting},
+  author={Bertalmio, Marcelo and Sapiro, Guillermo and Caselles, Vincent and Ballester, Coloma},
+  booktitle={Proceedings of the 27th annual conference on Computer graphics and interactive techniques},
+  pages={417--424},
+  year={2000}
+}
+
+
+%%%%%%%%%% ELASTICA %%%%%%%%%%
+
+@book{truesdell60rational,
+  title={The rational mechanics of flexible or elastic bodies},
+  author={Truesdell, Clifford Ambrose},
+  year={1960}
+}
+
+@incollection{mumford94elastica,
+  title={Elastica and computer vision},
+  author={Mumford, David},
+  booktitle={Algebraic geometry and its applications},
+  pages={491--506},
+  year={1994},
+  publisher={Springer}
+}
+
+@InProceedings{masnou98inpainting,
+author={S. Masnou and J. M. Morel},
+booktitle={Proceedings 1998 International Conference on Image Processing. ICIP98 (Cat. No.98CB36269)},
+title={Level lines based disocclusion},
+year={1998},
+volume={},
+number={},
+pages={259-263 vol.3},
+month={Oct},}
+
+@ARTICLE{chan02elasticainpainting,
+    author = {Tony F. Chan and Sung Ha Kang and Kang and Jianhong Shen},
+    title = {Euler's Elastica And Curvature Based Inpaintings},
+    journal = {SIAM J. Appl. Math},
+    year = {2002},
+    volume = {63},
+    pages = {564--592}
+}
+
+@inproceedings{singer08lectures,
+  title={Lectures on elastic curves and rods},
+  author={Singer, David A},
+  booktitle={AIP Conference Proceedings},
+  volume={1002},
+  number={1},
+  pages={3--32},
+  year={2008},
+  organization={American Institute of Physics}
+}
+
+@article{levien08elastica,
+  title={The elastica: a mathematical history},
+  author={Levien, Raph},
+  journal={Electrical Engineering and Computer Sciences University of California at Berkeley},
+  year={2008},
+  publisher={Citeseer}
+}
+
+@article{ballester01filling,
+  title={Filling-in by joint interpolation of vector fields and gray levels},
+  author={Ballester, Coloma and Bertalmio, Marcelo and Caselles, Vicent and Sapiro, Guillermo and Verdera, Joan},
+  journal={IEEE transactions on image processing},
+  volume={10},
+  number={8},
+  pages={1200--1211},
+  year={2001},
+  publisher={IEEE}
+}
+
+@article{ambrosio03direct,
+  title={A direct variational approach to a problem arising in image reconstruction},
+  author={Ambrosio, Luigi and Masnou, Simon},
+  journal={Interfaces and Free Boundaries},
+  volume={5},
+  number={1},
+  pages={63--81},
+  year={2003}
+}
+
+@article{bruckstein01discrete,
+  title={Discrete elastica},
+  author={Bruckstein, Alfred M and Holt, Robert J and Netravali, Arun N},
+  journal={Applicable Analysis},
+  volume={78},
+  number={3-4},
+  pages={453--485},
+  year={2001},
+  publisher={Taylor \& Francis}
+}
+
+@article{bruckstein01epi,
+  title={Epi-convergence of discrete elastica},
+  author={Bruckstein, Alfred M and Netravali, Arun N and Richardson, Tom J},
+  journal={Applicable Analysis},
+  volume={79},
+  number={1-2},
+  pages={137--171},
+  year={2001},
+  publisher={Taylor \& Francis}
+}
+
+@INPROCEEDINGS{schoenemann09linear,
+author={T. Schoenemann and F. Kahl and D. Cremers},
+booktitle={2009 IEEE 12th International Conference on Computer Vision},
+title={Curvature regularity for region-based image segmentation and inpainting: A linear programming relaxation},
+year={2009},
+volume={},
+number={},
+pages={17-23},
+month={Sept},}
+
+@INPROCEEDINGS{zehiry10fast,
+author={N. Y. El-Zehiry and L. Grady},
+booktitle={2010 IEEE Computer Society Conference on Computer Vision and Pattern Recognition},
+title={Fast global optimization of curvature},
+year={2010},
+volume={},
+number={},
+pages={3257-3264},
+month={June},}
+
+@inproceedings{gorelick14local,
+  title={Local submodular approximations for binary pairwise energies},
+  author={Gorelick, L and Veksler, O and Boykov, Y and Ben Ayed, I and Delong, A},
+  booktitle={Computer Vision and Pattern Recognition},
+  volume={1},
+  pages={4},
+  year={2014}
+}
+
+@INPROCEEDINGS{nieuwenhuis14efficient,
+author={C. Nieuwenhuis and E. Toeppe and L. Gorelick and O. Veksler and Y. Boykov},
+booktitle={2014 IEEE Conference on Computer Vision and Pattern Recognition},
+title={Efficient Squared Curvature},
+year={2014},
+volume={},
+number={},
+pages={4098-4105},
+month={June},}
 
 %%%%%%%%%% DIGITAL GEOMETRY %%%%%%%%%%%%%
 
@@ -835,77 +1086,7 @@ pages="43--55",
 } 
 
 
-@InProceedings{masnou98inpainting,
-author={S. Masnou and J. M. Morel},
-booktitle={Proceedings 1998 International Conference on Image Processing. ICIP98 (Cat. No.98CB36269)},
-title={Level lines based disocclusion},
-year={1998},
-volume={},
-number={},
-pages={259-263 vol.3},
-month={Oct},}
 
-
-
-@Article{appleton05geodesic,
-author="Appleton, Ben
-and Talbot, Hugues",
-title="Globally Optimal Geodesic Active Contours",
-journal="Journal of Mathematical Imaging and Vision",
-year="2005",
-month="Jul",
-day="01",
-volume="23",
-number="1",
-pages="67--86",
-}
-
-
-
-
-@INPROCEEDINGS{schoenemann09linear,
-author={T. Schoenemann and F. Kahl and D. Cremers},
-booktitle={2009 IEEE 12th International Conference on Computer Vision},
-title={Curvature regularity for region-based image segmentation and inpainting: A linear programming relaxation},
-year={2009},
-volume={},
-number={},
-pages={17-23},
-month={Sept},}
-
-
-@INPROCEEDINGS{zehiry10fast,
-author={N. Y. El-Zehiry and L. Grady},
-booktitle={2010 IEEE Computer Society Conference on Computer Vision and Pattern Recognition},
-title={Fast global optimization of curvature},
-year={2010},
-volume={},
-number={},
-pages={3257-3264},
-month={June},}
-
-
-
-@INPROCEEDINGS{nieuwenhuis14efficient,
-author={C. Nieuwenhuis and E. Toeppe and L. Gorelick and O. Veksler and Y. Boykov},
-booktitle={2014 IEEE Conference on Computer Vision and Pattern Recognition},
-title={Efficient Squared Curvature},
-year={2014},
-volume={},
-number={},
-pages={4098-4105},
-month={June},}
-
-
-@inproceedings{kolmogorov07nonsubmodular,
-author = {Kolmogorov, Vladimir and Rother, Carsten},
-title = {Minimizing non-submodular functions with graph cuts - a review},
-booktitle = {},
-year = {2007},
-month = {January},
-journal = {PAMI},
-volume = {29},
-}
 
 
 
@@ -964,21 +1145,6 @@ keywords = "Geometry processing, Curvature, Integral invariant, Stability, 3D sh
  acmid = {1279437},
  publisher = {Butterworth-Heinemann}
 }
-
-@article{rother04grabcut,
- author = {Rother, Carsten and Kolmogorov, Vladimir and Blake, Andrew},
- title = {"GrabCut": Interactive Foreground Extraction Using Iterated Graph Cuts},
- journal = {ACM Trans. Graph.},
- issue_date = {August 2004},
- volume = {23},
- number = {3},
- month = aug,
- year = {2004},
- issn = {0730-0301},
- pages = {309--314},
- numpages = {6},
- publisher = {ACM}
-} 
 
 %%% New references HT
 
@@ -1082,14 +1248,6 @@ pages={1200-1211},
 ISSN={1057-7149},
 month={Aug}}
 
-@ARTICLE{chan02elasticainpainting,
-    author = {Tony F. Chan and Sung Ha Kang and Kang and Jianhong Shen},
-    title = {Euler's Elastica And Curvature Based Inpaintings},
-    journal = {SIAM J. Appl. Math},
-    year = {2002},
-    volume = {63},
-    pages = {564--592}
-}
 
 @INPROCEEDINGS{goldluecke11totalcurvature,
 author={B. {Goldluecke} and D. {Cremers}},
@@ -1112,15 +1270,6 @@ pages = {566-613},
 title = {A Convex, Lower Semicontinuous Approximation of Euler's Elastica Energy},
 volume = {47},
 journal = {SIAM Journal on Mathematical Analysis},
-}
-
-@incollection{mumford1994elastica,
-  title={Elastica and computer vision},
-  author={Mumford, David},
-  booktitle={Algebraic geometry and its applications},
-  pages={491--506},
-  year={1994},
-  publisher={Springer}
 }
 
 
@@ -1214,17 +1363,4 @@ publisher="Springer International Publishing",
 address="Cham",
 pages="15--26",
 isbn="978-3-030-14085-4"
-}
-
-
-@article{hammer84,
-	year = 1984,
-	month = {feb},
-	publisher = {Springer Science and Business Media {LLC}},
-	volume = {28},
-	number = {2},
-	pages = {121--155},
-	author = {P. L. Hammer and P. Hansen and B. Simeone},
-	title = {Roof duality, complementation and persistency in quadratic 0{\textendash}1 optimization},
-	journal = {Mathematical Programming}
 }
