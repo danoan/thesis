@@ -289,17 +289,17 @@ The Tikhonov term favors images with smooth variations in color, but the smoothn
 
 \begin{figure}
 \center
-%\subfloat[Original]{
-%\includegraphics[scale=0.35]{figures/chapter2/denoising/coala-original.png}
-%}%
+\subfloat{
+\includegraphics[scale=0.224,valign=t]{figures/chapter2/denoising/coala-original.png}
+}\hspace{0.2em} \setcounter{subfigure}{0}
 \subfloat[Noisy]{
-\includegraphics[scale=0.35]{figures/chapter2/denoising/coala-noise.png}
+\includegraphics[scale=0.32,valign=t]{figures/chapter2/denoising/coala-noise.png}
 }%
 \subfloat[Tikhonov]{
-\includegraphics[scale=0.35]{figures/chapter2/denoising/coala-tikhonov.png}
+\includegraphics[scale=0.32,valign=t]{figures/chapter2/denoising/coala-tikhonov.png}
 }%
 \subfloat[Total Variation]{
-\includegraphics[scale=0.35]{figures/chapter2/denoising/coala-fista.png}
+\includegraphics[scale=0.32,valign=t]{figures/chapter2/denoising/coala-rof.png}
 }%
 \caption{\textbf{Tikhonov x Total variation denoising}. Total variation is capable to better preserve discontinuities across edges than Tikhonov. }
 \label{ch1:fig:denoising-results}
