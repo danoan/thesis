@@ -59,15 +59,14 @@ In order to solve ill-posed problems one should include additional information, 
 Next, we describe the image model used in this thesis and give a precise definition of the main image problems discussed further on. Examples of such applications can be seen in~\cref{ch1:fig:imaging-problems-real-applications,ch1:fig:imaging-problems-example}.
 
 \subsubsection{Image model}
-For matters of simplicity, we limit our discussion to grayscale images, the concepts being mostly extendable to multichannel images. It is convenient to have in mind two different representations of an image. \\
-
+For matters of simplicity, we limit our discussion to grayscale images, the concepts being mostly extendable to multichannel images. It is convenient to have in mind two different representations of an image.
 \begin{center}
 \begin{tabular}{rl}
 	Discrete: & $\vec{I} \in \mathbb{F}^{m \times n}$ \\
 	Continuous: & $f_{\vec{I}}: \Omega \subset \mathbb{R}^2 \rightarrow [0,1]$,
 \end{tabular}
 \end{center}
-
+%
 where $\mathbb{F}$ is a finite set. In this thesis, we define such set as
 \begin{align}
 	\mathbb{F} &= \{ \frac{i}{255} \; | \; i \in \mathbb{N}, i \leq 255 \}.
@@ -110,10 +109,9 @@ Given $f_{\widetilde{\vec{I}}}$, find estimation $f_{\widehat{\vec{I}}}$ such th
 \textbf{Applications:} Restoration of old pictures; enhancement of satellite images.
 
 \subsubsection{Image segmentation}
-Given an image $f_{\vec{I}}$, the \emph{image segmentation} problem consists in finding a partition $\mathcal{I}$ of $f_{\vec{I}}$ such that each element of $\mathcal{I}$ is identified with some desired property, usually encoded by the minimum of some functional $E$
-
+Given an image $f_{\vec{I}}$, the \emph{image segmentation} problem consists in finding a partition $\mathcal{I}$ of $f_{\vec{I}}$ such that each element of $\mathcal{I}$ is identified with some desired property, usually encoded by the minimum of some functional $E$.
 %
-
+%
 Given $f_I:\Omega \rightarrow [0,1]$ and a positive integer $n$, find partition $\mathcal{I}^{\star} = \{ \Omega_i \subset \Omega \; | \; i \leq n \}$ such that
 \begin{align*}
 	\mathcal{I}^{\star} = \argmin_{\mathcal{I}} E(\mathcal{I},f_{\vec{I}}) &\quad  \text{subject to } \begin{array}{l}
