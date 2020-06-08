@@ -1,7 +1,8 @@
 \newcommand{\daniel}[1]{{\color{red}{#1}}}
 
 \newcounter{definition}[section]
-\newenvironment{definition}[1]{\refstepcounter{definition} \par\medskip \noindent  \textbf{Definition~\thedefinition(#1):}}{\medskip}
+\newenvironment{definition}[1]{\refstepcounter{definition} \par\bigskip \noindent  \begin{minipage}[b]{\linewidth} 
+\textbf{Definition~\thedefinition(#1):}}{\end{minipage} \par\bigskip}
 
 \newcounter{example}[section]
 \newenvironment{example}{\refstepcounter{example} \par\medskip
