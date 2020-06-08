@@ -5,12 +5,12 @@
 In the previous chapter we have presented a local combinatorial model using multigrid convergent estimator that proved to be very successful in optimizing the digital Elastica but too slow to be used in practice. We have also attempted to derive a global optimization model, but unfortunately such model is unlikely to be solved in the current state of art of binary optimization techniques. In this chapter we present a second local optimization model that is much faster than~\cref{alg:local-search} but with fewer guarantees of optimality.
 
 \section{FlipFlow model}
-\label{ch7:sec:flipflow-model}
+\label{ch6:sec:flipflow-model}
 
 In this section we describe the FlipFlow model that aims to evolve a initial digital shape $\Ds$ into another of lower digital Elastica value. The FlipFlow algorithm consists into deciding, at each iteration $k$, which pixels in the \emph{inner boundary} of $\Ds^{(k)}$ are to be removed  and which are to be kept. 
 
 \subsection{Definitions}
-\label{ch7:subsec:definitions}
+\label{ch6:subsec:definitions}
 
 Let $\Ds$ be a digital shape with domain $\Omega \subset \mathbb{Z}^2$. We describe a flow $\left \{ \Ds^{(k)} \; | \; k \geq 0, \Ds^{0} = \Ds \right\}$ intended to decrease the digital Elastica energy of $\Ds$.
 
@@ -28,7 +28,7 @@ A $\{0,1\}$ assignment of the variables in $X(\Omega)$ is denoted $x(\Omega)$. W
 	\Ds + x(\Omega) = \Ds \cup \left\{ p \; | \; p \in P, x_{\omega(p)}=1 \right\}.
 \end{align*}
 
-Next, we define the set of optimization variables. In order to guarantee connectivity and thus avoid the enforcement of the topological constraints discussed in~\cref{ch6:subsec:topological-constraints}, we limit the optimization region to a subset of $\Omega$, namely the inner pixel boundary of  $\Ds^{(k)}$.
+Next, we define the set of optimization variables. In order to guarantee connectivity and thus avoid the enforcement of the topological constraints discussed in~\cref{ch5:subsec:topological-constraints}, we limit the optimization region to a subset of $\Omega$, namely the inner pixel boundary of  $\Ds^{(k)}$.
 
 \begin{definition}{Inner pixel boundary}
 
@@ -53,7 +53,7 @@ An assignment of $X^{(k)}$ is simply denoted $x^{(k)}$.
 
 
 \subsection{Algorithm}
-\label{ch7:subsec:algorithm}
+\label{ch6:subsec:algorithm}
 
 We recall the definition of the II digital curvature estimator:
 
@@ -100,7 +100,7 @@ where $s(\cdot)$ denotes the length penalization term, written as
 \end{align}
 
 
-We recall that $R_m$ refers to the $m-ring$ defined in~\cref{ch6:sec:local-combinatorial-scheme}. Each choice of $m$ generates a different flow, which is generally described in the \emph{FlipFlow}~\cref{alg:evolution-model}. To optimize~\cref{eq:energy-family} we use the QPBOI algorithm \cite{rother07qpbo}.
+We recall that $R_m$ refers to the $m-ring$ defined in~\cref{ch5:sec:local-combinatorial-scheme}. Each choice of $m$ generates a different flow, which is generally described in the \emph{FlipFlow}~\cref{alg:evolution-model}. To optimize~\cref{eq:energy-family} we use the QPBOI algorithm \cite{rother07qpbo}.
 
 
 \begin{algorithm}
@@ -134,7 +134,7 @@ We recall that $R_m$ refers to the $m-ring$ defined in~\cref{ch6:sec:local-combi
 \end{algorithm}
 
 \subsection{Algorithm discussion}
-\label{ch7:subsec:flipflow-algorithm-discussion}
+\label{ch6:subsec:flipflow-algorithm-discussion}
 
 \begin{figure}
 \begin{minipage}{0.49\textwidth}
@@ -151,7 +151,7 @@ We recall that $R_m$ refers to the $m-ring$ defined in~\cref{ch6:sec:local-combi
 \label{fig:contour-info}
 \end{figure}
 
-As discussed in~\cref{ch6:sec:global-optimization}, the topological constraints are a fundamental part in a global optimization model for the digital Elastica but the complexity added to it dampens any hope of optimizing it efficiently. In the proposed FlipFlow model, we exclude topological constraints and we end up with the tractable binary second order~\cref{eq:energy-family}. However, due the lack of contour information, the minimization of~\cref{eq:energy-family} for $\Ds^{(k)}$ results in undesirable shapes of even higher digital Elastica energy values  (see~\cref{fig:contour-info}). Interestingly, by using the inverse of the optimal assignement, we can derive a shape of lower digital Elastica energy. Therefore, the next shape is given by
+As discussed in~\cref{ch5:sec:global-optimization}, the topological constraints are a fundamental part in a global optimization model for the digital Elastica but the complexity added to it dampens any hope of optimizing it efficiently. In the proposed FlipFlow model, we exclude topological constraints and we end up with the tractable binary second order~\cref{eq:energy-family}. However, due the lack of contour information, the minimization of~\cref{eq:energy-family} for $\Ds^{(k)}$ results in undesirable shapes of even higher digital Elastica energy values  (see~\cref{fig:contour-info}). Interestingly, by using the inverse of the optimal assignement, we can derive a shape of lower digital Elastica energy. Therefore, the next shape is given by
 
 \begin{align*}
 	\Ds^{(k+1)} = \Ds^{(k)} - \argmin _{}{E_{(\vec{\theta},m)}^{flip}\big(\Ds^{(k)},1-X^{(k)}} \big).
@@ -236,7 +236,7 @@ In~\cref{fig:m1-square-flow} we show the results of the FlipFlow algorithm for $
 
 
 \section{Optimization method}
-\label{ch7:sec:optimization-method}
+\label{ch6:sec:optimization-method}
 
 Let $f$ be a function of $n$ binary variables with unary and pairwise terms, i.e.
 
@@ -296,7 +296,7 @@ varies across values of $m$ differs from shape to shape, as is illustrated in~\c
 
 
 \section{Evaluation across $m$-rings}
-\label{ch7:sec:evaluation-across-rings}
+\label{ch6:sec:evaluation-across-rings}
 
 The QPBOP method leaves many pixels unlabeled for $m=0$, but the ratio of unlabeled pixels tends to decrease as we take higher values of $m$. In this section, we argue that by evaluating the estimation ball along outer rings we obtain smoother evolutions by focusing the optimization process only on regions of high squared curvature value.
 
@@ -370,7 +370,7 @@ $m=9$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/impr
 
 
 \section{Data term and image segmentation}
-\label{ch7:sec:data-term-image-segmentation}
+\label{ch6:sec:data-term-image-segmentation}
 
 We present an application of the FlipFlow algorithm to supervised image segmentation. The FlipFlow acts as a contour correction method. Here we use a data fidelity term in order to characterize the object of interest. Given foreground and background seeds selected by the user, we derive mixed Gaussian distributions of color intensities $H_f$,$H_b$, and we define the data fidelity term as the cross-entropy, i.e.
 	
@@ -440,11 +440,11 @@ An illustration of the application of the FlipFlow model in image segmentation i
 \end{figure}
 
 \section{Conclusion}
-\label{ch7:sec:conclusion}
-We presented the FlipFlow model in~\cref{ch7:sec:flipflow-model}, an evolution process that produces shapes of decreasing digital Elastica until a certain inflexion point.~\cref{alg:evolution-model} operates in two distinct modes: the shrinking and the dilation modes. They are responsible for the treatment of convexities and concavities regions, respectively. 
+\label{ch6:sec:conclusion}
+We presented the FlipFlow model in~\cref{ch6:sec:flipflow-model}, an evolution process that produces shapes of decreasing digital Elastica until a certain inflexion point.~\cref{alg:evolution-model} operates in two distinct modes: the shrinking and the dilation modes. They are responsible for the treatment of convexities and concavities regions, respectively. 
 
 
-~\cref{ch7:sec:optimization-method} briefly describes some properties of QPBO method and its variants used to solve the quadratic binary problem that appears at every iteration of ~\cref{alg:evolution-model}. In~\cref{ch7:sec:evaluation-across-rings} we point out the submodularization effect of evaluating the FlipFlow model at outer $m$-rings. For larger values of $m$, all pixels are labeled by QPBOP. Finally, we extended~\cref{alg:evolution-model} in order to include a data term regularization and do image segmentation using~\cref{alg:contour-correction}.
+~\cref{ch6:sec:optimization-method} briefly describes some properties of QPBO method and its variants used to solve the quadratic binary problem that appears at every iteration of ~\cref{alg:evolution-model}. In~\cref{ch6:sec:evaluation-across-rings} we point out the submodularization effect of evaluating the FlipFlow model at outer $m$-rings. For larger values of $m$, all pixels are labeled by QPBOP. Finally, we extended~\cref{alg:evolution-model} in order to include a data term regularization and do image segmentation using~\cref{alg:contour-correction}.
 
 
 In the next chapter we identify the key concept behind the FlipFlow model to define a variant of this algorithm which is easier to implement.

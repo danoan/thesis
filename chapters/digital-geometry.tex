@@ -5,7 +5,7 @@ The primitives of Euclidean geometry, such as lines and points, are idealized ob
 
 In imaging, however, it is almost always the case that we do not have a mathematical description of the objects in the scene. We need to identify the primitives from its visual representations.  We are not dealing with idealized objects anymore, but with finite descriptions of them. One of the subjects of study of digital geometry, and the one focused in this chapter, is how to correctly measure geometric properties in digitized objects.
 
-We introduce basic concepts of digital geometry in~\cref{ch5:sec:ground-concepts} and we point out the difference between exact sampling and digitization. In~\cref{ch5:sec:geometric-measurements}, we introduce the multigrid convergence property and we give examples of several multigrid convergent estimators for local and global geometric measurements.
+We introduce basic concepts of digital geometry in~\cref{ch4:sec:ground-concepts} and we point out the difference between exact sampling and digitization. In~\cref{ch4:sec:geometric-measurements}, we introduce the multigrid convergence property and we give examples of several multigrid convergent estimators for local and global geometric measurements.
 
 %As an illustration, consider the following examples of problems related with convex sets arising from each of this sub fields
 %
@@ -17,7 +17,7 @@ We introduce basic concepts of digital geometry in~\cref{ch5:sec:ground-concepts
 %\end{itemize}
 
 
-\section{Ground concepts}\label{ch5:sec:ground-concepts}
+\section{Ground concepts}\label{ch4:sec:ground-concepts}
 
 In this section we define the grid point model and its adjacency relations, which allow us to define the digital line primitive. Next, we describe the grid intersection and Gauss digitization mappings, which link continuous objects to its digital representations in the grid point model. The concepts defined in this section can be explored in much more depth in the book~\cite{klette04digital}.
 
@@ -27,31 +27,31 @@ In this section we define the grid point model and its adjacency relations, whic
 The $2D$ digital grid $h\mathbb{Z}^2 = \{ p = (h \cdot i,h \cdot j) \; | \; i,j \in \mathbb{Z}\}$ with grid step (resolution) $h \in \mathbb{R}^+ \setminus \{0\}$ is a regular sampling of the plane. Its members are called \emph{grid points}.
 \end{definition}
 
-We can think of the digital grid as a regular tessellation of the plane. The grid points are the center of the \emph{grid squares} (pixels). The other components, \emph{grid edges } and \emph{grid vertices} are illustrated in~\cref{ch5:fig:grid-point-model}. They form the \emph{grid point model} of the plane. Next we define the two commonest adjacency relations in the grid point model.
+We can think of the digital grid as a regular tessellation of the plane. The grid points are the center of the \emph{grid squares} (pixels). The other components, \emph{grid edges } and \emph{grid vertices} are illustrated in~\cref{ch4:fig:grid-point-model}. They form the \emph{grid point model} of the plane. Next we define the two commonest adjacency relations in the grid point model.
 
 \begin{figure}
 \begin{minipage}{0.6\textwidth}
 \center
-\subfloat[Grid point model\label{ch5:fig:grid-point-model}]{
-\includegraphics[scale=0.5]{figures/chapter-digital/digital-grid/grid-point-model.png}
+\subfloat[Grid point model\label{ch4:fig:grid-point-model}]{
+\includegraphics[scale=0.5]{figures/chapter4/digital-grid/grid-point-model.png}
 }
 \end{minipage}%
 \begin{minipage}{0.4\textwidth}
 \center
-\subfloat[$4$-adjacency\label{ch5:fig:4-adjacency}]{
-\includegraphics[scale=0.25]{figures/chapter-digital/digital-grid/4-adjacency.png}
+\subfloat[$4$-adjacency\label{ch4:fig:4-adjacency}]{
+\includegraphics[scale=0.25]{figures/chapter4/digital-grid/4-adjacency.png}
 }\hspace{1em}%
-\subfloat[$8$-adjacency\label{ch5:fig:8-adjacency}]{
-\includegraphics[scale=0.25]{figures/chapter-digital/digital-grid/8-adjacency.png}
+\subfloat[$8$-adjacency\label{ch4:fig:8-adjacency}]{
+\includegraphics[scale=0.25]{figures/chapter4/digital-grid/8-adjacency.png}
 }\\
 
-\subfloat[Connected components\label{ch5:fig:connected-sets}]{
-\includegraphics[scale=0.5]{figures/chapter-digital/digital-grid/connectivity.png}
+\subfloat[Connected components\label{ch4:fig:connected-sets}]{
+\includegraphics[scale=0.5]{figures/chapter4/digital-grid/connectivity.png}
 }
 \end{minipage}
 
 \caption{\textbf{Digital grid and adjacency relations.} The grid point model and its components in (a); The $4$ and $8$ adjacency relations in (b) and (c); A $4$-connected set (orange) and a $8$-connected set (blue) in (d).}
-\label{ch5:fig:digital-grid}
+\label{ch4:fig:digital-grid}
 \end{figure}
 
 \begin{definition}{$4$-adjacency relation}
@@ -62,7 +62,7 @@ Two grid points $p_1=(x_1,y_1)$ and $p_2=(x_2,y_2)$ are $4$-adjacent iff $p_1 \n
 Two grid points $p_1=(x_1,y_1)$ and $p_2=(x_2,y_2)$ are $8$-adjacent iff $p_1 \neq p_2$ and $\max \{ |x_1-x_2|, |y_1-y_2| \} = 1$. We denote relation membership as $p_1A_8p_2$.
 \end{definition}
 
-The adjacency relations are illustrated in~\cref{ch5:fig:4-adjacency,ch5:fig:8-adjacency}. Armed with an adjacency relation, we can define the notions of path and connectivity. A \emph{$4$-connected path} is a sequence $\{p_1,p_2,\cdots, p_n\}$ of grid points such that $p_iA_4p_{i+1}$ for all $1 \leq i < n$. A set $P$ is \emph{$4$-connected} if for every $p,q \in P$ there exists a $4$-connected path starting at $p$ and ending at $q$. Analogously definitions holds for $8$-adjacency relation~(see~\cref{ch5:fig:connected-sets}).
+The adjacency relations are illustrated in~\cref{ch4:fig:4-adjacency,ch4:fig:8-adjacency}. Armed with an adjacency relation, we can define the notions of path and connectivity. A \emph{$4$-connected path} is a sequence $\{p_1,p_2,\cdots, p_n\}$ of grid points such that $p_iA_4p_{i+1}$ for all $1 \leq i < n$. A set $P$ is \emph{$4$-connected} if for every $p,q \in P$ there exists a $4$-connected path starting at $p$ and ending at $q$. Analogously definitions holds for $8$-adjacency relation~(see~\cref{ch4:fig:connected-sets}).
 
 
 The adjacency relations are also used to define the $4,8$ neighborhood sets of a grid point.~
@@ -79,19 +79,19 @@ Let $S \subset \mathbb{R}^2$ a shape in the plane. Its Gauss digitization $D_h(S
 \begin{figure}
 \center
 \subfloat[$h=1.0$]{
-\includegraphics[scale=0.36]{figures/chapter-digital/digitization/h1.png}
+\includegraphics[scale=0.36]{figures/chapter4/digitization/h1.png}
 }
 \subfloat[$h=0.5$]{
-\includegraphics[scale=0.18]{figures/chapter-digital/digitization/h05.png}
+\includegraphics[scale=0.18]{figures/chapter4/digitization/h05.png}
 }
 \subfloat[$h=0.25$]{
-\includegraphics[scale=0.09]{figures/chapter-digital/digitization/h025.png}
+\includegraphics[scale=0.09]{figures/chapter4/digitization/h025.png}
 }
 \caption{\textbf{Gauss digitization.} Digitization of a ball of radius $5$ in three different resolutions.}
-\label{ch5:fig:gauss-digitization}
+\label{ch4:fig:gauss-digitization}
 \end{figure}
 
-In~\cref{ch5:fig:gauss-digitization} we show the Gauss digitization of an Euclidean ball of radius $5$. As one could expect, the Gauss digitization is not adequate to the digitization of lines. In this case, the grid intersection digitization is preferred.
+In~\cref{ch4:fig:gauss-digitization} we show the Gauss digitization of an Euclidean ball of radius $5$. As one could expect, the Gauss digitization is not adequate to the digitization of lines. In this case, the grid intersection digitization is preferred.
 
 \begin{definition}{Grid intersection digitization}
 The grid intersection digitization of a planar curve $\gamma$ is the set of all grid points in the digital grid that are closest (Euclidean distance) to the intersection points of $\gamma$ with the grid lines.
@@ -100,19 +100,19 @@ The grid intersection digitization of a planar curve $\gamma$ is the set of all 
 \begin{figure}
 \center
 \subfloat[]{
-\includegraphics[scale=0.5]{figures/chapter-digital/digitization/grid-intersection-1.png}
+\includegraphics[scale=0.5]{figures/chapter4/digitization/grid-intersection-1.png}
 }\hspace{0.5em}
 \subfloat[]{
-\includegraphics[scale=0.5]{figures/chapter-digital/digitization/grid-intersection-2.png}
+\includegraphics[scale=0.5]{figures/chapter4/digitization/grid-intersection-2.png}
 }\hspace{0.5em}
 \subfloat[]{
-\includegraphics[scale=0.5]{figures/chapter-digital/digitization/grid-intersection-3.png}
+\includegraphics[scale=0.5]{figures/chapter4/digitization/grid-intersection-3.png}
 }
 \caption{\textbf{Grid intersection digitization.} The Euclidean line is superposed in the digital grid in a); the closest grid points from the intersection with the grid lines are highlighted in blue in b); the grid intersection digitization of the line segment. The digitized segment is $8$-connected.}
-\label{ch5:fig:grid-intersection-digitization}
+\label{ch4:fig:grid-intersection-digitization}
 \end{figure}
 
-An illustration of grid intersection digitization is given in~\cref{ch5:fig:grid-intersection-digitization}. The digitization gives us a mapping from continuous objects to its digital grid representation, but an operation in the opposite direction is necessary if we wish to identify geometric primitives. Alternatively, one could define digital geometry primitives, for example, the digital counterpart of a line segment.
+An illustration of grid intersection digitization is given in~\cref{ch4:fig:grid-intersection-digitization}. The digitization gives us a mapping from continuous objects to its digital grid representation, but an operation in the opposite direction is necessary if we wish to identify geometric primitives. Alternatively, one could define digital geometry primitives, for example, the digital counterpart of a line segment.
 
 \begin{definition}{Digital straight segment (DSS)}
 Let $a,b,\mu \in \mathbb{Z}$ such that gcd$(a,b)=1$. The digital straight segment of tangent $a/b$ shifted of $\mu$ from the origin and of width $\varepsilon$ is any subset of $\mathbb{Z}^2$ satisfying~
@@ -123,24 +123,24 @@ Let $a,b,\mu \in \mathbb{Z}$ such that gcd$(a,b)=1$. The digital straight segmen
 \begin{figure}
 \center
 \subfloat[$\varepsilon= |a| + |b| $]{
-\includegraphics[scale=0.4]{figures/chapter-digital/dss/four-connected.png}
+\includegraphics[scale=0.4]{figures/chapter4/dss/four-connected.png}
 }
 \subfloat[$\varepsilon=\max \{ |a|,|b| \}$]{
-\includegraphics[scale=0.4]{figures/chapter-digital/dss/eight-connected.png}
+\includegraphics[scale=0.4]{figures/chapter4/dss/eight-connected.png}
 }
 \caption{\textbf{Digital straight segment.} In a) we have a $4$-connected DSS and in b) a $8$-connected DSS.}
-\label{ch5:fig:dss}
+\label{ch4:fig:dss}
 \end{figure}
 
-The value of $\varepsilon$ defines the connectivity of the DSS, as illustrated in~\cref{ch5:fig:dss}. In applications we are going to be interested in the recognition of maximal DSS, for which linear time algorithms are available~(some of them described in~\cite{klette04digital}, chapter 9). A maximal DSS is a DSS that is not contained in any other DSS. The collection of maximal DSS's in the boundary of a digital set form its~\emph{tangential cover}~(see~\cref{ch5:fig:tangential-cover}). The tangential cover computation is a fundamental step in the computation of convergent estimators of tangent, as we are going to see in the next section.
+The value of $\varepsilon$ defines the connectivity of the DSS, as illustrated in~\cref{ch4:fig:dss}. In applications we are going to be interested in the recognition of maximal DSS, for which linear time algorithms are available~(some of them described in~\cite{klette04digital}, chapter 9). A maximal DSS is a DSS that is not contained in any other DSS. The collection of maximal DSS's in the boundary of a digital set form its~\emph{tangential cover}~(see~\cref{ch4:fig:tangential-cover}). The tangential cover computation is a fundamental step in the computation of convergent estimators of tangent, as we are going to see in the next section.
 
 Finally, we refer to the \emph{digital contour} $\partial_h S$ of $D_h(S)$ as the collection of grid vertices on the boundary of the axis-aligned polygonal shape formed by the grid squares of $D_h(S)$.
 
 \begin{figure}
 \center
-\includegraphics[scale=1]{figures/chapter-digital/dss/tangential-cover.png}
+\includegraphics[scale=1]{figures/chapter4/dss/tangential-cover.png}
 \caption{\textbf{Tangential conver.} The tangential cover is the collection of all maximal DSS in the digital contour of some digital shape. (Extracted from~\cite{})}
-\label{ch5:fig:tangential-cover}
+\label{ch4:fig:tangential-cover}
 \end{figure}
 
 
@@ -151,15 +151,15 @@ Let $S$ some regular shape in the plane, for example, a disk of radius $r$. Assu
 \begin{figure}
 \center
 \subfloat[]{
-\includegraphics[scale=0.4]{figures/chapter-digital/exact-sampling/sampling-1.png}
-\includegraphics[scale=0.4]{figures/chapter-digital/exact-sampling/sampling-2.png}
-\includegraphics[scale=0.4]{figures/chapter-digital/exact-sampling/sampling-3.png}
+\includegraphics[scale=0.4]{figures/chapter4/exact-sampling/sampling-1.png}
+\includegraphics[scale=0.4]{figures/chapter4/exact-sampling/sampling-2.png}
+\includegraphics[scale=0.4]{figures/chapter4/exact-sampling/sampling-3.png}
 }\hspace{1em}
 \subfloat[]{
-\includegraphics[scale=0.3]{figures/chapter-digital/exact-sampling/digital-ball-perimeter.png}
+\includegraphics[scale=0.3]{figures/chapter4/exact-sampling/digital-ball-perimeter.png}
 }
 \caption{\textbf{Exact sampling x digitization.}The perimeter is approximated by the Euclidean polygon formed by $n$ points in the boundary of $S$ in (a). The perimeter is estimated by counting the number of grid edges in (b).}
-\label{ch5:fig:exact-sampling-digitization}
+\label{ch4:fig:exact-sampling-digitization}
 \end{figure}
 
 We could estimate the perimeter of $S$ by simply computing the length of the polygon  connecting the $n$ points, i.e., 
@@ -168,7 +168,7 @@ We could estimate the perimeter of $S$ by simply computing the length of the pol
 \end{align*}
 This estimation converges to $2\pi r$ as the number of sampling points increase. Now, let us consider the scenario in which we have a digitization of $S$. The oracle give to us a digitization of $S$ in any resolution $h$. Can we measure the length of $S$ using the same strategy employed in the previous scenario?
 
-Let us say that we engage in to estimating the length of $S$ by computing the length of the axis-aligned polygon derived from the digitization of $S$, as illustrated in~\cref{ch5:fig:exact-sampling-digitization}. We assume that the disk is centered at a grid point. It is easy to see that for each quarter of the disk, we have $r/h + 2$ horizontal steps and $r/h + 2$ vertical steps. Therefore,
+Let us say that we engage in to estimating the length of $S$ by computing the length of the axis-aligned polygon derived from the digitization of $S$, as illustrated in~\cref{ch4:fig:exact-sampling-digitization}. We assume that the disk is centered at a grid point. It is easy to see that for each quarter of the disk, we have $r/h + 2$ horizontal steps and $r/h + 2$ vertical steps. Therefore,
 \begin{align*}
 	\hat{L}(S) &= 4h(r/h + r/h + 1) = 8r + 4h.
 \end{align*}
@@ -182,7 +182,7 @@ where $n_i$ are the number of axis-aligned steps and $n_d$ the number of diagona
 
 This simple example points out that standard discretization strategies of continuous measures or energies, as the one proposed for the discrete elastica in~\cref{chapter:curvature-prior}, do not necessarily extend well in the digital world. The fundamental issue with digital objects is that we have to handle with \emph{digitization errors}. We do not have an exact sampling of the continuous object.
 
-\section{Geometric measurements in digital objects}\label{ch5:sec:geometric-measurements}
+\section{Geometric measurements in digital objects}\label{ch4:sec:geometric-measurements}
 
 \subsubsection{Multigrid convergence and perimeter estimation}
 
@@ -202,21 +202,21 @@ where $\tau_S:\mathbb{R}^+\setminus \{0\} \rightarrow \mathbb{R}^+$ is the speed
 In the following, we give some examples of multigrid convergent estimators for perimeter.
 
 \begin{itemize}
-	\item[]{\textbf{DSS estimator~\cite{kovalevsky92theoretical}}: It estimates the perimeter by partitioning the digital contours in a sequence of longest DSS's. Starting from any point $p$, it finds the longest DSS starting from $p$ and it repeats the process until all the digital contour is covered. This set of DSS's defines a polygon whose perimeter is the estimated value~(see~\cref{ch5:fig:dss}). It is multigrid convergent for the family of piecewise $3$-smooth convex shapes and also convex polygons.}
-	\item[]{\textbf{MLP estimator~\cite{sloboda98approximation}}: It estimates the perimeter of the digital contour as the perimeter of the minimum length polygon that separates interior grid points from exterior grid points~(see~\cref{ch5:fig:mlp}). It is multigrid convergent for all finite convex shapes.}
+	\item[]{\textbf{DSS estimator~\cite{kovalevsky92theoretical}}: It estimates the perimeter by partitioning the digital contours in a sequence of longest DSS's. Starting from any point $p$, it finds the longest DSS starting from $p$ and it repeats the process until all the digital contour is covered. This set of DSS's defines a polygon whose perimeter is the estimated value~(see~\cref{ch4:fig:dss}). It is multigrid convergent for the family of piecewise $3$-smooth convex shapes and also convex polygons.}
+	\item[]{\textbf{MLP estimator~\cite{sloboda98approximation}}: It estimates the perimeter of the digital contour as the perimeter of the minimum length polygon that separates interior grid points from exterior grid points~(see~\cref{ch4:fig:mlp}). It is multigrid convergent for all finite convex shapes.}
 \end{itemize}
 
 The DSS estimator can be implement in linear-time by using a linear-time DSS recognition algorithm. A linear-time algorithm for the MLP computation is also available~\cite{provenccal09two}.
 
 \begin{figure}
 \center
-\subfloat[DSS estimator \label{ch5:fig:dss}]
+\subfloat[DSS estimator \label{ch4:fig:dss}]
 {
-\includegraphics[scale=0.2]{figures/chapter-digital/perimeter/dss-estimator.png}
+\includegraphics[scale=0.2]{figures/chapter4/perimeter/dss-estimator.png}
 }
-\subfloat[MLP estimator \label{ch5:fig:mlp} (extracted from~\cite{provenccal09two})]
+\subfloat[MLP estimator \label{ch4:fig:mlp} (extracted from~\cite{provenccal09two})]
 {
-\includegraphics[scale=1.0]{figures/chapter-digital/perimeter/mlp.png}
+\includegraphics[scale=1.0]{figures/chapter4/perimeter/mlp.png}
 }
 \caption{\textbf{Multigrid convergent estimators for perimeter.} The perimeter is estimated by sum of the lengths of the recognized DSS in (a). The perimeter is estimated as the length of the minimum length polygon separating inner and outer pixels in (b).}
 \end{figure}
@@ -279,16 +279,16 @@ Analogously to digital straight segments, the \emph{digital circular arc} is the
 A segment $C \in \partial_h S$ is a digital circular arc if and only if the interior and exterior grid points of $C$ are circularly separable, i.e., there exists an Euclidean circle that either encloses the interior points without enclosing any exterior points or that encloses the exterior points without enclosing any interior point.
 \end{definition}
 
-An illustration is given in~\cref{ch5:fig:digital-circular-arc}.The Maximal Digital Circular Arcs estimator (MDCA)~\cite{roussillon11mdca} estimates the curvature at point $p \in \partial_h S$ as the inverse of the radius of the most centered digital circular arc that contains $p$. The MDCA estimator is multigrid convergent for the family of convex shapes in the plane with continuous, strictly positive and bounded curvature. An alternative is the $\lambda$-MDCA estimator~\cite{schindele17mdca}, which follows the same rational of the $\lambda$-MST. The $\lambda$-MDCA has been proven multigrid convergent for the same family of convex shapes with continuous curvature. It coverges with speed $O(h^{1/3})$.
+An illustration is given in~\cref{ch4:fig:digital-circular-arc}.The Maximal Digital Circular Arcs estimator (MDCA)~\cite{roussillon11mdca} estimates the curvature at point $p \in \partial_h S$ as the inverse of the radius of the most centered digital circular arc that contains $p$. The MDCA estimator is multigrid convergent for the family of convex shapes in the plane with continuous, strictly positive and bounded curvature. An alternative is the $\lambda$-MDCA estimator~\cite{schindele17mdca}, which follows the same rational of the $\lambda$-MST. The $\lambda$-MDCA has been proven multigrid convergent for the same family of convex shapes with continuous curvature. It coverges with speed $O(h^{1/3})$.
 
 
 \begin{figure}
 \center
-\subfloat[Digital circular arc (extracted from~\cite{roussillon11mdca} ) \label{ch5:fig:digital-circular-arc}]{
-\includegraphics[scale=0.2]{figures/chapter-digital/curvature/digital-circular-arc.png}
+\subfloat[Digital circular arc (extracted from~\cite{roussillon11mdca} ) \label{ch4:fig:digital-circular-arc}]{
+\includegraphics[scale=0.2]{figures/chapter4/curvature/digital-circular-arc.png}
 }\hspace{1em}
-\subfloat[II estimator (extracted from~\cite{coeurjolly13integral} ) \label{ch5:fig:ii-estimator}]{
-\includegraphics[scale=0.36]{figures/chapter-digital/curvature/ii-digital-contour.png}
+\subfloat[II estimator (extracted from~\cite{coeurjolly13integral} ) \label{ch4:fig:ii-estimator}]{
+\includegraphics[scale=0.36]{figures/chapter4/curvature/ii-digital-contour.png}
 }
 \caption{\textbf{Curvature estimation.} The digital circular arc separates the interior grid points (black) from the exterior grid points (white) in (a). The back-projection operator maps digital grid points to points in $\partial S$ in (b). }
 \end{figure}
@@ -315,10 +315,10 @@ where $\kappa(S,x)$ is the curvature of $S$ at point $x$. By isolating $\kappa$ 
 	
 \begin{align}
   \tilde{\kappa}(x) \coloneqq \frac{3}{r^3}\left( \frac{\pi r^2}{2} - \sigma_{S,r}(x) \right).
-  \label{ch5:eq:curvature_approximation}
+  \label{ch4:eq:curvature_approximation}
 \end{align}
 	
-In~\cite{coeurjolly13integral}, the authors combine the approximation~\cref{ch5:eq:curvature_approximation} and the estimator of area to define a multigrid convergent estimator for the curvature (see~\cref{ch5:fig:ii-estimator}).
+In~\cite{coeurjolly13integral}, the authors combine the approximation~\cref{ch4:eq:curvature_approximation} and the estimator of area to define a multigrid convergent estimator for the curvature (see~\cref{ch4:fig:ii-estimator}).
 
 \begin{definition}{Integral Invariant Curvature Estimator}
   Let $D_h(S)$ a digitization of $S \subset \mathbb{R}^2$. The integral invariant curvature estimator is defined for every point $p \in \partial_h S$ as

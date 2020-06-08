@@ -79,22 +79,22 @@ The discrete representation is interpreted as a sampling of $m \times n$ element
 \begin{figure}
 \center
 \subfloat[$1$ of $2$ aerial images]{
-\includegraphics[scale=0.2]{figures/chapter3/applications-gallery/depth-1.png}
+\includegraphics[scale=0.2]{figures/chapter1/applications-gallery/depth-1.png}
 }
 \subfloat[Depth reconstruction~\cite{pock08}]{
-\includegraphics[scale=0.2]{figures/chapter3/applications-gallery/depth-2.png}
+\includegraphics[scale=0.2]{figures/chapter1/applications-gallery/depth-2.png}
 }\\
 \subfloat[Photo restoration~\cite{masnou98inpainting}]{
-\includegraphics[scale=0.5]{figures/chapter3/applications-gallery/inpainting.png}
+\includegraphics[scale=0.5]{figures/chapter1/applications-gallery/inpainting.png}
 }
 \subfloat[Vessel segmentation \cite{peyre10,cohen97}.]{
-\includegraphics[scale=0.42]{figures/chapter3/applications-gallery/vessel-segmentation.png}
+\includegraphics[scale=0.42]{figures/chapter1/applications-gallery/vessel-segmentation.png}
 }\\
 \subfloat[Input image]{
-\includegraphics[scale=0.6]{figures/chapter3/applications-gallery/seg-1.png}
+\includegraphics[scale=0.6]{figures/chapter1/applications-gallery/seg-1.png}
 }
 \subfloat[Multilabel segmentation~\cite{souiai2013co}]{
-\includegraphics[scale=0.6]{figures/chapter3/applications-gallery/seg-2.png}
+\includegraphics[scale=0.6]{figures/chapter1/applications-gallery/seg-2.png}
 }
 \caption{\textbf{Real applications of imaging problems}.}
 \label{ch1:fig:imaging-problems-real-applications}
@@ -142,22 +142,22 @@ Given $f_{\widetilde{\vec{I}}}$ and missing patches $\mathcal{P}$, find image $f
 \begin{figure}
 \center
 \subfloat[Original image]{
-\includegraphics[scale=0.36]{figures/chapter2/inverse-problems/pock-sunflower.png}
+\includegraphics[scale=0.36]{figures/chapter1/inverse-problems/pock-sunflower.png}
 }\hspace{2em}%
 \subfloat[$10$-partition as in~\cite{chambolle08}]{
-\includegraphics[scale=0.36]{figures/chapter2/inverse-problems/pock-segmentation.png}
+\includegraphics[scale=0.36]{figures/chapter1/inverse-problems/pock-segmentation.png}
 }\\%
 \subfloat[Noisy image]{
-\includegraphics[scale=0.36]{figures/chapter2/inverse-problems/pock-sunflower-noisy.png}
+\includegraphics[scale=0.36]{figures/chapter1/inverse-problems/pock-sunflower-noisy.png}
 }\hspace{2em}%
 \subfloat[Image denoised with FISTA~\cite{beck09a}]{
-\includegraphics[scale=0.36]{figures/chapter2/inverse-problems/pock-sunflower-fista-denoising-100.png}
+\includegraphics[scale=0.36]{figures/chapter1/inverse-problems/pock-sunflower-fista-denoising-100.png}
 }\\%
 \subfloat[Inpainting mask]{
-\includegraphics[scale=0.36]{figures/chapter2/inverse-problems/pock-sunflower-mask.png}
+\includegraphics[scale=0.36]{figures/chapter1/inverse-problems/pock-sunflower-mask.png}
 }\hspace{2em}%
 \subfloat[Inpainted image with~\cite{fedorov15}]{
-\includegraphics[scale=0.36]{figures/chapter2/inverse-problems/pock-sunflower-inpainted.png}
+\includegraphics[scale=0.36]{figures/chapter1/inverse-problems/pock-sunflower-inpainted.png}
 }%
 \caption{\textbf{Imaging problems applications}. From top to bottom row, an example of image segmentation, denoising and inpainting.}
 \label{ch1:fig:imaging-problems-example}
@@ -290,16 +290,16 @@ The Tikhonov term favors images with smooth variations in color, but the smoothn
 \begin{figure}
 \center
 \subfloat{
-\includegraphics[scale=0.224,valign=t]{figures/chapter2/denoising/coala-original.png}
+\includegraphics[scale=0.224,valign=t]{figures/chapter1/denoising/coala-original.png}
 }\hspace{0.2em} \setcounter{subfigure}{0}
 \subfloat[Noisy]{
-\includegraphics[scale=0.32,valign=t]{figures/chapter2/denoising/coala-noise.png}
+\includegraphics[scale=0.32,valign=t]{figures/chapter1/denoising/coala-noise.png}
 }%
 \subfloat[Tikhonov]{
-\includegraphics[scale=0.32,valign=t]{figures/chapter2/denoising/coala-tikhonov.png}
+\includegraphics[scale=0.32,valign=t]{figures/chapter1/denoising/coala-tikhonov.png}
 }%
 \subfloat[Total Variation]{
-\includegraphics[scale=0.32,valign=t]{figures/chapter2/denoising/coala-rof.png}
+\includegraphics[scale=0.32,valign=t]{figures/chapter1/denoising/coala-rof.png}
 }%
 \caption{\textbf{Tikhonov x Total variation denoising}. Total variation is capable to better preserve discontinuities across edges than Tikhonov. }
 \label{ch1:fig:denoising-results}
@@ -532,13 +532,13 @@ Differently from the snakes, the geometric active contours handle changes in top
 \begin{figure}
 \center
 \subfloat[Active contours]{
-\includegraphics[scale=0.5]{figures/chapter2/segmentation/active-contour-don.png}
+\includegraphics[scale=0.5]{figures/chapter1/segmentation/active-contour-don.png}
 }\hspace{2em}%
 \subfloat[Geometric active contours]{
-\includegraphics[scale=0.5]{figures/chapter2/segmentation/geodesic-seg-don.png}
+\includegraphics[scale=0.5]{figures/chapter1/segmentation/geodesic-seg-don.png}
 }\hspace{2em}%
 \subfloat[Chan-Vese]{
-\includegraphics[scale=0.5]{figures/chapter2/segmentation/chan-vese-seg-don.png}
+\includegraphics[scale=0.5]{figures/chapter1/segmentation/chan-vese-seg-don.png}
 }%
 \caption{\textbf{Curve evolution models}. Segmentation results of three curve evolution models. From top row to bottom: active contours, geometric active contours and Chan-Vese. The initial curve ($0$-level set) is colored in red and the final one is colored in green.}
 \label{ch1:fig:comparison-curve-evolution}
@@ -723,10 +723,10 @@ The parameter $\lambda$ is set by the user to calibrate the denoise capabilities
 \begin{figure}
 \center
 \subfloat[Input image and contour of lowest energy for $\lambda=1$]{
-\includegraphics[scale=0.5]{figures/chapter2/convex/reference_contour.png}
+\includegraphics[scale=0.5]{figures/chapter1/convex/reference_contour.png}
 }\hspace{3em}%
 \subfloat[Result of level-set method for $\lambda=1$]{
-\includegraphics[scale=0.5]{figures/chapter2/convex/lbda_1.png}
+\includegraphics[scale=0.5]{figures/chapter1/convex/lbda_1.png}
 }%
 \caption{\textbf{Level-sets return local optimum solutions.} Level-set result of~\cref{ch1:eq:binary-denoising-model} stops at a local minimum in the right, instead of the green contour in the left.}
 \label{ch1:fig:local-solution-level-set}

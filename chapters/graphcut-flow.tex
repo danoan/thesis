@@ -109,7 +109,7 @@ In the next sections, we are going to describe the GraphFlow model that aims to 
 
 \begin{align}
 E^{graph} &= \hat{E}_{\vec{\theta}} + grab_{\Lambda}.
-\label{eq:graphflow-energy}
+\label{ch8:eq:graphflow-energy}
 \end{align}
 
 
@@ -171,11 +171,11 @@ Let $\mathcal{E}'$ the minimum cut of $\mathcal{G}_n(\Ds)$. Moreover, let $C_n(\
 	\Ds' &= \{ p \; | \; v_p \in C_n(\Ds) \}
 \end{align*}
 
-is said to be a candidate shape to decrease~\cref{eq:graphflow-energy}. We are going to use $C_n(\Ds)$ interchangeably with $\Ds'$ to denote both the set of vertices and the corresponding points of a digital set. In the next section we describe a local-search algorithm whose neighborhood is defined using a set of candidate graphs.
+is said to be a candidate shape to decrease~\cref{ch8:eq:graphflow-energy}. We are going to use $C_n(\Ds)$ interchangeably with $\Ds'$ to denote both the set of vertices and the corresponding points of a digital set. In the next section we describe a local-search algorithm whose neighborhood is defined using a set of candidate graphs.
  
 
 \subsection{GraphFlow algorithm}
-	The GraphFlow algorithm implements a local-search strategy to minimize~\cref{eq:graphflow-energy}. Its neighborhood is derived from a set of candidate graphs, called the probe-set. 	
+	The GraphFlow algorithm implements a local-search strategy to minimize~\cref{ch8:eq:graphflow-energy}. Its neighborhood is derived from a set of candidate graphs, called the probe-set. 	
 	The probe-set of $\Ds$ can be defined as any collection of digital sets, but it makes more sense to define it as a collection of digital shapes that are somehow close to $\Ds$. For example, we define the $a$-probe set of shape $\Ds$ as
 
 \begin{definition}{$a$-probe set}
@@ -192,7 +192,7 @@ Therefore, we define the local-search neighborhood of digital set $\Ds$ as
 	\mathcal{N}(\Ds) &= \left \{ C_n(X) \; | \; Q \in \mathcal{P}_a(\Ds) \right\}.
 \end{align*}
 
-Finally, the GraphFlow algorithm is described in~\cref{alg:graphflow-algorithm}.
+Finally, the GraphFlow algorithm is described in~\cref{ch8:alg:graphflow-algorithm}.
 
 
 \begin{algorithm}
@@ -217,14 +217,14 @@ Finally, the GraphFlow algorithm is described in~\cref{alg:graphflow-algorithm}.
 	
  }
  \caption{GraphFlow algorithm.}
- \label{alg:graphflow-algorithm}  
+ \label{ch8:alg:graphflow-algorithm}  
 \end{algorithm}
 
 We remark that the GraphFlow algorithm possess two fundamental steps: the candidate selection and the candidate validation. The former can be interpreted as an advanced filter that choses the best candidates for digital Elastica minimization from the given $a$-probe set. Among those choices, we chose the one with lower digital Elastica energy in the candidate validation step.
 
-The GraphFlow algorithm can grow or shrink in accordance with the $\alpha$ coefficient in the digital Elastica (see~\cref{fig:graph-flow-neigh2-results}). Using a $0$-probe set we recover the convergence to a single point behaviour observed in both FlipFlow and BalanceFlow model. Moreover, its solution for the free Elastica problem is very similar to those given by the enumerative process of~\cref{chapter:digital-elastica}, i.e., the shapes converge to the expected global optimum. However, for the constrained Elastica problem, the GraphFlow encounters some difficulties to evolve (see~\cref{fig:graph-flow-neigh2-results}), in particular for the fixed endpoint orientation instance. We believe that a larger neighborhood, possibly random, could solve this issue. The results are explored in more details in~\cref{chapter:results-analysis}.
+The GraphFlow algorithm can grow or shrink in accordance with the $\alpha$ coefficient in the digital Elastica (see~\cref{ch8:fig:graph-flow-neigh2-results}). Using a $0$-probe set we recover the convergence to a single point behaviour observed in both FlipFlow and BalanceFlow model. Moreover, its solution for the free Elastica problem is very similar to those given by the enumerative process of~\cref{chapter:digital-elastica}, i.e., the shapes converge to the expected global optimum. However, for the constrained Elastica problem, the GraphFlow encounters some difficulties to evolve (see~\cref{ch8:fig:graph-flow-neigh2-results}), in particular for the fixed endpoint orientation instance. We believe that a larger neighborhood, possibly random, could solve this issue. The results are explored in more details in~\cref{chapter:results-analysis}.
 
-Some preliminar results of~\cref{alg:graphflow-algorithm} applied to image segmentation is shown in~\cref{fig:ch8-segmentation,fig:ch8-segmentation-curvature-completion}. In particular, we can observe that the GraphFlow presents the completion property, i.e., tends to return segmentation with fewer disconnected components.
+Some preliminar results of~\cref{ch8:alg:graphflow-algorithm} applied to image segmentation is shown in~\cref{ch8:fig:segmentation,ch8:fig:segmentation-curvature-completion}. In particular, we can observe that the GraphFlow presents the completion property, i.e., tends to return segmentation with fewer disconnected components.
 
 \begin{figure}
 \center
@@ -239,7 +239,7 @@ $(n=2, a=0,\alpha=0.01)$ & $(n=2, a=2,\alpha=0.01)$ & $(n=2, a=2, \alpha=0.001)$
 }
 
 \caption{The GraphFlow algorithm can shrink and grow in accordance with length penalization and it converges to shape closer to the global optimum (green curve) in the free Elastica problem. In the constrained Elastica, we believe that we can improve the results by using a larger, possibly random, neighborhood. We are using $n=2,a=2$ and shapes are displayed at every $10$ iterations.}
-\label{fig:graph-flow-neigh2-results}
+\label{ch8:fig:graph-flow-neigh2-results}
 \end{figure}
 
 %\section{Injecting data term}
@@ -298,7 +298,7 @@ $(n=2, a=0,\alpha=0.01)$ & $(n=2, a=2,\alpha=0.01)$ & $(n=2, a=2, \alpha=0.001)$
 %	
 % }
 % \caption{LSGF squared curvature segmentation correction algorithm.}
-% \label{alg:legc-segmentation-algorithm}  
+% \label{ch8:alglegc-segmentation-algorithm}  
 %\end{algorithm}
 
 
@@ -313,7 +313,7 @@ $(n=2, a=0,\alpha=0.01)$ & $(n=2, a=2,\alpha=0.01)$ & $(n=2, a=2, \alpha=0.001)$
  	\includegraphics[scale=0.25]{figures/chapter8/segmentation/coala/k-0.5/corrected-seg.png}
 \end{tabular}	
 \caption{Given foreground (green) and background (gray) seeds at picture (a); GrabCut produces picture (b) which is used as input of the GraphFlow algorithm; in pictures (c) and (d) we display the output of GraphFlow algorithm with and without squared curvature regularization. }
-\label{fig:ch8-segmentation}
+\label{ch8:fig:segmentation}
 \end{figure}
 
 \begin{figure}
@@ -325,8 +325,8 @@ $\lambda_r = 3, \lambda_b = 3$ & $\lambda_r = 3, \lambda_b = 3$\\
  	\includegraphics[scale=0.25]{figures/chapter8/completion/graphseg/alpha-0.0/beta-1.0/gamma-3.0/radius-7/corrected-seg.png}
 \end{tabular}	
 \caption{Completion property. The oversegmentation picture in the left was obtained with no squared curvature regularization, while the picture in the right was obtained by setting $\beta=1.0$. }
-\label{fig:ch8-segmentation-curvature-completion}
+\label{ch8:fig:segmentation-curvature-completion}
 \end{figure}
 
 \section{Conclusion}
-We described a graph-cut model that regularizes the squared curvature, in the free, constrained Elastica and is suitable for image segmentation. The evolution produced by the GraphFlow responds to the length penalization term $\alpha$, i.e., the shape tends to grow (shrink) for lower (higher) values of $\alpha$.  Moreover, the GraphFlow~\cref{alg:graphflow-algorithm} is faster and simpler to implement than the previous models presented in this thesis.
+We described a graph-cut model that regularizes the squared curvature, in the free, constrained Elastica and is suitable for image segmentation. The evolution produced by the GraphFlow responds to the length penalization term $\alpha$, i.e., the shape tends to grow (shrink) for lower (higher) values of $\alpha$.  Moreover, the GraphFlow~\cref{ch8:alg:graphflow-algorithm} is faster and simpler to implement than the previous models presented in this thesis.

@@ -39,7 +39,7 @@ where we use the shorter notation $\vec{X}_{C_{123}} = \vec{w} $ to denote some 
 \begin{figure}
 \center
 \begin{minipage}{0.3\textwidth}
-\includegraphics[scale=0.10]{figures/chapter3/mrf/mrf-example.png}
+\includegraphics[scale=0.10]{figures/chapter2/mrf/mrf-example.png}
 \end{minipage}%
 \begin{minipage}{0.35\textwidth}
 \tiny
@@ -187,7 +187,7 @@ The vector $\vec{Y}$ is called the vector of observed variables, and in image pr
 
 \begin{figure}
 \center
-\includegraphics[scale=0.10]{figures/chapter3/mrf/hmm-example.png}
+\includegraphics[scale=0.10]{figures/chapter2/mrf/hmm-example.png}
 \caption{\textbf{HMM and grid graphs}. A typical HMM in imaging using a $4$-neighborhood system.}
 \label{ch2:fig:hmm-multilabeling}
 \end{figure}
@@ -235,7 +235,7 @@ the $\frac{1}{2}$ factor is necessary in order to compensate double counting of 
 
 %\begin{figure}
 %\center
-%\includegraphics[scale=0.10]{figures/chapter3/grid-graph.png}
+%\includegraphics[scale=0.10]{figures/chapter2/grid-graph.png}
 %\caption{MRF illustration for Tikhonov image denoising}
 %\label{ch2:fig:mrf-tikhonov-denoising}
 %\end{figure}
@@ -268,13 +268,13 @@ The term in the right of~\cref{ch2:eq:anisotropic-tv-model-denoising} is called 
 \begin{figure}
 \center
 \subfloat[Noisy image]{
-\includegraphics[scale=1.0]{figures/chapter3/convex-and-truncated/noisy-1.png}
+\includegraphics[scale=1.0]{figures/chapter2/convex-and-truncated/noisy-1.png}
 }\hspace{1em}
 \subfloat[$|x_p - x_q|$]{
-\includegraphics[scale=1.0]{figures/chapter3/convex-and-truncated/absolute-difference-2.png}
+\includegraphics[scale=1.0]{figures/chapter2/convex-and-truncated/absolute-difference-2.png}
 }\hspace{1em}
 \subfloat[$\min(3, |x_p-x_q|)$]{
-\includegraphics[scale=1.0]{figures/chapter3/convex-and-truncated/truncated-3.png}
+\includegraphics[scale=1.0]{figures/chapter2/convex-and-truncated/truncated-3.png}
 }
 \caption{\textbf{Comparison between convex and truncated potentials~\cite{blake11markov}(chapter 3)}. Truncated potentials are discontinuity preserving functions, and are suitable for imaging problems.}
 \label{ch2:fig:comparison-convex-truncated}
@@ -533,22 +533,22 @@ The \emph{Ford-Fulkerson} algorithm computes the maximum flow by incrementing an
 \begin{figure}
 \center
 \subfloat[Initial graph $G_{\phi}$ for $\phi = 2x + 8z + 2x\bar{z} + 4\bar{x}y + 6\bar{y}\bar{z}$\label{ch2:fig:posiform-capacitated-graph-a}]{
-\includegraphics[scale=0.1]{figures/chapter3/master-posiform/posiform-graph-1.png}
+\includegraphics[scale=0.1]{figures/chapter2/master-posiform/posiform-graph-1.png}
 }\\
 \subfloat[$1$-Augmenting path $1$]{
-\includegraphics[scale=0.1]{figures/chapter3/master-posiform/posiform-graph-2.png}
+\includegraphics[scale=0.1]{figures/chapter2/master-posiform/posiform-graph-2.png}
 }%
 \subfloat[$1$-Augmenting path $2$]{
-\includegraphics[scale=0.1]{figures/chapter3/master-posiform/posiform-graph-3.png}
+\includegraphics[scale=0.1]{figures/chapter2/master-posiform/posiform-graph-3.png}
 }\\%
 \subfloat[$1$-Augmenting path $3$]{
-\includegraphics[scale=0.1]{figures/chapter3/master-posiform/posiform-graph-4.png}
+\includegraphics[scale=0.1]{figures/chapter2/master-posiform/posiform-graph-4.png}
 }%
 \subfloat[$1$-Augmenting path $4$]{
-\includegraphics[scale=0.1]{figures/chapter3/master-posiform/posiform-graph-5.png}
+\includegraphics[scale=0.1]{figures/chapter2/master-posiform/posiform-graph-5.png}
 }\\%
 \subfloat[Final residual graph $G_{ \phi {[\varphi^{\star}]} }$. The master posiform is written as $ { \phi^{\star} } = 4 + 2z +2\bar{z}\bar{y} + 4zy + 4\bar{y}x + 2z\bar{x}$]{
-\includegraphics[scale=0.1]{figures/chapter3/master-posiform/posiform-graph-6.png}
+\includegraphics[scale=0.1]{figures/chapter2/master-posiform/posiform-graph-6.png}
 }%
 \caption{\textbf{Example of max-flow to find the master posiform}. The Ford Fulkerson algorithm is executed for the capacitated graph representation of posiform $\phi$. In~(a), the initial capacitated graph; a sequence of augmenting paths (we omit the returning edges) are shown in figures~(b-e); the final residual graph is shown in figure~(f).  }
 \label{ch2:fig:posiform-capacitated-graph}
@@ -814,16 +814,16 @@ This interpretation is quite natural for the binary segmentation problem, as a m
 \begin{figure}
 \center
 \subfloat{
-\includegraphics[scale=0.25]{figures/chapter3/grabcut/coala/seeds.png}
+\includegraphics[scale=0.25]{figures/chapter2/grabcut/coala/seeds.png}
 }
 \subfloat{
-\includegraphics[scale=0.25]{figures/chapter3/grabcut/coala/gc-seg.png}
+\includegraphics[scale=0.25]{figures/chapter2/grabcut/coala/gc-seg.png}
 }\hspace{1em}
 \subfloat{
-\includegraphics[scale=0.25]{figures/chapter3/grabcut/vase/seeds.png}
+\includegraphics[scale=0.25]{figures/chapter2/grabcut/vase/seeds.png}
 }
 \subfloat{
-\includegraphics[scale=0.25]{figures/chapter3/grabcut/vase/gc-seg.png}
+\includegraphics[scale=0.25]{figures/chapter2/grabcut/vase/gc-seg.png}
 }
 \caption{\textbf{Grabcut segmentation}. Foreground seeds are colored in green and background seeds are colored in blue.}
 \end{figure}
@@ -911,16 +911,16 @@ In the $(\alpha,\beta)$-swap algorithm, the local-optimization step (~\cref{ch2:
 \begin{figure}
 \center
 \subfloat[Original image]{
-\includegraphics[scale=0.1]{figures/chapter3/move-making/move-making-1.png}
+\includegraphics[scale=0.1]{figures/chapter2/move-making/move-making-1.png}
 }%
 \subfloat[Noisy image]{
-\includegraphics[scale=0.1]{figures/chapter3/move-making/move-making-2.png}
+\includegraphics[scale=0.1]{figures/chapter2/move-making/move-making-2.png}
 }%
 \subfloat[$\alpha$-expansion]{
-\includegraphics[scale=0.1]{figures/chapter3/move-making/move-making-3.png}
+\includegraphics[scale=0.1]{figures/chapter2/move-making/move-making-3.png}
 }%
 \subfloat[Range moves]{
-\includegraphics[scale=0.1]{figures/chapter3/move-making/move-making-4.png}
+\includegraphics[scale=0.1]{figures/chapter2/move-making/move-making-4.png}
 }
 \caption{\textbf{$\mathbf{\alpha}$-expansion x range moves}\cite{veksler07graph}.Comparison of $\alpha$-expansion $\big( (\alpha,\beta)$-swap results are similar$\big)$ and range moves for denoising a piecewise smooth image using the truncated convex potential $\phi_2(x_p,x_q) = \min \{ (x_p-x_q)^2,50 \}$. The range move algorithm returns a smoother image than $\alpha$-expansion. }
 \label{ch2:fig:move-making-examples}
@@ -987,7 +987,7 @@ where $\delta$ is the distance between two lines in the same family and $\Delta 
 
 \begin{figure}
 \center
-\includegraphics[scale=0.5]{figures/chapter3/perimeter-graph-cuts/geodesics.eps}
+\includegraphics[scale=0.5]{figures/chapter2/perimeter-graph-cuts/geodesics.eps}
 \caption{\textbf{Computing perimeter via graph cuts}. The perimeter of a shape $S$ can be encoded as the value of some cut in the grid graph. In the figure, the contour of shape $S$ intersects a set $C \in \mathcal{E}$ of the grid graph with neighborhood system $\mathcal{N}_8$. One can set a cost function on $\mathcal{E}$ such that the cost of $C$ converges to the length of $\partial S$ as the neighborhood system goes to infinity.}
 \label{ch2:fig:geodesic-grid-graph-shape-intersection}
 \end{figure}
@@ -999,16 +999,16 @@ Another interesting contribution in the attempt to inject geometric information 
 \begin{figure}
 \center
 \subfloat[]{
-\includegraphics[scale=0.15]{figures/chapter3/grabcut-connectivity/cp-1.png}
+\includegraphics[scale=0.15]{figures/chapter2/grabcut-connectivity/cp-1.png}
 }
 \subfloat[]{
-\includegraphics[scale=0.15]{figures/chapter3/grabcut-connectivity/cp-2.png}
+\includegraphics[scale=0.15]{figures/chapter2/grabcut-connectivity/cp-2.png}
 }
 \subfloat[]{
-\includegraphics[scale=0.15]{figures/chapter3/grabcut-connectivity/cp-3.png}
+\includegraphics[scale=0.15]{figures/chapter2/grabcut-connectivity/cp-3.png}
 }
 \subfloat[]{
-\includegraphics[scale=0.15]{figures/chapter3/grabcut-connectivity/cp-4.png}
+\includegraphics[scale=0.15]{figures/chapter2/grabcut-connectivity/cp-4.png}
 }
 \caption{\textbf{Grabcut with connectivity priors}~\cite{vicente08graph}. In (a) the foreground (green) and background (blue) seeds. In (b) the Grabcut segmentation. In (c) the points selected by the user in which the connectivity constraint is going to be applied. In (d) the final segmentation. }
 \label{ch2:fig:grabcut-connectivity}

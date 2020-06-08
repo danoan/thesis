@@ -5,7 +5,7 @@
 In this chapter we review the Elastica energy and some of its properties. Next, we introduce the digital version of the Elastica using multigrid convergent estimators of length and curvature. We present a combinatorial optimization model capable to evolve a shape to another of lower digital Elastica energy. In several occasions, the final shape is indeed the optimal one, which confirms the pertinence of using multigrid convergent estimators to optimize geometric-related energies in digital sets. Finally, we present several attempts to derive a global model to minimize a simplification of the digital Elastica and we discuss why they fail.
 
 \section{Continuous and digital Elastica}
-\label{ch6:sec:continuous-digital-elastica}
+\label{ch5:sec:continuous-digital-elastica}
 	\sketch{To be further developed...}
 
 	The Elastica energy of parameters $\Theta=(\alpha \geq 0, \beta \geq 0)$ for some Euclidean shape $S \subset \mathbb{R}^2$ is defined as
@@ -32,7 +32,7 @@ In the next section, we describe a combinatorial scheme whose aim is to optimize
 % that permit us to find the minimum digital shape with respect the digital Elastica energy for some neighborhood of shapes of $\Ds$. 
 
 \section{Local combinatorial scheme}
-\label{ch6:sec:local-combinatorial-scheme}
+\label{ch5:sec:local-combinatorial-scheme}
 
 Given a digital shape $\Ds^{(0)}$ we describe a process that generates a
 sequence $\Ds^{(i)}$ of shapes with non-increasing Elastica energy. The
@@ -172,7 +172,7 @@ The \emph{LocalSearch}~\cref{alg:local-search} describes the local combinatorial
 \end{algorithm}
 
 \subsection{Free digital Elastica}
-\label{ch6:subsec:free-digital-elastica}
+\label{ch5:subsec:free-digital-elastica}
 In the free digital Elastica energy we optimize~\cref{eq:digital-elastica} without any constraint. We observe that for $\alpha=0, \beta >0$ the Elastica becomes the integration of the squared curvature  along the shape contour which has the ball of infinite radius as its minimizer. For $\alpha > 0, \beta=0$, minimize Elastica becomes minimize perimeter (curvature flow). It is easy to see that for $\alpha, \beta > 0$, the optimal shape for the Elastica is a disk of radius $r$. We can easily find the value of $r$.
 
 \begin{align*}
@@ -333,7 +333,7 @@ $| \Delta E / \Delta \Ds |$ & 70 & 1400
 \end{figure}
 
 \subsection{Constrained digital Elastica}
-\label{ch6:subsec:constrained-digital-elastica}
+\label{ch5:subsec:constrained-digital-elastica}
 
 An important advantage of~\cref{alg:local-search} is that constraints can be imposed with minimum effort. We present results for two types of constraints. In the first type, we force some pixels to be part of the final solution and in the second we impose orientations at the endpoints of a curve. In~\cref{fig:constrained-elastica} we compare the flows for different values of $\alpha$.
 
@@ -362,7 +362,7 @@ $\alpha=0.1$ & $\alpha=0.01$ & $\alpha=0.001$\\[2em]
 \end{figure}
 
 \subsection{Running time}
-\label{ch6:subsec:running-time}
+\label{ch5:subsec:running-time}
 
 The running time of~\cref{alg:local-search} is summarized in table~\cref{tab:summary-local-comb-rtime}. All the experiments in this thesis were executed on a $32$-core $2.4Ghz$ CPU. Although its use in practical applications is
 limited, we demonstrated that digital estimators are effective in their measurements and the flows evolve as expected, reaching the global optimum for some shapes. We
@@ -396,12 +396,12 @@ Ellipse  & 626 & 1s (0.14s/it) & 2506 & 16s (0.44s/it) & 10038 & 286s (3.1s/it)\
 
 
 \section{Global optimization}
-\label{ch6:sec:global-optimization}
+\label{ch5:sec:global-optimization}
 
 In this section we turn to a global optimization approach. However, instead of minimizing~\cref{eq:digital-elastica} we focus on a simplified version of it in which we do not compute the local length estimator. This simplification reduces the order of the energy.
 
 \subsection{Simplified digital Elastica}
-\label{ch6:subsec:simplified-digital-elastica}
+\label{ch5:subsec:simplified-digital-elastica}
 
 The simplified digital Elastica is defined as
 
@@ -427,13 +427,13 @@ We argue that~\cref{eq:simplified-digital-elastica} is a reasonable approximatio
 \includegraphics[scale=0.25]{figures/chapter5/fixed-orientations/selastica/len_pen_0.01/curve-2/summary.pdf} &
 \includegraphics[scale=0.25]{figures/chapter5/fixed-orientations/selastica/len_pen_0.01/curve-3/summary.pdf}
 \end{tabular}
-\caption{Experiments of~\cref{ch6:sec:local-combinatorial-scheme} for the simplified digital Elastica.}
+\caption{Experiments of~\cref{ch5:sec:local-combinatorial-scheme} for the simplified digital Elastica.}
 \label{fig:simplified-elastica}
 \end{figure}
 
 
 \subsection{Optimization model for simplified digital Elastica}
-\label{ch6:subsec:optimization-model-simplified-digital-elastica}
+\label{ch5:subsec:optimization-model-simplified-digital-elastica}
 
 In contrast with the previous section, the model described here is designed for the integral invariant estimator only. Let $\Ds \in \frac{1}{2}\mathbb{Z}^2$ be the digitization of some shape $S \in \mathbb{R}^2$ using grid step $h$ in half-integer coordinates space. We assume that $\Ds$ has $m$ pixels (located at integer coordinates) and $n$ linels (one and only one of its coordinates is $\frac{1}{2}$). Optimization variables are represented as column vectors $\vec{x} \in \mathbb{B}^{m},\, \vec{y} \in \mathbb{B}^{n}$ and its $i$-th coefficients are denoted  $\vec{x}_i,\vec{y}_i$.  Further, let $\vec{A} \in \mathbb{B}^{m\times n}$ the matrix defined as
 
@@ -468,7 +468,7 @@ Additionaly, in real applications involving the minimization of Elastica, we hav
 	Formulation $P1$ is a constrained binary non-convex third order problem and likely difficult to be solved optimally. Nonetheless, we can use standard optimization techniques to acquire some intuition on the model. 	
 	
 \subsection{Topological constraints}
-\label{ch6:subsec:topological-constraints}
+\label{ch5:subsec:topological-constraints}
 
 The estimation ball should be applied in the digital boundary of the shape, which oblige us to impose topological constraints in the model to avoid inconsistent solutions. In order to accomplish that, we set an arbitrary orientation for the faces and another for the edges. We choose counter-clockwise for faces; left-to-right for horizontal edges; and bottom-to-up for vertical edges.
 
@@ -513,7 +513,7 @@ We observe that for a linel identified by variable $\vec{y}_i$, constraints $\ve
 
 
 \subsection{Linear relaxation of $P1$}
-\label{ch6:subsec:linear-relaxation}
+\label{ch5:subsec:linear-relaxation}
 
 	The simplest model we can derive from (P1) consists in the relaxation of the optimization variables, i.e., we impose $\vec{x} \in \mathbb{U}^m$ and $\vec{z} \in \mathbb{U}^{2n}$, and we linearize all second and third order terms. 
 	
@@ -544,7 +544,7 @@ The linearization of (P1) is written as
 
 
 \subsection{Unconstrained version of P1}
-\label{ch6:subsec:unconstrained-version}
+\label{ch5:subsec:unconstrained-version}
 
 We can use the pixel incidence matrix defined in~\cref{app:pixel-incidence-matrix} to define an unconstrained version of P1. The pixel incidence vector $\vec{q} \in \mathbb{Z}^m$ for pixels $\vec{x} \in \mathbb{B}^{m}$ is 
 	
@@ -569,6 +569,6 @@ Let $\vec{B} \in \mathbb{B}^{m\times m}$ such that column vector $\vec{B}_j$ rep
 where $\mathbf{1} = (1,1, \cdots , 1)^T \in \mathbb{R}^m$. ~\cref{eq:unconstrained-digital-elastica} involves the minimization of a fourth order equation and therefore hard to be optimized.
 
 \section{Conclusion}
-\label{ch6:sec:conclusion}
-We gave a historical review of the Elastica and we defined the digital Elastica energy in~\cref{ch6:sec:continuous-digital-elastica}. The local combinatorial scheme defined in~\cref{ch6:sec:local-combinatorial-scheme} can evolve different shapes guided by the minimization of digital Elastica energy and it eventually reaches global optimum in the free Elastica problem, justifying the interest for multigrid convergent estimators. The model can also be used to solve the constrained Elastica problem, but its more likely to stop in a local minimum. Finnaly, we sketch some global optimization models in~\cref{ch6:sec:global-optimization} for minimizing the simplified Elastica using standard techniques of optimization. The difficulties we pointed out suggest that a practical global optimization model is unlikely to exist. In the next chapter we explore a model that decreases the Elastica energy and that can be used in practice.
+\label{ch5:sec:conclusion}
+We gave a historical review of the Elastica and we defined the digital Elastica energy in~\cref{ch5:sec:continuous-digital-elastica}. The local combinatorial scheme defined in~\cref{ch5:sec:local-combinatorial-scheme} can evolve different shapes guided by the minimization of digital Elastica energy and it eventually reaches global optimum in the free Elastica problem, justifying the interest for multigrid convergent estimators. The model can also be used to solve the constrained Elastica problem, but its more likely to stop in a local minimum. Finnaly, we sketch some global optimization models in~\cref{ch5:sec:global-optimization} for minimizing the simplified Elastica using standard techniques of optimization. The difficulties we pointed out suggest that a practical global optimization model is unlikely to exist. In the next chapter we explore a model that decreases the Elastica energy and that can be used in practice.
 
