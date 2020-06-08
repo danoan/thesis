@@ -19,21 +19,19 @@ We start this chapter by giving a brief description of Markov Random Fields and 
 Let $\mathcal{G}=(\mathcal{V},\mathcal{E})$ an undirected graph with vertices set $\mathcal{V}$ and edges set $\mathcal{E}$. The set of adjacent vertices to $v \in V$ is denoted $\mathcal{N}(v)$. Given two subsets $S,Q \subset \mathcal{V}$, a $(S,Q)$-cut is any subset of edges $\mathcal{E}' \subset \mathcal{E}$ such that $S,Q$ are in different connected components in the graph $\mathcal{G}(\mathcal{V},\mathcal{E} \setminus \mathcal{E}')$. We denote $cut(S,Q)$ the set of all $(S,Q)$ cuts.
 
 For each vertex $v \in \mathcal{V}$ we associate a discrete random variable $X_v$ that take values from a label set $\Gamma_v$ according with some distribution $P$. We group all random variables in vector $\vec{X}$ and we write $\vec{X}_S$ to refer to the set of associated variables with vertex set $S \subset \mathcal{V}$. We also group all the label sets in the collection $\Gamma$. We denote $W_{\vec{X}}$ the set of all configurations for the random vector $\vec{X}$. We say that $\mathcal{H} =(\mathcal{G},\vec{X},\Gamma,P)$ is a \emph{Markov Random Field} (MRF) if for any non-adjacent states $X_u$ and $X_v$, the probability distribution $P$  satisfies the independence conditions below
-
 \begin{align}
 	\textbf{Pairwise independencies:}&\quad \Big\{ X_u \perp X_v \;|\; \big\{X_i,\; \forall i \in \mathcal{V}\setminus\{u,v\} \big\}  \Big\} \label{ch2:eq:markov-pairwise-independencies}   \\
 	\textbf{Local independencies:}&\quad \Big\{ X_u \perp X_v \;|\; \big\{X_i, \; \forall i \in \mathcal{N}(u)  \big\} \Big\} \label{ch2:eq:markov-local-independencies} \\
 	\textbf{Global independencies:}& \quad \Big\{ \vec{X}_S \perp \vec{X}_Q \;|\; \vec{X}_Z,\; \text{where } \vec{X}_Z \in cut(S,Q) \Big\} \label{ch2:eq:markov-global-independencies},
 \end{align}
-
+%
 where $X_u  \perp  X_v \;|\; \vec{X}_S$ means that variable $X_u$ is independent of $X_v$ given an assignment of variables in $\vec{X}_S$.  For example, the MRF in~\cref{ch2:fig:example-mrf} respects the following expressions 
-
 \begin{align*}
 		P\Big(X_1=w_1 \; | \big\{X_i=w_i, \, i \neq 1 \big\} \Big) &= P\Big(X_1=w_1 \; | \; X_2=w_2,X_3=w_3 \Big) \\
 		P\Big(X_3=w_3 \; | \big\{X_i=w_i, \, i \neq 3 \big\} \Big) &= P\Big(X_3=w_3 \; | \; X_1=w_1,X_2=w_2, X_4=w_4 \Big) \\
 		P\Big(\vec{X}_{C_{123}} = \vec{w} \; | X_4=w_4, X_5=w_5  \Big) &= P\Big(\vec{X}_{C_{123}} = \vec{w} \; | \; X_4=w_4 \Big),		
 \end{align*}
-
+%
 where we use the shorter notation $\vec{X}_{C_{123}} = \vec{w} $ to denote some assignment of the random variables associated with the nodes of clique $C_{123}$. A clique is any complete subgraph of $\mathcal{G}$. Given a graph, it may be quite difficult to sort out a probability distribution that satisfies~\cref{ch2:eq:markov-pairwise-independencies,ch2:eq:markov-local-independencies,ch2:eq:markov-global-independencies}. However, for the class of MRF that can be \emph{factorized} in terms of the maximal cliques of $\mathcal{G}$, creating a valid probability distribution is straightforward with the help of \emph{clique potential} functions.
 
 \begin{figure}
@@ -102,20 +100,18 @@ $X_1$ & $X_2$ & $X_3$ & $X_4$ & $X_5$ & $P(\omega)$\\
 \subsubsection{Clique factorization and Gibbs energy}
 
 A distribution $P_{\Phi}$ is a \emph{Gibbs distribution} if it can be parameterized by a set of factors $\Phi = \{\phi_1,\phi_2,\dots \phi_m\}$, i.e., 
-
 \begin{align*}
 	P_{\Phi}(\vec{X} = \vec{w}) &= \frac{1}{Z}\prod_{i=1}^{m}{\phi_i(\vec{w})} \\
 	Z &= \sum_{\vec{w} \in W_{\vec{X}}}{ \prod_{i=1}^{m}{\phi_i(\vec{w})} }
 \end{align*}
-
-
+%
+%
 For strictly positive distributions ($P(\vec{X} = \vec{w}) > 0\; \forall \vec{w} \in W_{\vec{X}}$), the \emph{Hammersley-Clifford} theorem~\cite{koller09} states that $(\mathcal{G},\vec{X},\Gamma,P)$ is a MRF if and only if $P$ is a Gibbs distribution parameterized over complete subgraphs (cliques) of $\mathcal{G}$. Therefore, for MRF with strictly positive distributions $P$ we can write 
-
 \begin{align}
 	P(\vec{X} = \vec{w}) &= \frac{1}{Z}\prod_{c \in \mathcal{C}}{\phi_c(\vec{w})} \label{ch2:eq:gibbs-distribution}\\
 	Z &=  \sum_{\vec{w} \in W_{\vec{X}}}{ \prod_{c \in \mathcal{C}}{\phi_c(\vec{w})} },\label{ch2:eq:gibbs-constant}
 \end{align}
-
+%
 where $\mathcal{C}$ is the set of all cliques of $\mathcal{G}$. We define the \emph{order} of such MRF as $\max_{C \in \mathcal{C}} |\mathcal{C}|-1$, i.e., the size of the highest clique in $\mathcal{C}$ minus one. The second order MRF in~\cref{ch2:fig:example-mrf} was constructed by defining the following clique potentials
 
 \begin{center}
@@ -165,23 +161,21 @@ Imaging problems are naturally coupled with a set of observations, namely the co
 
 \begin{definition}{Hidden Markov Model}
 A Hidden Markov Model is a MRF $\mathcal{H} = (\mathcal{G},\vec{X} \cup \vec{Y}, \Gamma_X \cup \Gamma_Y,P)$ such that
-
 \begin{align*}
 	Y &= \{ Y_i \; | \; X_i \in \vec{X} \} \\
 	\forall i \neq j,& \quad Y_i \perp X_j \; | \; X_i \\
 	\forall i \neq j,& \quad Y_i \perp Y_j	.
 \end{align*}
 \end{definition}
-
+%
 We are going to be interested in problems arising from the setting in which the states of random variables in $\vec{Y}$ are known, and one wishes to infer the states of random variables in $\vec{X}$. In other words, we are interest to find $\vec{X}^{\star}$ such that
-
 \begin{align}
 	\vec{w}^{\star} &= \argmax_{\vec{w}} = P(\vec{X} = \vec{w} \; | \; \vec{Y}).
 %	&= \argmin_{\vec{w}}{E(\vec{w})} \nonumber \\
 %	&= \argmin_{\vec{w}}{ \sum_{c \in \mathcal{C}}\sum_{\psi \in \Psi}{\psi(\vec{w}_c})},
 	\label{ch2:eq:general-maximum-likelihood}
 \end{align}
-
+%
 %where $\vec{w}_c$ means the restriction of $\vec{w}$ to its coefficients corresponding to variables in the clique $c$.  
 The vector $\vec{Y}$ is called the vector of observed variables, and in image problems they are usually associated to the color intensity of pixels. 
 
@@ -198,21 +192,18 @@ The set of labels $\Gamma_{\vec{X}}$ is defined according to the problem. In seg
 
 \subsubsection{Grid graph and Tikhonov denoising revisited}
 Let $\vec{I} \in \mathbb{F}^{m \times n}$ a grayscale bidemensional image. We denote $p \in \vec{I}$ a pixel of $\vec{I}$.  We define its undirected \emph{grid graph} $\mathcal{G}_{\vec{I}}(\mathcal{V},\mathcal{E})$ as
-
 \begin{align*}
 	\mathcal{V} &= \{ v_p \; | \; p \in \vec{I} \} \\
 	\mathcal{E} &= \big\{ \{v_p,v_q\} \; | \; p \in \vec{I} \text{ and } q \in \mathcal{N}_k(p) \big\},
 \end{align*}
-
+%
 where $\mathcal{N}_k(p)$ is the $k$-neighborhood of pixel $p$. Common values for $k$ are $4$ and $8$, i.e., 
-
 \begin{align*}
 	\mathcal{N}_4(p) &= \{ p + (i,j) \; | \; |i| \leq=1, |j| \leq 1, |i+j|=1 \}\\
 	\mathcal{N}_8(p) &= \{ p + (i,j) \; | \; |i| \leq=1, |j| \leq 1 \}.
 \end{align*}
-
+%
 In the grid graph $\mathcal{G}_I$ we have $1$ and $2$-cliques only. We attach to $\mathcal{G}_I$ the HMM $\mathcal{H} = (\mathcal{G}_I,\vec{X} \cup \vec{Y},\Gamma_{\vec{X}},\Gamma_{\vec{Y}},P)$ in which the random variables take values over the grayscale levels of the image, grouped in $\Gamma_{\vec{X}} = \Gamma_{\vec{Y}} = \{i \; | \; 0 \leq i \leq 255 \}$. The Gibbs distribution $P$ is given by~\cref{ch2:eq:gibbs-distribution,ch2:eq:gibbs-constant} with clique potentials defined as
-
 \begin{equation*}
 	\begin{array}{rll}
 	\psi_{p}(\gamma_p) &=  \frac{\lambda}{2} \left( f_{\widetilde{\vec{I}}}(p) - \gamma _p \right) ^2. & \\
@@ -221,16 +212,15 @@ In the grid graph $\mathcal{G}_I$ we have $1$ and $2$-cliques only. We attach to
 	\phi_{pq}(\vec{x}_p=\gamma_p, \vec{x}_q=\gamma _q) &= \exp\big( - \psi_{2}(\gamma_p,\gamma_q) \big),& \quad \forall p \in \vec{I} \text{ and }  q \in \mathcal{N}_k(p). \\
 	\end{array}
 \end{equation*}
-
+%
 In~\cref{ch2:fig:mrf-tikhonov-denoising} we have a representation of this HMM, which encodes the Tikhonov denoising model of~\cref{ch1:sec:bayesian-rationale}. The estimated image $\widehat{I}$ is computed as the maximum likelihood of $P$, i.e.,
-
 \begin{align}
 	\widehat{\vec{I}} &= \argmax_{\vec{I'}}{P(\vec{X}=\vec{I'} \; | \; \vec{Y} = \vec{I} }) \nonumber \\
 	&= \argmin_{\vec{I'}}{E(\vec{I'})} \nonumber \\
 	&= \argmin_{\vec{I'}}{\sum_{p \in \vec{I}}{\psi_p\big({\vec{I}'(p)}\big)}} + \frac{1}{2}\sum_{ \substack{ p \in \vec{I} \\ q \in \mathcal{N}_k(p)}}{\psi_{pq}\big( {\vec{I}'(p),\vec{I}'(q) \big)}},
 	\label{ch2:eq:gibbs-energy-minimization}
 \end{align}
-
+%
 the $\frac{1}{2}$ factor is necessary in order to compensate double counting of $\psi_{pq}$. The energy $E$ to be minimized is called the \emph{Gibbs energy}.
 
 %\begin{figure}
@@ -246,14 +236,12 @@ The success of this approach depends on our capacity to minimize the Gibbs energ
 \subsubsection{Potts and Ising model}
 
 Let $\vec{I} \in \mathbb{F}^{m \times n}$ a grayscale image to which we associated its grid graph $\mathcal{G}_I(\mathcal{V},\mathcal{E})$. We wish to denoise image $\vec{I}$, but instead of using the Tikhonov regularization term, we want to use one that preserves discontinuities. An intermediate step would be to minimize the naive discrete version of total variation, which can also be efficiently minimized. In this case, the Gibbs energy is given by
-
 \begin{align}
 	E(\vec{x}) &= \frac{\lambda}{2}\sum_{p \in \vec{I} }{ (\widetilde{I}(p) - x_p)^2} + \sum_{ \substack{ p \in \vec{I}, \\ q \in \mathcal{N}(p) }}{ | x_p - x_q | }.	
 	\label{ch2:eq:anisotropic-tv-model-denoising}
 \end{align}
-
+%
 The term in the right of~\cref{ch2:eq:anisotropic-tv-model-denoising} is called the discrete anisotropic total variation. As its continuous version, the discrete total variation performs better than Tikhonov for imaging problems, but it still not considered a discontinuity preserving function and it presents some undesirable side effects (see~\cref{ch2:fig:comparison-convex-truncated}). On the other hand, truncated functions are discontinuity preserving. For some $K>0$, consider the following Gibbs energy
-
 \begin{align}
 	\phi_{pq}(x_p,x_q) &= \left\{ \begin{array}{rl}
 		K,& \text{if } x_p \neq x_q \\
@@ -262,7 +250,7 @@ The term in the right of~\cref{ch2:eq:anisotropic-tv-model-denoising} is called 
 	E(\vec{x}) &= \sum_{p \in \vec{I} }{\phi_p(x_p)} + \sum_{\substack{ p \in \vec{I}, \\ q \in \mathcal{N}(p) }}{\phi_{pq}(x_p,x_q)}.	
 	\label{ch2:eq:potts-model-denoising-2}
 \end{align}
-
+%
 ~\cref{ch2:eq:potts-model-denoising-1,ch2:eq:potts-model-denoising-2} defines a \emph{Potts model}. Minimizing~\cref{ch2:eq:potts-model-denoising-2} is in NP-hard~\cite{boykov01fast} if variables $x_p,x_q$ are not binary, i.e., the underneath HMM is a multilabel one. In the binary case,~\cref{ch2:eq:potts-model-denoising-1,ch2:eq:potts-model-denoising-2} are referred as the \emph{Ising model}, and this one can be minimized efficiently.
 
 \begin{figure}
@@ -316,11 +304,10 @@ Higher order & All topologies & $O(n^5Q + n^6)$~\cite{orlin09faster} & \\
 
 
 In binary first-order MRFs, the clique potentials maps binary vectors to real values and the energy belongs to the class of \emph{quadratic pseudo-boolean} functions, which can be written as
-
 \begin{align*}
 	f(x_1,\cdots, x_n) &= \sum_{j < n}{c_jx_j} + \sum_{j<k<n}{c_{jk}x_jx_k}.
 \end{align*} 
-
+%
 In the next section, we explore the class of pseudo-boolean functions and how to optimize them.
 
 \section{Pseudo-boolean functions}
@@ -331,20 +318,18 @@ In the next section, we explore the class of pseudo-boolean functions and how to
 \end{definition}
 
 Pseudo-boolean functions (PBF) can be interpreted as \emph{set functions}, i.e., functions that map sets to real values. Indeed, a binary vector of $n$ elements is in bijection with the power sets of $V = \{1,2,\cdots,n\}$. Therefore, the PBF $f:\{0,1\}^n \rightarrow \mathbb{R}$ can be written as
-
 \begin{align}
 	f(x_1,\cdots,x_n) &= \sum_{S \subset 2^{V}}{c_S \prod_{i \in S}{x_i}}.
 	\label{ch2:eq:pbf-polynomial-form}
 \end{align}
-
+%
 where $c_S \in \mathbb{R}$ is a coefficient associated to each subset $S$. ~\cref{ch2:eq:pbf-polynomial-form} is denoted the \emph{polynomial form} of PBF $f$. The \emph{order} of a PBF is defined as the cardinality of the largest subset $S$ in which $c_S>0$. The polynomial form is \textbf{unique}. 
 
 Sometimes is convenient to express $f$ in its so called \emph{posiform} representation, usually denoted by $\phi$ instead of $f$. In its posiform representation we use literals $x_i,\bar{x}_i \in L$  to represent states $1,0$ of indexed variable $i$ and all coefficients are positive except the one associated to the empty set.
-
 \begin{align}
 	\phi(f) = \phi(x_1,\cdots,x_n) &= \sum_{T \subset 2^{L}}a_T{\prod_{p \in T}{p}},
 \end{align}
-
+%
 where $a_T \geq 0$ whenever $T\neq \emptyset$. The posiform representation can be seen as a truth table with positive values for all configurations, except the one in which all variables are set to zero. One can pass from posiform to polynome representation by exchanging $\bar{x}_i$ and $(1-x_i)$. A posiform is said \emph{maximum-constant}  if its constant term $C(\phi)$ is maximum among all posiforms representing $f$. A maximum-constant posiform is denoted $\phi^{\star}$. Both general and maximum-constants posiforms are \textbf{not unique} representations of the PBF $f$.
 
 \begin{example}The polynomial form and two possible posiform representations for the same PBF.
@@ -358,30 +343,27 @@ where $a_T \geq 0$ whenever $T\neq \emptyset$. The posiform representation can b
 			&+ a_{12}x_1x_2 + a_{\ol{1}2}\ol{x_1}x_2 + a_{1\ol{2}}x_1\ol{x_2} + a_{\ol{12}}x_1\ol{x_2} 	
 \end{align*}
 \end{example}
-
+%
 Classical problems in combinatorial optimization as vertex cover, maximum independent set, $3$-SAT and many others are formulated as PBF optimization problems. The mentioned problems are in NP-complete, so we can expect that the optimization of a general PBF is a task that is unlikely to be solved efficiently. Nonetheless, we can investigate subclasses of PBF in which the optimum can be found efficiently.
 
 \subsubsection{PBF optimization}
  We first observe that optimizing a PBF of order $n$ can be transformed into an equivalent quadratic PBF optimization problem by creating extra variables and penalty terms. For example, let $x,y,w,z \in \{0,1\}$. Then,
- 
  \begin{align*}
  	z=xy \leftrightarrow  xy -2xz-2yz+3x=0 \\
  	z \neq xy \leftrightarrow  xy -2xz-2yz+3x>0
  \end{align*}
- 
+%
  Therefore
- 
 \begin{align*}
 	\min f(x,y,w) &= \min g(x,y,w,z) \\
     \min xyw &= \min zw + xy -2xy -2yz +3x .
 \end{align*} 
-
+%
   This procedure can be extended and formally described in a polynomial time algorithm that transforms an arbitrary PBF $f$ in a quadratic PBF $g$ with the property that $\min f = \min g$~\cite{boros02pseudo}. We remark, however, that the transformation may add a prohibitive number of auxiliar variables, turning the minimization problem impractical. With that in mind, we are going to restrict our analysis to the optimization of quadratic PBFs.
   
 \subsubsection{Roof duality}
 
 A quite natural and naive approach to optimize~\cref{ch2:eq:pbf-polynomial-form} would be to formulate the quadratic PBF as a continuous linear programming. Consider the quadratic PBF
-
 \begin{align}
 	F(\vec{x}) = \left\{ \begin{array}{rl}
 		\min &c_0 + \sum_{}{c_ix_i} + \sum_{}{c_{ij}x_ix_j} \\
@@ -389,9 +371,8 @@ A quite natural and naive approach to optimize~\cref{ch2:eq:pbf-polynomial-form}
 	\end{array}\right.
 	\label{ch2:eq:qpbf-qip-formulation}
 \end{align}
-
+%
 ~\cref{ch2:eq:qpbf-qip-formulation} can be linearized by substituting each pairwise term $x_ix_j$ with binary variable $z_{ij}$ and including the following set of constraints 
-
 \begin{align*}
 	C(\vec{x},\vec{z}) &= \left\{  \begin{array}{l}
 	z_{ij} \leq x_i, \\
@@ -399,9 +380,8 @@ A quite natural and naive approach to optimize~\cref{ch2:eq:pbf-polynomial-form}
 	z_{ij} \geq x_i + x_j - 1 
 	\end{array} \Bigg|\; \forall 0<i<j<n \right\}
 \end{align*}
-
+%
 Therefore, an equivalent linear integer programming formulation is
-
 \begin{align}
 	\begin{array}{rl}
 		\min& c_0 + \sum_{}{c_ix_i} + \sum_{}{c_{ij}z_{ij}} \\
@@ -410,9 +390,8 @@ Therefore, an equivalent linear integer programming formulation is
 	\end{array}
 	\label{ch2:eq:qpbf-lp-formulation}
 \end{align}
-
+%
 Finally, the relaxation of~\cref{ch2:eq:qpbf-lp-formulation} gives
-
 \begin{align*}
 	G(\vec{x},\vec{z}) &= \left\{ \begin{array}{rl}
 		\min& c_0 + \sum_{}{c_ix_i} + \sum_{}{c_{ij}z_{ij}} \\
@@ -420,36 +399,33 @@ Finally, the relaxation of~\cref{ch2:eq:qpbf-lp-formulation} gives
 		&C(\vec{x},\vec{z})
 	\end{array}\right.
 \end{align*}
-
+%
 Clearly, formulation $G$ is a lower bound of $F$, i.e.,  $G(\vec{x},\vec{z}) \leq F(\vec{x})$. Such lower bound is called the \emph{roof dual} (it was originally defined for a maximization problem) and its shown~\cite{hammer84} to be equivalent to
-
 \begin{align*}
 	G(\vec{x},\vec{z}) &= C_{\phi^{\star}(f)},
 \end{align*}
-
+%
 i.e., the constant in the max-constant posiform representation of $f$. In this same work, the so called \emph{strong persistency} theorem is proven. It says that for every unary term $a_pp$ ($p$ a literal) in a max-constant posiform representation of $f$, we have that $p=0$ in every solution of $\min f$.
-
+%
 \begin{example}
 Consider the quadratic PBF 
 \begin{align*}
 	f(x_1,x_2,x_3) &= 6-x_1-4x_2-x_3+3x_1x_2+x_2x_3.
 \end{align*}
-
+%
 It can be shown that its roof dual equals $2$. A possible max-constant posiform representation for $f$ is
-
 \begin{align*}
 	\phi^{\star}(f) &= 2 + x_1 + \bar{x}_2 + x_1x_2 +2\bar{x}_1\bar{x}_2 + \bar{x}_2\bar{x}_3
 \end{align*}
-
+%
 According with the strong persistency theorem, $x_1=0,\bar{x}_2=0$ for every solution of $\min f$. Replacing this values in $f$ we have
-
 \begin{align*}
 	\min f(x_1,x_2,x_3) &=\min f(x_1=0,\bar{x}_2=0,x_3) \\
 	&= \min 6 - 4 - x_3 + x_3 \\
 	&= 2.
 \end{align*}
 \end{example}
-
+%
 The strong persistency theorem allow us to fix some variables of the quadratic PBF, which could possibly result in a simpler optimization problem. Clearly, the main difficult is to find the max-constant posiform $\phi^{\star}(f)$ that results in a maximum number of variable elimination. Such posiform, called the \emph{master posiform}, can be found by finding the maximum flow in some capacitated graph.
 
 \subsubsection{Master posiform and max-flow reduction}
@@ -458,7 +434,7 @@ We present a construction given in~\cite{boros91,boros02pseudo} of a capacitated
 	\begin{align*}
 		\phi &= \sum_{p \in L}{a_pp} + \sum_{p,q \in L}{a_{pq}pq},
 	\end{align*}
-	
+%
 with $a_p >0, a_{pq}>0\; \forall p,q \in L$	. We  construct the capacitated graph $G_{\phi}(\mathcal{V},\mathcal{E},c)$ such that each term in the sum is encoded by two edges. Each unary term with literal $p$ have one edge from the source $s$ to its negated literal vertex $v_{\bar{p}}$ and one edge from $v_p$ to the target vertex $\bar{s}$. The source and target vertices are identified with the $1$ and $0$ constants, respectively. 
 
 \begin{center}
@@ -477,7 +453,6 @@ with $a_p >0, a_{pq}>0\; \forall p,q \in L$	. We  construct the capacitated grap
 \end{center}
 
 Similarly, pairwise terms with literals $p,q$ have edges $\edge{v_p}{v_{\bar{q}}} $ and $\edge{v_q}{v_{\bar{p}}}$. The full graph is given by
-
 \begin{align*}
 	\mathcal{V} =& \{ v_p \; | \; p \in L \} \cup \{s,\bar{s}\} \\[1em]
 	\mathcal{E} =& \big\{ \edge{s}{v_{\bar{p}}},\edge{v_p}{t} \; | \; \forall a_p>0 \big\} \cup \big\{ \edge{v_p}{v_{\bar{q}}}, \edge{v_q}{v_{\bar{p}}} \; | \; \forall a_{pq} > 0 \big\}  \\[1em]
@@ -487,12 +462,11 @@ Similarly, pairwise terms with literals $p,q$ have edges $\edge{v_p}{v_{\bar{q}}
 		0,& \text{otherwise}.
 	\end{array}\right.
 \end{align*}
-
+%
 A construction of graph $G_{\phi}$ is illustrated in~\cref{ch2:fig:posiform-capacitated-graph-a}. Therefore, the posiform $\phi$ can also be written as $\phi = \sum_{ \edge{v_p}{v_q} \in \mathcal{E}}{ c_{p\bar{q}} }$. In fact, it is possible to shown that there is a bijection between the posiform with zero constant $\phi$ and the graph $G_{\phi}$.
 
 
 A flow is a function $\varphi:\mathcal{E}\rightarrow \mathbb{R}_{+}$ that satisfies
-
 \begin{equation*}
 	\begin{array}{rll}
 	\displaystyle
@@ -501,35 +475,32 @@ A flow is a function $\varphi:\mathcal{E}\rightarrow \mathbb{R}_{+}$ that satisf
 	\sum_{v_p \in \mathcal{V}}{\varphi(p,q)} =& \displaystyle \sum_{v_p \in \mathcal{V}}{\varphi (q,p)}, & \forall v_q \in \mathcal{V}.	
 	\end{array}
 \end{equation*}
-
+%
 A flow $\varphi ^{\star}$ is said to be maximum if 
 \begin{align*}
 	\varphi ^{\star} &= \argmax_{\varphi} \sum_{v_p \in \mathcal{V}}{\varphi(s,v_p)},
 \end{align*}
-
+%
 i.e., if the flow leaving the source is maximum. The residual graph of $G_{\phi}$ with respect to some flow $\varphi$ is denoted $G_{ \phi [ \varphi ] }(\mathcal{V},\mathcal{E}^+,r)$ and owns the same set of vertices of $G_{\phi}$. The set of edges is extended to include returning edges as well, i.e.,
-
 \begin{align*}
 	\mathcal{E}^+ &= \mathcal{E} \cup \{ \edge{v_q}{v_p} \; | \; \edge{v_p}{v_q} \in \mathcal{E} \}.
 \end{align*}
-
+%
 The edges cost is given by the residual function $r$
-
 \begin{align*}
 	r(\, \edge{v_p}{v_q} \, ) = r_{pq} &= \left\{ \begin{array}{ll}
 	c_{pq} - \varphi( p,q ), & \edge{v_p}{v_q} \in \mathcal{E}\\
 	\varphi( p,q ), & \edge{v_p}{v_q} \in \mathcal{E}^+ \setminus \mathcal{E}.
 \end{array}\right.	 
 \end{align*}
-
+%
 One can also construct a posiform from the residual graph $G_{ \phi [ \varphi ] }$. In this case, the posiform is denoted $\phi_{G_{ \phi [ \varphi ] }}$. We remark that edges arriving in the source or leaving the target are all mapped to $0$, as the source and the target are identified with the constants $1,0$ respectively. For example, $\edge{p}{s}$ is encoded as $p\bar{s}=0$.
 
 The \emph{Ford-Fulkerson} algorithm computes the maximum flow by incrementing an initial zero flow function $\varphi_0=0$ every time an \emph{augmenting path} is found. The $k$-th augmenting path is a path $\pi_k = (p_0=s,p_1,p_2,\cdots,p_n,p_{n+1}=\bar{s})$ in the residual graph $G_{ \phi [\varphi_{k-1}] }$ in which all edges of $\pi_k$ have a positive residual value. We say that $\pi_k$ is an $\epsilon$-augmenting path if 
-
 \begin{align*}
 	\epsilon = \min_{p_i \in \pi_k\setminus {\bar{s}}} r_{p_i,p_{i+1}}.
 \end{align*}
-
+%
 \begin{figure}
 \center
 \subfloat[Initial graph $G_{\phi}$ for $\phi = 2x + 8z + 2x\bar{z} + 4\bar{x}y + 6\bar{y}\bar{z}$\label{ch2:fig:posiform-capacitated-graph-a}]{
@@ -553,10 +524,9 @@ The \emph{Ford-Fulkerson} algorithm computes the maximum flow by incrementing an
 \caption{\textbf{Example of max-flow to find the master posiform}. The Ford Fulkerson algorithm is executed for the capacitated graph representation of posiform $\phi$. In~(a), the initial capacitated graph; a sequence of augmenting paths (we omit the returning edges) are shown in figures~(b-e); the final residual graph is shown in figure~(f).  }
 \label{ch2:fig:posiform-capacitated-graph}
 \end{figure}
-
+%
 \begin{proposition}{Residual graph to posiform}
 	Given a posiform 
-	
 	\begin{align*}
 		\phi = C(\phi) + \sum_{p \in L}{a_pp} + \sum_{p,q \in L}{a_{pq}pq},
 	\end{align*}
@@ -566,69 +536,60 @@ The \emph{Ford-Fulkerson} algorithm computes the maximum flow by incrementing an
 		\phi &= C(\phi) + \nu(\varphi_k) + \phi_{ G_{ \phi [\varphi_k]}}.
 	\end{align*}
 \end{proposition}
-
+%
 \begin{proof}
 
 We observe that every $\epsilon$-augmenting path $\pi_k = s,v_{p_1},v_{p_2},\cdots,v_{p_n},\bar{s}$ in $G_{\phi [\varphi_k]}$ encodes an alternating sum of literals of the form
-
 \begin{align*}
 	\phi_{\pi_k} =& a_1\bar{p}_1 + a_{1\bar{2}}p_1\bar{p}_2 + a_{2\bar{3}}p_2\bar{p}_3 + \cdots + a_{n-1\bar{n}}p_{n-1}\bar{p}_k + a_np_n \\
 	=&\epsilon( \bar{p}_1 + p_1\bar{p}_2 + p_2\bar{p}_3 + \cdots + p_{n-1}\bar{p}_n + p_n ) + \phi ',
 \end{align*}
-
+%
 where
-
 \begin{align*}
 	\phi ' &= (a_{\bar{1}}-\epsilon)\bar{p}_1 + (a_{1\bar{2}} - \epsilon) p_1\bar{p}_2 + (a_{2\bar{3}}  - \epsilon)p_2\bar{p}_3 + \cdots + (a_{n-1\bar{n}} - \epsilon)p_{n-1}\bar{p}_n + (a_n -\epsilon)p_n.
 \end{align*}
-
+%
 By observing that
-
 \begin{align*}
 	\bar{p}_1 + p_1\bar{p}_2 &= 1 - p_1p_2 \\
 	-\bar{p}_{j-1}p_{j} + p_j\bar{p}_{j+1} &= \bar{p}_{j-1}p_j - p_jp_{j+1} \\
 	-p_{n-1}p_n + p_n &= \bar{p}_{n-1}p_n,
 \end{align*}
-
+%
 we can rewrite the alternating sum as
-
 \begin{align*}
 	\phi_{\pi} &= \epsilon + \epsilon( \bar{p}_1p_2 + \bar{p}_2p_3 + \cdots + \bar{p}_{n-1}p_n ) + \phi ' \\
 	&= \psi + \phi ',	
 \end{align*}
-
+%
 Note that $\phi '$ and $\psi$ corresponds, respectively, to the update of the residual costs for the edges of $\pi_k$ and the updates of its returning edges. Therefore, we can write
-
-
 \begin{align*}
 	\phi &= C(\phi) + \nu(\varphi_k) + \phi_{ G_{ \phi [\varphi_k] }},
 \end{align*}
-
+%
 i.e., the initial posiform $\phi$ can be rewritten as a constant plus the posiform corresponding to the residual graph at step $k$ of  the Ford Fulkerson algorithm. 
 \end{proof}
-
+%
 It follows that the master posiform is given by
-
 \begin{align*}
 	\phi^{\star} &= C(\phi) + \nu(\varphi^{\star}) + \phi_{ G_{ \phi [ \varphi^{\star}] }}.
 \end{align*}
-
+%
 \begin{example}
 The posiform $\phi = 2x + 8z + 2x\bar{z} + 4\bar{x}y + 6\bar{y}\bar{z}$ is represented by the graph $G_{\phi}$ in~\cref{ch2:fig:posiform-capacitated-graph}. Its maximum flow value  equals to $4$ and the master posiform is given by $\phi^{\star} = \nu(\varphi ^{\star}) + \phi_{G_{\phi {[\varphi^{\star}}]}} = 4 + 2z + 2\bar{z}\bar{y} + 4zy + 4\bar{y}x + 2z\bar{x}$.
 \end{example}
-
+%
 From the strong persistency theorem we conclude that $z=0$, and we have
-
 \begin{align*}
 	\min \phi = \min \phi^{\star}(z=0) = \min 2\bar{y} + 4\bar{y}x.
 \end{align*}
-
+%
 We can say more. Let $U$ be the set of literals that are reached from the source by a path of positive residual in the final residual graph. Then, a solution $\vec x \in \argmin f$ must agree with $x(U=1)$~\cite{boros02pseudo}. Therefore,
-
 \begin{align*}
 	\min \phi = \min \phi^{\star}(\bar{z}=1,y=1) = \min 4 = 4.
 \end{align*}
-
+%
 In fact, by looking at all configurations of $\phi$, we observe that $(z=0,y=1)$ in every minimum configuration of $f$.
 
 \begin{center}
@@ -660,21 +621,19 @@ The construction above is the core of the \emph{QPBO} algorithm that finds parti
 \begin{definition}{Submodular set function}
 
 Let $V$ be a set with $n$ elements, e.g., $V=\{1,2,\cdots, n\}$. A set function $f:2^V\rightarrow \mathbb{R}$ is submodular if 
-
 \begin{align}
 	f(X) + f(Y) \geq f(X \cup Y) + f(X \cap Y),\quad \forall X,Y \subset V.
 	\label{ch2:eq:submodular-set-function}
 \end{align}
-
+%
 \end{definition}
-
+%
 An equivalent local definition is given by
-
 \begin{align}
 	f(X \cup \{x_1\}) + f(X \cup \{x_2\}) \geq f(X \cup \{x_1,x_2\}) + f(X), \; \forall X \subset V \text{ and } \{x_1,x_2\} \not\subset X.
 	\label{ch2:eq:submodular-local}
 \end{align}
-
+%
 \begin{proposition}{Quadratic submodular PBF}
 	Let $f:2^V\rightarrow \mathbb{R}$ a quadratic PBF  written as
 	\begin{align*}
@@ -686,27 +645,26 @@ An equivalent local definition is given by
 		\item[ii]{ $f_{ij}(0,1) + f_{ij}(1,0) \geq f_{ij}(0,0) + f_{ij}(1,1), \quad \forall i<j<n$}
 		\item[iii]{ $\frac{\partial^2 f}{\partial x_i\partial x_j} \leq 0, \quad \forall i<j<n$ }
 	\end{itemize}
+\end{proposition}	
+%
 	\begin{proof}
 	
 	\begin{tabular}{rl}
 	$\mathbf{(i\rightarrow ii)}$:& Immediately from~\cref{ch2:eq:submodular-local}. \\	
 	$\mathbf{(ii\rightarrow iii)}$:&  Writing down the terms in $f$ for variables $x_i,x_j$ we have
 	\end{tabular}
-	
 	\begin{align*}
 		f_{ij}(0,0)(1-x_i)(1-x_j) + f_{ij}(1,1)x_ix_j + f_{ij}(0,1)(1-x_i)x_j + f_{ij}(1,0)x_i(1-x_j).
 	\end{align*}
-
+%
 	Taking its second derivative
-
 	\begin{align*}
 		\frac{\partial^2f}{\partial x_i\partial x_j} &= f_{ij}(0,0) + f_{ij}(1,1) - f_{ij}(0,1) - f_{ij}(1,0) \leq 0.
 	\end{align*}
-	
+%	
 	\begin{tabular}{rl}
 		$\mathbf{(iii\rightarrow i)}$:& We define
 	\end{tabular}		
-	
 		\begin{align*}
 			\Delta_{x_i} &= f(x_1,\cdots,x_{i-1},x_i=1,x_{i+1},\cdots,x_n) - f(x_1,\cdots,x_{i-1},x_i=0,x_{i+1},\cdots,x_n) \\
 			&= f(X \cup \{x_i\}) - f(X), \quad \text{ where } x_i \notin X.
@@ -716,21 +674,19 @@ An equivalent local definition is given by
 			f( X \cup \{x_1,x_2\}) &= f(X) + \Delta_{x_1} + \Delta_{x_2} + \frac{ \partial^2 f}{\partial x_i \partial x_j} \\
 			f( X \cup \{x_1,x_2\}) &= -f(X) + f(X \cup \{x_1\}) + f(X \cup \{x_2\}) + \frac{ \partial^2 f}{\partial x_i \partial x_j}.
 		\end{align*}	
-		
+%		
 		Finally,
 		\begin{align*}
 			f( X \cup \{x_1,x_2\}) +f(X) - f(X \cup \{x_1\}) - f(X \cup \{x_2\}) &\leq 0.	
 		\end{align*}
-		
+%		
 	\end{proof}
-\end{proposition}
 
 Supermodular functions, on the other hand, are functions that satisfy
-
 \begin{align*}
 	f(X) + f(Y) \leq f(X \cup Y) + f(X \cap Y),\quad \forall X,Y \subset V.
 \end{align*}
-
+%
 Therefore, if $f$ is submodular, $-f$ is supermodular. The QPBO algorithm can minimize submodular and maximize supermodular functions, the opposite problems being in $NP$-hard. 
 
 There are functions which are not submodular neither supermodular and are called \emph{non-submodular}. Optimizing a non-submodular function is in $NP$-hard but QPBO can be used to find a partial solution. However, it is likely that at the end of the flow computation, several variables would be unlabeled. Some variations includes the QPBO-Probe, which attempts to increase the number of variables labeled by QPBO using a branch-bound technique and the heuristic QPBO-Improve, both proposed in~\cite{rother07qpbo}. The first is guaranteed to return a partial solution, likely with more labels than the one given by QPBO. The latter does not guarantee a partial solution, but the final labeling is guaranteed to have a value as lower as the $0,1$-extended partial solution returned by QPBO.
@@ -749,7 +705,6 @@ In~\cite{boykov01graphcut} is proposed a model based on the computation of the m
 Let $I \in \mathbb{F}^{mxn}$ a discrete grayscale image. We construct the HMM $\mathcal{H} = (\mathcal{G}_I,\vec{X} \cup \vec{Y},\Gamma_{\vec{X}}=\{0,1\}, \Gamma_{\vec{Y}}=\{0,\cdots,255\},P)$ where $\mathcal{G}_I$ is the grid graph of image $I$. We wish to estimate the hidden states $\vec{X}$ among its possible labels $\Gamma_{\vec{X}}$, i.e., $0$ for background and $1$ for foreground, given a set of observed variables $\vec{Y}$, the color intensity of image pixels. We assume that variables in $\vec{X}$ and $\vec{Y}$ are indexed by image pixels, i.e., $\vec{X}_p$ is the random variable corresponding to the pixel $p$. The probability distribution $P$ is described in terms of clique potentials, described next.  
 
 We assume that we are given sets $S_{fg},S_{bg} \subset \vec{I}$ representing pixels for which a label is already known. Pixels in $S_{fg}$($S_{bg}$) are labeled as foreground (background). We compute two mixed Gaussian distributions $H_{fg},H_{bg}$ that best fits the color intensities in the sets $S_{fg}$ and $S_{bg}$, respectively. These distributions are used to define the $1$-clique potential
-
 \begin{align*}
 	\psi_1(x_p) &= \left\{ \begin{array}{ll}
 	-\log  H_{bg}\big( I(p) \big), & \text{if } x_p=0  \\[1em]	
@@ -757,39 +712,34 @@ We assume that we are given sets $S_{fg},S_{bg} \subset \vec{I}$ representing pi
 	\end{array}\right.\\[1em]
 	\phi_p(x_p) &= \exp{ \big(- \psi_1(x_p) \big) },\quad \quad \forall p \in \Omega \text{ and } p \notin S_{fg} \cup S_{bg}.
 \end{align*}
-
+%
 A higher probability in the foreground (background) distribution reflects in a higher clique potential if $x_p=1$($x_p=0$). The $2$-clique potential encodes the spatial coherence assumption in images, i.e., neighboring pixels tends to have similar intensity values
-
 \begin{align*}
 	\psi_{2}(x_p,x_q) &= \exp{ \left( - \frac{\lambda}{d(p,q)}\frac{(I(p) - I(q))^2}{2\sigma^2} \right) }.\\[1em]
 	\phi_{pq}(p,q) &= \exp{ \big( -\psi_{2}(x_p,x_q) \big) }, \quad \forall p \in \Omega \text{ and } q \in \mathcal{N}(p).
 \end{align*}
-
+%
 where $d(p,q)$ is the Euclidean distance between the pixel coordinates of $p,q$ and $\lambda$ is a parameter to control the influence between clique potentials $\phi_p$ and $\phi_{pq}$. The Gibbs distribution writes as
-
 \begin{align*}
 	P(\vec{X=\vec{x}}) &= \frac{1}{Z} \prod_{c \in \mathcal{C}}{\phi_c(\vec{x})}
 \end{align*}
-
+%
 The maximum likelihood is computed by minimizing the Gibbs energy $E$.
-
 \begin{align}
 	\argmax_{\vec{x}} P(\vec{X}=\vec{x}\;|\;\vec{Y}) &= \argmin_{\vec{x}} E(\vec{x}) \nonumber \\	
 	&= \argmin_{\vec{x}} \sum_{v_p \in \mathcal{V}}\psi_1(x_p) + \sum_{ (v_p,v_q) \in \mathcal{E} }\psi_2(x_p,x_q) \nonumber \\
 	&= \argmin_{\vec{x}} \sum_{v_p \in \mathcal{V}}{ \Big( \psi_1(0)\bar{x}_p + \psi_1(1)x_p \Big)} + \frac{1}{2}\sum_{ (v_p,v_q) \in \mathcal{E} }{\psi_{2}(0,1)\bar{x}_px_q}.
 	\label{ch2:eq:grabcut}
 \end{align}
-
+%
 ~\cref{ch2:eq:grabcut} is a submodular function and it can be minimized using one of the variations of the QPBO algorithm. 
 
 We could also take a simpler point of view by working solely with an extended version of the grid graph $\mathcal{G}_I$. Consider the extended grid graph $\mathcal{G_I+}(\mathcal{V}^+,\mathcal{E}^+,c)$ defined as
-
-
 \begin{align*}
 	\mathcal{V}^+ &= \mathcal{V} \cup \{s,t\}\\
 	\mathcal{E}^+ &= \mathcal{E} \cup \big\{ \{s,v_p\}, \{v_p,t\} \; | \; p \in \Omega \big\}.
 \end{align*}
-
+%
 \begin{table}[h]
 \center
 \begin{tabular}{c|c|l}	
@@ -863,7 +813,6 @@ A standard approach to devise an approximation solution is the so called \emph{l
 Approximation algorithms like iterated conditional moves (ICM)~\cite{besag86} and simulated annealing~\cite{geman84} defines the neighborhood $\mathcal{N}(\vec{I}^{(t)})$ as the set of images that differs in a single pixel from $\mathcal{N}(\vec{I}^{(t)})$. Consequently, a premature stop in a local optimum of lower quality is likely to happen. 
 
 The idea in the \emph{$\alpha$-expansion} and \emph{$(\alpha,\beta)$-swap} algorithms consists in to define a large neighborhood $\mathcal{N}(\vec{I}^{(t)})$ such that finding the best configuration in such neighborhood can be efficiently computed. In order to illustrate some ideas, let's consider once again the Potts model applied to image denoising of a grayscale image $\vec{I} \in \mathbb{F}^{m \times n}$.
-
 \begin{align}
 	\phi_{pq}(x_p,x_q) &= \left\{ \begin{array}{ll}
 		K,& \text{if } x_p \neq x_q \\
@@ -872,10 +821,9 @@ The idea in the \emph{$\alpha$-expansion} and \emph{$(\alpha,\beta)$-swap} algor
 	E(\vec{x}) &= \sum_{p \in \mathcal{V} }{\phi_p(x_p)} + \sum_{(p,q) \in \mathcal{E}}{\phi_{pq}(x_p,x_q)}.	
 	\label{ch2:eq:potts-model-denoising-bis-2}
 \end{align}
-
-
+%
+%
 As mentioned before, minimizing~\cref{ch2:eq:potts-model-denoising-bis-1,ch2:eq:potts-model-denoising-bis-2} is in NP-hard as long as variables $x_p,x_q$ take values in a set of cardinality greater than $2$. Notice that if we limit the problem to only two labels, let's say $\alpha,\beta$,~\cref{ch2:eq:potts-model-denoising-bis-1,ch2:eq:potts-model-denoising-bis-2} is a submodular PBF (Ising model) and can be minimized in polynomial time. The key is in to define the transformation function 
-
 \begin{align*}
 	T_{\alpha,\beta}(x_p,c_p) &= \left\{ \begin{array}{rl}
 		\alpha,& \quad \text{if } ( x_p=\alpha \text{ or } x_p=\beta) ) \text{ and } c_p=0,\\[1em]
@@ -883,14 +831,13 @@ As mentioned before, minimizing~\cref{ch2:eq:potts-model-denoising-bis-1,ch2:eq:
 		x_p,& \quad \text{otherwise}.
 	\end{array}\right. ,
 \end{align*}
-
+%
 and the neighborhood
-
 \begin{align*}
 \mathcal{N}_{\alpha,\beta}(\vec{I}) &= \left\{ \vec{I}' \; | \; \vec{I}'(p) = T_{\alpha,\beta}(\vec{I}(p),\{0,1\}) \quad \forall p \in \vec{I} \right\}.
 \end{align*}
-
-
+%
+%
 In the $(\alpha,\beta)$-swap algorithm, the local-optimization step (~\cref{ch2:alg:local-search-local-opt-step} in~\cref{ch2:alg:local-search-paradigm}) is replaced by
 
 \begin{algorithm}[H]
@@ -927,19 +874,17 @@ In the $(\alpha,\beta)$-swap algorithm, the local-optimization step (~\cref{ch2:
 \end{figure}
 
 The $\alpha$-expansion works in a similar way, except that the only movement allowed is to change a label to some other label $\alpha$. In the $(\alpha,\beta)$-swap algorithm the local optimization energy is submodular if
-
 \begin{align}
 	\phi_{pq}(\alpha,\alpha) + \phi_{pq}(\beta,\beta) \leq \phi_{pq}(\alpha,\beta) + \phi_{pq}(\beta,\alpha) & \quad \forall \alpha,\beta \in \Gamma_{\vec{X}}.
 	\label{ch2:eq:multilabeling-metric}
 \end{align}
-
+%
 In the case of $\alpha$-expansion, submodularity is ensured if
-
 \begin{align}
 	\phi_{pq}(\alpha,\alpha) + \phi_{pq}(\beta,\gamma) \leq \phi_{pq}(\beta,\alpha) + \phi_{pq}(\alpha,\gamma) & \quad \forall \alpha,\beta,\gamma \in \Gamma_{\vec{X}}.
 	\label{ch2:eq:multilabeling-semi-metric}	
 \end{align}
-
+%
 The $\alpha$-expansion and $(\alpha,\beta)$-swap algorithms have good overall performance for models based in the Potts potential. In~\cite{boykov01fast} we can find nice results for stereo. However, they are less appealing if we use a truncated convex $2$-clique potential~\cite{blake11markov}(see chapter 11). In this case, the \emph{range moves} algorithm proposed in~\cite{veksler07graph} is reported to deliver better results.
 
 
@@ -972,17 +917,15 @@ The $\alpha$-expansion and $(\alpha,\beta)$-swap algorithms have good overall pe
 We have seen the natural connection between cuts and binary segmentation describing the Grabcut algorithm. The removal of the minimum cut $C \in \mathcal{E}$ of the Grabcut model partitioned the grid graph in two disjoint connected components, one connected to the source vertex and associated to the foreground and the other connected to the target vertex and associated to the background. The cut $C$ itself can be related with the contour $\partial S$ of the foreground shape (see~\cref{ch2:fig:geodesic-grid-graph-shape-intersection}). In~\cite{boykov03geodesics} it was shown that one can define a cost function for $\mathcal{E}$ such that the cost of $C$ is arbitrarily close to the length of $\partial S$.
 
 The key idea is to use the Cauchy-Crofton formula that makes the link between the number of lines intersecting a shape contour and its perimeter. In $2D$, let $\mathcal{L}$ be the set of all straight lines in the plane and $d\mathcal{L}$ a Lebesgue measure on this set. Then, the perimeter of a shape $S$ is given by
-
 \begin{align*}
 \int_{}{n_c}d{\mathcal{L}} = 2|\partial S|,
 \end{align*}
-
+%
 where $n_c$ is the number of intersections of some line in $\mathcal{L}$ with the shape contour. To compute the Euclidean length, the cost function should be set as
-
 \begin{align*}
 	w_k &= \frac{ \delta^2 \Delta \phi_k }{2 |e_k|},
 \end{align*}
-
+%
 where $\delta$ is the distance between two lines in the same family and $\Delta \phi_k$ is the angle difference between two consecutive lines (counterclockwise orientation) of different directions in the neighborhood system (see~\cref{ch2:fig:geodesic-grid-graph-shape-intersection}).
 
 \begin{figure}

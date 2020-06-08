@@ -12,15 +12,14 @@ We restrict our analysis to the integer plan because it's where theory and appli
 \end{definition}
 
 A face is incident to an edge if the edge itself is part of the face's boundary and not incident otherwise. We say it is positive incident to an edge if besides incident, the face orientation  agrees with the orientation the edge, and negative incident in the case it doesn't agree.
-
-\[
+\begin{align*}
 \mathbf{P} _{i,j} = \left\{ \begin{array}{ll}
 	1, & \text{face $j$ is positive incident to edge $i$}\\
 	-1, & \text{face $j$ is negative incident to edge $i$}\\	
 	0, & \text{otherwise}
 \end{array}\right.
-\]
-
+\end{align*}
+%
 \begin{example}
 	Consider a portion $\Omega$ of $\mathbb{Z}^2$ with $9$ faces ,$24$ edges and orientation as depicted in figures \ref{app2:fig:cell-grid-indices} and \ref{app2:fig:cell-grid-orientation}. 	
 	The pixel incidence matrix applied for vector $\mathbf{x} \in \mathbb{Z}^9$, representing the active pixels depicted in figure \ref{app2:fig:cell-grid-active-pixels}, results in vector $\mathbf{y} \in \mathbb{Z}^{24}$ representing the active boundary depicted in figure \ref{app2:fig:cell-grid-active-linels}.
@@ -40,10 +39,8 @@ A face is incident to an edge if the edge itself is part of the face's boundary 
 \includegraphics[scale=1]{figures/appendix-pixel-incidence-matrix/cell-grid-4.pdf}}%
 \caption{Figures (a) and (b) illustrates indices assignments and orientation; figure (d) shows the result of applying the pixel incidence matrix for the active pixels in figure (c).}
 \end{figure}
-
-\[
-   \begin{array}{ll}
-	
+\begin{align*}
+   \begin{array}{ll}	
 	\mathbf{P} = \left[ \begin{array}{ccccccccc}
 	 -1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
 	 0 & -1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\	 
@@ -69,7 +66,6 @@ A face is incident to an edge if the edge itself is part of the face's boundary 
 	 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\	 
 	 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\	 
 	 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1	 	 	 	 	 	 	 		\end{array}\right] &, \qquad
-	 
 	\mathbf{P} \left[ \begin{array}{l}
 					0\\
 					0\\
@@ -106,8 +102,7 @@ A face is incident to an edge if the edge itself is part of the face's boundary 
 											1\\
 											0
 										\end{array}\right]
-	 
    \end{array}
-\]
-
-
+\end{align*}
+%
+%

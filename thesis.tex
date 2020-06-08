@@ -36,12 +36,6 @@
 
 \setlength{\textwidth}{14.92cm} %21cm - 2in -1cm (2in for the standard horizontal offset; 1in for each side)
 
-%\addtolength{\oddsidemargin}{-0.5in}
-%\addtolength{\evensidemargin}{-0.5in}
-%\addtolength{\textwidth}{0.5in}
-%\addtolength{\topmargin}{-.875in}
-%\addtolength{\textheight}{1.75in}
-
 \widowpenalty10000
 \clubpenalty10000
 
@@ -53,11 +47,12 @@
 	\date{}
 	\maketitle
 	
-	\newpage
-
 	\include{chapters/abstract-english}	
 	\newpage
 	\include{chapters/abstract-french}
+	
+	\setlength{\abovedisplayskip}{10pt}
+	\setlength{\belowdisplayskip}{10pt}
 	
 	\tableofcontents	
 	\include{chapters/notation}

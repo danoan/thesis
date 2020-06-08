@@ -69,11 +69,10 @@ For matters of simplicity, we limit our discussion to grayscale images, the conc
 \end{center}
 
 where $\mathbb{F}$ is a finite set. In this thesis, we define such set as
-
 \begin{align}
 	\mathbb{F} &= \{ \frac{i}{255} \; | \; i \in \mathbb{N}, i \leq 255 \}.
 \end{align}
-
+%
 The discrete representation is interpreted as a sampling of $m \times n$ elements (pixels) of the continuous representation $f_{\vec{I}}$. 
 
 \begin{figure}
@@ -107,7 +106,7 @@ Given $f_{\widetilde{\vec{I}}}$, find estimation $f_{\widehat{\vec{I}}}$ such th
 \begin{align*}
 	f_{\widehat{\vec{I}}} &= \argmin_f E(f,f_{\vec{\widetilde{I}}})
 \end{align*}
-
+%
 \textbf{Applications:} Restoration of old pictures; enhancement of satellite images.
 
 \subsubsection{Image segmentation}
@@ -122,7 +121,7 @@ Given $f_I:\Omega \rightarrow [0,1]$ and a positive integer $n$, find partition 
 	\bigcup_i^{n} \Omega_i = \Omega
 	\end{array}
 \end{align*}
-
+%
 \textbf{Applications}: enhance blood vessels in angiograms; track roads in satellite images; identify objects in a scene. 
 
 %In this section we present three paradigms that frequently appear in the literature while coping with variational problems in image processing: Parametric curve evolution (active contours); level-set method (Chan-Vese); and convexification (). All the presented models can be seen as a specification of the classical Mumford-Shah model.
@@ -132,11 +131,10 @@ Given $f_I:\Omega \rightarrow [0,1]$ and a positive integer $n$, find partition 
 Given an image $f_{\widetilde{\vec{I}}}$ with a collection of missing patches $\mathcal{P}$, \emph{image inpainting} consists in to create an image $f_{\vec{I}}$ with the reconstructed missing patches such that a quality criteria, encoded as the minimum of some functional, is respected
 
 Given $f_{\widetilde{\vec{I}}}$ and missing patches $\mathcal{P}$, find image $f_{\vec{I}}$ such that
-
 \begin{align*}
 	f_{\vec{I}} &= \argmin_f E(f,f_{\widetilde{\vec{I}}}) \quad \text{subject to}\; f(\Omega \setminus \mathcal{P}) = f_{\widetilde{\vec{I}}}(\Omega \setminus \mathcal{P}).
 \end{align*}
-
+%
 \textbf{Applications:} removal of undesired objects in a scene; restoration of old pictures. 
 
 \begin{figure}
@@ -180,8 +178,7 @@ The maximum a posteriori method was first introduced in the image processing com
 		\end{assumption}
 where $\vec{N}$ is a $(m \times n)$ matrix of random variables $\vec{N}_{i,j}$ and $Pr\big( \vec{N}_{i,j} = n \big) = \frac{1}{\sqrt{2\pi}}\exp(- \daniel{ \lambda } \frac{n^2}{2} )$.		
 	}
-	\item{Given some function $\rho$, a candidate image estimation $\vec{C}$ has probability
-	
+	\item{Given some function $\rho$, a candidate image estimation $\vec{C}$ has probability	
 	\begin{assumption}
 	\begin{align}
 		Pr(\vec{C}) = \exp(-\rho(\vec{C})).
@@ -194,95 +191,83 @@ where $\vec{N}$ is a $(m \times n)$ matrix of random variables $\vec{N}_{i,j}$ a
 %If we want to be precise, the sum operator in~\cref{ch1:denoising-assumption-1} should be redefined to be a closed operator in $\mathbb{F}^{m \times n}$. We skip this definition by arguing that because of the symmetry of the Gaussian distribution the computation of the probabilities that follows remains the same.
 
  We estimate the unknown original image $\vec{I}$ as the image $\vec{\widehat{I}}$ that is more likely to occur. Applying Bayes' theorem we obtain
-
 \begin{align}
 	\vec{\widehat{I}} & = \argmax _{\vec{C}}{Pr(\vec{C} \; | \;\vec{\widetilde{I}})} = \argmax _{\vec{C}} \frac{Pr(\vec{\widetilde{I}} \; | \; \vec{C})Pr(\vec{C})}{Pr(\vec{\widetilde{I}})}.
 	\label{ch1:eq:probability-maximization}
 \end{align}
-
+%
 We have already all the elements to expand~\cref{ch1:eq:probability-maximization}. The probability of having the corrupted image $\vec{\widetilde{I}}$ given a candidate image $\vec{C}$ is derived from~\cref{ch1:denoising-assumption-1}, i.e.,
-
 \begin{align}
 	Pr(\vec{\widetilde{I}} \; | \; \vec{C}) &= Pr( \vec{N} = \vec{\widetilde{I}} - \vec{C} ) = \frac{1}{\sqrt{2\pi}}\exp\Big(- \frac{ \daniel{ \lambda }\norm{\vec{\widetilde{I}} - \vec{C} }^2}{2} \Big).
 	\label{ch1:eq:probability-corrupted-image-given-original}
 \end{align}
-
+%
 The denominator term is computed as the joint probability
-
 \begin{align}
 	Pr(\widetilde{\vec{I}}) &= \sum_{\vec{J} \in \mathbb{F}^{m \times n}}{Pr(\vec{\widetilde{I}}\;|\; \vec{J})Pr(\vec{J})} = \frac{1}{\sqrt{2 \pi}}\sum_{\vec{J} \in \mathbb{F}^{m \times n}}{\exp\bigg(-\frac{\daniel{ \lambda }}{2}\norm{\widetilde{\vec{I}}-\vec{J}}^2 - \rho(\vec{J})}\bigg).
 	\label{ch1:eq:joint-probability}
 \end{align}
-
+%
 Substituting~\cref{ch1:eq:probability-corrupted-image-given-original,ch1:eq:joint-probability} in~\cref{ch1:eq:probability-maximization} we obtain
-
 \begin{align}
 	\vec{\widehat{I}} & = \argmax _{\vec{C}} \frac{1}{\sqrt{2\pi}} \frac{\exp\Big(- \frac{\daniel{ \lambda }}{2}\norm{\vec{\widetilde{I}} - \vec{C}}^2 - \rho(\vec{C}) \Big) }{ \sum_{\vec{J} \in \mathbb{F}^{m \times n}}{\exp\bigg(-\frac{\daniel{ \lambda }}{2}\norm{\widetilde{\vec{I}}-\vec{J}}^2 - \rho(\vec{J})}\bigg) }
 	\label{ch1:eq:probability-maximization-expanded}
 \end{align}
-
+%
 Finnaly, solving~\cref{ch1:eq:probability-maximization-expanded} is equivalent to solve
-
 \begin{align}
 	\vec{\widehat{I}} &= \argmin _{\vec{C}} \frac{\daniel{ \lambda }}{2}\norm{\vec{\widetilde{I}} - \vec{C}}^2 + \rho(\vec{C}).
 	\label{ch1:eq:minimization-form}
 \end{align}
-
+%
 The first term appears so often in imaging problems that it has a special name: \emph{data fidelity}. In the denoising problem, the data fidelity term appeared as a consequence of the Gaussian noise model assumption. The second term is also a regularization term and it favors images that respect some desirable property for the problem to be solved. Since natural images has a higher spatial dependency, a reasonable guess for $\rho$ would be a function that has lower value for piecewise smooth data, i.e., images composed by closed regions with smooth variations in its interior but possibly strong discontinuities in their boundaries. 
 
 
 \subsubsection{Tikhonov regularization}
 \label{ch1:subsec:tikhonov-regularization}
 The classical way to optimize~\cref{ch1:eq:minimization-form} is to shift it to a continuous setting, analytically derive some optimization properties and then use this properties to solve the problem in a discrete setting. The continuous reformulation of~\cref{ch1:eq:minimization-form} consists in optimizing the energy functional below
-
 \begin{align}
 	f_{\vec{\widehat{I}}} &= \argmin_{f} F(f) = \frac{\daniel{ \lambda }}{2} \int_{\Omega}{ \norm{ f_{\vec{\widetilde{I}}} - f}^2dx} + R(f),
 	\label{ch1:eq:variational-formulation}
 \end{align}
-
+%
 where $R$ is a functional derived from the choice of $\rho$. A popular choice for $R$ is to define it as the $L2$ norm of $\nabla f$, also called the \emph{Tikhonov} regularization term.~\cref{ch1:eq:variational-formulation} is rewritten as
-
 \begin{align}
 	f_{\vec{\widehat{I}}} &= \argmin_{f} F(f) = \frac{\daniel{ \lambda }}{2} \int_{\Omega}{ \norm{ f_{\vec{\widetilde{I}}} - f}^2dx} + \int_{\Omega}{ \norm{ \nabla f }^2 dx }.
 	\label{ch1:tikhonov-formulation}
 \end{align}
-
+%
 \subsubsection{Euler-Lagrange equation}
 
 We can establish some necessary optimization conditions for~\cref{ch1:tikhonov-formulation} by deriving its \emph{Euler-Lagrange} equation. Assume that function $g$ minimizes functional $F$, i.e.,
-
 \begin{align*}
 	g &= \argmin_{f}{F(f)}.
 \end{align*}
-
+%
 Further, assume that there exists a function $w$ that agrees with $g$ at the boundary of $f$' domain, i.e., $w(x)=0,\, \forall x \in \partial \Omega$. Define the function $h$ as
-
 \begin{align*}
 	h(\epsilon) &= F(g+\epsilon w)
 \end{align*}
-
+%
 Therefore, $h$ has a minimum at $\epsilon=0$. Thus,
-
 \begin{align*}
 	0 = \frac{dh}{\partial \epsilon}_{| \epsilon=0} &= \frac{d}{\partial \epsilon}_{| \epsilon=0} \int_{\Omega}{ \frac{\daniel{ \lambda }}{2}\norm{f_{\vec{\widetilde{I}}} - g - \epsilon w}^2 + \norm{ \nabla (g + \epsilon w) }^2 \daniel{dx}}  \\
 	&= _{| \epsilon = 0} \int_{\Omega}{ \daniel{ \lambda }\norm{ f_{\vec{\widetilde{I}}} - g - \epsilon w}\frac{(f_{\vec{\widetilde{I}}} - g - \epsilon w) }{\norm{f_{\vec{\widetilde{I}}} - g - \epsilon w}}w + 2\norm{ \nabla (g + \epsilon w) }\frac{(\nabla g + \epsilon w)}{\norm{ \nabla (g + \epsilon w) }}\nabla w \daniel{dx}} \\
 	&= \int_{\Omega}{ \daniel{ \lambda }(f_{\vec{\widetilde{I}}} - g)w + (\nabla g)\nabla w \daniel{dx}}. 	
 \end{align*}
-
+%
 Applying integration by parts and using the fact that $w(x)=0,\; \forall x \in \partial \Omega$.
-
 \begin{align*}
 		0 &= \int_{\Omega}{ \big( \daniel{ \lambda ( f_{\vec{\widetilde{I}}} - g)} - \Delta g \big)w \daniel{dx}}
 \end{align*}
-
+%
 Since $w$ could be any function, we can write
-
 \begin{align}
 	\daniel{ \lambda ( f_{\vec{\widetilde{I}}} - g)} - \Delta g &= 0
 	\label{ch1:eq:variational-necessary-condition}
 \end{align}
-
-
+%
+%
 Therefore, if $g$ is a minimum of~\cref{ch1:eq:variational-formulation}, then it respects the convex~\cref{ch1:eq:variational-necessary-condition}. Hence, given an initial solution $f$, one can execute a descent method (gradient descent, for example) to find its minimum. In practice, ~\cref{ch1:eq:variational-formulation} is discretized using the samplings $\vec{\widehat{I}}, \vec{\widetilde{I}}$ of $f_{\vec{\widehat{I}}},f_{\vec{\widetilde{I}}}$ and a finite differences scheme is defined to estimate the Laplacian $\Delta$.
 
 The Tikhonov term favors images with smooth variations in color, but the smoothness is not restricted to the interior of regions. Thus, Tikhonov tends to obfuscate the discontinuities that will likely be present in the contour of regions and we have the impression that the image is blurred (see~\cref{ch1:fig:denoising-results}). Nonetheless, Tikhonov term is attractive due to its optimization properties.
@@ -308,30 +293,27 @@ The Tikhonov term favors images with smooth variations in color, but the smoothn
 
 \subsubsection{Total variation regularization}
 An alternative to Tikhonov regularization is to use the so called \emph{total variation} of the image function. For a smooth function $f$, its total variation is computed as
-
 \begin{align*}
 	TV(f) &= \int_{\Omega}{ \norm{ \nabla f } }.
 \end{align*}
-
+%
 For a more general (possibly not differentiable) locally integrable function $f:\Omega \rightarrow \mathbb{R}^n$, its total variation is defined as
-
 \begin{align*}
 	TV(f) &= \sup \left\{ \int_{\Omega}{\nabla u \cdot \phi} \; | \; \phi \in C_c^{1}(\Omega, \mathbb{R}^n) \text{ and } \norm{\phi}_{\infty} \leq 1 \right\} \\
 		  &= \sup \left\{ - \int_{\Omega}{u \nabla \cdot \phi} \; | \; \phi \in C_c^{1}(\Omega, \mathbb{R}^n) \text{ and } \norm{\phi}_{\infty} \leq 1 \right\},	
 \end{align*}
-
+%
 where $\phi$ is vector-valued infinitely differentiable function with compact support. The image denoising total variation model is written as
-
 \begin{align}
 	f_{\vec{\widehat{I}}} &= \argmin_{f} \frac{\lambda}{2} \int_{\Omega}{ \norm{ f_{\widetilde{I}} - f}^2dx} + TV(f).
 	\label{ch1:eq:total-variation-denoising}
 \end{align}
-
+%
 The ROF model~\cite{rudin92} assumes the image representation is smooth, and from the Euler-Lagrange equation of~\cref{ch1:eq:total-variation-denoising} the following gradient flow is derived:
 \begin{align*}
 	\frac{\partial f}{\partial t} &= \nabla \cdot \left( \frac{\nabla f}{\norm{ \nabla f} } \right) - \lambda (f_{\widetilde{\vec{I}}} - f)
 \end{align*}
-
+%
 The left term is not differentiable, and a small $epsilon >0$ is added to the denominator in order to avoid numerical instability. However, the calibration of $\epsilon$ might be delicate, since a small $\epsilon$ might not be sufficient to avoid instability and a larger $\epsilon$ may disfigure the model. In~\cite{chambolle04} the total variation definition is exploited to create a convergent algorithm that works by successive projections and that solves model~\cref{ch1:eq:total-variation-denoising}. In~\cite{beck09a} a modified version of the previous algorithm has proven to have faster convergence. 
 
 The total variation term is characterized by its smooth properties while partially preserving some discontinuities across the edges. In this sense, total variation models produce results with sharper edges than those produced by the Tikhonov term (see~\cref{ch1:fig:denoising-results}) .
@@ -342,13 +324,11 @@ In this section we give an overview of the key techniques in variational models 
 
 \subsubsection{Mumford-Shah}
 The $L2$-norm regularization has nice optimization properties, but it does not preserve discontinuities along the object boundaries. This effect is attenuate using a $L1$-norm, but it it not sufficient to avoid blurred edges. The\emph{Mumford-Shah} functional~\cite{mumford89} handles this issue by incorporating the edges in its formulation in the form of a set of discontinuities $\mathcal{K}$ and limiting the $L2$-norm regularization to points in the interior of objects, i.e.,  $\Omega \setminus \mathcal{K}$. Moreover, the set $\mathcal{K}$ itself is compelled to be of small length. The Mumford-Shah model consists in minimizing the following functional 
-
-
 \begin{align}
 	(f_{\vec{\widehat{I}}},\mathcal{\widehat{K}}) &= \argmin_{f,\mathcal{K}} \alpha \int_{\Omega}{ \norm{f_{\vec{\widetilde{I}}}-f}dx} + \beta \int_{\Omega \setminus \mathcal{K}}{\norm{\nabla f}dx} + \lambda Per(\mathcal{K})
 	\label{ch1:mumford-shah-functional}
 \end{align}
-
+%
 The functional can be seen as a model for both denoising and segmentation problems. The function $f_{\vec{\widehat{I}}}$ being the denoising solution and $\mathcal{\widehat{K}}$ the segmentation solution.~\cref{ch1:mumford-shah-functional} is proven to have a minimizer~\cite{degiorgi89}, and in the case $\mathcal{K}$ is fixed, the minimizer is unique (see chapter 25 of~\cite{bar11}). However, to find a minimizer of~\cref{ch1:mumford-shah-functional} is a challenging task due to its non-convexity.
 
 Nonetheless, there exist several approximations to the Mumford-Shah functional. We refer to the phase-field model of~\cite{ambrosio90}; the finite-differences scheme of~\cite{chambolle99}; the level-set method of~\cite{vese02}; the convex relaxations of~\cite{pock09,strekalovskiy14}; and the discrete calculus approach of~\cite{foare17}.
@@ -357,13 +337,12 @@ Nonetheless, there exist several approximations to the Mumford-Shah functional. 
 
 \subsubsection{Active contours}
 \emph{Active contours} or snakes is a supervised method for doing image segmentation. In the original work~\cite{kass88}, an initial parametric curve $C_0(q) \rightarrow (x(q),y(q))$ is evolved towards the local minimum of the snakes energy
-
 \begin{align}
 	F(C) &= \alpha Length(C) + \beta Smoothness(C) + \gamma Edge(C) \nonumber \\
 	F(C) &= \alpha \int_{0}^{1}{ \bignorm{ \frac{dC}{\partial q} }^2 dq } + \beta \int_{0}^{1}{ \bignorm{ \frac{d^2C}{\partial q^2} }^2dq} -\gamma \int_{0}^{1}{ \norm{ \nabla f_I(C(q))}^2 dq}
 	\label{ch1:eq:snakes-energy}
 \end{align}
-
+%
 The length and smoothness regularization term favors curves of smooth variations and  small length while the edge term compels the curve to stop at regions of high variation of color intensity. 
 
 The snakes method was devised having an interactive framework in mind. First of all, the user must set the initial curve close to the object to be segmented, and besides that, a set of additional tools as anchor points, repulsion and spring forces are available for online modification of the problem. The user can make use of these tools to conveniently perturb the current solution and force the curve to evolve to the expected local optimum.
@@ -509,20 +488,18 @@ Parametric models as snakes are often criticized because of their non-intrinsic 
 
 
 Let $u:\Omega \subset \mathbb{R}^2 \rightarrow [0,1]$ be a $C^2$ function. The curvature at its $k$-th level set is given by
-
 \begin{align*}
 	\kappa (x,y) &= \nabla \cdot \left( \frac{\nabla u}{\norm{\nabla u}} \right), \quad \forall (x,y) \in \left\{ \; (x,y) \; | \; u(x,y)=k \; \right\}
 \end{align*}
-
-
+%
+%
 The \emph{geometric active contour} model consists into evolving an extension of $u$, by including an artificial time parameter $t$, and compute the steady solution of the flow
-
 \begin{align}
 	u(0,x,y) &= u(x,y) \nonumber \\
 	\frac{du}{dt} &= g( \norm{\nabla f_{\vec{I}}} )\norm{\nabla u}\nabla \cdot \left( \frac{\nabla u}{\norm{\nabla u}}  + v \right),
 	\label{ch1:geometric-active-contour}
 \end{align}
-
+%
 where $g$ is a non-increasing function that plays the role of an edge-detector, e.g., $g(x) = 1/(1+x)^2$. The function $u$ can be initially defined as a smoothed version of $1 - \chi_C$, where $\chi_C$ is the characteristic function of some set $C \in \Omega $ that contains the objects to be segmented. 
 
 Following~\cref{ch1:geometric-active-contour}, the gray level at some point $(x,y)$ changes proportionally to the curvature of its belonging level set. The constant $v$ forces the change in $u$ to be always positive, i.e., pixels gets lighter, never darker. The term $\norm{\nabla u}$ allows $u$ to evolve only at some neighborhood of the $0$-level-set boundary and the term $g(\norm{\nabla f_{\vec{I}}})$ makes the evolution to stop if an edge is reached. At the steady solution of~\cref{ch1:geometric-active-contour} the segmented objects of $\vec{I}$ corresponds to the $0$-level set of $u$.
@@ -549,63 +526,53 @@ Differently from the snakes, the geometric active contours handle changes in top
 	The active contour and its geometric version are both edge-based methods, a natural strategy for image segmentation but with limitations, e.g., the models may encounter some difficulties to segment objects with holes. The \emph{Chan-Vese} method proposes the inclusion of a region-based term and it generalizes the level-set approach already presented in the geometric active contour model. 
 	
 	Let $f_{\vec{I}}:\Omega \subset \mathbb{R}^2 \rightarrow \mathbb{U}^2$ a grayscale image and $F \subset \Omega$ an open set such that the pair $(F,\Omega \setminus F)$ is the searched binary partition. Further, assume that there exists a function $\phi: \Omega \rightarrow \mathbb{R}$ with bounded first derivative. The image partitions are identified in the following fashion
-	
 \begin{align*}
 	\phi(x) < 0,&\quad \forall x \in F \\
 	\phi(x) = 0,&\quad \forall x \in \partial F\\
 	\phi(x) > 0,&\quad \forall x \in \Omega \setminus \overline{F}
 \end{align*}
-	
+%	
 	In possession of the partition descriptor $\phi$, the following energy is proposed	
-	
 \begin{align}
 	F(\phi,x) &= \mu Length(\phi,x) + \nu Area(\phi,x) + \lambda_1 Foreground(\phi,x) + \lambda_2 Background(\phi,x) \nonumber \\	
 	&= \mu \int_{\Omega}{\delta_0(\phi(x))\norm{ \nabla \phi(x)}dx} + \nu \int_{\Omega}{H(\phi(x))dx} \nonumber \\
 	&+ \lambda_1 \int_{\Omega}{\big(1-H(\phi(x))\big)\norm{f_{\vec{I}}(x) - c_F}^2dx} + \lambda_2\int_{\Omega}{H(\phi(x)\norm{f_{\vec{I}}(x)-c_B}^2dx},
 	\label{ch1:eq:chan-vese-functional}
 \end{align}
-
+%
 where $H(x)$ is the Heaviside function and $\delta_0$ the standard Dirac delta function, i.e.,
-
-\[
+\begin{align*}
 \begin{array}{ll}
 	H(x) = \left\{ \begin{array}{ll}
 		1, & x \geq 0 \\
 		0, & \text{otherwise},
 	\end{array}\right. & \quad 
-	
 	\delta_0( x ) = \left\{ \begin{array}{ll}
 								+ \infty,& x=0\\
 								0,& \text{otherwise}.
 							\end{array}\right. \text{ and } \int_{-\infty}^{+\infty}{\delta_0(x)dx}=1.
-	
 \end{array}
-\]
-
+\end{align*}
+%
 The parameters $c_f,c_b$ are defined as the average color intensity in the interior of the foreground and background regions, respectively
-
-\[
+\begin{align*}
 \begin{array}{ll}
 	\displaystyle c_F = \frac{\int_{\Omega}{\big(1-H(\phi(x))\big)f_{\vec{I}}(x)dx}}{\int_{\Omega}{\big(1-H(\phi(x))\big)dx}}, & 	
 	\displaystyle c_B = \frac{\int_{\Omega}{H(\phi(x))f_{\vec{I}}(x)dx}}{\int_{\Omega}{H(\phi(x))dx}}.
 \end{array}
-\]
-
+\end{align*}
+%
 Next, the Euler-Lagrange equation of~\cref{ch1:eq:chan-vese-functional} is calculated and used to define a gradient flow to minimize~\cref{ch1:eq:chan-vese-functional}, in a similar fashion as done in~\cref{ch1:subsec:tikhonov-regularization}. In order to be numerically tractable, the Heaviside and Dirac delta function are regularized as 
-
-\[
+\begin{align*}
 \begin{array}{ll}
-
 	\begin{array}{ll}
 		\displaystyle H_{\epsilon}(x) &= \displaystyle \frac{1}{2}\left( 1 + \frac{2}{\pi}\arctan(\frac{x}{\epsilon}) \right),
-	\end{array} & 
-	
+	\end{array} & 	
 	\begin{array}{ll}
 		\displaystyle \delta_{\epsilon}(x) &= \displaystyle \frac{\epsilon}{\pi(\epsilon^2 + x^2)}.
 	\end{array}	
-
 \end{array}
-\]
+\end{align*}
 
 The initial level set function can be set as any function with bounded first derivative, but it is recommended to use the checkerboard function $\phi=\sin(\pi/5 x_1)\sin(\pi/5x_2)$ which is reported~\cite{getreuer12} to have fast convergence. In~\cite{vese02}, the Chan-Vese authors extended their method to contemplate colored images and multisegmentation. An illustration is presented in~\cref{ch1:fig:comparison-curve-evolution}
 
@@ -618,37 +585,33 @@ The initial level set function can be set as any function with bounded first der
 In a sequel work, the authors of geometric active contours established a link between their geometric model in~\cite{caselles93} and the computation of geodesics in a regular surface~\cite{caselles97}. 
 
 The length of a parametric curve $C(q)$ according to an isotropic metric of potential $W(C)$ is calculated as 
-
 \begin{align}
 	L(C) &= \int{W(C)\norm{C_q} dq}.
 	\label{ch1:eq:length-isotropic-metric}
 \end{align}
-
+%
 ~\cref{ch1:eq:length-isotropic-metric} is used to compute shortest paths between two points according to the given metric. By properly setting the potential $W$, we can make object boundaries in an image $f_{\vec{I}}$ to match the curves of shortest length, for example, letting $W=g(\norm{\nabla f_I})$ as in~\cref{ch1:geometric-active-contour} we obtain
-
 \begin{align}
 	L(C) &= \int{g\big(\norm{\nabla f_I(C(q))}\big)\norm{C_q} dq}.
 	\label{ch1:eq:geodesic-energy}
 \end{align}
-
+%
 In~\cite{caselles97} the authors show that the snakes model without the smoothness term($\beta=0$) is equivalent to geodesics computations, the metric changing accordingly with the models parameters. The isotropic metric above is equivalent to the case in which the length and image terms of the snakes model are equal.
 
 Given an initial curve $C_0(q)$, a local minimizer for~\cref{ch1:eq:geodesic-energy} can be computed by finding the steady solution of the following flow derived from its Euler-Lagrange equation
-
 \begin{align}
 	C(0,q) &= C_0(q)\\
 	\frac{dC}{dt} &= (g\kappa - \nabla g \cdot \vec{n})\vec{n},
 	\label{ch1:eq:curve-evolution}
 \end{align}
-
+%
 where $\vec{n}$ is the normal vector to the curve $C$ at $(t,q)$. One can show that, given an initial function $u \in \mathcal{C}^2$ such that $u$ is negative (positive) in the interior (exterior) of its $0$-level set, the solution of~\cref{ch1:eq:curve-evolution} equals the steady solution of
-
 \begin{align}
 	u(0,x,y) &= u_0(x,y) \\
 	\frac{du}{dt} &= g\norm{\nabla u}\kappa + \nabla g \cdot \nabla u
 	\label{ch1:eq:surface-evolution}
 \end{align}
-
+%
 Comparing~\cref{ch1:eq:surface-evolution} with~\cref{ch1:geometric-active-contour} we notice that the $\nabla g \cdot y$ term was included while the $v$ parameter was removed. The geometric active contour stops as soon as an ideal edge is found (a threshold should be set), which is particularly bad for real images segmentation, as it is likely that the flow will stop at the first variation of color intensity. The new term allows the flow to evolve even in those cases. Nonetheless, one can include again the $v$ parameter, as it permits to increase the convergence in some cases.
 
 The relation between segmentation and geodesic computation inspired several works. Elongated and thin objects as blood vessels or roads in satellite images are the global optimum of a geodesic computation in which the minimum path is constrained to lie between two points~\cite{cohen97}. Further development of this work reduced the initialization to just a single point~\cite{benmansour09}. Anisotropic metrics aligned to the image edges are reported to return improved solutions for blood vessels segmentation~\cite{jbabdi08,benmansour11}. Ideas from Chan-Vese and Geodesic models are put together in~\cite{chen06}. Finally, an elucidating review of geodesic methods in computer vision can be found in~\cite{peyre10}.
@@ -656,22 +619,21 @@ The relation between segmentation and geodesic computation inspired several work
 \subsection{Convex relaxation}
 
 A set $\Omega$ is convex if for all $a,b \in \Omega$, every element in the line connecting $a,b$ also lie in $\Omega$. A function $f:\Omega \rightarrow \mathbb{R}$  is convex if its domain $\Omega$ is convex and the following inequality holds
-
 \begin{align*}
 	f(\alpha x + (1-\alpha)y) \leq \alpha f(x) + (1-\alpha)f(y).
 \end{align*}
-
+%
 Convexity is a desirable property in optimization problems because any local minimizer (maximizer) is also a global one. In other words, methods that optimizes $f$ do not depend on its initialization. Therefore, it is of great interest to find convex formulations for image processing problems.
 
 Ideally, one would look for the so called convex envelope of $f$, which is the tightest convex function $\widetilde{f}$ such that $\widetilde{f} \leq f$. In fact, one can compute the envelope of a function $f$ by taking its convex biconjugate.
-
+%
 \begin{definition}{Convex conjugate}
 	Let $f:\Omega \rightarrow \mathbb{R} \cup \{ +\infty, -\infty\}$. Its convex conjugate is defined as
 	\begin{align*}
 		f^{*}(y) &= \sup_x y^{T}x - f(x)
 	\end{align*}
 \end{definition}
-
+%
 The biconjugate $f^{\star \star}$ is the convex envelope of $f$. In fact, if $f$ is convex and lower-semicontinuous, $f^{\star \star}=f$ (Frenchel's inequality). Unfortunately, the computation of the biconjugate is known only for a few functions. Nonetheless, the conjugate is key to prove properties on convex optimization algorithms as those based on the proximal operator~\cite{chambolle04,beck09a}. 
 
 
@@ -680,44 +642,39 @@ In order to use tools from convex optimization one needs to define a convex ener
 \subsubsection{Functional lifting}
 
 Consider the binary image denoising problem. Let $f_{\widetilde{\vec{I}}}$ the observed noisy image and consider the total variation model for binary denoising
-
 \begin{align}
 	\min_{f_{\vec{I}}:\Omega \rightarrow \{0,1\} } E^{2-den}(f_{\vec{I}}) &= \min_{f_{\vec{I}}} \int_{\Omega}{\norm{\nabla f_{\vec{I}}}} + \lambda \int_{\Omega}{ (f_{\vec{I}}-f_{\widetilde{\vec{I}}})^2}
 	\label{ch1:eq:binary-denoising-model},
 \end{align}
-
+%
 This model is not convex, as the optimization  variable $f_{\vec{I}}$ belongs to the non-convex domain of binary functions. The corresponding level-set formulation of~\cref{ch1:eq:binary-denoising-model} (in the same spirit of the Chan-Vese model) is given by
-
 \begin{align}
 	\min_{}{ \int_{\Omega}{ \norm{\nabla H(\phi(x))} } + \lambda \int_{\Omega}{\left( H(\phi(x)) - f_{\widetilde{\vec{I}}}(x) \right)^2}}.
 	\label{ch1:eq:2-den-level-set-energy}
 \end{align}
-
+%
 Whose a local minimum is a steady solution of
-
 \begin{align}
 	\frac{d\phi}{dt} &= H_{\epsilon}^{\prime}(\phi)\left(  \nabla \cdot \left( \frac{ \nabla \phi}{\norm{\nabla \phi}}\right) + 2\lambda(f_{\widetilde{\vec{I}}}(x) - H_{\epsilon}(\phi)) \right)
 	\label{ch1:eq:level-set-ball-flow}
 \end{align}
-
+%
 We reproduce the example given in~\cite{chan06} to illustrate a situation in which the Chan-Vese method returns a local optimum solution. Assume that the observed image is the characteristic function of a ball of radius $R$, i.e., $f_{\widetilde{\vec{I}}}(x) = \mathbf{1}_{B_R}(x)$. Moreover, we set the initial guess of the level-set function to be precisely the observed image, i.e., $\phi_0(x) = f_{\widetilde{\vec{I}}}(x)$. The evolution given by~\cref{ch1:eq:level-set-ball-flow} maintains the radial symmetry of $\phi_0$, which means that $\phi^{(t)}$ will represent the characteristic function of some ball of radius $r$. In other words, for this particular setting, ~\cref{ch1:eq:2-den-level-set-energy} is equivalent to
-
 \begin{align}
 	\min_{r} g(r,\lambda) &= \min_r 2\pi r + \lambda \pi |R^2-r^2|, \quad r \geq 0.
 	\label{ch1:eq:balls-evolution}
 \end{align}
-
-
+%
+%
 ~\cref{ch1:eq:balls-evolution} has a local minimum at $r=R$ and a local maximum at $r=1/\lambda$. Depending on the value of $\lambda$, its global minimizer will be at $r=0$ or $r=R$. For a fixed $\lambda$, let's consider the case in which $g(0,\lambda) < g(R,\lambda)$.
-
 \begin{align*}
 	g(0,\lambda) &\leq g(R,\lambda) \\
 	\lambda \pi R^2 &\leq 2\pi R \\
 	R &\leq \frac{2}{\lambda}
 \end{align*}
-
+%
 Therefore, for $R \in (1/\lambda, 2/\lambda)$, the flow of~\cref{ch1:eq:level-set-ball-flow} is going to stop at the local minimum $r=R$, even the global minimum being located at $r=0$. 
-
+%
 The parameter $\lambda$ is set by the user to calibrate the denoise capabilities of the model. In the example of~\cref{ch1:fig:local-solution-level-set}, it indicates whether a ball of certain radius should be considered as an object or as a noise element. In the illustrated case, with $\lambda=1$, the optimal solution consists to segment only the ball of largest radius in the picture, but Chan-Vese fails to converge to this solution.
 
 \begin{figure}
@@ -733,49 +690,43 @@ The parameter $\lambda$ is set by the user to calibrate the denoise capabilities
 \end{figure}
 
 In~\cite{chan06} the authors use an upper-level set representation to derive an equivalent model to~\cref{ch1:eq:binary-denoising-model} but with the particular property that global  optimum solution can be recovered by simple thresholding. The function $u$ can be rewritten in terms of its upper level representation as
-
 \begin{align*}
 	f_{\vec{I}}(x) &= \int_{0}^{1}{\varphi (x,\mu)d\mu},
 \end{align*}
-
+%
 where $\varphi(x,\mu)$ is its $\mu$-th upper level set, i.e.,
-
 \begin{align*}
 \varphi(x,\mu) = \mathbf{1}_{\{f_{\vec{I}} > \mu\}} &= \left\{ \begin{array}{ll}
 	1,& f_{\vec{I}}(x) > \mu \\
 	0,& \text{otherwise}.
 	\end{array}\right.
 \end{align*}
-
+%
 Using the co-area formula we rewrite the total variation term as
-
 \begin{align*}
 	\int_{\Omega}{ \norm{ \nabla f_{\vec{I}} } } &= \int_{\Omega}{ \int_{0}^{1}{ \norm{ \nabla \varphi (x,\mu) }dxd\mu }}
 \end{align*}
-
-
+%
+%
 and we can rewrite~\cref{ch1:eq:binary-denoising-model} as
-
 \begin{align}
 	\min_{\varphi:\Omega \rightarrow \{0,1\} }E^{2-den} &= \min_{\varphi} \int_{\Omega}{ \int_{0}^{1}{\norm{ \varphi(x,\mu)}} } + (\mu -f_{\widetilde{\vec{I}}}(x))^2\delta(f_{\vec{I}}(x)-\mu) dxd\mu \\
 	&= \min_{\varphi } \int_{\Sigma}{\norm{ \varphi(x,\mu)} + (\mu -f_{\widetilde{I}}(x))^2|\partial_\mu \varphi (x,\mu)|d\Sigma},
 	\label{ch1:eq:upper-level-formulation}
 \end{align}
-
+%
 where $\Sigma = [\Omega \times [0,1]]$. It happens that in the new formulation~\cref{ch1:eq:upper-level-formulation}, one can recover a binary solution from simple thresholding. From its relaxation 
-
 \begin{align}
 	\min_{\varphi:\Omega \rightarrow [0,1] }E^{2-den}
 	\label{ch1:eq:relaxed-binary-denoising}
 \end{align}
-
+%
 we can once again rewrite $E^{2-den}$ in terms of the upper level set representation of $\varphi$ 
-
 \begin{align*}
 	 E^{2-den} &= \int_{\Sigma}{ \int_{0}^{1}{{\norm{ \mathbf{1}_{\{\varphi > \gamma\}}}  + (\mu -f_{\widetilde{I}}(x))^2|\partial_\mu \mathbf{1}_{\{\varphi > \gamma\}}| d\Sigma}d\gamma}} \\
 	 E^{2-den} &= \int_{0}^{1}{ E^{2-den}( \mathbf{1}_{\{\varphi > \gamma\}} )d\gamma }
 \end{align*}
-
+%
 Therefore, if $\varphi^{\star}$ is the solution of the convex relaxed problem~\cref{ch1:eq:relaxed-binary-denoising}, $\mathbf{1}_{\{\varphi^{\star} > \gamma \}}$ is also an optimal solution of $E^{2-den}$ for almost every choice of $\gamma$. 
 
 The functional lifting technique creates an equivalent higher dimensional model with the property that binary solutions can be easily recovered from its relaxed solution. In~\cite{pock08} this strategy is extended for multilabeling problems and in~\cite{pock09,strekalovskiy12} they are used to create a convex relaxation of the Mumford-Shah model.

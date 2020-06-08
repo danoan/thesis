@@ -10,16 +10,12 @@ The Grabcut model \cite{rother04grabcut} partitions an image in foreground and b
 
 \begin{definition}{Unordered graph}
 The unordered graph $\mathcal{G}(\mathcal{V},\mathcal{E})$ is a pair of sets $\mathcal{V},\mathcal{E}$ such that $\mathcal{V}$ is finite and $\mathcal{E}$ is a collection of unordered pairs of $\mathcal{V}$, i.e., 
-
 \begin{align*}
 \mathcal{E} \subseteq  \left\{ \; \{x,y\} \; | \; x,y \in \mathcal{V} \; \right\}.
 \end{align*}
-
 \end{definition}
-
 \begin{definition}{Connected graph}
 The graph $\mathcal{G}(\mathcal{V},\mathcal{E})$ is connected if for every pair of vertices $v,u$ there exists a path $\pi$ of length $n$ such that
-
 \begin{align*}
 	v_1 = v, \quad v_n = u, \quad 	\pi = \left\{ v_i \; | \; \{v_{i-1},v_{i}\} \subset \mathcal{E} \right\},\quad  2<i<n.
 \end{align*}
@@ -29,7 +25,6 @@ A digital set $\Ds \subset \Omega \subset \mathbb{Z}^2$ is naturally represented
 
 \begin{definition}{Cut}
 Let $\mathcal{G}(\mathcal{V},\mathcal{E})$ a connected graph weighted  by cost function $w:\mathcal{E}\rightarrow \mathbb{R}$. A cut set is a subset $\mathcal{E}' \subset \mathcal{E}$ such that the graph $\mathcal{G}(\mathcal{V},\mathcal{E} \setminus \mathcal{E}')$ is disconnected. Moreover, the cut value of $\mathcal{E}'$ is defined as
-
 \begin{align*}
 	cut(\mathcal{E}) &= \sum_{e \in \mathcal{E}'}{w(e)}.
 \end{align*}
@@ -43,7 +38,6 @@ The Grabcut model consists in a judicious definition of the cost function $w$ in
 
 \subsection{Grabcut binary segmentation model}
 Let $I:\Omega\rightarrow [0,1]^3$ be a $3$-channel colored image. Consider the graph $\mathcal{G}(\mathcal{V},\mathcal{E})$ defined as
-
 \begin{align*}
 	\mathcal{V} &= \left\{ v_p \; | \; \forall p \in \Omega \right\} \cup \{s,t\}\\
 	\mathcal{E} &= \mathcal{E}_{st} \cup \mathcal{E}_{\mathcal{N}},
@@ -53,7 +47,7 @@ where
 \mathcal{E}_{st} &= \left\{ \{s,v_p\}, \{t,v_p\} \; | \; \forall p \in \mathcal{V}  \right\} \\
 \mathcal{E}_{\mathcal{N}} &= \left\{ \{v_p,v_q\} \; | \; \forall p\,, p \in \mathcal{V} \text{ and } q\in \mathcal{N}_4(p)  \right\}.
 \end{align*}
-
+%
 Next, let sets $\mathcal{V_F}, \mathcal{V_B} \subset \mathcal{V}$ to represent foreground and background seeds input by the user. Vertices in $\mathcal{V_F}$ ($\mathcal{V_B}$) are forced to be connected to the source (target) after the removal of the minimum cut set.
 
 Consider the functions
@@ -62,7 +56,7 @@ Consider the functions
 	R(v_p,``bg") &= -\ln H_B(p)\\
 	R(v_p,``fg") &= -\ln H_F(p),
 \end{align*}
-
+%
 where $H_B,H_F$ are mixed Gaussian distributions derived from  foreground and background seeds given by the user; and $\sigma$ is interpreted as a parameter to configure noise level of the input image.
 
 Finally, define the cost function $w:\mathcal{E}\rightarrow \mathbb{R}$ as
@@ -91,12 +85,11 @@ $\{v_p, v_q\}$ & $B(e)$ & $e \in \mathcal{E}_{\mathcal{N}}$\\
 \end{table}
 
 Let $\mathcal{E}'$ be a minimum cut of $\mathcal{G}$ and $C$ the connected component of $\mathcal{G}$ induced by $\mathcal{E}'$ that contains the source vertex. The grabcut energy value is given by
-
 \begin{align*}
 	grab_{\Lambda}(C) &= \lambda_r \cdot \Big( \sum_{p \in C}{R(v_p,``fg")} + \sum_{p \in \overline{X}}{R(v_p,``bg")} \Big) + \lambda_b \cdot \sum_{e \in \mathcal{E}'}{B(e)}.
 \end{align*}
-
-
+%
+%
 The Grabcut segmentation is heavily impacted by the quality of the input image. To attenuate the problem, one could extend the Grabcut model by defining a cost function that takes geometric information into account. Indeed, the work \cite{boykov03geodesics} describes a cost function in which one could do image segmentation with length regularization. There exist some attempts \cite{nieuwenhuis14efficient,zehiry10fast} to inject curvature information in a graph-cut framework, but the models present issues on running time and lack precision on the estimation of curvature. In the next section we describe a graph-cut model that uses the balance coefficient to regularize curvature.
 
 
@@ -106,37 +99,33 @@ Given some energy $E$, the GraphFlow model is divided into two main steps: candi
 The GraphFlow model is suitable for the free, constrained Elastica and image segmentation problems. In particular, the GraphFlow model is a simple extension of the Grabcut model for image segmentation that regularizes the squared curvature.
 
 In the next sections, we are going to describe the GraphFlow model that aims to minimize the energy
-
 \begin{align}
 E^{graph} &= \hat{E}_{\vec{\theta}} + grab_{\Lambda}.
 \label{ch8:eq:graphflow-energy}
 \end{align}
-
-
+%
+%
 \subsection{The candidate graph}
 
 %Let $I:\Omega \rightarrow [0,1]^3$ a $3$-channel colored image and $\Ds$ a digital set representing a initial foreground partition of image $I$. 
 
 Let $\Ds \subset \Omega \subset \mathbb{Z}^2$ a digital set. Given $n>0$, we define the optimization band $O_n(\Ds)$ as
-
 \begin{align*}
 	O_n(\Ds) &:=\left\{ p \in \Omega \; | \; -n \leq d_{\Ds}(p) \leq n \right\}.
 \end{align*}
-
+%
 We are going to construct the candidate graph $\mathcal{G}_n(\Ds) = ( \mathcal{V},\mathcal{E})$. The vertex and edge sets are defined as 
-
 \begin{align*}
 	\mathcal{V} &= \{ v_p \; | \; p \in \Ds \cup O_n \} \cup \{s,t\} \\
 	\mathcal{E} &= \mathcal{E}_{st} \cup \mathcal{E}_\mathcal{N}.
 \end{align*}
-
+%
 where $s,t$ are the source and target vertices, respectively. As in the previous section, sets $\mathcal{V}_F,\mathcal{V}_B \subset \mathcal{V}$ correspond to foreground and background seeds input by the user. Additionally, we define the sets
-
 \begin{align*}
 	\mathcal{V}_s &= \left\{ v_p \; | \; p \in \Ds \setminus O_n(\Ds) \right\}\\
 	\mathcal{V}_t &= \left\{ v_p \; | \; p \in \overline{\Ds} \setminus O_n(\Ds) \right\}.
 \end{align*}
-
+%
 The sets $\mathcal{V}_s, \mathcal{V}_t$ are forced to be connected to source and target components, respectively. The cost function $w:\mathcal{E}\rightarrow \mathbb{R}$ is defined as 
 
 \begin{table}[H]
@@ -158,19 +147,17 @@ $\{v_p, v_q\}$ & $\beta \big(u(\Ds,p) + u(\Ds,q)\big) + \lambda_bB(e)$ & $p,q \i
 \end{table}
 
 The constants $M_1,M_2$ are defined as
-
 \begin{align*}
 M_1 &= 1 + \max_{p \in \Omega}{\sum_{q \in \mathcal{N}_4(p)}}{B(\{p,q\})} \\
 M_2 &= 1 + \max w(p,q).
 \end{align*}
-
-
+%
+%
 Let $\mathcal{E}'$ the minimum cut of $\mathcal{G}_n(\Ds)$. Moreover, let $C_n(\Ds)$ be the connected component of the graph $\mathcal{G}_n(\Ds)$ that contains the source vertex $s$ and is restricted to $\mathcal{E} \setminus \mathcal{E}'$. The digital set 
-
 \begin{align*}
 	\Ds' &= \{ p \; | \; v_p \in C_n(\Ds) \}
 \end{align*}
-
+%
 is said to be a candidate shape to decrease~\cref{ch8:eq:graphflow-energy}. We are going to use $C_n(\Ds)$ interchangeably with $\Ds'$ to denote both the set of vertices and the corresponding points of a digital set. In the next section we describe a local-search algorithm whose neighborhood is defined using a set of candidate graphs.
  
 
@@ -187,11 +174,10 @@ is said to be a candidate shape to decrease~\cref{ch8:eq:graphflow-energy}. We a
 \end{definition}
 
 Therefore, we define the local-search neighborhood of digital set $\Ds$ as
-
 \begin{align*}
 	\mathcal{N}(\Ds) &= \left \{ C_n(X) \; | \; Q \in \mathcal{P}_a(\Ds) \right\}.
 \end{align*}
-
+%
 Finally, the GraphFlow algorithm is described in~\cref{ch8:alg:graphflow-algorithm}.
 
 

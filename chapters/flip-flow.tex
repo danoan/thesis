@@ -15,21 +15,18 @@ In this section we describe the FlipFlow model that aims to evolve a initial dig
 Let $\Ds$ be a digital shape with domain $\Omega \subset \mathbb{Z}^2$. We describe a flow $\left \{ \Ds^{(k)} \; | \; k \geq 0, \Ds^{0} = \Ds \right\}$ intended to decrease the digital Elastica energy of $\Ds$.
 
 We assume an ordering in $\Omega$, i.e., there exists a bijective function $\omega : \Omega \rightarrow \{1 \cdots |\Omega| \}$. Moreover, let $X_{\omega}:\Omega \rightarrow 2^{\{0,1\}}$ be an operator that transforms digital sets in its corresponding set of binary variables, i.e.,
-
 \begin{align*}
 	X_{\omega}(\Omega) := \left\{ x_{\omega(p)} \in \{0,1\} \; | \; p \in \Omega \right\}.
 \end{align*}
-
+%
 We will simply write $X(\Omega)$, assuming that exists an underlying ordering function $\omega$.
 
 A $\{0,1\}$ assignment of the variables in $X(\Omega)$ is denoted $x(\Omega)$. We define the sum of a digital set $\Ds$ and an assignment $x(\Omega)$ as
-
 \begin{align*}
 	\Ds + x(\Omega) = \Ds \cup \left\{ p \; | \; p \in P, x_{\omega(p)}=1 \right\}.
 \end{align*}
-
+%
 Next, we define the set of optimization variables. In order to guarantee connectivity and thus avoid the enforcement of the topological constraints discussed in~\cref{ch5:subsec:topological-constraints}, we limit the optimization region to a subset of $\Omega$, namely the inner pixel boundary of  $\Ds^{(k)}$.
-
 \begin{definition}{Inner pixel boundary}
 
 Given a digital shape $\Ds$ embedded in a domain $\Omega$, we define its inner pixel boundary set $I(\Ds)$ as
@@ -38,15 +35,14 @@ Given a digital shape $\Ds$ embedded in a domain $\Omega$, we define its inner p
 \end{align*}
 where $\mathcal{N}_4(p)$ denotes the $4$-adjacent neighbor set of $p$ (without $p$). 
 \end{definition}
-
+%
 %Further, we write $\overline{I}(\Ds)$ to denote the inner pixel boundary of the complement of $\Ds$, i.e., $\overline{I}(\Ds) := I(\overline{\Ds})$.
-
+%
 To simplify notation, the inner pixel boundary of $\Ds^{(k)}$ is simply denoted $I^{(k)}$. At each iteration, the set $X^{(k)}$ of optimization variables is defined as
-
 \begin{align*}
 	X^{(k)} := X(I^{(k)}).
 \end{align*}
-
+%
 In the case we optimize the complement of $\Ds$, we write $\overline{X}^{(k)}$, i.e., $\overline{X}^{(k)} = X(I(\overline{\Ds}^ {(k)}))$.
 
 An assignment of $X^{(k)}$ is simply denoted $x^{(k)}$. 
@@ -56,26 +52,22 @@ An assignment of $X^{(k)}$ is simply denoted $x^{(k)}$.
 \label{ch6:subsec:algorithm}
 
 We recall the definition of the II digital curvature estimator:
-
 \begin{align}
 	\hat{\kappa}^2(p) &= c_1\Big( c_2 - | B_r(p) \cap \Ds^{(k)} | \Big)^2, 
 	\label{eq:curvature-estimator-pixels}
 \end{align}
 where $c_1=3/r^6$ and $c_2=\pi r^2/2$. 
-
+%
 The following sets are important in the expansion of $~\cref{eq:curvature-estimator-pixels}$.
-
-
 \begin{align*}
 	F^{(k)} &:= \Ds^{(k)} \setminus I^{(k)} \\
 	F_r^{(k)}(p) &:= F^{(k)} \cap B_r(p)\\
 	I_r^{(k)}(p) &:= I^{(k)} \cap B_r(p) \\
 	X_r^{(k)}(p) &:= X\big( I_r^{(k)}(p) \big). \\
 \end{align*}
-
-
+%
+%
 Expanding~\cref{eq:curvature-estimator-pixels}, we get 
-
 \begin{align}
   \hat{\kappa}^2(p) &= c_1\Big( c_2 - |F_{r}^{(k)}(p)| - \sum_{x_j \in X_r^{(k)}(p)} {x_j} \Big)^2 \nonumber \\
    &= c_1 \Big( C + 2\left( |F_{r}^{(k)}(p)| - c_2 \right) \hspace{-2mm}\sum_{x_j \in X_{r}^{(k)}(p)}\hspace{-2mm}{x_j} + \hspace{-2mm}\sum_{x_j \in X_{r}^{(k)}(p)}\hspace{-2mm}{x_j^2} + \hspace{-2mm}\sum_{ \substack{x_j,x_l \in X_{r}^{(k)}(p) \\ j<l} }\hspace{-2mm}{2x_jx_l}  \Big),
@@ -89,7 +81,6 @@ of energies for given parameters $\vec{\theta}=(\alpha,\beta ) \geq 0$
   \label{eq:energy-family}
 \end{align}
 where $s(\cdot)$ denotes the length penalization term, written as
-
 \begin{align}
   s(x_{w(p)})=\sum_{q \in \mathcal{N}_4(p)}{ t(q) }, \quad \text{where } t(q) = \left\{\begin{array}{ll}
   (x_{w(p)}-x_{w(q)})^2, & \text{if } q \in I^{(k)}\\
@@ -98,8 +89,8 @@ where $s(\cdot)$ denotes the length penalization term, written as
   \end{array}\right.
   \label{eq:length-penalization}
 \end{align}
-
-
+%
+%
 We recall that $R_m$ refers to the $m-ring$ defined in~\cref{ch5:sec:local-combinatorial-scheme}. Each choice of $m$ generates a different flow, which is generally described in the \emph{FlipFlow}~\cref{alg:evolution-model}. To optimize~\cref{eq:energy-family} we use the QPBOI algorithm \cite{rother07qpbo}.
 
 
@@ -152,11 +143,10 @@ We recall that $R_m$ refers to the $m-ring$ defined in~\cref{ch5:sec:local-combi
 \end{figure}
 
 As discussed in~\cref{ch5:sec:global-optimization}, the topological constraints are a fundamental part in a global optimization model for the digital Elastica but the complexity added to it dampens any hope of optimizing it efficiently. In the proposed FlipFlow model, we exclude topological constraints and we end up with the tractable binary second order~\cref{eq:energy-family}. However, due the lack of contour information, the minimization of~\cref{eq:energy-family} for $\Ds^{(k)}$ results in undesirable shapes of even higher digital Elastica energy values  (see~\cref{fig:contour-info}). Interestingly, by using the inverse of the optimal assignement, we can derive a shape of lower digital Elastica energy. Therefore, the next shape is given by
-
 \begin{align*}
 	\Ds^{(k+1)} = \Ds^{(k)} - \argmin _{}{E_{(\vec{\theta},m)}^{flip}\big(\Ds^{(k)},1-X^{(k)}} \big).
 \end{align*}
-
+%
 Recall that the integral invariant estimator approaches curvature by computing the difference between half of the area
 of a chosen ball and the area of the intersection of this ball with the shape.  In particular, regions of positive
 curvature have fewer pixels in their intersection set than on its complement w.r.t the estimation ball. This implies
@@ -180,7 +170,7 @@ the original shape. Table~\cref{tab:flow-summary} sums up these arguments.
 %  \end{array}\right.
 %  \label{eq:length-penalization}
 %\end{align}
-	
+%
 \begin{table}
   \center
   \setlength{\extrarowheight}{0.75em}
@@ -239,16 +229,15 @@ In~\cref{fig:m1-square-flow} we show the results of the FlipFlow algorithm for $
 \label{ch6:sec:optimization-method}
 
 Let $f$ be a function of $n$ binary variables with unary and pairwise terms, i.e.
-
 \begin{align*}
 f(y_1,\cdots, y_n) = \sum_{j}{f_j(y_j)} + \sum_{j < k}{f_{j,k}(y_j,y_k)}.
 \end{align*}
-
+%
 The function $f$ is submodular if and only if the following inequality holds for each pairwise term $f_{j,k}$ \cite{kolmogorov04whatenergies}:
 \begin{align*}
   \quad f_{j,k}(0,0) + f_{j,k}(1,1) \leq f_{j,k}(0,1) + f_{j,k}(1,0).
 \end{align*}
-
+%
 The energy $E_{(\vec{\theta},m)}^{flip}$ is non-submodular and optimizing it is a difficult problem, which constrains us to use heuristics and
 approximation algorithms. The QPBO method \cite{hammer84} transforms the original problem in a max-flow/min-cut
 formulation and yields a full optimal labeling for submodular energies. For non-submodular energies the method is
@@ -373,12 +362,11 @@ $m=9$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/impr
 \label{ch6:sec:data-term-image-segmentation}
 
 We present an application of the FlipFlow algorithm to supervised image segmentation. The FlipFlow acts as a contour correction method. Here we use a data fidelity term in order to characterize the object of interest. Given foreground and background seeds selected by the user, we derive mixed Gaussian distributions of color intensities $H_f$,$H_b$, and we define the data fidelity term as the cross-entropy, i.e.
-	
 \begin{align}
   g(x_{w(p)}) = -x_{w(p)}\log{H_f(p)} - (1-x_{w(p)})\log{H_b(p)}
   \label{eq:data-fidelity}
 \end{align}	
-
+%
 We use the FlipFlow algorithm to regularize an initial contour output by some segmentation algorithm or delineated by the user. In this application, the data term of the FlipFlow
 is set to the data fidelity term~\cref{eq:data-fidelity}.
 	

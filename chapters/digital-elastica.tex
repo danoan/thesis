@@ -9,18 +9,14 @@ In this chapter we review the Elastica energy and some of its properties. Next, 
 	\sketch{To be further developed...}
 
 	The Elastica energy of parameters $\Theta=(\alpha \geq 0, \beta \geq 0)$ for some Euclidean shape $S \subset \mathbb{R}^2$ is defined as
-	
 	\begin{align*}
 	E_{\Theta}(S) &= \int_{\partial S}{ \alpha + \beta \kappa(s)^2 ds}.
 	\end{align*}
-	
-	
 Similarly, the digital Elastica $\hat{E}_{\Theta}$ of some digitization $D_h(S)$ of $S$ is defined as
 	\begin{align}
 	\hat{E}_{\Theta}( D_h(S) ) = \sum_{\dot{\vec{e}} \in \partial D_h(S)}{ \hat{s}( \dot{\vec{e}})\left(\; \alpha + \beta \hat{\kappa}_{r}^2(D_h(S),\dot{\vec{e}},h) \; \right)},
 	\label{eq:digital-elastica}
 	\end{align}
-	
 where $\dot{\vec{e}}$ denotes the center of the linel $\vec{e}$. In the
 expression above, we will substitute an arbitrary subset $\Ds$ of
 $\mathbb{Z}^2$ to $D_h(S)$ since the continuous shape $S$ is unknown.
@@ -61,7 +57,6 @@ Let $\Ds$ be a $2$-dimensional digital shape embedded in a domain $\Omega \subse
 \end{figure}
 
 Let $d_{\Ds}:\Omega \rightarrow \mathbb{R}$ be the signed Euclidean distance transformation with respect to shape $\Ds$. The value $d_{\Ds}(p)$ gives the Euclidean distance between $p \notin \Ds$ and the closest pixel in $\Ds$. For points $p \in \Ds$, $d_{\Ds}(p)$ gives the negative of the distance between $p$ and the closest pixel not in $\Ds$.
-
 \begin{definition}{m-Ring Set}
 Given a digital shape $\Ds \in\Omega$, its signed distance transformation $d_{\Ds}$ and natural number $m \neq 0$, the {\em $m$-ring set of $\Ds$} is defined as
 \begin{align*}
@@ -81,11 +76,7 @@ Consider the following set of neighbor candidates to $\Ds$:
 \begin{align*}
 \mathcal{U}(\Ds) = \{ Q \; | \; Q \subset R_1(\Ds) \cup \Ds \; \text{and} \; \text{$Q$ is connected} \}.
 \end{align*}
-
-
 Such set can be extremely large and its complete exhaustion is prohibitively expensive.  Instead, we are going to use a subset of it.
-
-
 \begin{definition}{$n$-neighborhood}
 
 	Given a digital shape $\Ds \in \Omega$, its $n$-neigh\-bor\-hood $\mathcal{N}_n(\Ds)$ is defined as the set of digital shapes that can be built from $\Ds$ by adding or removing a sequence of $k \in [0,n]$ connected pixels in $R_1(\Ds)$.
@@ -174,13 +165,12 @@ The \emph{LocalSearch}~\cref{alg:local-search} describes the local combinatorial
 \subsection{Free digital Elastica}
 \label{ch5:subsec:free-digital-elastica}
 In the free digital Elastica energy we optimize~\cref{eq:digital-elastica} without any constraint. We observe that for $\alpha=0, \beta >0$ the Elastica becomes the integration of the squared curvature  along the shape contour which has the ball of infinite radius as its minimizer. For $\alpha > 0, \beta=0$, minimize Elastica becomes minimize perimeter (curvature flow). It is easy to see that for $\alpha, \beta > 0$, the optimal shape for the Elastica is a disk of radius $r$. We can easily find the value of $r$.
-
 \begin{align*}
 	\frac{d}{dr}\big( \int_{\partial B(r)}{ (\alpha + \beta \kappa ^2) ds} \big ) &= 0\\
 	\frac{d}{dr}\big( \alpha 2\pi r + \beta2\pi/r \big) &= 0\\
 	r &= \left(\frac{\beta}{\alpha}\right)^{1/2}.
 \end{align*}  
-
+%
 Therefore, the optimal shape for the free digital Elastica is a digital disk of finite radius $(\beta/\alpha)^{1/2}$.
 
 
@@ -196,19 +186,19 @@ We have executed the same experiments for different parameters $\alpha$ to confi
 \center
 \subfloat{
 \includegraphics[scale=0.4]{figures/chapter5/flow/plots/bars/length_pen_0.01000/triangle.pdf}
-}\hspace{0.5em}%
+}\hspace{0.25em}%
 \subfloat{
 \includegraphics[scale=0.4]{figures/chapter5/flow/plots/bars/length_pen_0.01000/square.pdf}
-}\hspace{0.5em}%
+}\hspace{0.25em}%
 \subfloat{
 \includegraphics[scale=0.4]{figures/chapter5/flow/plots/bars/length_pen_0.01000/flower.pdf}
-}\hspace{0.5em}%
+}\hspace{0.25em}%
 \subfloat{
 \includegraphics[scale=0.4]{figures/chapter5/flow/plots/bars/length_pen_0.01000/bean.pdf}
-}\hspace{0.5em}%
+}\hspace{0.25em}%
 \subfloat{
 \includegraphics[scale=0.4]{figures/chapter5/flow/plots/bars/length_pen_0.01000/ellipse.pdf}
-}\hspace{0.5em}%
+}\hspace{0.25em}%
 \subfloat{
 \includegraphics[scale=0.4]{figures/chapter5/flow/plots/summary/lp_0.01/summary-ii5.pdf}
 }%
@@ -220,19 +210,19 @@ We have executed the same experiments for different parameters $\alpha$ to confi
 \center
 \subfloat{
 \includegraphics[scale=0.4]{figures/chapter5/flow/plots/bars/length_pen_0.00100/triangle.pdf}
-}\hspace{0.5em}%
+}\hspace{0.25em}%
 \subfloat{
 \includegraphics[scale=0.4]{figures/chapter5/flow/plots/bars/length_pen_0.00100/square.pdf}
-}\hspace{0.5em}%
+}\hspace{0.25em}%
 \subfloat{
 \includegraphics[scale=0.4]{figures/chapter5/flow/plots/bars/length_pen_0.00100/flower.pdf}
-}\hspace{0.5em}%
+}\hspace{0.25em}%
 \subfloat{
 \includegraphics[scale=0.4]{figures/chapter5/flow/plots/bars/length_pen_0.00100/bean.pdf}
-}\hspace{0.5em}%
+}\hspace{0.25em}%
 \subfloat{
 \includegraphics[scale=0.4]{figures/chapter5/flow/plots/bars/length_pen_0.00100/ellipse.pdf}
-}\hspace{0.5em}%
+}\hspace{0.25em}%
 \subfloat{
 \includegraphics[scale=0.4]{figures/chapter5/flow/plots/summary/lp_0.001/summary-ii5.pdf}
 }%
@@ -404,13 +394,12 @@ In this section we turn to a global optimization approach. However, instead of m
 \label{ch5:subsec:simplified-digital-elastica}
 
 The simplified digital Elastica is defined as
-
 	\begin{align}
 	\hat{E}_{\Theta}^{simp}( D_h(S) ) = \sum_{\dot{\vec{e}} \in \partial D_h(S)}{ \alpha + \beta \hat{\kappa}_{r}^2(D_h(S),\dot{\vec{e}},h) }.
 	\label{eq:simplified-digital-elastica}
 	\end{align}
-	
-
+%	
+%
 We argue that~\cref{eq:simplified-digital-elastica} is a reasonable approximation of~\cref{eq:digital-elastica}. Indeed, executing~\cref{alg:local-search} to minimize this simplified digital Elastica induces very similar results to those for the digital Elastica (see~\cref{fig:simplified-elastica}).
 
 
@@ -436,35 +425,30 @@ We argue that~\cref{eq:simplified-digital-elastica} is a reasonable approximatio
 \label{ch5:subsec:optimization-model-simplified-digital-elastica}
 
 In contrast with the previous section, the model described here is designed for the integral invariant estimator only. Let $\Ds \in \frac{1}{2}\mathbb{Z}^2$ be the digitization of some shape $S \in \mathbb{R}^2$ using grid step $h$ in half-integer coordinates space. We assume that $\Ds$ has $m$ pixels (located at integer coordinates) and $n$ linels (one and only one of its coordinates is $\frac{1}{2}$). Optimization variables are represented as column vectors $\vec{x} \in \mathbb{B}^{m},\, \vec{y} \in \mathbb{B}^{n}$ and its $i$-th coefficients are denoted  $\vec{x}_i,\vec{y}_i$.  Further, let $\vec{A} \in \mathbb{B}^{m\times n}$ the matrix defined as
-
-\[
+\begin{align*}
 	\vec{A}_{i,j} = \left\{ \begin{array}{ll}
 		1,\; x_j \in B_{r}(y_i)\\
 		0,\; \text{otherwise}.
 	\end{array}\right.
-\]
-
+\end{align*}
+%
 In other words, the column vector $\vec{A}_i$ of $\vec{A}$ represents the pixels that are in the interior of the disk $B_{r}(y_i)$ of radius $r$ centered at $\vec{y}_i$. 
-
-
 \begin{align}
 	E_{\Theta}^{simp}(\vec{x},\vec{y}) =& \sum_{\vec{y}_i \in \vec{y}}{ \vec{y}_i \left(\; \alpha + \beta \hat{\kappa}_{r}^2(D,\vec{y}_i) \; \right)}\\\nonumber
 			   =& \sum_{\vec{y}_i \in \vec{y}}{ \vec{y}_i \left(\; \alpha  + \beta \big( \frac{3}{r^3}(\frac{\pi}{r^2} - |B_r(\vec{y}_i)|)\big)^2\right)}\\\nonumber
 			   =& \sum_{\vec{y}_i \in \vec{y}}{ \vec{y}_i \left(\; \alpha + \frac{9}{r^6}\beta \big(c^2 - 2c\vec{A}_i^T\vec{x} + \vec{x}^T\vec{A}_i\vec{A}_i^T\vec{x}\big)\right)},			   
 	\end{align}
-	
+%	
 where $c =  \pi r^2/2$. We remark that linels and pixels in the solution must be topologically consistent, .i.e., linels must form connected closed curves and the pixels must lie in the interior of those curves. This restriction is encoded in a set of topological constraints $T(\vec{x},\vec{y})$ detailed later. So far we have
-
 \begin{align*}
 	\min_{\vec{x} \in \mathbb{B}^{|X|}, \vec{y} \in \mathbb{B}^{|Y|}}{E_{\Theta}^{simp}(\vec{x},\vec{y})}, \quad \text{subject to } T(\vec{x},\vec{y}). \quad (P0)
 \end{align*}
-
+%
 Additionaly, in real applications involving the minimization of Elastica, we have a set of constraints $R$ that plays the role of regularization. For example, we may force some of the pixels in the original shape to be part of the solution; for imaging problems, we may add a data attachment term, and so on. Finally, we can write the general optimization problem as
-
 \begin{align*}
 	\min_{\vec{x} \in \mathbb{B}^{|X|}, \vec{y} \in \mathbb{B}^{|Y|}}{E_{\Theta}^{simp}(\vec{x},\vec{y})}, \quad \text{subject to } T(\vec{x},\vec{y}), R(x) \quad (P1)
 \end{align*}
-
+%
 	Formulation $P1$ is a constrained binary non-convex third order problem and likely difficult to be solved optimally. Nonetheless, we can use standard optimization techniques to acquire some intuition on the model. 	
 	
 \subsection{Topological constraints}
@@ -474,28 +458,22 @@ The estimation ball should be applied in the digital boundary of the shape, whic
 
 
 We create the vector $\vec{z} \in \mathbb{B}^{2n}$. We map each linel identified by variable $\vec{y}_i$ to components $\vec{z}_{2i},\vec{z}_{2i+1}$, one for each possible orientation the linel may assume. Next, we extend the linel incidence matrix defined in~\cref{app:pixel-incidence-matrix} to hold incidence with respect to oriented edges. The new matrix $\vec{T} \in \mathbb{B}^{n \times m + 2n}$ is defined as
-
-\[
+\begin{align*}
 	0 \leq j < m, \quad \vec{T}_{i,j} = \left\{ \begin{array}{ll}
-	
 	1,& \text{Pixel $j$ is positively incident to linel $i$}\\
 	-1,& \text{Pixel $j$ is negatively incident to linel $i$}\\	
 	0,& \text{otherwise},
-	\end{array}\right.
-\]
-
-\[
+	\end{array}\right.\\[1em]
 	m \leq j < m + 2n, \quad \vec{T}_{i,j} = \left\{ \begin{array}{ll}
-	
 	1,& \text{Edge $j$ is positively incident to linel $i$}\\
 	-1,& \text{Edge $j$ is negatively incident to linel $i$}\\	
 	0,& \text{otherwise}.
 	\end{array}\right.
-\]
-
+\end{align*}
+%
 Rewriting formulation (P1)
-
-\[
+%
+\begin{align*}
 \begin{array}{ll}
 & \displaystyle	\min \sum_{z_i \in \vec{z}}{ \vec{z}_i \left(\; \alpha + \frac{9}{r^6}\beta \big(c^2 - 2c\vec{A}_i^T\vec{x} + \vec{x}^T\vec{A}_i\vec{A}_i^T\vec{x}\big)\right)} \\
 \text{subject to}\\
@@ -506,9 +484,9 @@ Rewriting formulation (P1)
 &   R(\vec{x}),\\
 &   \vec{x} \in \mathbb{B}^{m}, \vec{z} \in \mathbb{B}^{2n}.
 \end{array}
-\]
-
-
+\end{align*}
+%
+%
 We observe that for a linel identified by variable $\vec{y}_i$, constraints $\vec{T}$ forces at most one of the variables $\vec{z}_{2i},\vec{z}_{2i+1}$ to be evaluated to one. 
 
 
@@ -518,14 +496,12 @@ We observe that for a linel identified by variable $\vec{y}_i$, constraints $\ve
 	The simplest model we can derive from (P1) consists in the relaxation of the optimization variables, i.e., we impose $\vec{x} \in \mathbb{U}^m$ and $\vec{z} \in \mathbb{U}^{2n}$, and we linearize all second and third order terms. 
 	
 	Consider the summation in (P1). An opt-term is an ordered sequence of optimization variables, e.g., the opt-term $\vec{x}_2^2\vec{x}_4$ is encoded as the sequence $(\vec{x}_2,\vec{x}_2,\vec{x}_4)$. Let $\mathcal{T}$ the collection of opt-terms of order two or higher in (P1) and $\mathcal{T}_i \in \mathcal{T}$ a member of this collection. To linearize (P1), we associate a variable $\vec{u_i}$ for each term of $\mathcal{T}$, i.e., $\vec{u} \in \mathbb{U}^{|\mathcal{T}|}$ and we enforce $|\mathcal{T}_i|+1$ new constraints. In other words, we add the following set of linearization constraints.
-	
-\[
+\begin{align*}
 	L(\vec{u}) = \left\{ \Big\{ \vec{u}_i \leq t, \quad \forall t \in \mathcal{T}_i \Big\} \cup \Big\{ \vec{u}_i \geq \displaystyle \sum_{t \in \mathcal{T}_i}{t} - |\mathcal{T}_i| + 1 \Big\} \; \Big| \; \forall \mathcal{T}_i \in \mathcal{T} \right\}
-\]
-
+\end{align*}
+%
 The linearization of (P1) is written as
-
-\[
+\begin{align*}
 \begin{array}{ll}
 & \displaystyle	\min \sum_{z_i \in \vec{z}}{ \vec{z}_i \left(\; \alpha + \frac{9}{r^6}\beta \big(c^2 - 2c\vec{A}_i^T\vec{x} + \vec{x}^T\vec{A}_i\vec{A}_i^T\vec{x}\big)\right)} \\
 \text{subject to}\\
@@ -537,8 +513,8 @@ The linearization of (P1) is written as
 &   L(\vec{u}),\\
 &   \vec{x} \in \mathbb{U}^{m}, \vec{z} \in \mathbb{U}^{2n}, \vec{u} \in \mathbb{U}^{|\mathcal{T}|} 
 \end{array}
-\]
-
+\end{align*}
+%
 	Finally, to obtain a binary vector we round the partial solution vector $\vec{x^{\star}} \in \mathbb{U}^m$. For an instance with $m$ pixels we have about $2m$ linels. After linearization, we can expect to have up to $O(m^3)$ variables, dampening our attempts to solve it globally even for low resolution images. One can also try quadratic formulations by linearizing only the third order terms. Unfortunately, the matrix of quadratic terms is not semi-definite positive, fundamental condition for efficient optimization of the model.
 	
 
@@ -547,25 +523,22 @@ The linearization of (P1) is written as
 \label{ch5:subsec:unconstrained-version}
 
 We can use the pixel incidence matrix defined in~\cref{app:pixel-incidence-matrix} to define an unconstrained version of P1. The pixel incidence vector $\vec{q} \in \mathbb{Z}^m$ for pixels $\vec{x} \in \mathbb{B}^{m}$ is 
-	
 	\begin{align*}
 		\vec{q} &= \vec{P}^T\vec{P} \vec{x}
 	\end{align*}
-
+%
 In order to supress the sign, we define diagonal matrix $\vec{Q} \in \mathbb{R}^{m \times m }$ as
-
 \begin{align*}
 	\vec{Q} = diag(\vec{q})diag(\vec{q})
 \end{align*}
-
+%
 Let $\vec{B} \in \mathbb{B}^{m\times m}$ such that column vector $\vec{B}_j$ represents the pixels in the interior of a disk of radius $R$ centered at pixel $i$. Finally, we search for solutions of
-
 \begin{align}
 	\min_{\vec{x}} \frac{9}{R^6}\sum_{j}^{m}{\left( \frac{\pi R^2}{2} - \frac{1}{2}\boldsymbol{\mathbf{1}}^T{\vec{Q}}\vec{B}_j \right)^2},
 	\label{eq:unconstrained-digital-elastica}
 \end{align}
-
-
+%
+%
 where $\mathbf{1} = (1,1, \cdots , 1)^T \in \mathbb{R}^m$. ~\cref{eq:unconstrained-digital-elastica} involves the minimization of a fourth order equation and therefore hard to be optimized.
 
 \section{Conclusion}

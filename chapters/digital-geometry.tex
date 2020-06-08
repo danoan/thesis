@@ -172,7 +172,7 @@ Let us say that we engage in to estimating the length of $S$ by computing the le
 \begin{align*}
 	\hat{L}(S) &= 4h(r/h + r/h + 1) = 8r + 4h.
 \end{align*}
-
+%
 The estimator converges to $8r$ as the resolution increases. %Things get more complicated if the disk is not centered at a grid point. 
 Several estimators based on the assignment of weights to local configurations were proposed. The BLUE (best linear unbiased) estimator~\cite{dorst87length} estimates perimeter as 
 \begin{align*}
@@ -194,7 +194,7 @@ Let $\mathcal{F}$ a family of shapes in the plane and $Q$ a global measurement (
 \begin{align*}
 \forall h \leq h_S, \quad |\hat{Q}(D_h(S,h)) - Q(S,h)| \leq \tau_S(h),
 \end{align*}
-
+%
 where $\tau_S:\mathbb{R}^+\setminus \{0\} \rightarrow \mathbb{R}^+$ is the speed of convergence of $\hat{Q}$ towards $Q$ for $S$.
 
 \end{definition}
@@ -246,31 +246,31 @@ For a given order in the points of $\partial_h S$, a maximal DSS starting at $p_
 	0, & \text{otherwise}.
 	\end{array}\right.
 \end{align*}
-
+%
 The tangent direction at $p_k$ is estimated as
 \begin{align*}
 	\hat{\theta}(p_k) &= \frac{ \sum_{C_{ij} \in \mathcal{C}(p_k) }{ \lambda( e(p_k) ) \tan^-1(a_{ij}/b_{ij}) } }{ \sum_{C_{ij} \in \mathcal{C}(p_k) }{ \lambda( e(p_k) )} },
 \end{align*}
-
+%
 where $\lambda$ is a mapping from $[0,1]$ to $\mathbb{R}^+$ with $\lambda(0)=\lambda(1)=0$ and $\lambda > 0$ elsewhere. The $\lambda$-MST estimator is multigrid convergent for the family of convex shapes that are twice differentiable with continuous curvature. The convergence speed is of $O(h^{1/3})$~\cite{lachaud07tangent}.
 
 The $\lambda$-MST estimator can be used to estimate the contribution of each grid edge to the perimeter of the shape, the so-called \emph{elementary length}. Let $\{\vec{e}_i\}$ be the collection of grid edges (vectors) in the digital contour of $D_h(S)$. We compute the $\lambda$-MST estimator for the sequence of points formed by the center points $\dot{\vec{e}}_i$ of each $\vec{e}_i$. The elementary length is defined as
 \begin{align*}
 \hat{\ell}(\vec{e}_i) &= \big( \sin( \hat{\theta}(\dot{\vec{e}}_i) ), \cos( \hat{\theta}(\dot{\vec{e}}_i) ) \big) \cdot \vec{e_i}.
 \end{align*}
-
+%
 One can integrate the elementary length to obtain a multigrid convergent estimator for the perimeter of $S$. More generally, given a measurement $g$ in $\partial S$ and a multigrid convergent estimator $\hat{g}$ of $g$ in $\partial_h S$, the expression
 \begin{align*}
 	\sum_{\vec{e}_i \in \partial_h S}{ \hat{g}(\vec{e}_i) \hat{l}(\vec{e}_i)},
 \end{align*}
-
+%
 is a multigrid convergent estimator for the energy~\cite{lachaud06hdr}
 \begin{align*}
 	\int_{\partial S}{ g ds }.
 \end{align*}
-
-
-
+%
+%
+%
 \subsubsection{Multigrid convergent estimators of curvature}
 
 Analogously to digital straight segments, the \emph{digital circular arc} is the digital counterpart of a circular arc. For any $C \in \partial_h S$, a grid point $p$ is an interior (exterior) point of $C$ if $p \in D_h S$ ($p \notin D_h S$) and there exists a grid edge in $C$ that is incident to the grid square corresponding to $p$.
@@ -304,20 +304,20 @@ An integral invariant, on the other hand, is a value computed via integration an
     \forall x \in \partial S, \quad \sigma_{S,r}(x) = \int_{B_r(x)}{ \mathbbm{1}_S(y) dy}.
   \end{align*}
 \end{definition}
-
-
+%
+%
 The value $\sigma_{S,r}(x)$ is the area of the intersection of the ball $B_r(x)$ with shape $S$. By approaching the shape at point $x \in S$, one can rewrite the intersection area $\sigma_{S,r}(x)$ in the form of the Taylor expansion~\cite{pottman09intinvariant}:
 \begin{align*}
   \sigma_{S,r}(p) = \frac{\pi}{2}r^2 - \frac{\kappa(S,x)}{3}r^3 + O(r^4),
 \end{align*}
-		
+%
 where $\kappa(S,x)$ is the curvature of $S$ at point $x$. By isolating $\kappa$ we can define a curvature estimator
-	
+%	
 \begin{align}
   \tilde{\kappa}(x) \coloneqq \frac{3}{r^3}\left( \frac{\pi r^2}{2} - \sigma_{S,r}(x) \right).
   \label{ch4:eq:curvature_approximation}
 \end{align}
-	
+%
 In~\cite{coeurjolly13integral}, the authors combine the approximation~\cref{ch4:eq:curvature_approximation} and the estimator of area to define a multigrid convergent estimator for the curvature (see~\cref{ch4:fig:ii-estimator}).
 
 \begin{definition}{Integral Invariant Curvature Estimator}
@@ -327,7 +327,7 @@ In~\cite{coeurjolly13integral}, the authors combine the approximation~\cref{ch4:
     %% \hat{\kappa}_{r}(D,x,h) \coloneqq \frac{3}{r^3} \left( \frac{\pi r^2}{2} - \widehat{Area} \left( B_{r/h} ( \frac{1}{h} \cdot x ) \cap D, h \right) \right).
   \end{align*}
 \end{definition}
-
+%
 This estimator is multigrid convergent with speed $O(h^\frac{1}{3})$ for radii chosen as $r=\Theta(h^\frac{1}{3})$.  
 
 \section{Conclusion}

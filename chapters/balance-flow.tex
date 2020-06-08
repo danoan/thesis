@@ -15,19 +15,17 @@ In the FlipFlow model no contour information is given, and the strategy there we
 
 \begin{definition}{Balance coefficent}
 Given digital shape $\Ds \in \Omega$, positive number $r$ and point $p \in \Omega$, the \emph{balance coefficient} of $\Ds$ at $p$ is defined as
-
 \begin{align*}
 	u_r(\Ds,p) = \left( \frac{\pi r^2}{2} - |B_r(p) \cap \Ds| \right)^2.
 \end{align*}
-
+%
 \end{definition}
 
 The balance coefficient definition is very similar to the II squared curvature estimator. Nonetheless, we have decided to make a new definition since we do not have the scaling factor $\frac{9}{R^6}$ and that the balance coefficient can be computed everywhere and not only in the digital boundary of the shape. Let $F=B_r(p) \cap \Ds$ and $G=B_r(p) \setminus F$. The balance coefficient is symmetric with respect $F$ and $G$. 
-
 \begin{align*}
 	u_r(\Ds,p) &= \left( \frac{\pi r^2}{2} - |F| \right)^2 = \left( -\frac{\pi r^2}{2} + |G| \right)^2 = \left( \frac{\pi r^2}{2} - |G| \right)^2.
 \end{align*}
-
+%
 The balance coefficient is used to estimate the effect of moving the estimation ball center towards the interior or the exterior of the shape. For example, consider~\cref{fig:balance-plot} in which we plot the balance coefficients of points along the diagonal of a square shape. 
 
 \begin{figure}
@@ -84,7 +82,6 @@ The balance coefficient grows if the estimation ball is moved towards the exteri
 
 
 We are going to consider the inner and outer pixel boundary simultaneously as the optimization variables. We recall that $\Ds^{(k)}$ corresponds to the digital shape $\Ds$ after the $k$-th iteration of the flow and that $d_{\Ds^{(k)}}$ is its signed distance transform. We list the sets needed to define the new family of energies:
-
 \begin{align*}
 	O^{(k)} &:=\left\{ p \in \Omega \; | \; -1 \leq d_{\Ds^{(k)}}(p) \leq 1 \right\}\\
 	X^{(k)} &:= X(O^{(k)})  \\
@@ -93,35 +90,32 @@ We are going to consider the inner and outer pixel boundary simultaneously as th
 	O_r^{(k)}(p) &:= O^{(k)} \cap B_r(p) \\
 	X_r^{(k)}(p) &:= X\big( O_r^{(k)}(p) \big).
 \end{align*}
-
+%
 We recall that an assignment of variables $X(\Omega)$ is denoted $x(\Omega)$. In case the shape is described in terms of a set of variables $X(\Omega)$, i.e., $\Ds=F \cup x(\Omega)$,  the balance coefficient is written as
-
 \begin{align*}
 	u_r(F,X,p) &=  \Big( \frac{\pi r^2}{2} - |F_r(p)| - \sum_{x_j \in X_r(p)}{x_j} \Big)^2.
 \end{align*}
-
+%
 \subsection{Algorithm}
 
 Let $p_i, p_o \in \mathcal{R}_m(\Ds)$ the inner and outer ball centers in the $m$-ring of $\Ds$, respectively. We assume $k=0$ if omitted, i.e., $\Ds=\Ds^{(0)}$. We define the term $T_{m}^{bal}(\Ds)$ as
-
 \begin{align}
 	T_{m}^{bal}(\Ds,X) &= \sum_{p_i,p_o \in \mathcal{R}_m(\Ds)}{u_r(F,1-X,p_o) - u_r(F,X,p_i)} \nonumber \\
 	&=  \sum_{p_i,p_o \in \mathcal{R}_m(\Ds)}{\Bigg( \frac{\pi R^2}{2} - \Big(\; |F_o| + \sum_{ x_j \in X_o}{1-x_j} \; \Big) \Bigg)^2 -\Bigg(\frac{\pi R^2}{2} - \Big(\; |F_i| + \sum_{x_j \in X_i}{x_j}\;\Big)\Bigg)^2},
 	\label{eq:balance-term}
 \end{align}
-
+%
 where $X_o=X_r(p_o), X_i=X_r(p_i), F_o=F_r(p_o), F_i=F_r(p_i)$.
 
 
 \cref{eq:balance-term} favors configurations of zero difference between the outer and inner ball coeficients, i.e., regions of zero curvature. In regions of positive curvature, the outer (inner) ball has a shortage (excess) of pixels, and minimization of~\cref{eq:balance-term} tends to label variables in these regions to zero (one).
 
 The $m$-balance energy family is defined as
-
 \begin{align}
   E_{(\vec{\theta},m)}^{bal}(\Ds^{(k)},X^{(k)}) =& \sum_{x_j \in X^{(k)}}{\alpha s(x_j)} + \beta T_{m}^{bal}(\Ds^{(k)},X^{(k)}) + \sum_{x_j \in X^{(k)}}{\gamma g(\Ds^{(k)},x_j)}.
   \label{eq:single-step-energy-family}
 \end{align}
-
+%
 We follow the same notation of~\cref{chapter:flip-flow} to denote the data term $g(\Ds,x)$ and the length penalization term $s(x)$ that are defined as in~\cref{eq:length-penalization,eq:data-fidelity}, respectively. The BalanceFlow algorithm is summarized in~\cref{alg:balance-flow} and an illustration is shown in~\cref{fig:ch7-segmentation}.
 
 \begin{algorithm}
@@ -163,12 +157,11 @@ We follow the same notation of~\cref{chapter:flip-flow} to denote the data term 
 
 \section{Relation with FlipFlow}
 	The BalanceFlow returns similar solutions to the FlipFlow algorithm, as the experiments in~\cref{chapter:results-analysis} illustrates. Indeed, they are closely related. We recall the curvature regularization term of the FlipFlow~\cref{eq:energy-family} for some digital shape $\Ds$ before proving proposition
-
 \begin{align}
 T_{m}^{flip}(D,X) &= \sum_{ p_i,p_o \in R_m(\Ds)}{ \Big( \frac{\pi R^2}{2} - F_r(p_o) - \sum_{x_j \in X_r(p_o)}{x_j}\Big)^2 + \Big(\frac{\pi R^2}{2} - F_r(p_i) - \sum_{x_j \in X_r(p_i)}{x_j}\Big)^2 }
 \label{eq:curvature-term}
 \end{align}
-
+%
 \begin{proposition}{FlipFlow and BalanceFlow relation}
 The curvature terms of FlipFlow and BalanceFlow are related by the equality
 \begin{align*}
@@ -181,14 +174,12 @@ where $P_1(X_i) = (\sum_{X_i}{ 1-x_j})^2 + (\sum_{X_i}{x_j})^2$ and $c$ is a con
 \begin{proof}
 
 We replace $x_j$ by $(1-x_j)$ in~\cref{eq:curvature-term}, which corresponds to the complement of the solution in the FlipFlow model. To simplify notation, we are going to omit the radius $r$ and replace points $p_i,p_o$ by underscored $i,o$, i.e., $F_i := F_r(p_i)$. We rewrite~\cref{eq:curvature-term} as
-
 \begin{align}
 T_{m}^{flip}(\Ds,1-X) &= \sum_{ p_i,p_o \in R_m(\Ds)}{ \Big( \frac{\pi R^2}{2} - F_o - \sum_{x_j \in X_o}{1-x_j}\Big)^2 + \Big(\frac{\pi R^2}{2} - F_i - \sum_{x_j \in X_i}{1-x_j}\Big)^2 }
 \label{eq:curvature-term-simplification}
 \end{align}
-
+%
 Next, let $A_i = \pi R^2/2 - |F_i|$. We rewrite  the second term of~\cref{eq:curvature-term-simplification} as
-
 \begin{align*}
 	\Big(A_i - \sum_{x_j \in X_i}{ (1-x_j) } \Big)^2 &= \Big( A_i - |X_i| + \sum_{x_j \in X_i}{ x_j } \Big)^2 \\
 	&= (A_i - |X_i|)^2 + 2(A_i - |X_i|)\sum_{x_j \in X_i}{x_j} + \Big( \sum_{x_j \in X_i}{x_j} \Big)^2\\	
@@ -197,7 +188,7 @@ Next, let $A_i = \pi R^2/2 - |F_i|$. We rewrite  the second term of~\cref{eq:cur
 	&= 2A_i^2 - \Big(A_i - \sum_{x_j \in X_i}{x_j}\Big)^2 + 2\Big( \sum_{x_j \in X_i}{x_j} \Big) ^2 - 2A_i|X_i| + |X_i|^2 \nonumber \\
 	& - 2|X_i|\sum_{x_j \in X_i}{x_j}
 \end{align*}
-
+%
 	We group the constants into the constant term $c=2A_i^2 - 2A_i|X_i|$	 to obtain
 \begin{align}
 		\Big(A_i - \sum_{x_j \in X_i}{ (1-x_j) }\Big)^2 &= - \Big(A_i - \sum_{}{x_j}\Big)^2 + \Big(|X_i| - \sum_{x_j \in X_i}{x_j}\Big)^2 + \Big(\sum_{x_j \in X_i}{x_j}\Big)^2 + c \nonumber \\
@@ -205,15 +196,14 @@ Next, let $A_i = \pi R^2/2 - |F_i|$. We rewrite  the second term of~\cref{eq:cur
 	&= - \Big(\frac{\pi R^2}{2} - (|F_i| + \sum_{x_j \in X_i}{x_j}) \Big)^2 + P_1(X_i) + c \nonumber 	
 	\label{eq:second-term}
 \end{align}
-
+%
 Finnaly, we  replace~\cref{eq:second-term} in~\cref{eq:curvature-term-simplification} to obtain
-
 \begin{align}
 T_{m}^{flip}(\Ds,1-X) &= \Bigg( \frac{\pi R^2}{2} - \Big(\; |F_o| + \sum_{ x_j \in X_o}{1-x_j} \; \Big) \Bigg)^2 \nonumber \\
 & - \Bigg(\frac{\pi R^2}{2} - \Big(\; |F_i| + \sum_{x_j \in X_i}{x_j}\;\Big) \Bigg)^2  + P_1(X_i) + c \nonumber \\
 &= T_{m}^{bal}(\Ds) + P_1(X_i) + c.
 \end{align}
-
+%
 \end{proof}
 
 ~\cref{prop:flipflow-balanceflow-relation} tell us that, apart  from a constant, the two energies differ in the penalty term $P_1(X_i)$. Locally, such term favors solutions in which half of the variables touched by the inner ball are labeled one. Indeed, the FlipFlow and BalanceFlow behave similarly. In the next chapter we make extensive comparisons between them.
