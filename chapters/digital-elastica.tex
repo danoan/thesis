@@ -53,20 +53,30 @@ Let $\Ds$ be a $2$-dimensional digital shape embedded in a domain $\Omega \subse
 \end{figure}
 
 Let $d_{\Ds}:\Omega \rightarrow \mathbb{R}$ be the signed Euclidean distance transformation with respect to shape $\Ds$. The value $d_{\Ds}(p)$ gives the Euclidean distance between $p \notin \Ds$ and the closest pixel in $\Ds$. For points $p \in \Ds$, $d_{\Ds}(p)$ gives the negative of the distance between $p$ and the closest pixel not in $\Ds$.
+\begin{definition}{Inner pixel boundary}
+
+Given a digital shape $\Ds$ embedded in a domain $\Omega$, we define its inner pixel boundary set $I(\Ds)$ as
+\begin{align*}
+	I(\Ds) := \left\{ \: p \; | \; p \in \Ds, |\mathcal{N}_4(x) \cap \Ds|<4 \: \right\},
+\end{align*}
+where $\mathcal{N}_4(p)$ denotes the $4$-adjacent neighbor set of $p$ (without $p$). 
+\end{definition}
 \begin{definition}{m-Ring Set}
-Given a digital shape $\Ds \in\Omega$, its signed distance transformation $d_{\Ds}$ and natural number $m \neq 0$, the {\em $m$-ring set of $\Ds$} is defined as
+Given a digital shape $\Ds \in\Omega$, its signed distance transformation $d_{\Ds}$ and natural number \daniel{$m \geq 0$} %$m \neq 0$, 
+the {\em $m$-ring set of $\Ds$} is defined as
 \begin{align*}
 	R_m(\Ds) &:= L_m \cup L_{-m},
 \end{align*}
 where
 \begin{align*}
-	L_m(\Ds) &:= \left\{ \quad \begin{array}{cc}
-		\left\{ p \in \Omega \; | \; m-1 < d_{\Ds}(p) \leq m \right\} & , \quad m>0\\
-		\left\{ p \in \Omega \; | \; m+1 > d_{\Ds}(p) \geq m \right\} & , \quad m<0
+	L_m(\Ds) &:= \left\{ \quad \begin{array}{rc}
+		\daniel{I(D)}, & \daniel{m=0}\\
+		\left\{ p \in \Omega \; | \; m-1 < d_{\Ds}(p) \leq m \right\}, &  m>0\\
+		\left\{ p \in \Omega \; | \; m+1 > d_{\Ds}(p) \geq m \right\}, &  m<0
 		\end{array} \right.
 \end{align*}
 \end{definition}
-\daniel{Thus, the $m$-ring is composed out of two sets of pixels with positive and negative distances to the shape $D$~(see~\cref{ch5:fig:ring-set}).} Consider the following set of neighbor candidates to $\Ds$:
+\daniel{Thus, the $m$-ring is composed out of two sets of pixels with positive and negative distances to the shape $D$ if $m > 0$~(see~\cref{ch5:fig:ring-set}), and equal to the inner pixel boundary in the case $m=0$.} Consider the following set of neighbor candidates to $\Ds$:
 \begin{align*}
 \{ Q \; | \; Q \subset R_1(\Ds) \cup \Ds \; \text{and} \; \text{$Q$ is connected} \}.
 \end{align*}
