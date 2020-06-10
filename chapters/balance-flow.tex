@@ -26,7 +26,7 @@ The balance coefficient definition is very similar to the II squared curvature e
 	u_r(\Ds,p) &= \left( \frac{\pi r^2}{2} - |F| \right)^2 = \left( -\frac{\pi r^2}{2} + |G| \right)^2 = \left( \frac{\pi r^2}{2} - |G| \right)^2.
 \end{align*}
 %
-The balance coefficient is used to estimate the effect of moving the estimation ball center towards the interior or the exterior of the shape. For example, consider~\cref{fig:balance-plot} in which we plot the balance coefficients of points along the diagonal of a square shape. 
+The balance coefficient is used to estimate the effect of moving the estimation ball center towards the interior or the exterior of the shape. For example, consider~\cref{ch7:fig:balance-plot} in which we plot the balance coefficients of points along the diagonal of a square shape. 
 
 \begin{figure}
 \center
@@ -41,8 +41,8 @@ The balance coefficient is used to estimate the effect of moving the estimation 
 \begin{minipage}{0.75\textwidth}
 \includegraphics[scale=0.75]{figures/chapter7/balance-coefficient-p2-with-sum-2.png}
 \end{minipage}
-\caption{The balance coefficient $(r=5)$ of equidistant points from the corner of a square shape contour. The red curve indicates the difference between the blue and the orange curve. The inflexion point in the red curve indicates the point $p$ in which a ball centered at $p$ has balance coefficient equal to zero. The green point marks the point $p$ in which the difference between the balance coefficients is the greatest. }
-\label{fig:balance-plot}
+\caption{\daniel{\textbf{The balance coefficient $(r=5)$ of equidistant points from the corner of a square shape contour.}} The balance coefficient for the outer (inner) disk is colored in blue (orange). The red curve indicates the difference between the blue and the orange curve. The inflexion point in the red curve indicates the point $p$ in which a ball centered at $p$ has balance coefficient equal to zero. The green point marks the point $p$ in which the difference between the balance coefficients is the greatest. }
+\label{ch7:fig:balance-plot}
 \end{figure}
 
 
@@ -100,15 +100,18 @@ We recall that an assignment of variables $X(\Omega)$ is denoted $x(\Omega)$. In
 
 Let $p_i, p_o \in \mathcal{R}_m(\Ds)$ the inner and outer ball centers in the $m$-ring of $\Ds$, respectively. We assume $k=0$ if omitted, i.e., $\Ds=\Ds^{(0)}$. We define the term $T_{m}^{bal}(\Ds)$ as
 \begin{align}
-	T_{m}^{bal}(\Ds,X) &= \sum_{p_i,p_o \in \mathcal{R}_m(\Ds)}{u_r(F,1-X,p_o) - u_r(F,X,p_i)} \nonumber \\
-	&=  \sum_{p_i,p_o \in \mathcal{R}_m(\Ds)}{\Bigg( \frac{\pi R^2}{2} - \Big(\; |F_o| + \sum_{ x_j \in X_o}{1-x_j} \; \Big) \Bigg)^2 -\Bigg(\frac{\pi R^2}{2} - \Big(\; |F_i| + \sum_{x_j \in X_i}{x_j}\;\Big)\Bigg)^2},
+	\footnotesize
+	T_{m}^{bal}(\Ds,X) =& \sum_{p_i,p_o \in \mathcal{R}_m(\Ds)}{u_r(F,1-X,p_o) - u_r(F,X,p_i)} \nonumber \\
+	=&  \sum_{p_i,p_o \in \mathcal{R}_m(\Ds)}{\Bigg( \frac{\pi R^2}{2} - \Big(\; |F_o| + \sum_{ x_j \in X_o}{1-x_j} \; \Big) \Bigg)^2} - \nonumber \\
+	& \sum_{p_i,p_o \in \mathcal{R}_m(\Ds)}{
+	\Bigg(\frac{\pi R^2}{2} - \Big(\; |F_i| + \sum_{x_j \in X_i}{x_j}\;\Big)\Bigg)^2},
 	\label{eq:balance-term}
 \end{align}
 %
 where $X_o=X_r(p_o), X_i=X_r(p_i), F_o=F_r(p_o), F_i=F_r(p_i)$.
 
 
-\cref{eq:balance-term} favors configurations of zero difference between the outer and inner ball coeficients, i.e., regions of zero curvature. In regions of positive curvature, the outer (inner) ball has a shortage (excess) of pixels, and minimization of~\cref{eq:balance-term} tends to label variables in these regions to zero (one).
+\cref{eq:balance-term} favors configurations of zero difference between the outer and inner ball coeficients, i.e., regions of zero curvature. In regions of positive curvature, \daniel{the outer ball has fewer intersecting pixels than the inner ball, and minimization of~\cref{eq:balance-term} tends to label variables in these regions to zero.}
 
 The $m$-balance energy family is defined as
 \begin{align}
@@ -116,7 +119,7 @@ The $m$-balance energy family is defined as
   \label{eq:single-step-energy-family}
 \end{align}
 %
-We follow the same notation of~\cref{chapter:flip-flow} to denote the data term $g(\Ds,x)$ and the length penalization term $s(x)$ that are defined as in~\cref{eq:length-penalization,eq:data-fidelity}, respectively. The BalanceFlow algorithm is summarized in~\cref{alg:balance-flow} and an illustration is shown in~\cref{fig:ch7-segmentation}.
+We follow the same notation of~\cref{chapter:flip-flow} to denote the data term $g(\Ds,x)$ and the length penalization term $s(x)$ that are defined as in~\cref{eq:length-penalization,eq:data-fidelity}, respectively. The BalanceFlow algorithm is summarized in~\cref{ch7:alg:balance-flow} and an illustration is shown in~\cref{ch7:fig:ch7-segmentation}.
 
 \begin{algorithm}
  \SetKwData{It}{k}
@@ -137,7 +140,7 @@ We follow the same notation of~\cref{chapter:flip-flow} to denote the data term 
 	
  }
  \caption{BalanceFlow algorithm.}
- \label{alg:balance-flow}  
+ \label{ch7:alg:balance-flow}  
 \end{algorithm}
 
 \begin{figure}
@@ -150,15 +153,15 @@ We follow the same notation of~\cref{chapter:flip-flow} to denote the data term 
  	\includegraphics[scale=0.25]{figures/chapter7/segmentation/coala/k-0.0/corrected-seg.png} &  	
  	\includegraphics[scale=0.25]{figures/chapter7/segmentation/coala/k-1.0/corrected-seg.png}
 \end{tabular}	
-\caption{Given foreground (green) and background (gray) seeds at picture (a); GrabCut produces picture (b) which is used as input of the BalanceFlow algorithm; in pictures (c) and (d) we display the output of BalanceFlow algorithm with and without squared curvature regularization. }
-\label{fig:ch7-segmentation}
+\caption{\daniel{\textbf{Segmentation using the BalanceFlow model.}} Given foreground (green) and background (gray) seeds at picture (a); GrabCut produces picture (b) which is used as input of the BalanceFlow algorithm; in pictures (c) and (d) we display the output of BalanceFlow algorithm with and without squared curvature regularization. }
+\label{ch7:fig:ch7-segmentation}
 \end{figure}
 
 
 \section{Relation with FlipFlow}
-	The BalanceFlow returns similar solutions to the FlipFlow algorithm, as the experiments in~\cref{chapter:results-analysis} illustrates. Indeed, they are closely related. We recall the curvature regularization term of the FlipFlow~\cref{eq:energy-family} for some digital shape $\Ds$ before proving proposition
+	The BalanceFlow returns similar solutions to the FlipFlow algorithm, as the experiments in~\cref{chapter:results-analysis} illustrates. Indeed, they are closely related. We recall the curvature regularization term of the FlipFlow~\cref{eq:energy-family} for some digital shape $\Ds$ before proving \daniel{the proposition that establishes this link.}
 \begin{align}
-T_{m}^{flip}(D,X) &= \sum_{ p_i,p_o \in R_m(\Ds)}{ \Big( \frac{\pi R^2}{2} - F_r(p_o) - \sum_{x_j \in X_r(p_o)}{x_j}\Big)^2 + \Big(\frac{\pi R^2}{2} - F_r(p_i) - \sum_{x_j \in X_r(p_i)}{x_j}\Big)^2 }
+T_{m}^{flip}(D,X) &= \sum_{ p_i,p_o \in R_m(\Ds)}{ \Big( \frac{\pi R^2}{2} - |F_o| - \sum_{x_j \in X_o}{x_j}\Big)^2 + \Big(\frac{\pi R^2}{2} - |F_i| - \sum_{x_j \in X_i}{x_j}\Big)^2 }
 \label{eq:curvature-term}
 \end{align}
 %
@@ -175,7 +178,7 @@ where $P_1(X_i) = (\sum_{X_i}{ 1-x_j})^2 + (\sum_{X_i}{x_j})^2$ and $c$ is a con
 
 We replace $x_j$ by $(1-x_j)$ in~\cref{eq:curvature-term}, which corresponds to the complement of the solution in the FlipFlow model. To simplify notation, we are going to omit the radius $r$ and replace points $p_i,p_o$ by underscored $i,o$, i.e., $F_i := F_r(p_i)$. We rewrite~\cref{eq:curvature-term} as
 \begin{align}
-T_{m}^{flip}(\Ds,1-X) &= \sum_{ p_i,p_o \in R_m(\Ds)}{ \Big( \frac{\pi R^2}{2} - F_o - \sum_{x_j \in X_o}{1-x_j}\Big)^2 + \Big(\frac{\pi R^2}{2} - F_i - \sum_{x_j \in X_i}{1-x_j}\Big)^2 }
+T_{m}^{flip}(\Ds,1-X) &= \sum_{ p_i,p_o \in R_m(\Ds)}{ \Big( \frac{\pi R^2}{2} - |F_o| - \sum_{x_j \in X_o}{1-x_j}\Big)^2 + \Big(\frac{\pi R^2}{2} - |F_i| - \sum_{x_j \in X_i}{1-x_j}\Big)^2 }
 \label{eq:curvature-term-simplification}
 \end{align}
 %
@@ -217,7 +220,7 @@ T_{m}^{flip}(\Ds,1-X) &= \Bigg( \frac{\pi R^2}{2} - \Big(\; |F_o| + \sum_{ x_j \
 %\label{fig:balance-flow-flip-flow-comparison}
 %\end{figure}
 
-\section{Towards a graph-based formulation}
+%\section{Towards a graph-based formulation}
 
 %Let $A_o = \pi R^2 / 2 - |F_o|$ and $A_i = \pi R^2/2 - |F_i|$. We rewrite~\cref{eq:balance-term} as
 %
@@ -236,18 +239,17 @@ T_{m}^{flip}(\Ds,1-X) &= \Bigg( \frac{\pi R^2}{2} - \Big(\; |F_o| + \sum_{ x_j \
 %
 %We remark the similarity of the expression between parentheses in~\cref{eq:xj-evidence} and the sum $u(\Ds,p_o)^{1/2} + u(\Ds,p_i)^{1/2}$, i.e., the sum of balance coefficients square roots. The variable $x_j$ is set to zero if for every assignment for variables $x_l$, the expression in parentheses is greater than zero. That remark motivates us to define a graph-based model, described in the next chapter, in which the edge's weight are given by the sum of balance coefficients.
 
-Looking at~\cref{fig:balance-plot} it would be interesting to find the point in which the inner or outer ball reaches the zero balance. In~\cref{fig:flower-balance-coefficient-zero-set} each color represents the balance coefficient $u_{12}$ of the closed shape with contour colored in white. We highlighted in magenta the pixels $p$ for which $u_{12}(\Ds,p) \leq 169$. ~\cref{fig:flower-balance-coefficient-zero-set} suggests that an evolution based on the zero level set of the balance coefficient may decrease the digital Elastica energy. In the next chapter we describe a graph-cut model in which the cost function is given by a function of the balance coefficients.
-
+\section{Conclusion}
 \begin{figure}
 \center
 \includegraphics[scale=0.05]{figures/chapter7/level-set/flower.pdf}
-\caption{Balance coefficient map of radius $12$ for the flower shape (contour in white). The pixels in magenta have balance coefficient smaller than $169$. }
-\label{fig:flower-balance-coefficient-zero-set}
+\caption{\daniel{\textbf{Balance coefficient map}.} We display the balance coefficients of radius $12$ for the flower shape (contour in white) in every point of the given domain. The pixels in magenta have balance coefficient smaller than $169$, and indicates the region in which points with zero balance coefficient are located.  }
+\label{ch7:fig:flower-balance-coefficient-zero-set}
 \end{figure}
 
+We proposed the BalanceFlow model for digital elastica minimization, which was inspired by the definition of the balance coefficient, and we proved a link between the BalanceFlow and FlipFlow algorithm. The models present similar results, but the BalanceFlow has an easier implementation.  
 
-\section{Conclusion}
-The BalanceFlow model is closely related to the FlipFlow but it has a simple implementation and interpretation. The balance coefficent is the link that connects both models and the motivation for the graph-cut model proposed in the next chapter.
+Looking at~\cref{ch7:fig:balance-plot}, it would be interesting to find the point in which the inner or outer ball reaches the zero balance. In~\cref{ch7:fig:flower-balance-coefficient-zero-set} each color represents the balance coefficient $u_{12}$ of the closed shape with contour colored in white. We highlighted in magenta the pixels $p$ for which $u_{12}(\Ds,p) \leq 169$. ~\cref{ch7:fig:flower-balance-coefficient-zero-set} suggests that an evolution based on the zero level set of the balance coefficient may decrease the digital Elastica energy. In the next chapter we describe a graph-cut model in which the cost function is given by a function of the balance coefficients.
 
 
 
