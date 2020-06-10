@@ -1,18 +1,23 @@
-\chapter{A 2-step evolution model driven by digital Elastica minimization}
+\chapter{A 2-step evolution model driven by digital elastica minimization}
 \chaptermark{A 2-step evolution model}
 \label{chapter:flip-flow}
 
-In the previous chapter we have presented a local combinatorial model using multigrid convergent estimator that proved to be very successful in optimizing the digital Elastica but too slow to be used in practice. We have also attempted to derive a global optimization model, but unfortunately such model is unlikely to be solved in the current state of art of binary optimization techniques. In this chapter we present a second local optimization model that is much faster than~\cref{alg:local-search} but with fewer guarantees of optimality.
+In the previous chapter we have presented a local combinatorial model using multigrid convergent estimator that proved to be very successful in optimizing the digital elastica but too slow to be used in practice. We have also attempted to derive a global optimization model, but unfortunately such model is unlikely to be solved in the current state of art of binary optimization techniques. In this chapter we present a second local optimization model that is much faster than~\cref{ch5:alg:local-search} but with fewer guarantees of optimality.
+
+\daniel{
+We describe the binary non-submodular FlipFlow energy and discuss some curious aspects of it in~\cref{ch6:sec:flipflow-model}. Optimization strategies are presented in~\cref{ch6:sec:optimization-method,ch6:sec:evaluation-across-rings}. Finally, we describe an application of the FlipFlow model to image segmentation in~\cref{ch6:sec:data-term-image-segmentation}.
+}
+
 
 \section{FlipFlow model}
 \label{ch6:sec:flipflow-model}
 
-In this section we describe the FlipFlow model that aims to evolve a initial digital shape $\Ds$ into another of lower digital Elastica value. The FlipFlow algorithm consists into deciding, at each iteration $k$, which pixels in the \emph{inner boundary} of $\Ds^{(k)}$ are to be removed  and which are to be kept. 
+In this section we describe the FlipFlow model that aims to evolve an initial digital shape $\Ds$ into another of lower digital elastica value. The FlipFlow algorithm consists into deciding, at each iteration $k$, which pixels in the \emph{inner boundary} of $\Ds^{(k)}$ are to be removed  and which are to be kept. 
 
 \subsection{Definitions}
 \label{ch6:subsec:definitions}
 
-Let $\Ds$ be a digital shape with domain $\Omega \subset \mathbb{Z}^2$. We describe a flow $\left \{ \Ds^{(k)} \; | \; k \geq 0, \Ds^{0} = \Ds \right\}$ intended to decrease the digital Elastica energy of $\Ds$.
+Let $\Ds$ be a digital shape with domain $\Omega \subset \mathbb{Z}^2$. We describe a flow $\left \{ \Ds^{(k)} \; | \; k \geq 0, \Ds^{0} = \Ds \right\}$ intended to decrease the digital elastica energy of $\Ds$.
 
 We assume an ordering in $\Omega$, i.e., there exists a bijective function $\omega : \Omega \rightarrow \{1 \cdots |\Omega| \}$. Moreover, let $X_{\omega}:\Omega \rightarrow 2^{\{0,1\}}$ be an operator that transforms digital sets in its corresponding set of binary variables, i.e.,
 \begin{align*}
@@ -48,10 +53,10 @@ In the case we optimize the complement of $\Ds$, we write $\overline{X}^{(k)}$, 
 An assignment of $X^{(k)}$ is simply denoted $x^{(k)}$. 
 
 
-\subsection{Algorithm}
+\subsection{\daniel{Model and algorithm}}
 \label{ch6:subsec:algorithm}
 
-We recall the definition of the II digital curvature estimator:
+We recall the definition of the II digital curvature estimator \daniel{(see~\cref{ch4:sec:geometric-measurements} for details):}
 \begin{align}
 	\hat{\kappa}^2(p) &= c_1\Big( c_2 - | B_r(p) \cap \Ds^{(k)} | \Big)^2, 
 	\label{eq:curvature-estimator-pixels}
@@ -60,10 +65,12 @@ where $c_1=3/r^6$ and $c_2=\pi r^2/2$.
 %
 The following sets are important in the expansion of $~\cref{eq:curvature-estimator-pixels}$.
 \begin{align*}
-	F^{(k)} &:= \Ds^{(k)} \setminus I^{(k)} \\
-	F_r^{(k)}(p) &:= F^{(k)} \cap B_r(p)\\
-	I_r^{(k)}(p) &:= I^{(k)} \cap B_r(p) \\
-	X_r^{(k)}(p) &:= X\big( I_r^{(k)}(p) \big). \\
+	\begin{array}{rll}
+	F^{(k)} &:= \Ds^{(k)} \setminus I^{(k)} & \text{ \daniel{(Sure foreground) }} \\
+	F_r^{(k)}(p) &:= F^{(k)} \cap B_r(p) &\\
+	I_r^{(k)}(p) &:= I^{(k)} \cap B_r(p) & \\
+	X_r^{(k)}(p) &:= X\big( I_r^{(k)}(p) \big). & \\	
+	\end{array}
 \end{align*}
 %
 %
@@ -77,7 +84,7 @@ where $C=c_2^2 - 2c_2 \cdot |F_{r}^{(k)}(p)| + |F_{r}^{(k)}(p)|^2$ is a constant
 of energies for given parameters $\vec{\theta}=(\alpha,\beta ) \geq 0$
 \begin{align}
   E_{(\vec{\theta},m)}^{flip}(\Ds^{(k)},X^{(k)}) =& \sum_{x_j \in X^{(k)}}{\alpha s(x_j)} + \nonumber \\ 
-  & \sum_{ \substack{p \in \\ R_m(\Ds^{(k)})}}{ 2c_1 \beta  \Big( { (1/2+ |F_{r}^{(k)}(p)|-c_2) \cdot \sum_{ \substack{ x_j \in \\ X_{r}^{(k)}(p)}}{x_j} } + \sum_{ \substack{j<l, \\ x_j,x_l \in \\ X_{r}^{(k)}(p) } }{x_jx_l} \Big) },
+  & \sum_{ \substack{p \in \\ \daniel{O_m(\Ds^{(k)})}}}{ 2c_1 \beta  \Big( { (1/2+ |F_{r}^{(k)}(p)|-c_2) \cdot \sum_{ \substack{ x_j \in \\ X_{r}^{(k)}(p)}}{x_j} } + \sum_{ \substack{j<l, \\ x_j,x_l \in \\ X_{r}^{(k)}(p) } }{x_jx_l} \Big) },
   \label{eq:energy-family}
 \end{align}
 where $s(\cdot)$ denotes the length penalization term, written as
@@ -89,9 +96,16 @@ where $s(\cdot)$ denotes the length penalization term, written as
   \end{array}\right.
   \label{eq:length-penalization}
 \end{align}
+\daniel{and
+\begin{align*}
+	O_m(D^{(k)}) &= \left\{ \begin{array}{rl}
+		I(D^{(k)}), & \text{if $m$=0}, \\
+		R_m(D^{(k)}), & \text{otherwise}.
+	\end{array}\right.
+\end{align*}}
 %
 %
-We recall that $R_m$ refers to the $m-ring$ defined in~\cref{ch5:sec:local-combinatorial-scheme}. Each choice of $m$ generates a different flow, which is generally described in the \emph{FlipFlow}~\cref{alg:evolution-model}. To optimize~\cref{eq:energy-family} we use the QPBOI algorithm \cite{rother07qpbo}.
+We recall that $R_m$ refers to the $m$-ring defined in~\cref{ch5:sec:local-combinatorial-scheme}. Each choice of $m$ generates a different flow, which is generally described in the \emph{FlipFlow}~\cref{ch6:alg:evolution-model}. To optimize~\cref{eq:energy-family} we use the QPBOI algorithm \cite{rother07qpbo}.
 
 
 \begin{algorithm}
@@ -106,7 +120,7 @@ We recall that $R_m$ refers to the $m-ring$ defined in~\cref{ch5:sec:local-combi
  $\Ds^{(0)} \longleftarrow \Ds$\;
  $k \longleftarrow 1$\;
  \While{ \It $<$ \MIt  }{ 	
-	\comment{Shrinking mode}
+	\comment{Shrink mode}
 	\If{ \It is even }{	 
 	 	$x^{(k-1)} \longleftarrow \displaystyle \argmin_{X^{(k-1)}} E_{(\vec{\theta},m)}^{flip}(\Ds^{(k-1)},1-X^{(k-1)})$\; 	
  		$\Ds^{(k)} \longleftarrow F^{(k-1)} + x^{(k-1)}$\;
@@ -121,7 +135,7 @@ We recall that $R_m$ refers to the $m-ring$ defined in~\cref{ch5:sec:local-combi
 	
  }
  \caption{FlipFlow algorithm.}
- \label{alg:evolution-model}  
+ \label{ch6:alg:evolution-model}  
 \end{algorithm}
 
 \subsection{Algorithm discussion}
@@ -131,20 +145,19 @@ We recall that $R_m$ refers to the $m-ring$ defined in~\cref{ch5:sec:local-combi
 \begin{minipage}{0.49\textwidth}
 \center
 \includegraphics[scale=0.15]{figures/chapter6/contour-information/before-opt.pdf}
-\label{fig:contour-info-1}
+\label{ch6:fig:contour-info-1}
 \end{minipage}%
 \begin{minipage}{0.49\textwidth}
 \center
 \includegraphics[scale=0.15]{figures/chapter6/contour-information/after-opt.pdf}
-\label{fig:contour-info-2}
+\label{ch6:fig:contour-info-2}
 \end{minipage}%
-\caption{ Direct use of the optimization result of~\cref{eq:energy-family} does not decrease squared curvature because contour information is not present in the energy.}
-\label{fig:contour-info}
+\caption{ \daniel{\textbf{Fixed boundary evaluation.}} The proposed model does not take contour information into account, thus the II curvature estimator is evaluated and optimized with respect the initial boundary. In the left, the initial shape and the optimization variables colored in yellow. In the right, the final shape without taking the complementary solution.}
+\label{ch6:fig:contour-info}
 \end{figure}
-
-As discussed in~\cref{ch5:sec:global-optimization}, the topological constraints are a fundamental part in a global optimization model for the digital Elastica but the complexity added to it dampens any hope of optimizing it efficiently. In the proposed FlipFlow model, we exclude topological constraints and we end up with the tractable binary second order~\cref{eq:energy-family}. However, due the lack of contour information, the minimization of~\cref{eq:energy-family} for $\Ds^{(k)}$ results in undesirable shapes of even higher digital Elastica energy values  (see~\cref{fig:contour-info}). Interestingly, by using the inverse of the optimal assignement, we can derive a shape of lower digital Elastica energy. Therefore, the next shape is given by
+\daniel{We are going to justify~\cref{ch6:alg:evolution-model} considering the case in which $m=0$, i.e., for energy $E_{\theta,0}^{flip}$. } As discussed in~\cref{ch5:sec:global-optimization}, the topological constraints are a fundamental part in a global optimization model for the digital elastica but the complexity added to it dampens any hope of optimizing it efficiently. In the proposed FlipFlow model, we exclude topological constraints and we end up with the tractable binary second order~\cref{eq:energy-family}. However, due the lack of contour information, the minimization of~\cref{eq:energy-family} for $\Ds^{(k)}$ results in undesirable shapes of even higher digital elastica energy values  (see~\cref{ch6:fig:contour-info}). Interestingly, by using the inverse of the optimal assignement, we can derive a shape of lower digital elastica energy. Therefore, the next shape is given by
 \begin{align*}
-	\Ds^{(k+1)} = \Ds^{(k)} - \argmin _{}{E_{(\vec{\theta},m)}^{flip}\big(\Ds^{(k)},1-X^{(k)}} \big).
+	\Ds^{(k+1)} = \daniel{F^{(k)} + } \argmin _{}{E_{(\vec{\theta},m)}^{flip}\big(\Ds^{(k)},1-X^{(k)}} \big).
 \end{align*}
 %
 Recall that the integral invariant estimator approaches curvature by computing the difference between half of the area
@@ -155,7 +168,7 @@ the center of the estimation ball towards the interior of the shape, which means
 why we take the complement of the optimization solution.
 
 
-The explanation above covers the treatment of convex parts, but the way to treat concavities is not much different. Indeed, concave regions are convex in the shape complement. The FlipFlow~\cref{alg:evolution-model} is made of two modes: shrinking and expansion. The shrinking mode handles convexities and its reasoning is explained in the last paragraph. The expansion mode operates exactly in the same way, but at the image complement, and by doing this we are able to handle
+The explanation above covers the treatment of convex parts, but the way to treat concavities is not much different. Indeed, concave regions are convex in the shape complement. The FlipFlow~\cref{ch6:alg:evolution-model} is made of two modes: shrink and expansion. The shrink mode handles convexities and its reasoning is explained in the last paragraph. The expansion mode operates exactly in the same way, but at the image complement, and by doing this we are able to handle
 concavities. It is called expansion mode because the optimization region, in this case, is the outer pixel boundary of
 the original shape. Table~\cref{tab:flow-summary} sums up these arguments.
 
@@ -175,7 +188,7 @@ the original shape. Table~\cref{tab:flow-summary} sums up these arguments.
   \center
   \setlength{\extrarowheight}{0.75em}
   \begin{tabular}{|c|c|c|c|} \hline
-    shrinking mode &    $\kappa \gg 0$ & $\kappa \geq 0$ &  $\kappa < 0$ \\ \hline
+    shrink mode &    $\kappa \gg 0$ & $\kappa \geq 0$ &  $\kappa < 0$ \\ \hline
     $x^{(k)}$ & $x_j=1$ & $x_j \in \{0,1\}$ & $x_j=0$ \\ \hline
     $\Ds^{(k+1)} \leftarrow F^{(k)} + x^{(k)}$ & eroded & prob. eroded & unchanged  \\ \hline \hline
     expansion mode &    $\overline{\kappa} \gg 0$ & $\overline{\kappa} \geq 0$ & $\overline{\kappa} < 0$ \\ \hline
@@ -183,35 +196,35 @@ the original shape. Table~\cref{tab:flow-summary} sums up these arguments.
     $\Ds^{(k+1)} \leftarrow \overline{\overline{F}^{(k)} + \overline{x}^{(k)}}$ & dilated & prob. dilated & unchanged \\ \hline 
   \end{tabular}
   
-  \caption{  Since the curvature is negated when reversing the curve (i.e. $\overline{\kappa}=-\kappa$), this process can only shrink  convex parts in shrink mode and expand concave parts in expansion mode.}
+  \caption{ \daniel{\textbf{Shrink and expansion modes.}} Since the curvature is negated when reversing the curve (i.e. $\overline{\kappa}=-\kappa$), this process can only shrink  convex parts in shrink mode and expand concave parts in expansion mode.}
    \label{tab:flow-summary}	  
 
 \end{table}
 
 
-In~\cref{fig:m1-square-flow} we show the results of the FlipFlow algorithm for $m=1,\alpha=0, \beta=1$. We observe a global evolution towards rounder shapes, but several artifacts are formed along the boundary. An estimation ball of higher radius evolves the shapes faster, but the contours become noisier. Setting $\alpha >0$ attenuates the problem for lower radius but the produced shapes does not match with our intuition of what a flow driven by the squared curvature must be like. In the next section we investigate how the energy properties and optimization method used can explain this behavior.
+In~\cref{ch6:fig:m1-square-flow} we show the results of the FlipFlow algorithm for $( \daniel{m=0}, \alpha=\{0, 0.5\}, \beta=1 )$. We observe a global evolution towards rounder shapes, but several artifacts are formed along the boundary. An estimation ball of higher radius evolves the shapes faster, but the contours become noisier. Setting $\alpha >0$ attenuates the problem for lower radius but the produced shapes does not match with our intuition of what a flow driven by the squared curvature must be like. In the next section we investigate how the energy properties and optimization method used can explain this behavior.
 
 \begin{figure}
 \center
 \begin{tabular}{p{2.5em}ccc}
 & $r=3$ & $r=5$ & $r=9$ \\[2em]
 \multirow{2}{*}{$\alpha=0$}& \includegraphics[scale=0.25]{figures/chapter6/radius-effect/triangle/improve/len_pen0/radius-3/summary.pdf} &
-\includegraphics[scale=0.24]{figures/chapter6/radius-effect/triangle/improve/len_pen0/radius-5/summary.pdf} &
-\includegraphics[scale=0.24]{figures/chapter6/radius-effect/triangle/improve/len_pen0/radius-9/summary.pdf} \\[2em]
-& \includegraphics[scale=0.24]{figures/chapter6/radius-effect/flower/improve/len_pen0/radius-3/summary.pdf} &
-\includegraphics[scale=0.24]{figures/chapter6/radius-effect/flower/improve/len_pen0/radius-5/summary.pdf} &
-\includegraphics[scale=0.24]{figures/chapter6/radius-effect/flower/improve/len_pen0/radius-9/summary.pdf} \\
+\includegraphics[scale=0.23]{figures/chapter6/radius-effect/triangle/improve/len_pen0/radius-5/summary.pdf} &
+\includegraphics[scale=0.23]{figures/chapter6/radius-effect/triangle/improve/len_pen0/radius-9/summary.pdf} \\[2em]
+& \includegraphics[scale=0.23]{figures/chapter6/radius-effect/flower/improve/len_pen0/radius-3/summary.pdf} &
+\includegraphics[scale=0.23]{figures/chapter6/radius-effect/flower/improve/len_pen0/radius-5/summary.pdf} &
+\includegraphics[scale=0.23]{figures/chapter6/radius-effect/flower/improve/len_pen0/radius-9/summary.pdf} \\
 \hline \\
 \multirow{2}{*}{$\alpha=0.5$}& \includegraphics[scale=0.25]{figures/chapter6/radius-effect/triangle/improve/len_pen0.5/radius-3/summary.pdf} &
-\includegraphics[scale=0.24]{figures/chapter6/radius-effect/triangle/improve/len_pen0.5/radius-5/summary.pdf} &
-\includegraphics[scale=0.24]{figures/chapter6/radius-effect/triangle/improve/len_pen0.5/radius-9/summary.pdf} \\[2em]
-& \includegraphics[scale=0.24]{figures/chapter6/radius-effect/flower/improve/len_pen0.5/radius-3/summary.pdf} &
-\includegraphics[scale=0.24]{figures/chapter6/radius-effect/flower/improve/len_pen0.5/radius-5/summary.pdf} &
-\includegraphics[scale=0.24]{figures/chapter6/radius-effect/flower/improve/len_pen0.5/radius-9/summary.pdf}
+\includegraphics[scale=0.23]{figures/chapter6/radius-effect/triangle/improve/len_pen0.5/radius-5/summary.pdf} &
+\includegraphics[scale=0.23]{figures/chapter6/radius-effect/triangle/improve/len_pen0.5/radius-9/summary.pdf} \\[2em]
+& \includegraphics[scale=0.23]{figures/chapter6/radius-effect/flower/improve/len_pen0.5/radius-3/summary.pdf} &
+\includegraphics[scale=0.23]{figures/chapter6/radius-effect/flower/improve/len_pen0.5/radius-5/summary.pdf} &
+\includegraphics[scale=0.23]{figures/chapter6/radius-effect/flower/improve/len_pen0.5/radius-9/summary.pdf}
 \end{tabular}
 
-\caption{The algorithm is very sensitive to the little variations of the estimator, which are particularly important in regions of low squared curvature. Artifacts are somewhat reduced with a length penalization but increases if we use a higher ball radius. For better visualization, curves are displayed every $1/10$ of the number of iterations. }
-\label{fig:m1-square-flow}
+\caption{\daniel{\textbf{FlipFlow results for $m=0,\beta=1$.}} The algorithm is very sensitive to the little variations of the estimator, which are particularly important in regions of low squared curvature. Artifacts are somewhat reduced with a length penalization but increases if we use a higher ball radius. For better visualization, curves are displayed every $1/10$ of the number of iterations. }
+\label{ch6:fig:m1-square-flow}
 \end{figure}
 
 
@@ -221,7 +234,7 @@ In~\cref{fig:m1-square-flow} we show the results of the FlipFlow algorithm for $
 %\includegraphics[scale=0.45]{figures/chapter6/radius-effect/triangle/improve/len_pen0/radius-3/radius-effect.pdf}}%
 %\subfloat[]{
 %\includegraphics[scale=0.45]{figures/chapter6/radius-effect/flower/improve/len_pen0/radius-3/radius-effect.pdf}}%
-%\caption{The digital Elastica decreases in a turbulent way.}
+%\caption{The digital elastica decreases in a turbulent way.}
 %\end{figure}
 
 
@@ -233,7 +246,7 @@ Let $f$ be a function of $n$ binary variables with unary and pairwise terms, i.e
 f(y_1,\cdots, y_n) = \sum_{j}{f_j(y_j)} + \sum_{j < k}{f_{j,k}(y_j,y_k)}.
 \end{align*}
 %
-The function $f$ is submodular if and only if the following inequality holds for each pairwise term $f_{j,k}$ \cite{kolmogorov04whatenergies}:
+\daniel{As described in~\cref{ch2:sec:submodular-functions},} function $f$ is submodular if and only if the following inequality holds for each pairwise term $f_{j,k}$: %\cite{kolmogorov04whatenergies}
 \begin{align*}
   \quad f_{j,k}(0,0) + f_{j,k}(1,1) \leq f_{j,k}(0,1) + f_{j,k}(1,0).
 \end{align*}
@@ -251,35 +264,38 @@ than QPBO.
 
 The percentage of unlabeled pixels by QPBOP for $E_{(\vec{\theta},m)}^{flip}$ is quite high, but the percentage decreases to zero as we set $m$
 to a value closer to $r$, the estimation ball radius. Therefore, we are more confident in taking the solution for values of $m$ close to $r$. However, the way it
-varies across values of $m$ differs from shape to shape, as is illustrated in~\cref{fig:unlabeled-versus-iterations}. We also noticed that, for $m=r$, all the pixels were labeled, which
-  indicates that $E_{(\vec{\theta},r)-flip}$ is an easy instance of the general non-submodular energy $E_{(\vec{\theta},m)}^{flip}$, but this remains to be
-  proved. The number of pairwise terms in $E_{(\vec{\theta},r)-flip}$ is roughly half of those in $E_{(\vec{\theta},1)-flip}$ (see~\cref{fig:ratio-pairwise-terms}), which also explains the higher number of labeled variables.
+varies across values of $m$ differs from shape to shape, as is illustrated in~\cref{ch6:fig:unlabeled-versus-iterations}. We also noticed that, for $m=r$, all the pixels were labeled, which
+  indicates that $E_{(\vec{\theta},r)}^{flip}$ is an easy instance of the general non-submodular energy $E_{(\vec{\theta},m)}^{flip}$, but this remains to be
+  proved. The number of pairwise terms in $E_{(\vec{\theta},r)}^{flip}$ is roughly half of those in $E_{(\vec{\theta},1)}^{flip}$ (see~\cref{ch6:fig:ratio-pairwise-terms}), which also explains the higher number of labeled variables.
 
   We have used QPBOI to solve $E_{(\vec{\theta},m)}^{flip}$. Naturally, in the case where all pixels are labeled by QPBOP, QPBOI returns the same labeling as QPBOP. In the next section we show that by evaluating the estimation ball at outer rings, we eliminate the artifacts and we produce smoother flows while preserving a qualitative measure of curvature.
+  
+  \daniel{We postpone the comparison of the proposed methods in this thesis to~\cref{chapter:results-analysis}. At this point, we retain us to say that the FlipFlow performs up to 10x faster than the LocalSearch algorithm.} 
 
 
 \begin{figure}
 \center
 \includegraphics[scale=0.5]{figures/chapter6/unlabeled-ratio/plots/pairwise-ratio/h0.25/radius-5/plot-pairwiseratio-lowerHigher-concavities-probe.pdf}
-\caption{We plot the ratio of pairwise terms among all $\binom{|X^{(k)}|}{2}$ combinations. The highest ring has roughly half the number of pairwise terms as the lowest ring.}
-\label{fig:ratio-pairwise-terms}
+\caption{\daniel{\textbf{Pairwise terms ratio}.}We plot the ratio of pairwise terms among all $\binom{|X^{(k)}|}{2}$ combinations. The highest ring has roughly half the number of pairwise terms as the lowest ring.}
+\label{ch6:fig:ratio-pairwise-terms}
 \end{figure}
 
 
 \begin{figure}
 \center
 \begin{minipage}[b]{0.5\textwidth}
-\subfloat[]{ \includegraphics[scale=0.35]{figures/chapter6/unlabeled-ratio/plots/unlabeled-per-iterations/h0.25/radius-3/plot-model-triangle-concavities-probe.pdf}}\\%
-\subfloat[]{ \includegraphics[scale=0.35]{figures/chapter6/unlabeled-ratio/plots/unlabeled-per-iterations/h0.25/radius-5/plot-model-triangle-concavities-probe.pdf}}\\%
-\subfloat[]{ \includegraphics[scale=0.35]{figures/chapter6/unlabeled-ratio/plots/unlabeled-per-iterations/h0.25/radius-7/plot-model-triangle-concavities-probe.pdf}}%
+%\subfloat[]{ \includegraphics[scale=0.38]{figures/chapter6/unlabeled-ratio/plots/unlabeled-per-iterations/h0.25/radius-3/plot-model-triangle-concavities-probe.pdf}}\\%
+\subfloat[]{ \includegraphics[scale=0.38]{figures/chapter6/unlabeled-ratio/plots/unlabeled-per-iterations/h0.25/radius-5/plot-model-triangle-concavities-probe.pdf}}\\%
+\subfloat[]{ \includegraphics[scale=0.38]{figures/chapter6/unlabeled-ratio/plots/unlabeled-per-iterations/h0.25/radius-9/plot-model-triangle-concavities-probe.pdf}}%
 \end{minipage}%
 \begin{minipage}[b]{0.5\textwidth}
-\subfloat[]{ \includegraphics[scale=0.35]{figures/chapter6/unlabeled-ratio/plots/unlabeled-per-iterations/h0.25/radius-3/plot-model-flower-concavities-probe.pdf}}\\%
-\subfloat[]{ \includegraphics[scale=0.35]{figures/chapter6/unlabeled-ratio/plots/unlabeled-per-iterations/h0.25/radius-5/plot-model-flower-concavities-probe.pdf}}\\%
-\subfloat[]{ \includegraphics[scale=0.35]{figures/chapter6/unlabeled-ratio/plots/unlabeled-per-iterations/h0.25/radius-7/plot-model-flower-concavities-probe.pdf}}%
+%\subfloat[]{ \includegraphics[scale=0.38]{figures/chapter6/unlabeled-ratio/plots/unlabeled-per-iterations/h0.25/radius-3/plot-model-flower-concavities-probe.pdf}}\\%
+\subfloat[]{ \includegraphics[scale=0.38]{figures/chapter6/unlabeled-ratio/plots/unlabeled-per-iterations/h0.25/radius-5/plot-model-flower-concavities-probe.pdf}}\\%
+\subfloat[]{ \includegraphics[scale=0.38]{figures/chapter6/unlabeled-ratio/plots/unlabeled-per-iterations/h0.25/radius-9/plot-model-flower-concavities-probe.pdf}}%
 \end{minipage}
-\caption{For each plot, we first produce the sequence of shapes $\left\{ \Ds^{(k)} \right\}$ executing FlipFlow with $m=r$. Then, for each shape in $\left\{ \Ds^{(k)} \right\}$, we execute one iteration of FlipFlow for different values of $m$ and we count the unlabeled pixels. The number of unlabeled pixels by QPBOP remains high for lower values of $m$, and goes to zero when $m=r$. We observe the same behavior for varying radius values.}
-\label{fig:unlabeled-versus-iterations}
+\caption{\daniel{\textbf{Unlabeled variables ratio across $m$-rings.}}For each plot, we first produce the sequence of shapes $\left\{ \Ds^{(k)} \right\}$ executing FlipFlow with $m=r$. Then, for each shape in $\left\{ \Ds^{(k)} \right\}$, we execute one iteration of FlipFlow for different values of $m$ and we count the unlabeled pixels. The number of unlabeled pixels by QPBOP remains high for lower values of $m$, and goes to zero when $m=r$. %We observe the same behavior for varying radius values.
+}
+\label{ch6:fig:unlabeled-versus-iterations}
 \end{figure}
 
 
@@ -287,75 +303,136 @@ varies across values of $m$ differs from shape to shape, as is illustrated in~\c
 \section{Evaluation across $m$-rings}
 \label{ch6:sec:evaluation-across-rings}
 
-The QPBOP method leaves many pixels unlabeled for $m=0$, but the ratio of unlabeled pixels tends to decrease as we take higher values of $m$. In this section, we argue that by evaluating the estimation ball along outer rings we obtain smoother evolutions by focusing the optimization process only on regions of high squared curvature value.
+%\begin{figure}
+%\center
+%\begin{tabular}{p{3em}ccc}
+%$m=1$ & \includegraphics[scale=0.22]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-5/level1/summary.pdf} &
+%\includegraphics[scale=0.22]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level1/summary.pdf} &
+%\includegraphics[scale=0.22]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-5/level1/summary.pdf} \\[2em]
+%$m=3$ & \includegraphics[scale=0.22]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-5/level3/summary.pdf} &
+%\includegraphics[scale=0.22]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level3/summary.pdf} &
+%\includegraphics[scale=0.22]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-5/level3/summary.pdf} \\[2em]
+%$m=4$ & \includegraphics[scale=0.22]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-5/level4/summary.pdf} &
+%\includegraphics[scale=0.22]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level4/summary.pdf} &
+%\includegraphics[scale=0.22]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-5/level4/summary.pdf} \\[2em]
+%$m=5$ & \includegraphics[scale=0.22]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-5/level5/summary.pdf} &
+%\includegraphics[scale=0.22]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level5/summary.pdf} &
+%\includegraphics[scale=0.22]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-5/level5/summary.pdf} \\[2em]
+%\end{tabular}
+%\caption{\daniel{\textbf{FlipFlow results for $\mathbf{r=5}$.}} By positioning the estimation ball on outer rings, we minimize artifacts creation. %The radius of the estimation ball used here equals to $5$ and the curves are displayed every $10$ iterations.
+%}
+%\label{ch6:fig:mrings-r5-evolution}
+%\end{figure}
+%
+%
+%\begin{figure}
+%\center
+%\begin{tabular}{p{3em}ccc}
+%$m=1$ & \includegraphics[scale=0.22]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-9/level1/summary.pdf} &
+%\includegraphics[scale=0.22]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level1/summary.pdf} &
+%\includegraphics[scale=0.22]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-9/level1/summary.pdf} \\[2em]
+%$m=5$ & \includegraphics[scale=0.22]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-9/level5/summary.pdf} &
+%\includegraphics[scale=0.22]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level5/summary.pdf} &
+%\includegraphics[scale=0.22]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-9/level5/summary.pdf} \\[2em]
+%$m=8$ & \includegraphics[scale=0.22]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-9/level8/summary.pdf} &
+%\includegraphics[scale=0.22]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level8/summary.pdf} &
+%\includegraphics[scale=0.22]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-9/level8/summary.pdf} \\[2em]
+%$m=9$ & \includegraphics[scale=0.22]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-9/level9/summary.pdf} &
+%\includegraphics[scale=0.22]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level9/summary.pdf} &
+%\includegraphics[scale=0.22]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-9/level9/summary.pdf} \\[2em]
+%\end{tabular}
+%\caption{\daniel{\textbf{FlipFlow results for $\mathbf{r=9}$.}} By positioning the estimation ball on outer rings, we minimize artifacts creation. %The radius of the estimation ball used here equals to $9$ and the curves are displayed every $10$ iterations.
+%}
+%\label{ch6:fig:mrings-r9-evolution}
+%\end{figure}
 
-In~\cref{fig:mrings-r5-evolution,fig:mrings-r9-evolution} we evaluate several flows for different energies $E_{(\vec{\theta},m)}^{flip}$. As expected, the number of artifacts decrease as the value of $m$ increases, while the process still tends to shrink the shape to a single point, resembling the curvature flow. 
 
-We confirm the stability of the model by looking at the plots of the digital Elastica energy values for the produced shapes. Moreover, the produced flow has no difficulties in handling changes on topology, and it presents different speeds for regions with low and high curvature values, as illustrated in~\cref{fig:handle-topology-different-speed}.
-
-The computation of estimation balls at outer rings raises the question about its validity as a curvature estimator. In fact, one can estimate the curvature using outer balls (see~\cref{app:curvature-and-distant-disks}), but we were not able to prove its multigrid convergence. However, this relation suggests that curvature information is at least qualitatively present in the outer balls computation, and this computation is preferred, as it is easier to optimize accordingly to the experiments illustrated in~\cref{fig:mrings-r5-evolution,fig:mrings-r9-evolution,fig:unlabeled-versus-iterations,fig:mrings-plots-r5-r9}.
 
 \begin{figure}
 \center
-\begin{tabular}{p{3em}ccc}
-$m=1$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-5/level1/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level1/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-5/level1/summary.pdf} \\[2em]
-$m=3$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-5/level3/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level3/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-5/level3/summary.pdf} \\[2em]
-$m=4$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-5/level4/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level4/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-5/level4/summary.pdf} \\[2em]
-$m=5$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-5/level5/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level5/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-5/level5/summary.pdf} \\[2em]
+\begin{tabular}{ccc}
+$m=1$ & $m=4$ & $m=5$\\
+\includegraphics[scale=0.22]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-5/level1/summary.pdf} &
+\includegraphics[scale=0.22]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-5/level4/summary.pdf} &
+\includegraphics[scale=0.22]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-5/level5/summary.pdf}\\[2em]
+\includegraphics[scale=0.22]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level1/summary.pdf} &
+\includegraphics[scale=0.22]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level4/summary.pdf} &
+\includegraphics[scale=0.22]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level5/summary.pdf} 
 \end{tabular}
-\caption{By positioning the estimation ball on outer rings, we minimize artifacts creation. The radius of the estimation ball used here equals to $5$ and the curves are displayed every $10$ iterations. \label{fig:mrings-r5-evolution}}
+\caption{\daniel{\textbf{FlipFlow results for $\mathbf{r=5}$.}} By positioning the estimation ball on outer rings, we minimize artifacts creation. %The radius of the estimation ball used here equals to $5$ and the curves are displayed every $10$ iterations.
+}
+\label{ch6:fig:mrings-r5-evolution}
 \end{figure}
 
 
 \begin{figure}
 \center
-\begin{tabular}{p{3em}ccc}
-$m=1$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-9/level1/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level1/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-9/level1/summary.pdf} \\[2em]
-$m=5$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-9/level5/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level5/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-9/level5/summary.pdf} \\[2em]
-$m=8$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-9/level8/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level8/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-9/level8/summary.pdf} \\[2em]
-$m=9$ & \includegraphics[scale=0.25]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-9/level9/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level9/summary.pdf} &
-\includegraphics[scale=0.25]{figures/chapter6/level-effect/bean/improve/len_pen0/radius-9/level9/summary.pdf} \\[2em]
+\begin{tabular}{ccc}
+$m=1$ & $m=6$ & $m=9$\\
+\includegraphics[scale=0.22]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-9/level1/summary.pdf} &
+\includegraphics[scale=0.22]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-9/level6/summary.pdf} &
+\includegraphics[scale=0.22]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-9/level9/summary.pdf}\\[2em]
+\includegraphics[scale=0.22]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level1/summary.pdf} &
+\includegraphics[scale=0.22]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level6/summary.pdf} &
+\includegraphics[scale=0.22]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level9/summary.pdf}
 \end{tabular}
-\caption{By positioning the estimation ball on outer rings, we minimize artifacts creation. The radius of the estimation ball used here equals to $9$ and the curves are displayed every $10$ iterations. \label{fig:mrings-r9-evolution}}
+\caption{\daniel{\textbf{FlipFlow results for $\mathbf{r=9}$.}} By positioning the estimation ball on outer rings, we minimize artifacts creation. %The radius of the estimation ball used here equals to $9$ and the curves are displayed every $10$ iterations.
+}
+\label{ch6:fig:mrings-r9-evolution}
 \end{figure}
+
+
+
 
 \begin{figure}
 \center
 \subfloat[]{
-\includegraphics[scale=0.5]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-5/level1/level-effect.pdf}}%
+\includegraphics[scale=0.4]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-5/level1/level-effect.pdf}}%
 \subfloat[]{
-\includegraphics[scale=0.5]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-9/level1/level-effect.pdf}}\\[2em]%
+\includegraphics[scale=0.4]{figures/chapter6/level-effect/triangle/improve/len_pen0/radius-9/level1/level-effect.pdf}}%
+
+
 \subfloat[]{
-\includegraphics[scale=0.5]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level1/level-effect.pdf}}%
+\includegraphics[scale=0.4]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level1/level-effect.pdf}}%
 \subfloat[]{
-\includegraphics[scale=0.5]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level1/level-effect.pdf}}%
-\caption{Digital Elastica (II-$5$,$h=0.25$) evaluation at each iteration for several $m$-FlipFlow evolutions. In the left column, we use FlipFlow radius $5$ and in the right column we use FlipFlow radius $9$. }
-\label{fig:mrings-plots-r5-r9}
+\includegraphics[scale=0.4]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level1/level-effect.pdf}}%
+\caption{\daniel{\textbf{Digital elastica evaluation.} We present the results of the FlipFlow model for different values of $m$. %h=0.25
+In the left column, we use FlipFlow radius $5$ and in the right column we use FlipFlow radius $9$. }}
+\label{ch6:fig:mrings-plots-r5-r9}
 \end{figure}
 
 \begin{figure}
 \center
-\subfloat[]{\includegraphics[scale=0.9]{figures/chapter6/topology-change/summary-wave.pdf}}
+\subfloat[]{\includegraphics[scale=0.7]{figures/chapter6/topology-change/summary-wave.pdf}}
 
-\subfloat[]{\includegraphics[scale=0.35]{figures/chapter6/topology-change/summary-square-holes.pdf}}
-\caption{The flow evolves regions of high curvature faster, as illustrated in figure (a). Figure (b) illustrates the property of the FlipFlow algorithm to handle changes in topology.}
-\label{fig:handle-topology-different-speed}
+\subfloat[]{\includegraphics[scale=0.2]{figures/chapter6/topology-change/summary-square-holes.pdf}}
+\caption{\daniel{\textbf{Evolution speed and topology changes.}} The flow evolves regions of high curvature faster, as illustrated in figure (a). Figure (b) illustrates the property of the FlipFlow algorithm to handle changes in topology.}
+\label{ch6:fig:handle-topology-different-speed}
 \end{figure}
+
+\begin{figure}
+\center
+\begin{tabular}{cccc}
+\multirow{2}{*}{Seeds} & \multirow{2}{*}{GrabCut} & $\alpha=0.5, \beta=0.0,$ & $\alpha=0.5, \beta=1.0,$ \\
+& & $\gamma=0.5$ & $\gamma=0.5$\\
+ 	\includegraphics[scale=0.25]{figures/chapter6/segmentation/coala/mt_improve/radius_5/data_0.50/sq_0.00/length_0.50/it_50/seeds.png} & 
+ 	\includegraphics[scale=0.25]{figures/chapter6/segmentation/coala/mt_improve/radius_5/data_0.50/sq_0.00/length_0.50/it_50/gc-seg.png} & 
+ 	\includegraphics[scale=0.25]{figures/chapter6/segmentation/coala/mt_improve/radius_5/data_0.50/sq_0.00/length_0.50/it_50/corrected-seg.png} & 
+ 	\includegraphics[scale=0.25]{figures/chapter6/segmentation/coala/mt_improve/radius_5/data_0.50/sq_1.00/length_0.50/it_50/corrected-seg.png}
+\end{tabular}	
+\caption{Given foreground (green) and background (blue) seeds at picture (a); GrabCut produces picture (b) which is used as input of the Contour Correction algorithm; in pictures (c) and (d) we display the output of Contour Correction algorithm with and without squared curvature regularization. }
+\label{ch6:fig:segmentation}
+\end{figure}
+
+The QPBOP method leaves many pixels unlabeled for $m=0$, \daniel{but in some occasions, the ratio of unlabeled pixels decreases as we take values of $m$ closer to $r$}. In this section, we argue that by evaluating the estimation ball along outer rings we obtain smoother evolutions by focusing the optimization process only on regions of high squared curvature value.
+
+In~\cref{ch6:fig:mrings-r5-evolution,ch6:fig:mrings-r9-evolution} we evaluate several flows for different energies $E_{(\vec{\theta},m)}^{flip}$. As expected, the number of artifacts decrease as the value of $m$ increases, while the process still tends to shrink the shape to a single point, resembling the \daniel{curve shortening flow discussed in~\cref{ch3:sec:curvature-curve-shortening-flow}}. 
+
+We confirm the stability of the model by looking at the plots of the digital elastica energy values for the produced shapes. Moreover, the produced flow has no difficulties in handling changes on topology, and it presents different speeds for regions with low and high curvature values, as illustrated in~\cref{ch6:fig:handle-topology-different-speed}.
+
+The computation of estimation balls at outer rings raises the question about its validity as a curvature estimator. In fact, one can estimate the curvature using outer balls (see~\cref{app2:curvature-and-distant-disks}), but we were not able to prove its multigrid convergence. However, this relation suggests that curvature information is at least qualitatively present in the outer balls computation, and this computation is preferred, as it is easier to optimize accordingly to the experiments illustrated in~\cref{ch6:fig:mrings-r5-evolution,ch6:fig:mrings-r9-evolution,ch6:fig:unlabeled-versus-iterations,ch6:fig:mrings-plots-r5-r9}.
+
+
 
 
 \section{Data term and image segmentation}
@@ -370,7 +447,7 @@ We present an application of the FlipFlow algorithm to supervised image segmenta
 We use the FlipFlow algorithm to regularize an initial contour output by some segmentation algorithm or delineated by the user. In this application, the data term of the FlipFlow
 is set to the data fidelity term~\cref{eq:data-fidelity}.
 	
-\begin{algorithm}
+\begin{algorithm}[]
  \SetKwData{It}{k}
  \SetKwData{MIt}{maxIt}
  \SetKwData{Tol}{tolerance}
@@ -387,7 +464,7 @@ is set to the data fidelity term~\cref{eq:data-fidelity}.
  $k \longleftarrow 0$\;
  \While{ \It $<$ \MIt \bf{and} \Delta $>$ \Tol  }{ 	
  
- 	\comment{Shrinking mode}
+ 	\comment{Shrink mode}
 	\If{ \It is even }{	 
 	 	$x^{(k-1)} \longleftarrow \displaystyle \argmin_{X^{(k-1)}} E_{(\vec{\theta},m)}^{flip}(\Ds^{(k-1)},1-X^{(k-1)}) + \gamma g(X^{(k-1)})$\; 	
  		$\Ds^{(k)} \longleftarrow F^{(k-1)} + x^{(k-1)}$\;
@@ -405,35 +482,26 @@ is set to the data fidelity term~\cref{eq:data-fidelity}.
 	
  }
  \caption{FlipFlow algorithm for segmentation.}
-  \label{alg:contour-correction} 
+  \label{ch6:alg:contour-correction} 
 \end{algorithm}	
-
 
 The algorithm can be initialized by a collection of compact sets, or with the result of a third-party segmentation algorithm, as GrabCut \cite{rother04grabcut}. We include an additional parameter $d$ that dilates the initial sets using a square of side one before executing the flow.
 
-An illustration of the application of the FlipFlow model in image segmentation is presented in~\cref{fig:ch6-segmentation}. We present a more exhaustive list of experiments and comparisons with other methods in~\cref{chapter:results-analysis}.
-	
-\begin{figure}
-\center
-\begin{tabular}{cccc}
-\multirow{2}{*}{Seeds} & \multirow{2}{*}{GrabCut} & $\alpha=0.5, \beta=0.0,$ & $\alpha=0.5, \beta=1.0,$ \\
-& & $\gamma=0.5$ & $\gamma=0.5$\\
- 	\includegraphics[scale=0.25]{figures/chapter6/segmentation/coala/mt_improve/radius_5/data_0.50/sq_0.00/length_0.50/it_50/seeds.png} & 
- 	\includegraphics[scale=0.25]{figures/chapter6/segmentation/coala/mt_improve/radius_5/data_0.50/sq_0.00/length_0.50/it_50/gc-seg.png} & 
- 	\includegraphics[scale=0.25]{figures/chapter6/segmentation/coala/mt_improve/radius_5/data_0.50/sq_0.00/length_0.50/it_50/corrected-seg.png} & 
- 	\includegraphics[scale=0.25]{figures/chapter6/segmentation/coala/mt_improve/radius_5/data_0.50/sq_1.00/length_0.50/it_50/corrected-seg.png}
-\end{tabular}	
-\caption{Given foreground (green) and background (blue) seeds at picture (a); GrabCut produces picture (b) which is used as input of the Contour Correction algorithm; in pictures (c) and (d) we display the output of Contour Correction algorithm with and without squared curvature regularization. }
-\label{fig:ch6-segmentation}
-\end{figure}
+An illustration of the application of the FlipFlow model in image segmentation is presented in~\cref{ch6:fig:segmentation}. We present a more exhaustive list of experiments and comparisons with other methods in~\cref{chapter:results-analysis}.
+
 
 \section{Conclusion}
 \label{ch6:sec:conclusion}
-We presented the FlipFlow model in~\cref{ch6:sec:flipflow-model}, an evolution process that produces shapes of decreasing digital Elastica until a certain inflexion point.~\cref{alg:evolution-model} operates in two distinct modes: the shrinking and the dilation modes. They are responsible for the treatment of convexities and concavities regions, respectively. 
+\daniel{
+We proposed the FlipFlow algorithm, an evolution process based on the minimization of a second-order non-submodular energy that produces shapes of decreasing digital elastica until a certain inflexion point. We point out the submodularization effect of evaluating the FlipFlow model at outer $m$-rings and we observed that the model evolves the shapes in a similar fashion to the curve-shortening flow for an appropriate choice of parameters. 
 
+The FlipFlow operates in two distinct modes: the shrink and the expansion modes. They are responsible for the treatment of convexities and concavities regions, respectively. The model handles changes in topology and can be extended to include extra terms as data regularization term. In particular, we described an application of the FlipFlow model to image segmentation.
 
-~\cref{ch6:sec:optimization-method} briefly describes some properties of QPBO method and its variants used to solve the quadratic binary problem that appears at every iteration of ~\cref{alg:evolution-model}. In~\cref{ch6:sec:evaluation-across-rings} we point out the submodularization effect of evaluating the FlipFlow model at outer $m$-rings. For larger values of $m$, all pixels are labeled by QPBOP. Finally, we extended~\cref{alg:evolution-model} in order to include a data term regularization and do image segmentation using~\cref{alg:contour-correction}.
+It is remarkable that curvature regularization is achieved by evaluating the estimation disks at outer rings. It is also surprising the fact that we are using a quite non-standard operation of taking the solution complement. We have developed an heuristic reasoning to explain the latter and we argue in~\cref{app2:curvature-and-distant-disks} that curvature can still be measured evaluating disks at outer rings. Nonetheless, we may have taken an unnecessary tortuous path and missed the fundamental concept behind it. In the next chapter we identify the key concept behind the FlipFlow model to define a variant of this algorithm which is easier to implement.
+}
 
-
-In the next chapter we identify the key concept behind the FlipFlow model to define a variant of this algorithm which is easier to implement.
-
+%We presented the FlipFlow model in~\cref{ch6:sec:flipflow-model}, an evolution process that produces shapes of decreasing digital elastica until a certain inflexion point.~\cref{ch6:alg:evolution-model} operates in two distinct modes: the shrink and the expansion modes. They are responsible for the treatment of convexities and concavities regions, respectively. 
+%
+%~\cref{ch6:sec:optimization-method} briefly describes some properties of QPBO method and its variants used to solve the quadratic binary problem that appears at every iteration of ~\cref{ch6:alg:evolution-model}. In~\cref{ch6:sec:evaluation-across-rings} we point out the submodularization effect of evaluating the FlipFlow model at outer $m$-rings. For larger values of $m$, all pixels are labeled by QPBOP. Finally, we extended~\cref{ch6:alg:evolution-model} in order to include a data term regularization and do image segmentation using~\cref{ch6:alg:contour-correction}.
+%
+%In the next chapter we identify the key concept behind the FlipFlow model to define a variant of this algorithm which is easier to implement.
