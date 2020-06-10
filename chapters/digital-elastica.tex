@@ -85,11 +85,12 @@ Such set can be extremely large and its complete exhaustion is prohibitively exp
 \subfloat{
 \includegraphics[scale=0.25]{figures/chapter5/gcurves/gc/main-outer.pdf}
 }
-\caption{\textbf{\daniel{$12$-Neighborhood of the square shape.}}The black linels mark the digital contour of the original shape and the gray linels mark the $1$-ring.}
+\caption{\daniel{\textbf{$12$-Neighborhood of the square shape.}The black linels mark the digital contour of the original shape and the gray linels mark the $1$-ring. In the left, a member of $\mathcal{N}_{12}$ in which the red pixels were removed; and in the right a member of $\mathcal{N}_{12}$ in which the yellow pixels were added.} }
+\label{ch5:fig:n12-neighborhood}
 \end{figure}
 
 
-At first glance, we may be tempted to set the local-search neighborhood at the $k$-th iteration as the union of all $n$-neighborhood for $1<n<|\partial \Ds^{(k)}|$. However, that is often unnecessary and time consuming, as the greatest reduction in digital elastica for a member of $\mathcal{N}_n$ is likely very close to the greatest reduction for a member of $\mathcal{N}_{n-1}$. Moreover, we can improve running time by implementing a multiscale approach, i.e., we look for reductions in digital elastica for larger values of $n$ first, and in case of a negative answer we refine our search by choosing a smaller $n$.
+\daniel{In~\cref{ch5:fig:n12-neighborhood} it is shown two members of the $\mathcal{N}_{12}$ neighborhood.} At first glance, we may be tempted to set the local-search neighborhood at the $k$-th iteration as the union of all $n$-neighborhood for $1<n<|\partial \Ds^{(k)}|$. However, that is often unnecessary and time consuming, as the greatest reduction in digital elastica for a member of $\mathcal{N}_n$ is likely very close to the greatest reduction for a member of $\mathcal{N}_{n-1}$. Moreover, we can improve running time by implementing a multiscale approach, i.e., we look for reductions in digital elastica for larger values of $n$ first, and in case of a negative answer we refine our search by choosing a smaller $n$.
 
 The \emph{LocalSearch}~\cref{alg:local-search} describes the local combinatorial process and is suitable for \daniel{any combination of multigrid convergent estimators of perimeter and curvature. In our experiments, we set the $\lambda$-MST~\cite{lachaud07tangent} to estimate elementary length and perimeter. We compare our results for two curvature estimators: the MDCA~\cite{roussillon11mdca} and the integral invariant (II-$r$) estimator~\cite{coeurjolly13integral} ($r$ denoting the radius of the estimation ball).} 
 
@@ -468,7 +469,7 @@ Additionaly, in real applications involving the minimization of elastica, we hav
 \subsection{Topological constraints}
 \label{ch5:subsec:topological-constraints}
 
-The estimation ball should be applied in the \daniel{digital contour} of the shape, which oblige us to impose topological constraints in the model to avoid inconsistent solutions. In order to accomplish that, we set an arbitrary orientation for the faces and another for the edges. We choose counter-clockwise for faces; left-to-right for horizontal edges; and bottom-to-up for vertical edges. \daniel{The topological constraints are essentially the same as those implemented by Schoenemann in its linear programming model and described in~\cref{ch3:sec:discrete-methods-squared-curvature}.}
+The estimation ball should be applied in the \daniel{digital contour} of the shape, which oblige us to impose topological constraints in the model to avoid inconsistent solutions. In order to accomplish that, we set an arbitrary orientation for the faces and another for the edges. We choose counter-clockwise for faces; left-to-right for horizontal edges; and bottom-to-up for vertical edges. \daniel{The topological constraints are essentially the same as those implemented in the linear programming model of~\cite{schoenemann09linear} and described in~\cref{ch3:sec:discrete-methods-squared-curvature}.}
 
 
 We create the vector $\vec{z} \in \daniel{\{0,1\}}^{2n}$. We map each linel identified by variable $\vec{y}_i$ to components $\vec{z}_{2i},\vec{z}_{2i+1}$, one for each possible orientation the linel may assume. Next, we extend the linel incidence matrix defined in~\cref{app2:pixel-incidence-matrix} to hold incidence with respect to oriented edges. The new matrix $\vec{T} \in \daniel{\{0,1\}}^{n \times m + 2n}$ is defined as
