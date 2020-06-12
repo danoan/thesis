@@ -724,44 +724,47 @@ The data term is modeled by
 where $H_{bg},H_{fg}$ are mixed Gaussian distributions derived from foreground and background seeds. We associate the $0$ value to the background label and the $1$ value to the foreground label. The space coherence term is expressed as
 \begin{align*}
 	\psi_{2}(x_p,x_q) &= \left\{ \begin{array}{ll}
-	\displaystyle \exp{ \left(- \frac{\lambda}{d(p,q)}\frac{(I(p) - I(q))^2}{2\sigma^2} \right) }, & q \in \mathcal{N}_k(p) \\[1em]
+	\displaystyle \exp{ \left(- \frac{1}{d(p,q)}\frac{(I(p) - I(q))^2}{2\sigma^2} \right) }, & q \in \mathcal{N}_k(p) \\[1em]
 	0, & \text{otherwise},
 	\end{array}\right.
 \end{align*}
 %
 where $d(p,q)$ is the Euclidean distance between the pixel coordinates of $p,q$ and $\lambda$ is the parameter to control the influence of the terms in the energy. The value $\sigma$ is interpreted as a parameter to configure noise level of the input image; and $k$ denotes the chosen neighborhood cardinality of the graph (e.g. $8$).
 
-Finally, define the cost function $c:\mathcal{E}^+\rightarrow \mathbb{R}$ as
+Finally, given weights $\gamma_r \geq 0$ and $\gamma_b \geq 0$, we define the cost function $c:\mathcal{E}^+\rightarrow \mathbb{R}$ as
 
 \begin{table}[h]
 \center
-\begin{tabular}{c|c|l}	
-	\multicolumn{1}{c|}{\textbf{edge} $\mathbf{e}$} & \multicolumn{1}{c|}{$\mathbf{c(e)}$} & \multicolumn{1}{c}{\textbf{for}}\\
+\setlength{\extrarowheight}{0.75em}
+\begin{tabular}{|c|c|l|}	
+\hline
+	\multicolumn{1}{|c|}{\textbf{edge} $\mathbf{e}$} & \multicolumn{1}{c|}{$\mathbf{c(e)}$} & \multicolumn{1}{c|}{\textbf{for}}\\
 	\hline
-	$\{v_p,v_q\}$ & $\psi_{2}(x_p,x_q)$ & $\forall p \in \vec{I} \text{ and } q \in \mathcal{N}_k(p)$\\
+	$\{v_p,v_q\}$ & $\gamma_b \cdot \psi_{2}(x_p,x_q)$ & $\forall p \in \vec{I} \text{ and } q \in \mathcal{N}_k(p)$\\
 	\hline
-	\multirow{3}{*}{ $\{v_p,s\}$ } & $\psi_1(x_p=0)$ & $\forall p \in \vec{I} \text{ and } p \notin \mathcal{V}_{fg} \cup \mathcal{V}_{bg}$\\
+	\multirow{3}{*}{ $\{v_p,s\}$ } & $\gamma_r \cdot \psi_1(x_p=0)$ & $\forall p \in \vec{I} \text{ and } p \notin \mathcal{V}_{fg} \cup \mathcal{V}_{bg}$\\
 	& $M$ & $p \in \mathcal{V}_{fg}$ \\
 	& $0$ & $p \in \mathcal{V}_{bg}$\\
 	\hline
-	\multirow{3}{*}{ $\{v_p,t\}$ } & $\psi_1(x_p=1)$ & $\forall p \in \vec{I} \text{ and } p \notin \mathcal{V}_{fg} \cup \mathcal{V}_{bg}$\\
+	\multirow{3}{*}{ $\{v_p,t\}$ } & $\gamma_r \cdot \psi_1(x_p=1)$ & $\forall p \in \vec{I} \text{ and } p \notin \mathcal{V}_{fg} \cup \mathcal{V}_{bg}$\\
 	& $0$ & $p \in \mathcal{V}_{fg}$ \\
-	& $M$ & $p \in \mathcal{V}_{bg}$.
+	& $M$ & $p \in \mathcal{V}_{bg}$. \\
+	\hline
 \end{tabular}
 \begin{align*}
-\text{where,} \qquad M = 1 + \max_{p \in \vec{I}}{\sum_{q \in \mathcal{N}_k(p)}}{\psi_2(x_p,x_q)}.
+\text{where,} \qquad M = 1 + \max_{p \in \vec{I}}{\gamma_b \sum_{q \in \mathcal{N}_k(p)}}{\psi_2(x_p,x_q)}.
 \end{align*}
 \end{table}
 
 Notice that each vertex in $\mathcal{V}$ must have one and only one of its terminal edges in a cut set. Let $\mathcal{E}'$ be a cut set partitioning $G_{I+}$ in connected components $(S,T)$, the first connected to the source and the other connected to target. Its cut value is written as 
 \begin{align}
-	\sum_{v_p \in S}{ \psi_1(1) } +\sum_{v_p \in T}{\psi_1(0)} + \sum_{(v_p,v_q) \in \mathcal{E}'}{\psi_2(0,1)}.
+	E^{gcut}(\GGe,\mathcal{E}') &= \gamma_r \left( \sum_{v_p \in S}{ \psi_1(1) } +\sum_{v_p \in T}{\psi_1(0)} \right) + \gamma_b \sum_{(v_p,v_q) \in \mathcal{E}'}{\psi_2(0,1)}.
 \label{ch2:eq:graphcut-cut-value}
 \end{align}
 %
 We observe that~\cref{ch2:eq:graphcut-cut-value} can also be written in the form of the Gibbs energy
 \begin{align}
-	\sum_{x_p \in \vec{X}}{ \psi_1(x_p) } + \frac{1}{2}\sum_{ \substack{x_p,x_q \in \vec{X} \\ x_p \neq x_q }}{\psi_2(x_p,x_q)}.
+	\gamma_r \sum_{x_p \in \vec{X}}{ \psi_1(x_p) } + \frac{\gamma_b}{2}\sum_{ \substack{x_p,x_q \in \vec{X} \\ x_p \neq x_q }}{\psi_2(x_p,x_q)}.
 	\label{ch2:eq:graph-cut-gibbs}
 \end{align}
 %

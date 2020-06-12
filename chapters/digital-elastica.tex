@@ -15,7 +15,7 @@
 Similarly, the digital elastica $\hat{E}_{\Theta}$ of some digitization $D_h(S)$ of $S$ is defined as
 	\begin{align}
 	\hat{E}_{\Theta}( D_h(S) ) = \sum_{\dot{\vec{e}} \in \partial_h S}{ \hat{s}( \dot{\vec{e}})\left(\; \alpha + \beta \hat{\kappa}^2(D_h(S),\dot{\vec{e}},h) \; \right)},
-	\label{eq:digital-elastica}
+	\label{ch5:digital-elastica}
 	\end{align}
 where $\dot{\vec{e}}$ denotes the center of the linel $\vec{e}$ \daniel{and the estimators of length $\hat{s}$ and curvature $\hat{\kappa}$ are multigrid convergent}. In the
 expression above, we will substitute an arbitrary subset $\Ds$ of
@@ -24,7 +24,7 @@ In the following we omit the grid step $h$ to simplify expressions
 (or, putting it differently, we assume that the shape of interest is
 rescaled by $1/h$ and we set $h=1$). 
 
- In the next section, we describe a combinatorial scheme whose aim is to optimize the digital elastica energy~\cref{eq:digital-elastica}.
+ In the next section, we describe a combinatorial scheme whose aim is to optimize the digital elastica energy~\cref{ch5:digital-elastica}.
 % that permit us to find the minimum digital shape with respect the digital elastica energy for some neighborhood of shapes of $\Ds$. 
 
 \section{Local combinatorial scheme}
@@ -172,7 +172,7 @@ The \emph{LocalSearch}~\cref{alg:local-search} describes the local combinatorial
 We study the behaviour of~\cref{alg:local-search} in two problem configurations. 
 
 \begin{itemize}
-	\item[]{ \textbf{Free elastica.} The digital elastica~\cref{eq:digital-elastica} is optimized without any constraint. }
+	\item[]{ \textbf{Free elastica.} The digital elastica~\cref{ch5:digital-elastica} is optimized without any constraint. }
 	\item[]{ \textbf{Constrained elastica.} We force pixels to be present in the final shape or we impose an orientation in the endpoints of a segment of the digital contour.}	
 \end{itemize}
 }
@@ -186,7 +186,7 @@ As observed in~\cref{ch3:sec:elastica-curve}, the closed planar curve that minim
 \end{align*}
 }
 %We study the performance of~
-%In the free digital elastica energy we optimize~\cref{eq:digital-elastica} without any constraint. We observe that for $\alpha=0, \beta >0$ the elastica becomes the integration of the squared curvature  along the shape contour which has the ball of infinite radius as its minimizer. For $\alpha > 0, \beta=0$, minimize elastica becomes minimize perimeter (curvature flow). It is easy to see that for $\alpha, \beta > 0$, the optimal shape for the elastica is a disk of radius $r$. We can easily find the value of $r$.
+%In the free digital elastica energy we optimize~\cref{ch5:digital-elastica} without any constraint. We observe that for $\alpha=0, \beta >0$ the elastica becomes the integration of the squared curvature  along the shape contour which has the ball of infinite radius as its minimizer. For $\alpha > 0, \beta=0$, minimize elastica becomes minimize perimeter (curvature flow). It is easy to see that for $\alpha, \beta > 0$, the optimal shape for the elastica is a disk of radius $r$. We can easily find the value of $r$.
 %\begin{align*}
 %	\frac{d}{dr}\big( \int_{\partial B(r)}{ (\alpha + \beta \kappa ^2) ds} \big ) &= 0\\
 %	\frac{d}{dr}\big( \alpha 2\pi r + \beta2\pi/r \big) &= 0\\
@@ -412,7 +412,7 @@ Ellipse  & 626 & 1s (0.14s/it) & 2506 & 16s (0.44s/it) & 10038 & 286s (3.1s/it)\
 
 \section{Global optimization}
 \label{ch5:sec:global-optimization}
-\daniel{As observed in previous section, a global optimization method is important to recover the completion property of curvature, which is useful in inpainting and segmentation of thin and elongated objects.} In this section we turn to a global optimization approach. However, instead of minimizing~\cref{eq:digital-elastica} we focus on a simplified version of it in which we do not compute the local length estimator. \daniel{This simplification reduces the order of the energy and will likely lead to a practical model.}
+\daniel{As observed in previous section, a global optimization method is important to recover the completion property of curvature, which is useful in inpainting and segmentation of thin and elongated objects.} In this section we turn to a global optimization approach. However, instead of minimizing~\cref{ch5:digital-elastica} we focus on a simplified version of it in which we do not compute the local length estimator. \daniel{This simplification reduces the order of the energy and will likely lead to a practical model.}
 
 \subsection{Simplified digital elastica}
 \label{ch5:subsec:simplified-digital-elastica}
@@ -424,7 +424,7 @@ The simplified digital elastica is defined as
 	\end{align}
 %	
 %
-We argue that~\cref{eq:simplified-digital-elastica} is a reasonable approximation of~\cref{eq:digital-elastica}. Indeed, executing~\cref{alg:local-search} to minimize this simplified digital elastica induces very similar results to those for the digital elastica (see~\cref{fig:simplified-elastica}).
+We argue that~\cref{eq:simplified-digital-elastica} is a reasonable approximation of~\cref{ch5:digital-elastica}. Indeed, executing~\cref{alg:local-search} to minimize this simplified digital elastica induces very similar results to those for the digital elastica (see~\cref{fig:simplified-elastica}).
 
 
 \begin{figure}[]

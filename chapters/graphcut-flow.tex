@@ -1,169 +1,48 @@
-\chapter{Digital Elastica minimization via graph cuts}
+\chapter{Digital elastica minimization via graph cuts}
 \label{chapter:graphflow}
 
-In the previous chapter we have defined the concept of balance coefficient that motivates us to introduce the BalanceFlow model. In fact, the balance coefficient is also present in the FlipFlow energy and it seems that its computation is in the core of the evolution processes described so far. We confirm this hypothesis once more in this chapter. We present a graph-based model that converges to the optimum digital shape for the free digital Elastica problem. Moreover, the model is easily adapted to image segmentation tasks.
-
-\section{Standard graph-cut segmentation}
-The Grabcut model \cite{rother04grabcut} partitions an image in foreground and background components by computing minimum cuts in a graph. The model is very attractive, as minimum cuts are quickly computed for sparse graphs. We start by giving some necessary definitions from graph theory.
-
-\subsection{Definitions}
-
-\begin{definition}{Unordered graph}
-The unordered graph $\mathcal{G}(\mathcal{V},\mathcal{E})$ is a pair of sets $\mathcal{V},\mathcal{E}$ such that $\mathcal{V}$ is finite and $\mathcal{E}$ is a collection of unordered pairs of $\mathcal{V}$, i.e., 
-\begin{align*}
-\mathcal{E} \subseteq  \left\{ \; \{x,y\} \; | \; x,y \in \mathcal{V} \; \right\}.
-\end{align*}
-\end{definition}
-\begin{definition}{Connected graph}
-The graph $\mathcal{G}(\mathcal{V},\mathcal{E})$ is connected if for every pair of vertices $v,u$ there exists a path $\pi$ of length $n$ such that
-\begin{align*}
-	v_1 = v, \quad v_n = u, \quad 	\pi = \left\{ v_i \; | \; \{v_{i-1},v_{i}\} \subset \mathcal{E} \right\},\quad  2<i<n.
-\end{align*}
-\end{definition}
-
-A digital set $\Ds \subset \Omega \subset \mathbb{Z}^2$ is naturally represented as a graph $\mathcal{G}(\mathcal{V},\mathcal{E})$ by letting each pixel $p \in \Ds$ correspond to a vertex $v_p \in \mathcal{V}$. The set of edges is defined according to the application in mind, but it's encodes the pixels connectivity, i.e., $4,8$-adjacency.  Moreover, one can define a cost function $w:\mathcal{E}\rightarrow \mathbb{R}$ on the edge set. In this case, we speak of a weighted graph.
-
-\begin{definition}{Cut}
-Let $\mathcal{G}(\mathcal{V},\mathcal{E})$ a connected graph weighted  by cost function $w:\mathcal{E}\rightarrow \mathbb{R}$. A cut set is a subset $\mathcal{E}' \subset \mathcal{E}$ such that the graph $\mathcal{G}(\mathcal{V},\mathcal{E} \setminus \mathcal{E}')$ is disconnected. Moreover, the cut value of $\mathcal{E}'$ is defined as
-\begin{align*}
-	cut(\mathcal{E}) &= \sum_{e \in \mathcal{E}'}{w(e)}.
-\end{align*}
-\end{definition}
-
-We are interested in $(s,t)$-cuts, i.e., cuts in which vertices $s,t$ are disconnected after the cut set is removed. We denote $s,t$ as the source and target vertices, respectively. 
-
-%Cuts are a natural way to partition a digital shape in two disjoint sets. In the GrabCut algorithm, the images are partitioned in foreground and background. In the context of shape evolution, we partition the vertices in: those belong to $\Ds$ (connected to source) and those who do not belong to $\Ds$ (connected to target).
-
-The Grabcut model consists in a judicious definition of the cost function $w$ in order to segment objects in a digital image according to its color intensity values.
-
-\subsection{Grabcut binary segmentation model}
-Let $I:\Omega\rightarrow [0,1]^3$ be a $3$-channel colored image. Consider the graph $\mathcal{G}(\mathcal{V},\mathcal{E})$ defined as
-\begin{align*}
-	\mathcal{V} &= \left\{ v_p \; | \; \forall p \in \Omega \right\} \cup \{s,t\}\\
-	\mathcal{E} &= \mathcal{E}_{st} \cup \mathcal{E}_{\mathcal{N}},
-\end{align*}
-where 
-\begin{align*}
-\mathcal{E}_{st} &= \left\{ \{s,v_p\}, \{t,v_p\} \; | \; \forall p \in \mathcal{V}  \right\} \\
-\mathcal{E}_{\mathcal{N}} &= \left\{ \{v_p,v_q\} \; | \; \forall p\,, p \in \mathcal{V} \text{ and } q\in \mathcal{N}_4(p)  \right\}.
-\end{align*}
-%
-Next, let sets $\mathcal{V_F}, \mathcal{V_B} \subset \mathcal{V}$ to represent foreground and background seeds input by the user. Vertices in $\mathcal{V_F}$ ($\mathcal{V_B}$) are forced to be connected to the source (target) after the removal of the minimum cut set.
-
-Consider the functions
-\begin{align*}
-	B(\{v_p,v_q\}) &= exp \left( -\frac{ \big(I(p) - I(q)\big)^2}{2\sigma ^2} \right) \\
-	R(v_p,``bg") &= -\ln H_B(p)\\
-	R(v_p,``fg") &= -\ln H_F(p),
-\end{align*}
-%
-where $H_B,H_F$ are mixed Gaussian distributions derived from  foreground and background seeds given by the user; and $\sigma$ is interpreted as a parameter to configure noise level of the input image.
-
-Finally, define the cost function $w:\mathcal{E}\rightarrow \mathbb{R}$ as
-
-\begin{table}[H]
-\centering
-\setlength{\extrarowheight}{0.75em}
-\begin{tabular}{|c|c|c|}
-\hline
-\textbf{edge} $e$ & $\mathbf{w(e)}$ & \textbf{for}\\
-\hline
-$\{v_p, v_q\}$ & $B(e)$ & $e \in \mathcal{E}_{\mathcal{N}}$\\
-\hline
-\multirow{3}{*}{$\{v_p, s\}$} & $\lambda_r R(v_p,\text{``bg"})$ & $p \in \mathcal{\mathcal{V}}, p \notin \mathcal{\mathcal{V}}_F \cup \mathcal{\mathcal{V}}_B$\\
-& M & $p \in \mathcal{\mathcal{V}}_F$ \\
-& 0 & $p \in \mathcal{\mathcal{V}}_B$ \\
-\hline
-\multirow{3}{*}{$\{v_p, t\}$} & $\lambda_r R(v_p,\text{``fg"})$ & $p \in \mathcal{\mathcal{V}}, p \notin \mathcal{\mathcal{V}}_F \cup \mathcal{\mathcal{V}}_B$\\
-& 0 & $p \in \mathcal{\mathcal{V}}_F$ \\
-& M & $p \in \mathcal{\mathcal{V}}_B$ \\
-\hline
-\end{tabular}
-\begin{align*}
-\text{where,} \qquad M = 1 + \max_{p \in \Omega}{\sum_{q \in \mathcal{N}_4(p)}}{B(\{p,q\})}.
-\end{align*}
-\end{table}
-
-Let $\mathcal{E}'$ be a minimum cut of $\mathcal{G}$ and $C$ the connected component of $\mathcal{G}$ induced by $\mathcal{E}'$ that contains the source vertex. The grabcut energy value is given by
-\begin{align*}
-	grab_{\Lambda}(C) &= \lambda_r \cdot \Big( \sum_{p \in C}{R(v_p,``fg")} + \sum_{p \in \overline{X}}{R(v_p,``bg")} \Big) + \lambda_b \cdot \sum_{e \in \mathcal{E}'}{B(e)}.
-\end{align*}
-%
-%
-The Grabcut segmentation is heavily impacted by the quality of the input image. To attenuate the problem, one could extend the Grabcut model by defining a cost function that takes geometric information into account. Indeed, the work \cite{boykov03geodesics} describes a cost function in which one could do image segmentation with length regularization. There exist some attempts \cite{nieuwenhuis14efficient,zehiry10fast} to inject curvature information in a graph-cut framework, but the models present issues on running time and lack precision on the estimation of curvature. In the next section we describe a graph-cut model that uses the balance coefficient to regularize curvature.
-
+In the previous chapter we have defined the concept of balance coefficient that motivates us to introduce the BalanceFlow model. In fact, the balance coefficient is also present in the FlipFlow energy and it seems that its computation is in the core of the evolution processes described so far. We confirm this hypothesis once more in this chapter. We present a graph-based model that converges to the optimum digital shape for the free digital elastica problem. Moreover, the model is easily adapted to image segmentation tasks.
 
 \section{GraphFlow model}
-Given some energy $E$, the GraphFlow model is divided into two main steps: candidate selection and validation. At the candidate selection step, a minimum cut is computed for each member of a set of candidate graphs. From the minimum cuts we derive candidate solutions for the minimization of $E$. The validation step consists in selecting the candidate solution with the lowest value of $E$.
 
-The GraphFlow model is suitable for the free, constrained Elastica and image segmentation problems. In particular, the GraphFlow model is a simple extension of the Grabcut model for image segmentation that regularizes the squared curvature.
+\daniel{The model presented in this chapter is highly influenced by the graph cut model described in~\cref{ch2:sec:graph-cut-models}~\cite{boykov01interactive}. We recall that this model constructs a cost function on the image grid graph edges such that the minimum cut of graph minimized the segmentation energy. The model is very attractive as minimum cuts are quickly computed for sparse graphs. }
 
-In the next sections, we are going to describe the GraphFlow model that aims to minimize the energy
+\daniel{Let $\vec{I} \in \mathbb{F}^{m \times n}$ a discrete image and its extended grid graph $\GGe (\mathcal{V}^+,\mathcal{E}^+)$. Given a cut $\mathcal{E}'$ of $\GGe$ partitioning the graph in disjoint sets $S$ and $T$, we recall that the energy minimized by the graph cut model is written as}
+\begin{align*}
+	E^{gcut}(\GGe,\mathcal{E}') &= \gamma_r \left( \sum_{v_p \in S}{ \psi_1(1) } +\sum_{v_p \in T}{\psi_1(0)} \right) + \gamma_b \sum_{(v_p,v_q) \in \mathcal{E}'}{\psi_2(0,1)},
+\end{align*}
+where, given a neighborhood cardinality $k$, data and space coherence terms are defined as
+\begin{align*}
+	\psi_1(x_p) &= \left\{ \begin{array}{ll}
+	-\ln  H_{bg}\big( I(p) \big), & \text{if } x_p=0  \\[1em]	
+	-\ln  H_{fg}\big( I(p) \big), & \text{if } x_p=1,
+	\end{array}\right.\\[1em]
+	\psi_{2}(x_p,x_q) &= \left\{ \begin{array}{ll}
+	\displaystyle \exp{ \left(- \frac{1}{d(p,q)}\frac{(I(p) - I(q))^2}{2\sigma^2} \right) }, & q \in \mathcal{N}_k(p) \\[1em]
+	0, & \text{otherwise}.
+	\end{array}\right.
+\end{align*}
+\daniel{We denote $D^{(0)}$ the digital set induced from the foreground component returned by the standard graph cut algorithm. The GraphFlow model produces a sequence of digital shapes $D^{(k)}$ and is composed of two steps
+\begin{itemize}
+	\item[]{\textbf{Candidate selection:} We associate to $D^{(k)}$ a set of neighbor shapes $\mathcal{P}(D^{(k)})$. For each $D' \in \mathcal{P}(D^{(k)})$ we construct its candidate graph $\mathcal{G}_{D'}$ and we compute its minimum cut according to energy
 \begin{align}
-E^{graph} &= \hat{E}_{\vec{\theta}} + grab_{\Lambda}.
-\label{ch8:eq:graphflow-energy}
+E^{gflow}(\mathcal{G}_{D'},\mathcal{E}',D^{(k)}) =& \sum_{ (v_p,v_q) \in \mathcal{E}'}{\big(u(D^{(k)},p) + u(D^{(k)},q) \big)} + E^{gcut}(\mathcal{G}_{D'}, \mathcal{E}').
+\label{ch8:eq:graphflow-candidate}
+\end{align}}
+\item[]{\textbf{Validation:} Each minimum cut $Q$ computed in the previous step induces a solution candidate $D_{Q}$. We group minimum cuts and solution candidates in the validation set $val(D^{(k)})$. We choose among the solution candidates the one that minimizes 
+\begin{align}
+	E^{val}(\GG,Q,D_Q) &= \hat{E}_{\theta}({D_Q}) + E^{gcut}(\mathcal{G}_{\vec{I}},Q).
+	\label{ch8:eq:graphflow-energy}
 \end{align}
-%
-%
-\subsection{The candidate graph}
+}	
+\end{itemize}
+We recall that $\hat{E}_\theta$ stands for the digital elastica energy~\cref{ch5:digital-elastica}. We observe that, in the validation step, we consider the image grid graph and not the candidate graph. The validation step plays an important role in the emulation of the completion property associated with the squared curvature term. }
 
-%Let $I:\Omega \rightarrow [0,1]^3$ a $3$-channel colored image and $\Ds$ a digital set representing a initial foreground partition of image $I$. 
+The GraphFlow model is suitable for the free, constrained elastica and image segmentation problems and can be seen as a simple extension of the graph cut segmentation model with an regularization term by squared curvature.
 
-Let $\Ds \subset \Omega \subset \mathbb{Z}^2$ a digital set. Given $n>0$, we define the optimization band $O_n(\Ds)$ as
-\begin{align*}
-	O_n(\Ds) &:=\left\{ p \in \Omega \; | \; -n \leq d_{\Ds}(p) \leq n \right\}.
-\end{align*}
-%
-We are going to construct the candidate graph $\mathcal{G}_n(\Ds) = ( \mathcal{V},\mathcal{E})$. The vertex and edge sets are defined as 
-\begin{align*}
-	\mathcal{V} &= \{ v_p \; | \; p \in \Ds \cup O_n \} \cup \{s,t\} \\
-	\mathcal{E} &= \mathcal{E}_{st} \cup \mathcal{E}_\mathcal{N}.
-\end{align*}
-%
-where $s,t$ are the source and target vertices, respectively. As in the previous section, sets $\mathcal{V}_F,\mathcal{V}_B \subset \mathcal{V}$ correspond to foreground and background seeds input by the user. Additionally, we define the sets
-\begin{align*}
-	\mathcal{V}_s &= \left\{ v_p \; | \; p \in \Ds \setminus O_n(\Ds) \right\}\\
-	\mathcal{V}_t &= \left\{ v_p \; | \; p \in \overline{\Ds} \setminus O_n(\Ds) \right\}.
-\end{align*}
-%
-The sets $\mathcal{V}_s, \mathcal{V}_t$ are forced to be connected to source and target components, respectively. The cost function $w:\mathcal{E}\rightarrow \mathbb{R}$ is defined as 
+\subsection{Candidate graphs and validation set}
 
-\begin{table}[H]
-\centering
-\setlength{\extrarowheight}{0.75em}
-\begin{tabular}{|c|c|c|}
-\hline
-\textbf{edge} $e$ & $\mathbf{w(e)}$ & \textbf{for}\\
-\hline
-$\{v_p, v_q\}$ & $\beta \big(u(\Ds,p) + u(\Ds,q)\big) + \lambda_bB(e)$ & $p,q \in \mathcal{E}_{\mathcal{N}}$\\
-\hline
-\multirow{3}{*}{$\{v_p, s\}$} & $\lambda_r R(v_p,\text{``bg"})$ & $p \in \mathcal{V}, p \notin \mathcal{V}_F \cup \mathcal{V}_B \cup \mathcal{V}_s \cup \mathcal{V}_t$\\
-& $\lambda_r M_1\mathbbm{1}_{\mathcal{V}_F}(p) + \beta M_2\mathbbm{1}_{\mathcal{V}_s}(p)$ & otherwise \\
-\hline
-\multirow{3}{*}{$\{v_p, t\}$} & $\lambda_r R(v_p,\text{``fg"})$ & $p \in \mathcal{V}, p \notin \mathcal{V}_F \cup \mathcal{V}_B \cup \mathcal{V}_s \cup \mathcal{V}_t$ \\
-& $\lambda_r M_1\mathbbm{1}_{\mathcal{V}_B}(p) + \beta M_2\mathbbm{1}_{\mathcal{V}_t}(p)$ & otherwise \\
-\hline
-\end{tabular}
-\end{table}
-
-The constants $M_1,M_2$ are defined as
-\begin{align*}
-M_1 &= 1 + \max_{p \in \Omega}{\sum_{q \in \mathcal{N}_4(p)}}{B(\{p,q\})} \\
-M_2 &= 1 + \max w(p,q).
-\end{align*}
-%
-%
-Let $\mathcal{E}'$ the minimum cut of $\mathcal{G}_n(\Ds)$. Moreover, let $C_n(\Ds)$ be the connected component of the graph $\mathcal{G}_n(\Ds)$ that contains the source vertex $s$ and is restricted to $\mathcal{E} \setminus \mathcal{E}'$. The digital set 
-\begin{align*}
-	\Ds' &= \{ p \; | \; v_p \in C_n(\Ds) \}
-\end{align*}
-%
-is said to be a candidate shape to decrease~\cref{ch8:eq:graphflow-energy}. We are going to use $C_n(\Ds)$ interchangeably with $\Ds'$ to denote both the set of vertices and the corresponding points of a digital set. In the next section we describe a local-search algorithm whose neighborhood is defined using a set of candidate graphs.
- 
-
-\subsection{GraphFlow algorithm}
-	The GraphFlow algorithm implements a local-search strategy to minimize~\cref{ch8:eq:graphflow-energy}. Its neighborhood is derived from a set of candidate graphs, called the probe-set. 	
-	The probe-set of $\Ds$ can be defined as any collection of digital sets, but it makes more sense to define it as a collection of digital shapes that are somehow close to $\Ds$. For example, we define the $a$-probe set of shape $\Ds$ as
+The set of candidate graphs of $D$ are derived from some neighborhood of shapes with respect to $D$. We define the $a$-probe set as an example of such neighborhood.
 
 \begin{definition}{$a$-probe set}
 	Let $\Ds$ a digital set and $a$ a natural number. The $a$-probe set of $\Ds$ is defined as
@@ -172,14 +51,69 @@ is said to be a candidate shape to decrease~\cref{ch8:eq:graphflow-energy}. We a
 	\end{align*}
 	where $\Ds^{+a}$($\Ds^{-a}$) denotes a dilation(erosion) by a circle of radius $a$.
 \end{definition}
-
-Therefore, we define the local-search neighborhood of digital set $\Ds$ as
+%
+%
+We are going to construct a candidate graph for each member of $\mathcal{P}_a(D)$, but we are going to consider only the pixels of $D$ contained in a band around its contour.
+%
+%
+\begin{definition}{Optimization band}
+Let $\Ds$ a digital set and $n>0$. The optimization band $O_n(\Ds)$ is defined as
 \begin{align*}
-	\mathcal{N}(\Ds) &= \left \{ C_n(X) \; | \; Q \in \mathcal{P}_a(\Ds) \right\}.
+	O_n(\Ds) &:=\left\{ p \in \Omega \; | \; -n \leq d_{\Ds}(p) \leq n \right\}.
+\end{align*}
+\end{definition}
+%
+%
+
+For each $D' \in \mathcal{P}_a$ we construct the capacited graph $\mathcal{G}_{D'}(\mathcal{V},\mathcal{E},c)$ with vertex and edge sets defined as
+\begin{align*}
+	\mathcal{V} &= \{ v_p \; | \; p \in O_n(D') \} \cup \{s,t\} \\
+	\mathcal{E} &= \mathcal{E}_{st} \cup \mathcal{E}_\mathcal{N},
+\end{align*}
+where $s,t$ are the source and target vertices, respectively and
+\begin{align*}
+	\mathcal{E}_{st} &= \{ (s,v_p), (v_p,t) \; | \; p \in O_n(D') \} \\
+	\mathcal{E}_{\mathcal{N}_k} &= \{ \{v_p, v_q\} \; | \; p \in O_n(D') \text{ and } q \in \mathcal{N}_k(p) \}.	
+\end{align*}
+
+%
+%
+In case of image segmentation, we assume that exist sets $\mathcal{V}_{fg},\mathcal{V}_{bg} \subset \mathcal{V}$ corresponding to foreground and background seeds furnished by the user. The cost function $c:\mathcal{E}\rightarrow \mathbb{R}$ is defined as 
+
+\begin{table}[H]
+\centering
+\setlength{\extrarowheight}{0.75em}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{edge} $e$ & $\mathbf{c(e)}$ & \textbf{for}\\
+\hline
+$\{v_p, v_q\}$ & $\beta \cdot \big(u(D',p) + u(D',q)\big) + \gamma_b \cdot \psi_2(0,1)$ & $\{v_p,v_q\} \in \mathcal{E}_{\mathcal{N}}$\\
+\hline
+\multirow{3}{*}{$\{v_p, s\}$} & $\gamma_r \cdot \psi_1(0)$ & $p \in O_n(D'), v_p \notin \mathcal{V}_{fg} \cup \mathcal{V}_{bg}$\\
+& $M$ & $v_p \in \mathcal{V}_{fg}$ \\ 
+& 0 & $v_p \in \mathcal{V}_{bg}$\\
+\hline
+\multirow{3}{*}{$\{v_p, t\}$} & $\gamma_r \cdot \psi_1(1)$ & $p \in O_n(D'), v_p \notin \mathcal{V}_{fg} \cup \mathcal{V}_{bg}$ \\
+& 0 & $v_p \in \mathcal{V}_{fg}$ \\
+& $M$ & $v_p \in \mathcal{V}_{bg}$ \\
+\hline
+\end{tabular}
+\end{table}
+
+where the constant $M$ is given by
+\begin{align*}
+M &= 1 + \max_{p \in O_n(D')}{ \beta \cdot \big(u(D',p) + u(D',q)\big) + \gamma_b \cdot \psi_2(0,1) }.
 \end{align*}
 %
-Finally, the GraphFlow algorithm is described in~\cref{ch8:alg:graphflow-algorithm}.
-
+%
+Let $mincut(Q,\mathcal{G})$ a predicate indicating that $Q$ is a minimum cut set of some capacited graph $\mathcal{G}(\mathcal{V},\mathcal{E},c)$. We define the validation set of some digital set $D$ as
+\begin{align*}
+	val(D) &= \bigcup_{D' \in \mathcal{P}_a(D)} \Big\{ \big( Q,D(Q) \big) \; | \; mincut(Q,\mathcal{G}_{D'}) \Big\}.
+\end{align*}
+%
+%
+\subsection{GraphFlow algorithm}
+	The GraphFlow algorithm implements a local-search strategy to minimize~\cref{ch8:eq:graphflow-energy}. The local-search neighborhood is given by the validation set defined in the previous section.
 
 \begin{algorithm}
  \SetKwData{It}{k}
@@ -188,17 +122,25 @@ Finally, the GraphFlow algorithm is described in~\cref{ch8:alg:graphflow-algorit
  \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
  \SetKwComment{comment}{//}{}
  
- \Input{A digital set $S$; the optimization band $n$; the probe set parameter $a$; parameter vector $\vec{\theta}=(\alpha,\beta)$; the maximum number of iterations \MIt;} 
+ \Input{An image $\vec{I}$ or a digital set $D$; the optimization band $n$; the probe set parameter $a$; parameter vector $\vec{\theta}=(\alpha,\beta)$; parameter vector $\vec{\Gamma} = (\gamma_r,\gamma_b)$; the maximum number of iterations \MIt;} 
  \BlankLine
- $\Ds^{(0)} \longleftarrow \Ds$\;
+ \If{ Image $\vec{I}$ is given }
+ {
+	 $\Ds^{(0)} \longleftarrow graphcut(\vec{I})$\;  
+ }
+ \Else{
+	 $\Ds^{(0)} \longleftarrow \Ds$\; 
+	 $(\gamma_r,\gamma_b) \longleftarrow (0,0)$\; 	 
+ }
+ \BlankLine
  $k \longleftarrow 1$\;
  \While{ \It $<$ \MIt  }{ 	
 	\comment{Candidate selection} 
-	$\mathcal{N}^{(k)} \longleftarrow \left \{ C_n(Q) \; | \; Q \in \mathcal{P}_a(\Ds^{(k-1)}) \right\}$\;
+	$val(D^{(k)}) \longleftarrow \bigcup_{D' \in \mathcal{P}_a(D^{(k)})} \Big\{ \big( Q,D(Q) \big) \; | \; mincut(Q,\mathcal{G}_{D'}) \Big\}$ \;
 
-
+	\BlankLine
 	\comment{Candidate validation}
-	$\Ds^{(k)} \longleftarrow \displaystyle \argmin_{X \in \mathcal{N}^{(k)}}{ \hat{E}_{\vec{\theta}}(X) + grab_{\Lambda}(X)  }$\; 	
+	$( Q^{(k)}, \Ds^{(k)} ) \longleftarrow \displaystyle \argmin_{ (Q,S) \in val(D^{(k)}) }{ \hat{E}_{\vec{\theta}}(S) + E^{gcut}_{\Gamma}{( \mathcal{G}_{\vec{I}},Q) }}$\; 	
 	\It $\longleftarrow$ \It $+1$\;
 	
  }
@@ -206,9 +148,12 @@ Finally, the GraphFlow algorithm is described in~\cref{ch8:alg:graphflow-algorit
  \label{ch8:alg:graphflow-algorithm}  
 \end{algorithm}
 
-We remark that the GraphFlow algorithm possess two fundamental steps: the candidate selection and the candidate validation. The former can be interpreted as an advanced filter that choses the best candidates for digital Elastica minimization from the given $a$-probe set. Among those choices, we chose the one with lower digital Elastica energy in the candidate validation step.
+We remark that the GraphFlow algorithm possess two fundamental steps. In the candidate selection step, we construct the validation set and in the validation step we choose the digital set with minimum value for~\cref{ch8:eq:graphflow-energy}. If we interpret the balance coefficient minimization as the best move one can make towards digital elastica minimization, the validation set can be seen as the neighboring shapes with highest potential to minimize the elastica energy for the given $a$-probe set.
 
-The GraphFlow algorithm can grow or shrink in accordance with the $\alpha$ coefficient in the digital Elastica (see~\cref{ch8:fig:graph-flow-neigh2-results}). Using a $0$-probe set we recover the convergence to a single point behaviour observed in both FlipFlow and BalanceFlow model. Moreover, its solution for the free Elastica problem is very similar to those given by the enumerative process of~\cref{chapter:digital-elastica}, i.e., the shapes converge to the expected global optimum. However, for the constrained Elastica problem, the GraphFlow encounters some difficulties to evolve (see~\cref{ch8:fig:graph-flow-neigh2-results}), in particular for the fixed endpoint orientation instance. We believe that a larger neighborhood, possibly random, could solve this issue. The results are explored in more details in~\cref{chapter:results-analysis}.
+
+The GraphFlow algorithm produces a flow that is much more in accordance with our expectations for a flow guided by the elastica energy than the previous models. We recall that both FlipFlow and BalanceFlow have a shrinking bias that let them behave in a similar fashion to the curvature flow. On the other hand, the GraphFlow grows and shrinks in accordance with the $\alpha$ coefficient in the digital elastica (see~\cref{ch8:fig:graph-flow-neigh2-results}). If we use a $0$-probe set, we recover the convergence to a single point behaviour, confirming the linking between the previous models. 
+
+In fact, the solution for the free elastica problem is very similar to those given by the enumerative process of~\cref{chapter:digital-elastica}, i.e., the shapes converge to the expected global optimum, but with the advantage of producing smoother flows and much faster than the LocalSearch algortihm (up to $100 \times$ faster). However, for the constrained elastica problem, the GraphFlow encounters some difficulties to evolve (see~\cref{ch8:fig:graph-flow-neigh2-results}), in particular for the fixed endpoint orientation instance. We believe that a larger neighborhood, possibly random, could solve this issue. The results are explored in more details in~\cref{chapter:results-analysis}.
 
 Some preliminar results of~\cref{ch8:alg:graphflow-algorithm} applied to image segmentation is shown in~\cref{ch8:fig:segmentation,ch8:fig:segmentation-curvature-completion}. In particular, we can observe that the GraphFlow presents the completion property, i.e., tends to return segmentation with fewer disconnected components.
 
@@ -224,7 +169,7 @@ $(n=2, a=0,\alpha=0.01)$ & $(n=2, a=2,\alpha=0.01)$ & $(n=2, a=2, \alpha=0.001)$
 \includegraphics[scale=0.4]{figures/chapter8/constrained-elastica/curve-3/lp-0.001/summary.pdf}
 }
 
-\caption{The GraphFlow algorithm can shrink and grow in accordance with length penalization and it converges to shape closer to the global optimum (green curve) in the free Elastica problem. In the constrained Elastica, we believe that we can improve the results by using a larger, possibly random, neighborhood. We are using $n=2,a=2$ and shapes are displayed at every $10$ iterations.}
+\caption{\daniel{\textbf{GraphFlow results.}} The GraphFlow algorithm can shrink and grow in accordance with length penalization and it converges to a shape closer to the global optimum (green curve) in the free elastica problem. In the constrained elastica, we believe that we can improve the results by using a larger, possibly random, neighborhood. We are using $n=2,a=2$ and shapes are displayed at every $10$ iterations.}
 \label{ch8:fig:graph-flow-neigh2-results}
 \end{figure}
 
@@ -298,7 +243,7 @@ $(n=2, a=0,\alpha=0.01)$ & $(n=2, a=2,\alpha=0.01)$ & $(n=2, a=2, \alpha=0.001)$
  	\includegraphics[scale=0.25]{figures/chapter8/segmentation/coala/k-0.0/corrected-seg.png} &  	
  	\includegraphics[scale=0.25]{figures/chapter8/segmentation/coala/k-0.5/corrected-seg.png}
 \end{tabular}	
-\caption{Given foreground (green) and background (gray) seeds at picture (a); GrabCut produces picture (b) which is used as input of the GraphFlow algorithm; in pictures (c) and (d) we display the output of GraphFlow algorithm with and without squared curvature regularization. }
+\caption{\daniel{\textbf{GraphFlow segmentation.}} Given foreground (green) and background (gray) seeds at picture (a); GrabCut produces picture (b) which is used as input of the GraphFlow algorithm; in pictures (c) and (d) we display the output of GraphFlow algorithm with and without squared curvature regularization. }
 \label{ch8:fig:segmentation}
 \end{figure}
 
@@ -310,9 +255,9 @@ $\lambda_r = 3, \lambda_b = 3$ & $\lambda_r = 3, \lambda_b = 3$\\
  	\includegraphics[scale=0.25]{figures/chapter8/completion/graphseg/alpha-0.0/beta-0.0/gamma-3.0/radius-7/corrected-seg.png} & 
  	\includegraphics[scale=0.25]{figures/chapter8/completion/graphseg/alpha-0.0/beta-1.0/gamma-3.0/radius-7/corrected-seg.png}
 \end{tabular}	
-\caption{Completion property. The oversegmentation picture in the left was obtained with no squared curvature regularization, while the picture in the right was obtained by setting $\beta=1.0$. }
+\caption{\daniel{\textbf{GraphFlow and completion property}}. The oversegmentation picture in the left was obtained with no squared curvature regularization, while the picture in the right was obtained by setting $\beta=1.0$. }
 \label{ch8:fig:segmentation-curvature-completion}
 \end{figure}
 
 \section{Conclusion}
-We described a graph-cut model that regularizes the squared curvature, in the free, constrained Elastica and is suitable for image segmentation. The evolution produced by the GraphFlow responds to the length penalization term $\alpha$, i.e., the shape tends to grow (shrink) for lower (higher) values of $\alpha$.  Moreover, the GraphFlow~\cref{ch8:alg:graphflow-algorithm} is faster and simpler to implement than the previous models presented in this thesis.
+We described a graph-cut model that regularizes the squared curvature, in the free, constrained elastica and is suitable for image segmentation. The evolution produced by the GraphFlow responds to the length penalization term $\alpha$, i.e., the shape tends to grow (shrink) for lower (higher) values of $\alpha$.  Moreover, the GraphFlow~\cref{ch8:alg:graphflow-algorithm} is faster and simpler to implement than the previous models presented in this thesis.
