@@ -702,7 +702,7 @@ As we have seen, the optimization of a PBF is closely related with the computati
 \section{Graph cut models}
 \label{ch2:sec:graph-cut-models}
 
-\daniel{ Graph cut techniques in imaging were pioneered by~\cite{greig89exact} and became popular after the interactive binary segmentation model proposed by~\cite{boykov01interactive}. In this section, we are going to describe the latter and two other applications of graph cut techniques. The first explains how to set the cost function to estimate perimeter of segmented shapes and the second one extends the first by incorporating a constraint that helps in the segmentation of thin and elongated objects.}
+\daniel{ Graph cut techniques in imaging were pioneered by~\cite{greig89exact} and became popular after the interactive binary segmentation model proposed by~\cite{boykov01graphcut}. In this section, we are going to describe the latter and two other applications of graph cut techniques. The first explains how to set the cost function to estimate perimeter of segmented shapes and the second one extends the first by incorporating a constraint that helps in the segmentation of thin and elongated objects.}
 
 \subsection{Binary segmentation}
 
@@ -712,7 +712,7 @@ Let $\vec{I} \in \mathbb{F}^{m\times n}$ a discrete grayscale image and $\GG (\m
 	\mathcal{V}^+ &= \mathcal{V} \cup \{s,t\} \\
 	\mathcal{E}^+ &= \mathcal{E} \cup \big\{ \{s,v_p\}, \{v_p,t\} \; | \; p \in \vec{I} \big\}.
 \end{align*}
-The members of the additional set of edges are referred to as terminal edges. Next, let sets $\mathcal{V_F}, \mathcal{V_B} \subset \mathcal{V}$ to represent foreground and background seeds furnished by the user. A $(s,t)$-cut set of $\GGe$ partitions the graph in connected components $S,T$. The first connected to the source and the other to the target vertex. Vertices in $\mathcal{V_F}$ ($\mathcal{V_B}$) will be forced to be in the source (target) component after the removal of a $(s,t)$-cut set.
+The members of the additional set of edges are referred to as terminal edges. Next, let sets $\mathcal{V}_{fg}, \mathcal{V}_{bg} \subset \mathcal{V}$ to represent foreground and background seeds furnished by the user. A $(s,t)$-cut set of $\GGe$ partitions the graph in connected components $S,T$. The first connected to the source and the other to the target vertex. Vertices in $\mathcal{V}_{fg}$ ($\mathcal{V}_{bg}$) will be forced to be in the source (target) component after the removal of a $(s,t)$-cut set.
 
 The data term is modeled by
 \begin{align*}
@@ -724,12 +724,12 @@ The data term is modeled by
 where $H_{bg},H_{fg}$ are mixed Gaussian distributions derived from foreground and background seeds. We associate the $0$ value to the background label and the $1$ value to the foreground label. The space coherence term is expressed as
 \begin{align*}
 	\psi_{2}(x_p,x_q) &= \left\{ \begin{array}{ll}
-	\displaystyle \exp{ \left(- \frac{1}{d(p,q)}\frac{(I(p) - I(q))^2}{2\sigma^2} \right) }, & q \in \mathcal{N}_k(p) \\[1em]
+	\displaystyle \exp{ \left(- \frac{1}{d_E(p,q)}\frac{(I(p) - I(q))^2}{2\sigma^2} \right) }, & q \in \mathcal{N}_k(p) \\[1em]
 	0, & \text{otherwise},
 	\end{array}\right.
 \end{align*}
 %
-where $d(p,q)$ is the Euclidean distance between the pixel coordinates of $p,q$ and $\lambda$ is the parameter to control the influence of the terms in the energy. The value $\sigma$ is interpreted as a parameter to configure noise level of the input image; and $k$ denotes the chosen neighborhood cardinality of the graph (e.g. $8$).
+where $d_E(p,q)$ is the Euclidean distance between the pixel coordinates of $p,q$ and $\lambda$ is the parameter to control the influence of the terms in the energy. The value $\sigma$ is interpreted as a parameter to configure noise level of the input image; and $k$ denotes the chosen neighborhood cardinality of the graph (e.g. $8$).
 
 Finally, given weights $\gamma_r \geq 0$ and $\gamma_b \geq 0$, we define the cost function $c:\mathcal{E}^+\rightarrow \mathbb{R}$ as
 

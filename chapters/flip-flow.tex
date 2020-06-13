@@ -401,14 +401,14 @@ In the left column, we use FlipFlow radius $5$ and in the right column we use Fl
 \begin{figure}
 \center
 \begin{tabular}{cccc}
-\multirow{2}{*}{Seeds} & \multirow{2}{*}{GrabCut} & $\alpha=0.5, \beta=0.0,$ & $\alpha=0.5, \beta=1.0,$ \\
+\multirow{2}{*}{Seeds} & \multirow{2}{*}{Graph cut} & $\alpha=0.5, \beta=0.0,$ & $\alpha=0.5, \beta=1.0,$ \\
 & & $\gamma=0.5$ & $\gamma=0.5$\\
  	\includegraphics[scale=0.25]{figures/chapter6/segmentation/coala/mt_improve/radius_5/data_0.50/sq_0.00/length_0.50/it_50/seeds.png} & 
  	\includegraphics[scale=0.25]{figures/chapter6/segmentation/coala/mt_improve/radius_5/data_0.50/sq_0.00/length_0.50/it_50/gc-seg.png} & 
  	\includegraphics[scale=0.25]{figures/chapter6/segmentation/coala/mt_improve/radius_5/data_0.50/sq_0.00/length_0.50/it_50/corrected-seg.png} & 
  	\includegraphics[scale=0.25]{figures/chapter6/segmentation/coala/mt_improve/radius_5/data_0.50/sq_1.00/length_0.50/it_50/corrected-seg.png}
 \end{tabular}	
-\caption{Given foreground (green) and background (blue) seeds at picture (a); GrabCut produces picture (b) which is used as input of the Contour Correction algorithm; in pictures (c) and (d) we display the output of Contour Correction algorithm with and without squared curvature regularization. }
+\caption{Given foreground (green) and background (blue) seeds at picture (a); Graph cut produces picture (b) which is used as input of the Contour Correction algorithm; in pictures (c) and (d) we display the output of Contour Correction algorithm with and without squared curvature regularization. }
 \label{ch6:fig:segmentation}
 \end{figure}
 
@@ -446,7 +446,7 @@ is set to the data fidelity term~\cref{eq:data-fidelity}.
  \Input{An image $I$; seeds mask $M$; the estimation ball radius $r$; parameter vector $\vec{\theta}=(\alpha, \beta)$; data term weight $(\gamma)$ ; initial dilation $d$; stop condition value \Tol; the maximum number of iterations \MIt;}
  \BlankLine
 
- $\Ds \longleftarrow$ GrabCut($I,M$)\;
+ $\Ds \longleftarrow$ Graph cut($I,M$)\;
  $\Ds^{(0)} \longleftarrow $ dilate($\Ds$,$d$)\; 
  \Delta $\longleftarrow +\infty$\;
  $k \longleftarrow 0$\;
@@ -473,7 +473,7 @@ is set to the data fidelity term~\cref{eq:data-fidelity}.
   \label{ch6:alg:contour-correction} 
 \end{algorithm}	
 
-The algorithm can be initialized by a collection of compact sets, or with the result of a third-party segmentation algorithm, as GrabCut \cite{rother04grabcut}. We include an additional parameter $d$ that dilates the initial sets using a square of side one before executing the flow.
+The algorithm can be initialized by a collection of compact sets, or with the result of a third-party segmentation algorithm, as Graph cut~\cite{boykov01graphcut}. We include an additional parameter $d$ that dilates the initial sets using a square of side one before executing the flow.
 
 An illustration of the application of the FlipFlow model in image segmentation is presented in~\cref{ch6:fig:segmentation}. We present a more exhaustive list of experiments and comparisons with other methods in~\cref{chapter:results-analysis}.
 

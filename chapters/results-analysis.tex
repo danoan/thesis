@@ -291,7 +291,7 @@ Flower-2 & 7481 & 2.5s/it & 0.21s/it\\
 
 The FlipFlow,BalanceFlow and GraphFlow can be extended to do image segmentation. In this section we show the results of several experiments that illustrates the influence of each of the the weights parameters (length,curvature,data) and the radius of the estimation ball in the produced segmentation. At the last section we compare our results with the Schoenemann linear curvature regularization (SLCR) \cite{schoenemann09linear}. 
 
-All three models (FF,BF,GF) need a initial segmentation as input. This segmentation is given by a single iteration of the Grabcut algorithm.~\cref{ch9:tab:image-segmentation-parameters-summary} lists the parameters configuration for each experiment and~\cref{ch9:tab:rtime-image-segmentation-general} summarizes their running times. 
+All three models (FF,BF,GF) need a initial segmentation as input. This segmentation is given by a single iteration of the Graph cut algorithm.~\cref{ch9:tab:image-segmentation-parameters-summary} lists the parameters configuration for each experiment and~\cref{ch9:tab:rtime-image-segmentation-general} summarizes their running times. 
 
 The experiments are divided in two sections. In the first, we study the influence of each parameter in the produced segmentation and in the second we compare our results with those produced by SLCR. For the same reason described in the previous section, the grid step in all experiments is set to $h=1.0$.
 
@@ -365,13 +365,13 @@ SLCR & 2.87min & 52.24min & 18.4min\\
 \end{figure}
 
 \subsection{Parameters influence}
-The models offer parameters to control the relative weight of length $(\alpha)$, curvature $(\beta)$ and data ($\gamma,\lambda _r, \lambda _b$). We recall that FF and BF accept a single regional parameter $\gamma$ for data, while GF accepts $\lambda _r$ to ponderate a regional term and $\lambda _b$ to weight a boundary term. The Grabcut input and its result are shown in~\cref{ch9:fig:grabcut-input-image-segmentation}. The experiment results are displayed in~\cref{ch9:fig:exp-alpha-image-segmentation,fig:exp-beta-image-segmentation,fig:exp-gamma-image-segmentation,fig:exp-radius-image-segmentation}. 
+The models offer parameters to control the relative weight of length $(\alpha)$, curvature $(\beta)$ and data ($\gamma,\lambda _r, \lambda _b$). We recall that FF and BF accept a single regional parameter $\gamma$ for data, while GF accepts $\lambda _r$ to ponderate a regional term and $\lambda _b$ to weight a boundary term. The Graph cut input and its result are shown in~\cref{ch9:fig:grabcut-input-image-segmentation}. The experiment results are displayed in~\cref{ch9:fig:exp-alpha-image-segmentation,fig:exp-beta-image-segmentation,fig:exp-gamma-image-segmentation,fig:exp-radius-image-segmentation}. 
 
 The FlipFlow and BalanceFlow present similar results for all experiments, as expected. The Exp-$\alpha$ experiment regularizes only length, and we can observe that the segmentations produced by all three models tend to be staircased. We remark that in the GF model, length penalization is not present in the cost function of the candidate graph, but only in the validation function. In particular, we need  a $a$-probe set with $a>0$ to have length penalization an influence in the produced segmentation.
 
 In experiment Exp-$\beta$ we vary the squared curvature weigth coefficient. We observe in~\cref{ch9:fig:exp-beta-image-segmentation} that the produced segmentation smooths out for increasing values of $\beta$. We recall that the shrink/growing behaviour in the GF is controlled by the value of $\alpha$. The FF, and BF grow in concavities, but unless a local optimum is found, it tends to shrink.
 
-The models' response for the variation of data term is shown in~\cref{ch9:fig:exp-gamma-image-segmentation}. A higher value of $\gamma$ tends to produce results similar to the initial segmentation given by Grabcut, i.e., with almost no length or curvature regularization.
+The models' response for the variation of data term is shown in~\cref{ch9:fig:exp-gamma-image-segmentation}. A higher value of $\gamma$ tends to produce results similar to the initial segmentation given by Graph cut, i.e., with almost no length or curvature regularization.
 
 Finally, Exp-$bRadius$ illustrates how the choice of the estimation ball radius influences the segmentation. In~\cref{ch9:fig:exp-radius-image-segmentation} we observe that a small radius results in contours with sharp changes of angle (first row), a consequence of the limited number of different estimations that can be given by a ball of small radius. As the radius increase, a richer variation of estimations is possible, and we have smoother contours (second-row). However, a big radius may omit important details of the object, as the coala's ears in the last row of~\cref{ch9:fig:exp-radius-image-segmentation}. That suggests that a multiradius approach may deliver improved segmentations.
 
@@ -382,7 +382,7 @@ Finally, Exp-$bRadius$ illustrates how the choice of the estimation ball radius 
 \includegraphics[scale=0.4]{figures/chapter9/segmentation/seeds.png} &
 \includegraphics[scale=0.4]{figures/chapter9/segmentation/gc-seg.png}
 \end{tabular}
-\caption{Foreground (green) and background (blue) seeds are shown in the left and the resulting Grabcut segmentation int the right.}
+\caption{Foreground (green) and background (blue) seeds are shown in the left and the resulting Graph cut segmentation int the right.}
 \label{ch9:fig:grabcut-input-image-segmentation}
 \end{figure}
 
@@ -495,9 +495,9 @@ $r=12$ &
 
 In~\cref{ch9:fig:exp-comparison-image-segmentation-1,fig:exp-comparison-image-segmentation-2,fig:exp-comparison-image-segmentation-3,fig:exp-comparison-image-segmentation-4} we show the segmentation results of several images for the three models developed in this thesis and the SLCR model. We opt to set the same parameters in all instances, although a better segmentation could be obtained by setting them separately.
 
-The curvature regularization in the FF,BF models are well perceived in the airplane, camel and man-in-white pictures, but those models are not able to correctly segment the brown-snake in~\cref{ch9:fig:exp-comparison-image-segmentation-4}. They also have a hard time to segment the birds in~\cref{ch9:fig:exp-comparison-image-segmentation-2} due to the object large curvature range. Nonetheless, they correctly segmented the green-snake in~\cref{ch9:fig:exp-comparison-image-segmentation-3} while the Grabcut return three disconnected components.
+The curvature regularization in the FF,BF models are well perceived in the airplane, camel and man-in-white pictures, but those models are not able to correctly segment the brown-snake in~\cref{ch9:fig:exp-comparison-image-segmentation-4}. They also have a hard time to segment the birds in~\cref{ch9:fig:exp-comparison-image-segmentation-2} due to the object large curvature range. Nonetheless, they correctly segmented the green-snake in~\cref{ch9:fig:exp-comparison-image-segmentation-3} while the Graph cut return three disconnected components.
 
-For the chosen parameters, the GraphFlow did not evolve the initial Grabcut segmentation to much, except for the brown-snake in~\cref{ch9:fig:exp-comparison-image-segmentation-4}, for which GF and SLCR presented the best segmentation. However, the GF has the lowest running time among the four models.
+For the chosen parameters, the GraphFlow did not evolve the initial Graph cut segmentation to much, except for the brown-snake in~\cref{ch9:fig:exp-comparison-image-segmentation-4}, for which GF and SLCR presented the best segmentation. However, the GF has the lowest running time among the four models.
 
 The SLCR tends to oversegment, notably in the man-in-white and the camel pictures. We observe that the contours present sharp turns due to the low precision of the curvature estimator. The precision could be improved by increasing the pixels connectivity (set to $8$), but is likely to follow an increase in running time, which is already the highest between the models tested.
 
@@ -513,7 +513,7 @@ The SLCR tends to oversegment, notably in the man-in-white and the camel picture
 	\begin{figure}
 	\center
 	\begin{tabular}{m{0.25cm}ccc}
-	\rotatebox{90}{GrabCut} & 
+	\rotatebox{90}{Graph cut} & 
 	\figTable{0.32}{\segComparisonFF{flipseg}{#1}/gc-seg.png} & 
 	\figTable{0.32}{\segComparisonFF{flipseg}{#2}/gc-seg.png} & 
 	\figTable{0.32}{\segComparisonFF{flipseg}{#3}/gc-seg.png} \\[6em]
@@ -558,7 +558,7 @@ The SLCR tends to oversegment, notably in the man-in-white and the camel picture
 	\begin{figure}
 	\center
 	\begin{tabular}{ccccc}
-	GrabCut & SLCR & FlipFlow & BalanceFlow & GraphFlow\\
+	Graph cut & SLCR & FlipFlow & BalanceFlow & GraphFlow\\
 	\figTable{0.32}{\segComparisonFF{flipseg}{long-snake}/gc-seg.png} & 
 	\figTable{0.32}{\segComparisonScho{schoenemann}{long-snake}/long-snake.png} & 
 	\figTable{0.32}{\segComparisonFF{flipseg}{long-snake}/corrected-seg.png} & 		
@@ -585,7 +585,7 @@ The SLCR tends to oversegment, notably in the man-in-white and the camel picture
 
 \section{Conclusion}
 
-All the four models described in this thesis can be used to produce shapes of lower digital Elastica. Moreover, the FlipFlow,BalanceFlow and GraphFlow can be extended to do image segmentation with curvature regularization. In particular, the GraphFlow is a straightforward extension of the standard Grabcut model, which originally does not implement geometric regularization, and presents lower running times than FF and BF. Finally, our models have shown to be competitive with the SLCR segmentation algorithm that employs curvature regularization.
+All the four models described in this thesis can be used to produce shapes of lower digital Elastica. Moreover, the FlipFlow,BalanceFlow and GraphFlow can be extended to do image segmentation with curvature regularization. In particular, the GraphFlow is a straightforward extension of the standard Graph cut model, which originally does not implement geometric regularization, and presents lower running times than FF and BF. Finally, our models have shown to be competitive with the SLCR segmentation algorithm that employs curvature regularization.
 
 
 
