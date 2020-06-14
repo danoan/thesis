@@ -21,7 +21,7 @@ We introduce basic concepts of digital geometry in~\cref{ch4:sec:ground-concepts
 
 In this section we define the grid point model and its adjacency relations, which allow us to define the digital line primitive. Next, we describe the grid intersection and Gauss digitization mappings, which link continuous objects to its digital representations in the grid point model. The concepts defined in this section can be explored in much more depth in the book~\cite{klette04digital}.
 
-\subsubsection{Digital grid, digitization and digital line}
+\subsection{Digital grid, digitization and digital line}
 
 \begin{definition}{$2D$ Digital grid}
 The $2D$ digital grid $h\mathbb{Z}^2 = \{ p = (h \cdot i,h \cdot j) \; | \; i,j \in \mathbb{Z}\}$ with grid step (resolution) $h \in \mathbb{R}^+ \setminus \{0\}$ is a regular sampling of the plane. Its members are called \emph{grid points}.
@@ -144,7 +144,7 @@ Finally, we refer to the \emph{digital contour} $\partial_h S$ of $D_h(S)$ as th
 \end{figure}
 
 
-\subsubsection{Exact sampling x digitization}
+\subsection{Exact sampling x digitization}
 
 Let $S$ some regular shape in the plane, for example, a disk of radius $r$. Assume that we need to measure the perimeter of $S$ but we do not know that $S$ is a disk. Additionally, let us assume that we can ask to an oracle for a collection of $n$ points in the boundary of $S$. To make things simple, let us assume that the oracle give to us an ordered sequence of $n$ uniformly spaced points in the boundary of $S$ for a given orientation of $\partial S$. 
 
@@ -184,7 +184,7 @@ This simple example points out that standard discretization strategies of contin
 
 \section{Geometric measurements in digital objects}\label{ch4:sec:geometric-measurements}
 
-\subsubsection{Multigrid convergence and perimeter estimation}
+\subsection{Multigrid convergence and perimeter estimation}
 
 As exemplified in the previous section, geometric measurements in digital objects can be tricky. Intuitively, a good estimator should converge to its continuous counterpart value as the grid resolution is refined. The criteria that formalizes this intuition is the multigrid convergence property.
 
@@ -224,7 +224,7 @@ The DSS estimator can be implement in linear-time by using a linear-time DSS rec
 Perimeter and area are examples of global properties of shape $S$, i.e., they are not defined at points in $S$ but for the whole shape. A multigrid convergent estimator for area consists in simply counting the number of grid points in its digitization and scale it by $h^2$~\cite{klette00multigrid}. A detailed comparison of several multigrid convergent estimators can be found in~\cref{coeurjolly12multigrid}.
 
 
-\subsubsection{Tangent and multigrid convergence of local quantities}
+\subsection{Tangent and multigrid convergence of local quantities}
 
 Tangent and curvature are examples of local properties computed along the boundary of some shape $S$ in the plane. We need a slight different definition of multigrid convergence in order to map points of the Euclidean boundary to those in the digital contour.
 
@@ -271,7 +271,7 @@ is a multigrid convergent estimator for the energy~\cite{lachaud06hdr}
 %
 %
 %
-\subsubsection{Multigrid convergent estimators of curvature}
+\subsection{Multigrid convergent estimators of curvature}
 
 Analogously to digital straight segments, the \emph{digital circular arc} is the digital counterpart of a circular arc. For any $C \in \partial_h S$, a grid point $p$ is an interior (exterior) point of $C$ if $p \in D_h S$ ($p \notin D_h S$) and there exists a grid edge in $C$ that is incident to the grid square corresponding to $p$.
 

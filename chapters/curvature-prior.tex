@@ -16,7 +16,7 @@ In~\cref{ch3:sec:curvature-curve-shortening-flow,ch3:sec:diffusion-level-curves-
 
 The curvature is a fundamental geometric property of curves and is widely present in geometric imaging models. In this section, we start by recalling the curvature definition and a few of its mathematical representations. Next we describe the \emph{curve-shortening flow} for planar curves, the one dimensional case of the mean curvature flow.
 
-\subsubsection{Definitions}
+\subsection{Definitions}
 In the remainder of this section, we assume that every curve is regular, planar and counter-clockwise oriented. Let $C:[0,L(C)]\rightarrow \mathbb{R}^2$ a curve parameterized by arc-length, i.e.,
 \begin{align*}
 	C(s) &= (x(s),y(s)).
@@ -55,7 +55,7 @@ We have several formulations for curvature, some of them listed below (for a ful
 %
 %
 
-\subsubsection{Curve-shortening flow}
+\subsection{Curve-shortening flow}
 \label{ch3:sec:curve-shortening-flow}
 
 Let $ t\geq 0$ and $u \in [0,U]$, for some $U>0$. Next, let $C^{(0)}:[0,U] \rightarrow \mathbb{R}^2$ and $\mathcal{C}(t,u)$ a family of curves such that
@@ -130,7 +130,7 @@ In this case, each of the image level curves describes a CS flow.
 
 Several models in~\cref{chapter:variational-methods-in-image-processing} are stated as diffusion processes, but quite often a level curve evolution interpretation is more convenient. In this section we analyze the role of curvature, its properties in earlier models of image processing and how the dual interpretation of these models help us to gain extra insight on them.
 
-\subsubsection{Curvature in denoising and image segmentation}
+\subsection{Curvature in denoising and image segmentation}
 
 The necessary optimality condition of the total variation denoising energy is given by~(see~\cref{ch1:subsec:tikhonov-regularization})
 \begin{align}
@@ -180,7 +180,7 @@ In the geometric active contours model for image segmentation, the level sets of
 \label{ch3:fig:denoising-tv-curvature}
 \end{figure}
 %
-\subsubsection{Curvature and the connectivity principle applied to inpainting}
+\subsection{Curvature and the connectivity principle applied to inpainting}
 
 We recall that the inpainting problem consists into reconstructing a collection of missing patches $\mathcal{P}$ of the image. The earlier inpainting model~\cite{bertalmio00image}  diffuses image information through the patches boundaries. The particularity of this model is that the Laplacian (heat equation) is diffused along the image level lines. Despite its impressive results, this models does not possess an important property which is expected in inpainting models: the \emph{connectivity principle}.
 
@@ -273,7 +273,7 @@ In general, a planar curve $C$ minimizing the Elastica energy satisfies the foll
 %
 This fourth order expression is the main difficult in minimizing the Elastica. In the following we are going to describe some models that attempt to minimize the Elastica and the strategies employed.
 
-\subsubsection{Imaging models using the Elastica}
+\subsection{Imaging models using the Elastica}
 
 In~\cite{chan02elasticainpainting} the authors propose an inpainting model in which the image level lines interrupted by the inpainting domain are completed by Elastica curves. The key is to define an energy that minimize each of the level curves in terms of the Elastica simultaneously. Given an image $f_I:\Omega \rightarrow [0,1]$, let $\Gamma_{\lambda}$ be one of its level curve, i.e.,
 \begin{align*}
@@ -336,7 +336,7 @@ The work of~\cite{masnou98inpainting} illustrates an advantage of discrete appro
 \section{Discrete methods and squared curvature}
 \label{ch3:sec:discrete-methods-squared-curvature}
 
-\subsubsection{Discrete elastica}
+\subsection{Discrete elastica}
 
 Let $\mathcal{P}_n=\{p_i \; | \; 1 \leq i \leq n\}$ a sequence of $n$ points describing a polygonal line. We define the following elements (an illustration is given in~\cref{ch3:fig:bruckstein-polygonal-line}).
 \begin{align*}
@@ -391,7 +391,7 @@ The discrete elastica was proposed in the context of nonlinear splines with appl
 
 
 
-\subsubsection{Linear programming model for image segmentation using the discrete elastica}
+\subsection{Linear programming model for image segmentation using the discrete elastica}
 
 In~\cite{schoenemann09linear}, the authors handle the previous list of issues by considering only the discrete elasticas lying on a $2$D cellular complex. The $2$D cellular complex is composed by non-overlapping surfaces called \emph{cells} and its lower dimension components: \emph{linels} and \emph{pointels}. The cellular complex forms a tessellation of the plane and the shape of the cells is arbitrary. The chosen cellular complex has a direct influence in the quality of the discrete elastica, as a finer tessellation covers a larger range of angles (see~\cref{ch3:fig:schoenemann-connectivity-1,ch3:fig:schoenemann-connectivity-2}). To simplify exposition, we are going to describe the model for a standard cellular grid complex, in which each cell represents a single pixel in the image.
 
@@ -474,7 +474,7 @@ Some results are displayed in~\cref{ch3:fig:schoenemann-results}. However, the c
 \caption{\textbf{Linear programming model~\cite{schoenemann09linear}.} In the left, examples of the $8$ and $16$-connectivity cellular complexes. The authors implementation consists into subdivide a pixel. For example, the $8$-connectivity is implemented by rescaling the image twice its size and let the model unit being composed of $4$ pixels of the rescaled image. In the right, a result with different connectivities using a data term derived from given foreground (green) and background (blue) seeds. }
 \end{figure}
 
-\subsubsection{Unconstrained formulations}
+\subsection{Unconstrained formulations}
 
 The high number of variables and constraints explain the high running time of the linear programming approach. In~\cite{zehiry10fast}, the authors encode the squared curvature value in an unconstrained quadratic non-submodular PBF and propose a model for binary image segmentation.
 

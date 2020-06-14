@@ -221,7 +221,7 @@ Finnaly, solving~\cref{ch1:eq:probability-maximization-expanded} is equivalent t
 The first term appears so often in imaging problems that it has a special name: \emph{data fidelity}. In the denoising problem, the data fidelity term appeared as a consequence of the Gaussian noise model assumption. The second term is also a regularization term and it favors images that respect some desirable property for the problem to be solved. Since natural images has a higher spatial dependency, a reasonable guess for $\rho$ would be a function that has lower value for piecewise smooth data, i.e., images composed by closed regions with smooth variations in its interior but possibly strong discontinuities in their boundaries. 
 
 
-\subsubsection{Tikhonov regularization}
+\subsection{Tikhonov regularization}
 \label{ch1:subsec:tikhonov-regularization}
 The classical way to optimize~\cref{ch1:eq:minimization-form} is to shift it to a continuous setting, analytically derive some optimization properties and then use this properties to solve the problem in a discrete setting. The continuous reformulation of~\cref{ch1:eq:minimization-form} consists in optimizing the energy functional below
 \begin{align}
@@ -235,7 +235,7 @@ where $R$ is a functional derived from the choice of $\rho$. A popular choice fo
 	\label{ch1:tikhonov-formulation}
 \end{align}
 %
-\subsubsection{Euler-Lagrange equation}
+\subsection{Euler-Lagrange equation}
 
 We can establish some necessary optimization conditions for~\cref{ch1:tikhonov-formulation} by deriving its \emph{Euler-Lagrange} equation. Assume that function $g$ minimizes functional $F$, i.e.,
 \begin{align*}
@@ -289,7 +289,7 @@ The Tikhonov term favors images with smooth variations in color, but the smoothn
 \end{figure}
 
 
-\subsubsection{Total variation regularization}
+\subsection{Total variation regularization}
 An alternative to Tikhonov regularization is to use the so called \emph{total variation} of the image function. For a smooth function $f$, its total variation is computed as
 \begin{align*}
 	TV(f) &= \int_{\Omega}{ \norm{ \nabla f } }.
