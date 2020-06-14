@@ -234,7 +234,7 @@ Let $f$ be a function of $n$ binary variables with unary and pairwise terms, i.e
 f(y_1,\cdots, y_n) = \sum_{j}{f_j(y_j)} + \sum_{j < k}{f_{j,k}(y_j,y_k)}.
 \end{align*}
 %
-\daniel{As described in~\cref{ch2:sec:submodular-functions},} function $f$ is submodular if and only if the following inequality holds for each pairwise term $f_{j,k}$: %\cite{kolmogorov04whatenergies}
+\daniel{As observed in~\cref{ch2:sec:pseudo-boolean-functions},} function $f$ is submodular if and only if the following inequality holds for each pairwise term $f_{j,k}$: %\cite{kolmogorov04whatenergies}
 \begin{align*}
   \quad f_{j,k}(0,0) + f_{j,k}(1,1) \leq f_{j,k}(0,1) + f_{j,k}(1,0).
 \end{align*}
@@ -408,7 +408,7 @@ In the left column, we use FlipFlow radius $5$ and in the right column we use Fl
  	\includegraphics[scale=0.25]{figures/chapter6/segmentation/coala/mt_improve/radius_5/data_0.50/sq_0.00/length_0.50/it_50/corrected-seg.png} & 
  	\includegraphics[scale=0.25]{figures/chapter6/segmentation/coala/mt_improve/radius_5/data_0.50/sq_1.00/length_0.50/it_50/corrected-seg.png}
 \end{tabular}	
-\caption{Given foreground (green) and background (blue) seeds at picture (a); Graph cut produces picture (b) which is used as input of the Contour Correction algorithm; in pictures (c) and (d) we display the output of Contour Correction algorithm with and without squared curvature regularization. }
+\caption{\daniel{\textbf{FlipFlow results for segmentation}.}Given foreground (green) and background (blue) seeds at picture (a); Graph cut produces picture (b) which is used as input of the Contour Correction algorithm; in pictures (c) and (d) we display the output of Contour Correction algorithm with and without squared curvature regularization. }
 \label{ch6:fig:segmentation}
 \end{figure}
 
@@ -418,7 +418,7 @@ In~\cref{ch6:fig:mrings-r5-evolution,ch6:fig:mrings-r9-evolution} we evaluate se
 
 We confirm the stability of the model by looking at the plots of the digital elastica energy values for the produced shapes. Moreover, the produced flow has no difficulties in handling changes on topology, and it presents different speeds for regions with low and high curvature values, as illustrated in~\cref{ch6:fig:handle-topology-different-speed}.
 
-The computation of estimation balls at outer rings raises the question about its validity as a curvature estimator. In fact, one can estimate the curvature using outer balls (see~\cref{app2:curvature-and-distant-disks}), but we were not able to prove its multigrid convergence. However, this relation suggests that curvature information is at least qualitatively present in the outer balls computation, and this computation is preferred, as it is easier to optimize accordingly to the experiments illustrated in~\cref{ch6:fig:mrings-r5-evolution,ch6:fig:mrings-r9-evolution,ch6:fig:unlabeled-versus-iterations,ch6:fig:mrings-plots-r5-r9}.
+The computation of estimation balls at outer rings raises the question about its validity as a curvature estimator. In fact, one can estimate the curvature using outer balls (see~\cref{app:curvature-and-distant-disks}), but we were not able to prove its multigrid convergence. However, this relation suggests that curvature information is at least qualitatively present in the outer balls computation, and this computation is preferred, as it is easier to optimize accordingly to the experiments illustrated in~\cref{ch6:fig:mrings-r5-evolution,ch6:fig:mrings-r9-evolution,ch6:fig:unlabeled-versus-iterations,ch6:fig:mrings-plots-r5-r9}.
 
 
 

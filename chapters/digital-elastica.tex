@@ -102,7 +102,7 @@ Such set can be extremely large and its complete exhaustion is prohibitively exp
 
 \daniel{In~\cref{ch5:fig:n12-neighborhood} it is shown two members of the $\mathcal{N}_{12}$ neighborhood.} At first glance, we may be tempted to set the local-search neighborhood at the $k$-th iteration as the union of all $n$-neighborhood for $1<n<|\partial \Ds^{(k)}|$. However, that is often unnecessary and time consuming, as the greatest reduction in digital elastica for a member of $\mathcal{N}_n$ is likely very close to the greatest reduction for a member of $\mathcal{N}_{n-1}$. Moreover, we can improve running time by implementing a multiscale approach, i.e., we look for reductions in digital elastica for larger values of $n$ first, and in case of a negative answer we refine our search by choosing a smaller $n$.
 
-The \emph{LocalSearch}~\cref{alg:local-search} describes the local combinatorial process and is suitable for \daniel{any combination of multigrid convergent estimators of perimeter and curvature. In our experiments, we set the $\lambda$-MST~\cite{lachaud07tangent} to estimate elementary length and perimeter. We compare our results for two curvature estimators: the MDCA~\cite{roussillon11mdca} and the integral invariant (II-$r$) estimator~\cite{coeurjolly13integral} ($r$ denoting the radius of the estimation ball).} 
+The \emph{LocalSearch}~\cref{ch5:alg:local-search} describes the local combinatorial process and is suitable for \daniel{any combination of multigrid convergent estimators of perimeter and curvature. In our experiments, we set the $\lambda$-MST~\cite{lachaud07tangent} to estimate elementary length and perimeter. We compare our results for two curvature estimators: the MDCA~\cite{roussillon11mdca} and the integral invariant (II-$r$) estimator~\cite{coeurjolly13integral} ($r$ denoting the radius of the estimation ball).} 
 
 % type of digital estimator. To estimate length we use MDSS and to estimate curvature we execute~\cref{alg:local-search} with the MDCA and II-$r$ estimators  to solve the free and constrained elastica problems. 
 	
@@ -164,12 +164,12 @@ The \emph{LocalSearch}~\cref{alg:local-search} describes the local combinatorial
 	
  }
  \caption{LocalSearch algorithm for elastica minimization.}
-  \label{alg:local-search} 
+  \label{ch5:alg:local-search} 
 \end{algorithm}
 
 \daniel{
 \section{Experimental results}
-We study the behaviour of~\cref{alg:local-search} in two problem configurations. 
+We study the behaviour of~\cref{ch5:alg:local-search} in two problem configurations. 
 
 \begin{itemize}
 	\item[]{ \textbf{Free elastica.} The digital elastica~\cref{ch5:digital-elastica} is optimized without any constraint. }
@@ -316,7 +316,7 @@ We have executed the same experiments for different parameters $\alpha$ to confi
 
 
 \end{tabular}
-\caption{\daniel{\textbf{Effects of an extended neighborhood in the MDCA evolution.}}In the top row, the MDCA evolution for the neighborhood as presented in~\cref{alg:local-search}. In the bottom row, the flow using the extended neighborhood. The extended neighborhood additionally includes the $n$-neighborhood of the dilation and the erosion of the initial shape by a square of side $1$.}
+\caption{\daniel{\textbf{Effects of an extended neighborhood in the MDCA evolution.}}In the top row, the MDCA evolution for the neighborhood as presented in~\cref{ch5:alg:local-search}. In the bottom row, the flow using the extended neighborhood. The extended neighborhood additionally includes the $n$-neighborhood of the dilation and the erosion of the initial shape by a square of side $1$.}
 \label{fig:mdca-larger-neighborhood}
 \end{figure}
 
@@ -347,7 +347,7 @@ $| \Delta E / \Delta \Ds |$ & 70 & 1400
 \subsection{Constrained elastica}
 \label{ch5:subsec:constrained-digital-elastica}
 
-An important advantage of~\cref{alg:local-search} is that constraints can be imposed with minimum effort. We present results for two types of constraints. In the first type, we force some pixels to be part of the final solution and in the second we impose orientations at the endpoints of a curve, \daniel{as in the general elastica problem}. In~\cref{fig:constrained-elastica} we compare the flows for different values of $\alpha$. 
+An important advantage of~\cref{ch5:alg:local-search} is that constraints can be imposed with minimum effort. We present results for two types of constraints. In the first type, we force some pixels to be part of the final solution and in the second we impose orientations at the endpoints of a curve, \daniel{as in the general elastica problem}. In~\cref{fig:constrained-elastica} we compare the flows for different values of $\alpha$. 
 
 \daniel{We clearly observe that lower values of $\alpha$ produce longer curves with smoother turns, as expected. However, the local nature of the method may lead to sub-optimal solutions. A global optimization method would not only handle these issues, but would naturally possess the completion property associated with the squared curvature, which may be damped by local approaches.}
 %
@@ -378,7 +378,7 @@ $\alpha=0.1$ & $\alpha=0.01$ & $\alpha=0.001$\\[2em]
 \subsection{Running time}
 \label{ch5:subsec:running-time}
 
-The running time of~\cref{alg:local-search} is summarized in table~\cref{tab:summary-local-comb-rtime}. All the experiments in this thesis were executed on a $32$-core $2.4Ghz$ CPU. Although its use in practical applications is
+The running time of~\cref{ch5:alg:local-search} is summarized in table~\cref{tab:summary-local-comb-rtime}. All the experiments in this thesis were executed on a $32$-core $2.4Ghz$ CPU. Although its use in practical applications is
 limited, we demonstrated that digital estimators are effective in their measurements and the flows evolve as expected, reaching the global optimum for some shapes \daniel{in the free elastica problem}. We
 observe that it is a complete digital approach, and we do not suffer from discretization and rounding problems, a common
 issue in continuous models.  Furthermore we have checked that this approach works indifferently with Integral Invariant
@@ -424,7 +424,7 @@ The simplified digital elastica is defined as
 	\end{align}
 %	
 %
-We argue that~\cref{eq:simplified-digital-elastica} is a reasonable approximation of~\cref{ch5:digital-elastica}. Indeed, executing~\cref{alg:local-search} to minimize this simplified digital elastica induces very similar results to those for the digital elastica (see~\cref{fig:simplified-elastica}).
+We argue that~\cref{eq:simplified-digital-elastica} is a reasonable approximation of~\cref{ch5:digital-elastica}. Indeed, executing~\cref{ch5:alg:local-search} to minimize this simplified digital elastica induces very similar results to those for the digital elastica (see~\cref{fig:simplified-elastica}).
 
 
 \begin{figure}[]

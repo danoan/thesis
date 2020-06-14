@@ -24,12 +24,12 @@ where $\gamma_r \geq 0$ and $\gamma_b \geq 0$ are parameters controlling the inf
 \end{align*}}
 \daniel{Let $D^{(0)}$ the digital set induced from the foreground component returned by the standard graph cut algorithm. The GraphFlow model produces a sequence of digital shapes $D^{(k)}$ and is composed of two steps
 \begin{itemize}
-	\item[]{\textbf{Candidate selection:} We associate to $D^{(k)}$ a set of neighbor shapes $\mathcal{P}(D^{(k)})$. For each $D' \in \mathcal{P}(D^{(k)})$ we construct its candidate graph $\mathcal{G}_{D'}$ and we compute its minimum cut $Q$ according to energy
+	\item[]{\textbf{Candidate selection:} We associate to $D^{(k)}$ a set of neighbor shapes $\mathcal{P}(D^{(k)})$. For each $D' \in \mathcal{P}(D^{(k)})$ we construct its \emph{candidate graph} $\mathcal{G}_{D'}$ and we compute its minimum cut $Q$ according to energy
 \begin{align}
 E^{gflow}(\mathcal{G}_{D'},Q,D^{(k)}) =& \sum_{ (v_p,v_q) \in Q}{\big(u(D^{(k)},p) + u(D^{(k)},q) \big)} + E^{gcut}(\mathcal{G}_{D'}, Q).
 \label{ch8:eq:graphflow-candidate}
 \end{align}}
-\item[]{\textbf{Validation:} Each minimum cut $Q$ computed in the previous step induces a solution candidate $D_{Q}$. We group minimum cuts and solution candidates in the validation set $val(D^{(k)})$. We choose among the solution candidates the one that minimizes 
+\item[]{\textbf{Validation:} Each minimum cut $Q$ computed in the previous step induces a solution candidate $D_{Q}$. We group minimum cuts and solution candidates in the \emph{solution candidates set} $sol(D^{(k)})$. We choose among the solution candidates the one that minimizes 
 \begin{align}
 	E^{val}(\GG,Q,D_Q) &= \hat{E}_{\theta}({D_Q}) + E^{gcut}(\mathcal{G}_{\vec{I}},Q).
 	\label{ch8:eq:graphflow-energy}
@@ -41,7 +41,7 @@ We recall that $\hat{E}_\theta$ stands for the digital elastica energy~\cref{ch5
 The GraphFlow model is suitable for the free, constrained elastica and image segmentation problems and can be seen as a simple extension of the graph cut segmentation model with an regularization term by squared curvature.
 
 \daniel{
-\subsection{Candidate graphs and validation set}
+\subsection{Candidate graphs and solution candidates set}
 
 The set of candidate graphs of $D$ are derived from some neighborhood of shapes with respect to $D$. We define the $a$-probe set as an example of such neighborhood.
 
@@ -107,14 +107,14 @@ M &= 1 + \max_{p \in O_n(D')}{ \beta \cdot \big(u(D',p) + u(D',q)\big) + \gamma_
 \end{align*}
 %
 %
-Let $mincut(Q,\mathcal{G})$ a predicate indicating that $Q$ is a minimum cut set of some capacited graph $\mathcal{G}(\mathcal{V},\mathcal{E},c)$. We define the validation set of some digital set $D$ as
+Let $mincut(Q,\mathcal{G})$ a predicate indicating that $Q$ is a minimum cut set of some capacited graph $\mathcal{G}(\mathcal{V},\mathcal{E},c)$. We define the solution candidates set of digital set $D$ as
 \begin{align*}
-	val(D) &= \bigcup_{D' \in \mathcal{P}_a(D)} \Big\{ \big( Q,D(Q) \big) \; | \; mincut(Q,\mathcal{G}_{D'}) \Big\}.
+	sol(D) &= \bigcup_{D' \in \mathcal{P}_a(D)} \Big\{ \big( Q,D(Q) \big) \; | \; mincut(Q,\mathcal{G}_{D'}) \Big\}.
 \end{align*}}
 %
 %
 \subsection{GraphFlow algorithm}
-	The GraphFlow algorithm implements a local-search strategy to minimize~\cref{ch8:eq:graphflow-energy}. The local-search neighborhood is given by the validation set defined in the previous section.
+The GraphFlow algorithm implements a local-search strategy to minimize~\cref{ch8:eq:graphflow-energy} with search space given by the solution candidates set defined in the previous section. \daniel{We opted to not stop the method in the case that shape $D^{(k+1)}$ has higher energy than $D^{(k)}$ as an strategy to escape local minimum. In the implementation presented here, the unique stop condition is the number of iterations. Clearly, this strategy can be reviewed depending on the application.}
 
 \begin{algorithm}
  \SetKwData{It}{k}
@@ -137,11 +137,11 @@ Let $mincut(Q,\mathcal{G})$ a predicate indicating that $Q$ is a minimum cut set
  $k \longleftarrow 1$\;
  \While{ \It $<$ \MIt  }{ 	
 	\comment{Candidate selection} 
-	$val(D^{(k)}) \longleftarrow \bigcup_{D' \in \mathcal{P}_a(D^{(k)})} \Big\{ \big( Q,D(Q) \big) \; | \; mincut(Q,\mathcal{G}_{D'}) \Big\}$ \;
+	$sol(D^{(k)}) \longleftarrow \bigcup_{D' \in \mathcal{P}_a(D^{(k)})} \Big\{ \big( Q,D(Q) \big) \; | \; mincut(Q,\mathcal{G}_{D'}) \Big\}$ \;
 
 	\BlankLine
 	\comment{Candidate validation}
-	$( Q^{(k)}, \Ds^{(k)} ) \longleftarrow \displaystyle \argmin_{ (Q,S) \in val(D^{(k)}) }{ \hat{E}_{\vec{\theta}}(S) + E^{gcut}_{\Gamma}{( \mathcal{G}_{\vec{I}},Q) }}$\; 	
+	$( Q^{(k)}, \Ds^{(k)} ) \longleftarrow \displaystyle \argmin_{ (Q,S) \in sol(D^{(k)}) }{ \hat{E}_{\vec{\theta}}(S) + E^{gcut}_{\Gamma}{( \mathcal{G}_{\vec{I}},Q) }}$\; 	
 	\It $\longleftarrow$ \It $+1$\;
 	
  }
@@ -149,14 +149,14 @@ Let $mincut(Q,\mathcal{G})$ a predicate indicating that $Q$ is a minimum cut set
  \label{ch8:alg:graphflow-algorithm}  
 \end{algorithm}
 
-We remark that the GraphFlow algorithm possess two fundamental steps. In the candidate selection step, we construct the validation set and in the validation step we choose the digital set with minimum value for~\cref{ch8:eq:graphflow-energy}. If we interpret the balance coefficient minimization as the best move one can make towards digital elastica minimization, the validation set can be seen as the neighboring shapes with highest potential to minimize the elastica energy for the given $a$-probe set.
+\daniel{We remark that the GraphFlow algorithm has two fundamental steps. In the candidate selection, we build the solution candidates set from the minimum cuts of the candidate graphs. Next, in the validation step, we choose the digital set with minimum value for~\cref{ch8:eq:graphflow-energy}. If we interpret the balance coefficient minimization as the best move one can make towards digital elastica minimization, the solution candidates set can be seen as the neighboring shapes with highest potential to minimize the elastica energy for the given $a$-probe set.}
 
 
 The GraphFlow algorithm produces a flow that is much more in accordance with our expectations for a flow guided by the elastica energy than the previous models. We recall that both FlipFlow and BalanceFlow have a shrinking bias that let them behave in a similar fashion to the curvature flow. On the other hand, the GraphFlow grows and shrinks in accordance with the $\alpha$ coefficient in the digital elastica (see~\cref{ch8:fig:graph-flow-neigh2-results}). If we use a $0$-probe set, we recover the convergence to a single point behaviour, confirming the linking between the previous models. 
 
-In fact, the solution for the free elastica problem is very similar to those given by the enumerative process of~\cref{chapter:digital-elastica}, i.e., the shapes converge to the expected global optimum, but with the advantage of producing smoother flows and much faster than the LocalSearch algortihm (up to $100 \times$ faster). However, for the constrained elastica problem, the GraphFlow encounters some difficulties to evolve (see~\cref{ch8:fig:graph-flow-neigh2-results}), in particular for the fixed endpoint orientation instance. We believe that a larger neighborhood, possibly random, could solve this issue. The results are explored in more details in~\cref{chapter:results-analysis}.
+In fact, the solution for the free elastica problem is very similar to those given by the enumerative process of~\cref{chapter:digital-elastica}, i.e., the shapes converge to the expected global optimum, but with the advantage of producing smoother flows and much faster than the LocalSearch algorithm (up to $100 \times$ faster). However, for the constrained elastica problem, the GraphFlow encounters some difficulties to evolve (see~\cref{ch8:fig:graph-flow-neigh2-results}), in particular for the fixed endpoints' orientation instances. We believe that a larger neighborhood, possibly random, could solve this issue. The results are explored in more details in~\cref{chapter:results-analysis}.
 
-Some preliminar results of~\cref{ch8:alg:graphflow-algorithm} applied to image segmentation is shown in~\cref{ch8:fig:segmentation,ch8:fig:segmentation-curvature-completion}. In particular, we can observe that the GraphFlow presents the completion property, i.e., tends to return segmentation with fewer disconnected components.
+Some preliminar results of~\cref{ch8:alg:graphflow-algorithm} applied to image segmentation are shown in~\cref{ch8:fig:segmentation,ch8:fig:segmentation-curvature-completion}. In particular, we can observe that the GraphFlow presents the completion property, i.e., tends to return segmentation with fewer disconnected components.
 
 \begin{figure}
 \center
