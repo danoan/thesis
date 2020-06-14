@@ -1,28 +1,28 @@
-\chapter{Curvature as regularization}
+\chapter{Curvature as a regularizer}
 \label{chapter:curvature-prior}
 
-The curvature is a geometric property of curves and it measures the rate of change in curve orientation. A straight line has zero curvature while the curvature at corner of a square is infinity. The curvature is measured with respect to the arc-length parametrization, and it is invariant to translations, rotations and reflections (rigid transformations).
+The curvature is a geometric property of curves and it measures the rate of change in curve orientation. A straight line has zero curvature while the curvature at a corner of a square is infinity. The curvature is measured with respect to the arc-length parametrization, and it is invariant to translations, rotations and reflections (rigid transformations).
 
 In imaging, the most widely use of curvature is, perhaps, as a smooth regularization term. That was the case in the Geometric Active Contour and Chan-Vese image segmentation models of~\cref{chapter:variational-methods-in-image-processing}. The curvature action in these models is closed related with the \emph{curve-shortening flow} applied to the image level curves. Additionally, the curvature also appears in the derivation of the TV denoising model.
 
-Beyond the smoothing role, curvature can be used to favor connectivity, suggesting that its use could be valuable in the segmentation of thin and elongated objects, a difficult class to standard segmentation models. In image inpainting, the \emph{elastica curve} revealed to be a suitable model to mimic the amodal completion phenomenon, believed to be the process behind the human vision in the perception of occluded objects. However, elastica minimization is a challenging task, mainly because of its non-convexity and the $4th$ order expression emerging from its Euler-Lagrange equation.
+Beyond the smoothing role, curvature can be used to favor connectivity, suggesting that its use could be valuable in the segmentation of thin and elongated objects, a difficult class to standard segmentation models. In image inpainting, the \emph{elastica curve} revealed to be a suitable model to mimic the amodal completion phenomenon, believed to be the process behind the human vision in the perception of occluded objects~(e.g., see~\cref{ch3:fig:amodal-completion}). However, elastica minimization is a challenging task, mainly because of its non-convexity and the $4th$ order expression emerging from its Euler-Lagrange equation.
 
-In~\cref{ch3:sec:curvature-curve-shortening-flow,ch3:sec:diffusion-level-curves-motion}, we recall the definition of curvature and point out its role in some earlier imaging models. In~\cref{ch3:sec:elastica-curve} we describe the elastica curve, and the challenges involved in the minimization of the elastica energy. We dedicate~\cref{ch3:sec:discrete-methods-squared-curvature} to describe discrete models aiming the minimization of the elastica energy, which is an important topic of this thesis.
+In~\cref{ch3:sec:curvature-curve-shortening-flow,ch3:sec:diffusion-level-curves-motion}, we recall the definition of curvature and point out its role in some earlier imaging models. In~\cref{ch3:sec:elastica-curve}, we describe the elastica curve, and the challenges involved in the minimization of the elastica energy. ~cref{ch3:sec:discrete-methods-squared-curvature} describes discrete models aiming at the minimization of the elastica energy, which is an important topic of this thesis.
 
 
 
 \section{Curvature and the curve-shortening flow}
 \label{ch3:sec:curvature-curve-shortening-flow}
 
-The curvature is a fundamental geometric property of curves and it widely present in geometric imaging models. In this section we start by recalling the curvature definition and some of its mathematical representations. Next we describe the \emph{curve-shortening flow} for planar curves, the one dimensional case of the mean curvature flow.
+The curvature is a fundamental geometric property of curves and is widely present in geometric imaging models. In this section, we start by recalling the curvature definition and a few of its mathematical representations. Next we describe the \emph{curve-shortening flow} for planar curves, the one dimensional case of the mean curvature flow.
 
 \subsubsection{Definitions}
-In the remain of this section, we assume that every curve is regular, planar and counter-clockwise oriented. Let $C:[0,L(C)]\rightarrow \mathbb{R}^2$ a curve parameterized by arc-length, i.e.,
+In the remainder of this section, we assume that every curve is regular, planar and counter-clockwise oriented. Let $C:[0,L(C)]\rightarrow \mathbb{R}^2$ a curve parameterized by arc-length, i.e.,
 \begin{align*}
 	C(s) &= (x(s),y(s)).
 \end{align*}
 %
-Let $T(s)$ and $N(s)$ two orthonormal vectors to $C(s)$, i.e., the unitary tangent and normal to $C(s)$. Writing $C(s)$ using these orthonormal vectors we obtain
+Let $T(s)$ and $N(s)$ two orthonormal vectors such that they are respectively, the unitary tangent and normal to $C(s)$. Writing $C(s)$ using these orthonormal vectors we obtain
 \begin{align*}
 	C(s) &= \left( C(s) \cdot T(s) \right)T(s) + \left( C(s) \cdot N(s) \right)N(s)
 \end{align*}
@@ -34,13 +34,13 @@ Notice that $\frac{\partial C}{\partial s} = T(s)$, therefore
 %
 Derivating the last expression in both sides we obtain
 \begin{align*}
-	0 &= 2\frac{\partial ^2 C}{\partial s} \cdot \frac{\partial C}{\partial s} \\
-	  &= 2\frac{\partial ^2 C}{\partial s} \cdot T(s).
+	0 &= 2\frac{\partial ^2 C}{\partial s^2} \cdot \frac{\partial C}{\partial s} \\
+	  &= 2\frac{\partial ^2 C}{\partial s^2} \cdot T(s).
 \end{align*}
 %
-We conclude that $\frac{\partial ^2 C}{\partial s}$ is orthogonal to $T(s)$, and that the curvature is given by the normal component of $\frac{\partial ^2 C}{\partial s}$, i.e.,
+We conclude that $\frac{\partial ^2 C}{\partial s^2}$ is orthogonal to $T(s)$, and that the curvature is given by the normal component of $\frac{\partial ^2 C}{\partial s^2}$, i.e.,
 \begin{align*}
-	\frac{\partial ^2 C}{\partial s} &= \kappa(s) N(s).
+	\frac{\partial ^2 C}{\partial s^2} &= \kappa(s) N(s).
 \end{align*}
 %
 We have several formulations for curvature, some of them listed below (for a full derivation see the appendix). 
@@ -58,26 +58,26 @@ We have several formulations for curvature, some of them listed below (for a ful
 \subsubsection{Curve-shortening flow}
 \label{ch3:sec:curve-shortening-flow}
 
-Let $ t\geq 0$ and $u \in [0,U]$, for some $U>0$. Next, let the $C^{(0)}:[0,U] \rightarrow \mathbb{R}^2$ and $\mathcal{C}(t,u)$ a family of curves such that
+Let $ t\geq 0$ and $u \in [0,U]$, for some $U>0$. Next, let $C^{(0)}:[0,U] \rightarrow \mathbb{R}^2$ and $\mathcal{C}(t,u)$ a family of curves such that
 \begin{align}
 	\mathcal{C}(0,u) & = C^{(0)}(u) \\
 	\frac{\partial \mathcal{C}}{\partial t}(t,u) &= v(t,u) N(t,u),
 	\label{ch3:eq:curve-normal-flow}
 \end{align}
 %
-where $v$ is an arbitrary smooth function. The curve ${C}^{(t)}$ is deformed at each point $p$ by an amount $v$ in the normal direction at $p$. Note that any tangent component is irrelevant to curve deformation. From~\cref{ch3:eq:curve-flow} we compute the first variation of curve length of family $\mathcal{C}$
+where $v$ is an arbitrary smooth function. The curve ${C}^{(t)}$ is deformed at each point $p$ at speed $v$ in the normal direction at $p$. Note that any tangent component is irrelevant to curve deformation. From~\cref{ch3:eq:curve-normal-flow} we compute the first variation of curve length of family $\mathcal{C}$
 \begin{align*}
 	\frac{\partial }{\partial t}L(t) &= \frac{\partial}{\partial t}\int_{0}^{U}{\norm{ \mathcal{C}_u } du} \\
 	&= \int_{0}^{U}{ \frac{ \mathcal{C}_u \cdot \mathcal{C}_{ut} }{\norm{\mathcal{C}_u} } du} \\
 	&= \int_{0}^{U}{ T \cdot \left( \mathcal{C}_{t} \right)_u  du}.
 \end{align*}
 %
-Changing from an arbitrary parameterization $u$ to an arc-length one and recalling that $ds=\norm{ \mathcal{C}_u }  du$
+Changing from an arbitrary parameterization $u$ to an arc-length one and recalling that $ds=\norm{ \mathcal{C}_u }  du$, hence $\frac{\partial C_t}{\partial u } =  \norm{C_u} \frac{\partial C_t}{\partial s}$, we obtain
 \begin{align*}
 	\frac{\partial }{\partial t}L(t) &= \int_{0}^{U}{ T \cdot \left( \mathcal{C}_{t} \right)_s \norm{ \mathcal{C}_u }  du} = \int_{0}^{L(\mathcal{C})}{ T \cdot \left( \mathcal{C}_{t} \right)_s ds}. 	
 \end{align*}
 %
-Using~\cref{ch3:eq:curve-normal-flow} we obtain
+Using~\cref{ch3:eq:curve-normal-flow} and $N_s = -\kappa T$, we obtain
 \begin{align*}
 	\frac{\partial }{\partial t}L(t) &= \int_{0}^{L(\mathcal{C})}{T \cdot (-\kappa vT + v_sN) ds } = - \int_{0}^{L(\mathcal{C})}{\kappa v ds} = -<\kappa,v>.
 \end{align*}
@@ -96,13 +96,13 @@ From which we conclude that length decreases the fastest by choosing $v=\kappa$.
 	\label{ch3:eq:curvature-flow-circle}
 \end{align}
 %
-Moreover, the curve collapses to a single point in time $t=\frac{R_0^2}{2}$. The curvature flow has many interesting properties~\cite{huisken84flow,gage86heat,ecker08heat}. Among them,
+Moreover, the curve collapses to a single point in time $t=\frac{R_0^2}{2}$. The curve-shortening flow has many interesting properties~\cite{huisken84flow,gage86heat,ecker08heat}. Among them (for planar curves),
 
 \begin{itemize}
 	\item[]{\textbf{Comparison principle:} Let $C_1$,$C_2$ two closed curves such that $C_1^{(0)}$ is in the interior of $C_2^{(0)}$. Then $C_1^{(t)}$ is in the interior of $C_2^{(t)}$ for every $t$.}
 	\item[]{\textbf{Convexity preserving:} A convex curve $C^{(0)}$ stays convex for all $t$.}
 	\item[]{\textbf{Point collapsing:} Let $C^{(0)}$ a closed curve. There exists a time $t$ in which $C^{(t)}$ describes a circle and it follows~\cref{ch3:eq:curvature-flow-circle} until collapsing into a single point.}
-	\item[]{\textbf{Perimeter minimization:} The curvature flow is the continuous deformation that decreases the perimeter of a single closed curve the fastest.}
+	\item[]{\textbf{Perimeter minimization:} The curvature flow is the continuous deformation that decreases the perimeter of a single closed curve at the fastest speed.}
 \end{itemize}
 
 
@@ -132,7 +132,7 @@ Several models in~\cref{chapter:variational-methods-in-image-processing} are sta
 
 \subsubsection{Curvature in denoising and image segmentation}
 
-The necessary optimality condition of the total variation denoising energy is given by
+The necessary optimality condition of the total variation denoising energy is given by~(see~\cref{ch1:subsec:tikhonov-regularization})
 \begin{align}
 	\nabla \cdot \left( \frac{\nabla f}{\norm{\nabla f}} \right) + \lambda( f_{\widetilde{\vec{I}}} - f ) &= 0.
 	\label{ch3:eq:total-variation-optimal-condition}
@@ -144,12 +144,12 @@ The solution of~\cref{ch3:eq:total-variation-optimal-condition} is the steady st
 	\frac{\partial u}{\partial t} &= \nabla \cdot \left( \frac{\nabla f}{\norm{\nabla f}} \right) + \lambda( f_{\widetilde{\vec{I}}} - f ). \label{ch3:eq:tv-flow-2}
 \end{align}
 %
-Note the similarity between~\cref{ch3:eq:tv-flow-2} and the level set formulation of the CS flow in~\cref{ch3:eq:implicit-curvature-flow}. If $\lambda=0$, we denote~\cref{ch3:eq:tv-flow-1,ch3:eq:tv-flow-2} the \emph{TV flow}\cite{bellettini02total}. Interestingly, both CS flow and TV flow decrease total variation of $f$, but in different ways. The CS flow tends to deform the boundary of objects and decreasing total variation by perimeter minimization. The TV flow, on the other hand, preserves the boundary for longer and it decreases the TV by decreasing the surface height, i.e., the color intensity of the pixels(see~\cref{ch3:fig:minimization-tv-curvature-tv-flow}).
+Note the similarity between~\cref{ch3:eq:tv-flow-2} and the level set formulation of the CS flow in~\cref{ch3:eq:implicit-curvature-flow}. \daniel{We are interested in the evolution of~\cref{ch3:eq:tv-flow-1,ch3:eq:tv-flow-2} without considering the data fidelity term, i.e., $\lambda=0$, and we are going to call it the \emph{TV flow}\cite{bellettini02total}}. Interestingly, both CS flow and TV flow decrease total variation of $f$, but in different ways. The CS flow tends to deform the boundary of objects and decreasing total variation by perimeter minimization. The TV flow, on the other hand, preserves the boundary for a longer time and it decreases the TV by decreasing the surface height, i.e., the color intensity of the pixels(see~\cref{ch3:fig:minimization-tv-curvature-tv-flow}).
 
 Naturally, the CS flow can also be used to do image denoising. If we think of noise as small artifacts with high gradient of color, the level curves corresponding to noise will have a very small radius, and will collapse faster than other level curves (see~\cref{ch3:fig:denoising-tv-curvature}). 
 
 
-In the geometric active contours model for image segmentation, the level sets of a predefined function $u$ (e.g., a smoothed version of function $1-\lambda_C$ where $C$ is a set that contains the object to be segmented) describes a CS flow motion modulated by an edge detector function $g$ (e.g., $g=(1+\norm{ \nabla f })^{-1}$).
+In the geometric active contours model for image segmentation, the level sets of a predefined function $u$ (e.g., a smoothed version of function $1-\lambda_C$ where $C$ is a set that contains the object to be segmented \daniel{and $\lambda_C$ its characteristic funtion}) describes a CS flow motion modulated by an edge detector function $g$ (e.g., $g=(1+\norm{ \nabla f })^{-1}$).
 \begin{align*}
 	u(0,x,y) &= u(x,y) \nonumber \\
 	\frac{du}{dt} &= g( \norm{\nabla f} )\norm{\nabla u}\nabla \cdot \left( \frac{\nabla u}{\norm{\nabla u}}  + v \right),
@@ -182,7 +182,7 @@ In the geometric active contours model for image segmentation, the level sets of
 %
 \subsubsection{Curvature and the connectivity principle applied to inpainting}
 
-We recall that the inpainting problem consists into reconstructing a collection of missing patches $\mathcal{P}$ of the image. The earlier inpainting model~\cite{bertalmio00image}  diffuses image information through the patches boundaries. The particularity of this model is that the Laplacian (heat equation) is diffused along the image level lines. Besides its impressive results, this models does not possess an important property which is expected in inpainting models: the \emph{connectivity principle}.
+We recall that the inpainting problem consists into reconstructing a collection of missing patches $\mathcal{P}$ of the image. The earlier inpainting model~\cite{bertalmio00image}  diffuses image information through the patches boundaries. The particularity of this model is that the Laplacian (heat equation) is diffused along the image level lines. Despite its impressive results, this models does not possess an important property which is expected in inpainting models: the \emph{connectivity principle}.
 
 
 \begin{figure}
@@ -193,7 +193,7 @@ We recall that the inpainting problem consists into reconstructing a collection 
 \subfloat[Thin and elongated object segmentation.\label{ch3:fig:connectivity-principle}]{
 \includegraphics[scale=0.45]{figures/chapter3/vessels-bad-seg.png}
 }
-\caption{\textbf{Connectivity principle.} In~\cref{ch3:fig:amodal-completion}, an illustration of amodal completion, the process followed by the human vision to complete the boundary of occluded object with curves of low curvature ant that conform the most with the direction of the endpoints. In~\cref{ch3:fig:connectivity-principle} a vessel segmentation with length penalization term only. Curvature favors connected objects.}
+\caption{\textbf{Connectivity principle.} In~\cref{ch3:fig:amodal-completion}, an illustration of amodal completion, the process followed by the human vision to complete the boundary of occluded object with curves of low curvature and that conform the most with the direction of the endpoints. In~\cref{ch3:fig:connectivity-principle} a vessel segmentation with length penalization term only. Curvature favors connected objects.}
 \end{figure}
 
 Studies of the Gestalt school of psychology suggest that the human vision, by a process called amodal completion~\cite{mumford94elastica}, completes the boundary of partially occluded object with a short and low curvature curve, as illustrated in~\cref{ch3:fig:amodal-completion}. The model proposed in~\cite{chan01nontexture} is a TV flow modulated by the curvature of the image level curves. 
@@ -205,7 +205,7 @@ Studies of the Gestalt school of psychology suggest that the human vision, by a 
 %
 The diffusion in~\cref{ch3:eq:inpainting-curvature-driven-diffusion} is stronger at points of high curvature with respect to its level curves. This model partially achieves the connectivity principle (see~\cref{ch3:fig:inpainting-curvature-driven-diffusion}), but the completion is done only for very small regions. 
 
-The connectivity principle suggests that the curve connecting the endpoints of an occluded object should minimize some energy with respect the curvature. Moreover, the segmentation of thin and elongated objects may also benefit from a curvature term, since classical methods have difficulties to give connected solutions. In the next section we describe the Elastica, the curve that minimizes the squared curvature along its length.
+The connectivity principle suggests that the curve connecting the endpoints of an occluded object should minimize some energy with respect to the curvature. Moreover, the segmentation of thin and elongated objects may also benefit from a curvature term, since classical methods have difficulties to give connected solutions. In the next section we describe the Elastica, the curve that minimizes the squared curvature along its length.
 
 \begin{figure}
 \center
@@ -222,7 +222,7 @@ The connectivity principle suggests that the curve connecting the endpoints of a
 \section{Elastica curve}
 \label{ch3:sec:elastica-curve}
 
-In 1691 James Bernoulli pose a challenge to your colleagues: What is the form taken by an elastic beam whose its endpoint $A$ is kept fixed in the ground while a weight is attached to its other endpoint $B$ such that the tangent at each of the endpoints are perpendicular? A simplified scheme is presented in~\cref{ch3:fig:james-scheme-elastica}.
+In 1691 James Bernoulli pose a challenge to his colleagues: What is the form taken by an elastic beam whose its endpoint $A$ is kept fixed in the ground while a weight is attached to its other endpoint $B$ such that the tangent at each of the endpoints are perpendicular? A simplified scheme is presented in~\cref{ch3:fig:james-scheme-elastica}.
 
 \begin{figure}
 \center
@@ -255,18 +255,18 @@ Given parameters $\alpha \geq 0, \beta \geq 0$ we incorporate the isoperimetric 
 	\label{ch3:eq:elastica-energy}
 \end{align}
 %
-If we do not impose any constraint in~\cref{ch3:eq:elastica-energy}, its minimization is interesting only if $\alpha >0$ and $\beta >0$ and we call this problem the \emph{free Elastica}. On the other hand, if one imposes constraints to the minimization of~\cref{ch3:eq:elastica-energy}(e.g., fixed tangent endpoints), we refer to this problem as the \emph{unconstrained Elastica}.
+If we do not impose any constraint in~\cref{ch3:eq:elastica-energy}, its minimization is interesting only if $\alpha >0$ and $\beta >0$ and we call this problem the \emph{free Elastica}. On the other hand, if one imposes constraints to the minimization of~\cref{ch3:eq:elastica-energy}(e.g., fixed tangent endpoints), we refer to this problem as the \emph{constrained Elastica}.
 
 One can easily derive the solution of the free Elastica for a closed curve. Setting $\beta=0$, the minimization of~\cref{ch3:eq:elastica-energy} behaves as the curve-shortening flow of section~\cref{ch3:sec:curve-shortening-flow}. On the other hand, if we set $\alpha =0$, the minimum is a disk of infinite radius. For the intermediate case, with both parameters greater than zero, it is easy to see that the solution is a circle $C_r$ of some radius $r$, therefore
 \begin{align*}
 	C_r = \argmin_C E(C) \rightarrow \frac{ \partial}{\partial r} \int_{C_r}{\alpha + \beta \kappa^2 ds} &= 0 \\
-	\frac{\partial}{\partial r} \big( \alpha 2\pi r + \beta \pi/r \big) & = 0 \\
+	\frac{\partial}{\partial r} \big( \alpha 2\pi r + 2\beta \pi/r \big) & = 0 \\
 	r &= \left(\frac{\beta}{\alpha}\right)^{1/2}.
 \end{align*}
 %
 In general, a planar curve $C$ minimizing the Elastica energy satisfies the following Euler-Lagrange equation~\cite{chan02elasticainpainting,singer08lectures}
 \begin{align}
-		2\kappa_{ss} + \kappa^3 = \frac{\alpha}{\beta}\kappa \Leftrightarrow \frac{\partial ^4 C}{\partial s^4} + \frac{\partial ^2 C}{\partial s^2}^3 = \frac{\alpha}{\beta}\frac{\partial ^2 C}{\partial s^2}.
+		2\kappa_{ss} + \kappa^3 = \frac{\alpha}{\beta}\kappa \Leftrightarrow \frac{\partial ^4 C}{\partial s^4} + \left( \frac{\partial ^2 C}{\partial s^2} \right)^3 = \frac{\alpha}{\beta}\frac{\partial ^2 C}{\partial s^2}.
 		\label{ch3:eq:euler-lagrange-equation-elastica}
 \end{align}
 %
@@ -393,7 +393,7 @@ The discrete elastica was proposed in the context of nonlinear splines with appl
 
 \subsubsection{Linear programming model for image segmentation using the discrete elastica}
 
-In~\cite{schoenemann09linear}, the authors handle the previous list of issues by considering only the discrete elasticas lying on a $2$D cellular complex. The $2$D cellular complex is composed by non-overlapping surfaces called \emph{cells} and its lower dimension components: \emph{linels} and \emph{pointels}. The cellular complext forms a tessellation of the plane and the shape of the cells is arbitrary. The chosen cellular complex has a direct influence in the quality of the discrete elastica, as a finer tessellation covers a larger range of angles (see~\cref{ch3:fig:schoenemann-connectivity-1,ch3:fig:schoenemann-connectivity-2}). To simplify exposition, we are going to describe the model for a standard cellular grid complex, in which each cell represents a single pixel in the image.
+In~\cite{schoenemann09linear}, the authors handle the previous list of issues by considering only the discrete elasticas lying on a $2$D cellular complex. The $2$D cellular complex is composed by non-overlapping surfaces called \emph{cells} and its lower dimension components: \emph{linels} and \emph{pointels}. The cellular complex forms a tessellation of the plane and the shape of the cells is arbitrary. The chosen cellular complex has a direct influence in the quality of the discrete elastica, as a finer tessellation covers a larger range of angles (see~\cref{ch3:fig:schoenemann-connectivity-1,ch3:fig:schoenemann-connectivity-2}). To simplify exposition, we are going to describe the model for a standard cellular grid complex, in which each cell represents a single pixel in the image.
 
 \begin{figure}
 \center
@@ -450,7 +450,7 @@ i.e., the sum of incidences for each linel must equal to zero~(see~\cref{ch3:fig
 %
 where vector $\vec{x}$ was relaxed. The quality of the model naturally depends of the plane tessellation defined by the chosen cellular complex. A simple grid complex is not that interesting, as the discrete elastica can turn only on multiples of $\pi/2$. The authors present results for two different cellular complexes. They are equivalent to $8$-connectivity or $16$-connectivity in a graph-cut framework. 
 
-The data term issue is handled by separating the roles of cells and edges. Cells variables holds data terms and edge variables hold curvature and length information. The refinement of the cellular complex is done via pixel subdivision, therefore, every cell lying in the interior of a pixel $p$ carries data term relative to pixel $p$. The consistency constraints guarantees well defined boundaries and the contour complexity issue is also covered. Finally, the model is extendable to different angular resolutions while keeping a digital setting, and a discrete elastica with an arbitrary sequence of interpolation points can be well approximated given a good choice of the cellular complex.
+The data term issue is handled by separating the roles of cells and edges. Cells variables holds data terms and edge variables hold curvature and length information. The refinement of the cellular complex is done via pixel subdivision, therefore, every cell lying in the interior of a pixel $p$ carries data term relative to pixel $p$. The consistency constraints guarantees well defined boundaries and the contour complexity issue is also covered. Finally, the model is extensible to different angular resolutions while keeping a digital setting, and a discrete elastica with an arbitrary sequence of interpolation points can be well approximated given a good choice of the cellular complex.
 
 Some results are displayed in~\cref{ch3:fig:schoenemann-results}. However, the computation time is quite high and the segmentation present sharp angles even when employing a $16$-connectivity cellular complex.
 
@@ -504,7 +504,7 @@ $x_i$ & $x_j$ & $x_k$ & $w$ \\
 \label{ch3:fig:elzehiry-turn-angles}
 \end{figure}
 
-The coefficients $w_{ijk}$ are defined accordingly with the Brucksteins discretization formula for the elastica, i.e.,
+The coefficients $w_{ijk}$ are defined accordingly with the curvature discretization given by~\cref{ch3:eq:discrete-elastica}, i.e.,
 \begin{align*}
 	w_{ijk} &= \frac{ \alpha_i ^2}{\min \{ |e_{ij}|,|e_{jk}| \} }.
 \end{align*}
@@ -522,7 +522,7 @@ where
 	w_{jk} &= -\frac{1}{2}w_{ijk}.
 \end{align*}
 %
-~\cref{ch3:eq:elzehiry-pairwise} is a non-submodular PBF (the negative $w_jk$ coefficient creates a non-submodular term) and it is optimized using QPBO or one of its variations. The computation is much faster than the linear programming formulation and the model favors the connectivity principle, although the completion effect seems limited to very small portions~(see~\cref{ch3:fig:elzehiry-results}). A clear drawback is the limitation in the angle resolution, which tends to produce block artifacts. The authors argue that the model can be extended to any desired connectivity, but it is not clear how this is done.
+~\cref{ch3:eq:elzehiry-pairwise} is a non-submodular PBF (the negative $w_{jk}$ coefficient creates a non-submodular term) and it is optimized using QPBO or one of its variations. The computation is much faster than the linear programming formulation and the model favors the connectivity principle, although the completion effect seems limited to very small portions~(see~\cref{ch3:fig:elzehiry-results}). A clear drawback is the limitation in the angle resolution, which tends to produce block artifacts. The authors argue that the model can be extended to any desired connectivity, but it is not clear how this is done.
 
 \begin{figure}
 \center
@@ -538,7 +538,7 @@ where
 \label{ch3:fig:elzehiry-results}
 \end{figure}
 
-In~\cite{nieuwenhuis14efficient} is presented an alternative formulation that is extendable to any desirable angle resolution. The idea is in fact quite similar to the one in~\cite{zehiry10fast} in the sense that curvature is measured by counting the number of configurations $(0,1,0)$ and $(1,0,1)$ of triplets of vertices. Intuitively, as illustrated in~\cref{ch3:fig:nieuweinhuis-triplets-1}, the curvature is higher at regions in which these configurations are more frequent. The authors prove the following theorem
+In~\cite{nieuwenhuis14efficient} is presented an alternative formulation that is extensible to any desirable angle resolution. The idea is in fact quite similar to the one in~\cite{zehiry10fast} in the sense that curvature is measured by counting the number of configurations $(0,1,0)$ and $(1,0,1)$ of triplets of vertices. Intuitively, as illustrated in~\cref{ch3:fig:nieuweinhuis-triplets-1}, the curvature is higher at regions in which these configurations are more frequent. The authors prove the following theorem
 
 \begin{figure}
 \center
@@ -579,14 +579,14 @@ Let $d$ be the chosen neighborhood system and $c_i$ the corresponding triplets i
 	&\approx \sum_{i}\sum_{p} \frac{4\Delta \theta _i}{d^3_i} \cdot \delta(c_i(p)),
 \end{align*}
 %
-where the function $\delta$ is one for triplets configurations $(0,1,0)$ or $(1,0,1)$ and zero otherwise. The function delta can be expressed as
+where the function $\delta$ is one for triplets configurations $(0,1,0)$ or $(1,0,1)$ and zero otherwise. The function $\delta$ can be expressed as
 \begin{align*}
 	\delta(x_a,x_b,x_c) &= x_i(1-x_j)x_k + (1-x_i)x_j(1-x_k) \\
 	&= x_j + x_ix_k - x_ix_j - x_jx_k.
 \end{align*}
 %
-The resulting energy is non-submodular (the positive term in the $\delta$ function is non-submodular) and is solved using the LSA-TR method~\cite{gorelick14local}, reported to produce better results than QPBO for some non-submodular instances. Some results for inpainting and segmentation are shown in~\cref{ch3:fig:nieuweinhuis-results}. The model is unconstrained, extendable to arbitrary angle resolution and can be easily modified to include data and length terms. 
-X
+The resulting energy is non-submodular (the positive term in the $\delta$ function is non-submodular) and is solved using the LSA-TR method~\cite{gorelick14local}, reported to produce better results than QPBO for some non-submodular instances. Some results for inpainting and segmentation are shown in~\cref{ch3:fig:nieuweinhuis-results}. The model is unconstrained, extensible to arbitrary angle resolution and can be easily modified to include data and length terms. 
+
 Although an argument is provided to justify the curvature approximation, it is difficult to do a multigrid analysis, i.e., to analyse its convergence over different resolutions. The experiments provided by the authors are limited to the computation of the elastica along a disk, and we are not sure about the behaviour of such estimator in shapes of more complex geometry. The fundamental goal of this thesis is to investigate imaging models using geometric penalization estimated by proven multigrid convergent estimators. In the next chapter we explore the multigrid convergence property and some other concepts of digital geometry.
 
 \begin{figure}
