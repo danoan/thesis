@@ -213,7 +213,7 @@ In the grid graph $\mathcal{G}_I$ we have $1$ and $2$-cliques only. We attach to
 	\end{array}
 \end{equation*}
 %
-In~\cref{ch2:fig:mrf-tikhonov-denoising} we have a representation of this HMM, which encodes the Tikhonov denoising model of~\cref{ch1:sec:bayesian-rationale}. The estimated image $\widehat{I}$ is computed as the maximum likelihood of $P$, i.e.,
+In~\cref{ch2:fig:hmm-multilabeling} we have a representation of this HMM, which encodes the Tikhonov denoising model of~\cref{ch1:sec:bayesian-rationale}. The estimated image $\widehat{I}$ is computed as the maximum likelihood of $P$, i.e.,
 \begin{align}
 	\widehat{\vec{I}} &= \argmax_{\vec{I'}}{P(\vec{X}=\vec{I'} \; | \; \vec{Y} = \vec{I} }) \nonumber \\
 	&= \argmin_{\vec{I'}}{E(\vec{I'})} \nonumber \\
@@ -366,7 +366,7 @@ Classical problems in combinatorial optimization as vertex cover, maximum indepe
 
 A quite natural and naive approach to optimize~\cref{ch2:eq:pbf-polynomial-form} would be to formulate the quadratic PBF as a continuous linear programming. Consider the quadratic PBF
 \begin{align}
-	F(\vec{x}) = \left\{ \begin{array}{rl}
+	f(\vec{x}) = \left\{ \begin{array}{rl}
 		\min &c_0 + \sum_{}{c_ix_i} + \sum_{}{c_{ij}x_ix_j} \\
 	\text{subject to }& \vec{x} \in \{0,1\}^n.
 	\end{array}\right.
@@ -375,7 +375,7 @@ A quite natural and naive approach to optimize~\cref{ch2:eq:pbf-polynomial-form}
 %
 ~\cref{ch2:eq:qpbf-qip-formulation} can be linearized by substituting each pairwise term $x_ix_j$ with binary variable $z_{ij}$ and including the following set of constraints 
 \begin{align*}
-	C(\vec{x},\vec{z}) &= \left\{  \begin{array}{l}
+	R(\vec{x},\vec{z}) &= \left\{  \begin{array}{l}
 	z_{ij} \leq x_i, \\
 	z_{ij} \leq x_j, \\
 	z_{ij} \geq x_i + x_j - 1 
@@ -387,23 +387,23 @@ Therefore, an equivalent linear integer programming formulation is
 	\begin{array}{rl}
 		\min& c_0 + \sum_{}{c_ix_i} + \sum_{}{c_{ij}z_{ij}} \\
 		\text{subject to }&  \vec{x},\vec{z} \in \{0,1\}^n\\
-		&C(\vec{x},\vec{z})	
+		&R(\vec{x},\vec{z})	
 	\end{array}
 	\label{ch2:eq:qpbf-lp-formulation}
 \end{align}
 %
 Finally, the relaxation of~\cref{ch2:eq:qpbf-lp-formulation} gives
 \begin{align*}
-	G(\vec{x},\vec{z}) &= \left\{ \begin{array}{rl}
+	g(\vec{x},\vec{z}) &= \left\{ \begin{array}{rl}
 		\min& c_0 + \sum_{}{c_ix_i} + \sum_{}{c_{ij}z_{ij}} \\
 		\text{subject to }&  \vec{x},\vec{z} \in [0,1]^n\\
-		&C(\vec{x},\vec{z})
+		&R(\vec{x},\vec{z})
 	\end{array}\right.
 \end{align*}
 %
-Clearly, formulation $G$ is a lower bound of $F$, i.e.,  $G(\vec{x},\vec{z}) \leq F(\vec{x})$. Such lower bound is called the \emph{roof dual} (it was originally defined for a maximization problem) and its shown~\cite{hammer84} to be equivalent to
+Clearly, formulation $G$ is a lower bound of $f$, i.e.,  $g(\vec{x},\vec{z}) \leq f(\vec{x})$. Such lower bound is called the \emph{roof dual} (it was originally defined for a maximization problem) and it is shown~\cite{hammer84} to be equivalent to
 \begin{align*}
-	G(\vec{x},\vec{z}) &= C_{\phi^{\star}(f)},
+	g(\vec{x},\vec{z}) &= C_{\phi^{\star}(f)},
 \end{align*}
 %
 i.e., the constant in the max-constant posiform representation of $f$. In this same work, the so called \emph{strong persistency} theorem is proven. It says that for every unary term $a_pp$ ($p$ a literal) in a max-constant posiform representation of $f$, we have that $p=0$ in every solution of $\min f$.
@@ -427,7 +427,7 @@ According with the strong persistency theorem, $x_1=0,\bar{x}_2=0$ for every sol
 \end{align*}
 \end{example}
 %
-The strong persistency theorem allow us to fix some variables of the quadratic PBF, which could possibly result in a simpler optimization problem. Clearly, the main difficult is to find the max-constant posiform $\phi^{\star}(f)$ that results in a maximum number of variable elimination. Such posiform, called the \emph{master posiform}, can be found by finding the maximum flow in some capacitated graph.
+The strong persistency theorem allow us to fix some variables of the quadratic PBF, which could possibly result in a simpler optimization problem. Clearly, the main difficult is to find the max-constant posiform $\phi^{\star}(f)$ that results in a maximum number of variable elimination. Such posiform, called the \emph{master posiform}, can be found by computing the maximum flow in some capacitated graph.
 
 \subsubsection{Master posiform and max-flow reduction}
 
@@ -706,13 +706,13 @@ As we have seen, the optimization of a PBF is closely related with the computati
 
 \subsection{Binary segmentation}
 
-Let $\vec{I} \in \mathbb{F}^{m\times n}$ a discrete grayscale image and $\GG (\mathcal{V},\mathcal{E})$ its grid graph. We denote $\vec{x}$ the vector of binary variables indexed by image pixels, i.e., $x_p$ is associated to pixel $p$. We consider the extended grid graph $\GGe (\mathcal{V}^+,\mathcal{E}^+)$ where 
+Let $\vec{I} \in \mathbb{F}^{m\times n}$ a discrete grayscale image and $\GG (\mathcal{V},\mathcal{E})$ its grid graph. We denote $\vec{x}$ the vector of binary variables indexed by image pixels, i.e., $x_p$ is associated to pixel $p$. We consider the capacitated grid graph $\GGe (\mathcal{V}^+,\mathcal{E}^+,c)$ where 
 %It is a binary labeling problem. We present here its formulation as an HMM.
 \begin{align*}
 	\mathcal{V}^+ &= \mathcal{V} \cup \{s,t\} \\
 	\mathcal{E}^+ &= \mathcal{E} \cup \big\{ \{s,v_p\}, \{v_p,t\} \; | \; p \in \vec{I} \big\}.
 \end{align*}
-The members of the additional set of edges are referred to as terminal edges. Next, let sets $\mathcal{V}_{fg}, \mathcal{V}_{bg} \subset \mathcal{V}$ to represent foreground and background seeds furnished by the user. A $(s,t)$-cut set of $\GGe$ partitions the graph in connected components $S,T$. The first connected to the source and the other to the target vertex. Vertices in $\mathcal{V}_{fg}$ ($\mathcal{V}_{bg}$) will be forced to be in the source (target) component after the removal of a $(s,t)$-cut set.
+The cost function $c$ is defined later. The members of the additional set of edges are referred to as terminal edges. Next, let sets $\mathcal{V}_{fg}, \mathcal{V}_{bg} \subset \mathcal{V}$ to represent foreground and background seeds furnished by the user. A $(s,t)$-cut set of $\GGe$ partitions the graph in connected components $S,T$. The first connected to the source and the other to the target vertex. Vertices in $\mathcal{V}_{fg}$ ($\mathcal{V}_{bg}$) will be forced to be in the source (target) component after the removal of a $(s,t)$-cut set.
 
 The data term is modeled by
 \begin{align*}

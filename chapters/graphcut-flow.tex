@@ -7,9 +7,9 @@ In the previous chapter we have defined the concept of balance coefficient that 
 
 \daniel{The model presented in this chapter is highly influenced by the graph cut model described in~\cref{ch2:sec:graph-cut-models}~\cite{boykov01graphcut}. We recall that this model constructs a cost function on the edges of the image grid graph such that the minimum cut of the graph minimizes the segmentation energy. The model is very attractive as minimum cuts are quickly computed for sparse graphs. }
 
-\daniel{Let $\vec{I} \in \mathbb{F}^{m \times n}$ a discrete image and its extended grid graph $\GGe (\mathcal{V}^+,\mathcal{E}^+)$. Given a cut $\mathcal{E}'$ of $\GGe$ that partitions the graph in disjoint sets $S$ and $T$, we recall that the energy minimized by the graph cut model is written as
+\daniel{Let $\vec{I} \in \mathbb{F}^{m \times n}$ a discrete image and its capacitated grid graph $\GGe (\mathcal{V}^+,\mathcal{E}^+,c)$ as defined in~\cref{ch2:sec:graph-cut-models}. Given a cut $\mathcal{E}'$ of $\GGe$ that partitions the graph in disjoint sets $S$ and $T$, we recall that the energy minimized by the graph cut model is written as
 \begin{align*}
-	E^{gcut}(\GGe,\mathcal{E}') &= \gamma_r \left( \sum_{v_p \in S}{ \psi_1(1) } +\sum_{v_p \in T}{\psi_1(0)} \right) + \gamma_b \sum_{(v_p,v_q) \in \mathcal{E}'}{\psi_2(0,1)},
+	E^{gcut}_{\vec{\gamma}}(\GGe,\mathcal{E}') &= \gamma_r \left( \sum_{v_p \in S}{ \psi_1(1) } +\sum_{v_p \in T}{\psi_1(0)} \right) + \gamma_b \sum_{(v_p,v_q) \in \mathcal{E}'}{\psi_2(0,1)},
 \end{align*}
 where $\gamma_r \geq 0$ and $\gamma_b \geq 0$ are parameters controlling the influence of the data and space coherence terms, respectively. Given a neighborhood cardinality $k$ (e.g. $8$), data and space coherence terms are defined as
 \begin{align*}
@@ -26,12 +26,12 @@ where $\gamma_r \geq 0$ and $\gamma_b \geq 0$ are parameters controlling the inf
 \begin{itemize}
 	\item[]{\textbf{Candidate selection:} We associate to $D^{(k)}$ a set of neighbor shapes $\mathcal{P}(D^{(k)})$. For each $D' \in \mathcal{P}(D^{(k)})$ we construct its \emph{candidate graph} $\mathcal{G}_{D'}$ and we compute its minimum cut $Q$ according to energy
 \begin{align}
-E^{gflow}(\mathcal{G}_{D'},Q,D^{(k)}) =& \sum_{ (v_p,v_q) \in Q}{\big(u(D^{(k)},p) + u(D^{(k)},q) \big)} + E^{gcut}(\mathcal{G}_{D'}, Q).
+E^{gflow}_{ \vec{\gamma} }(\mathcal{G}_{D'},Q,D^{(k)}) =& \sum_{ (v_p,v_q) \in Q}{\big(u(D^{(k)},p) + u(D^{(k)},q) \big)} + E^{gcut}_{ \vec{\gamma} }(\mathcal{G}_{D'}, Q).
 \label{ch8:eq:graphflow-candidate}
 \end{align}}
 \item[]{\textbf{Validation:} Each minimum cut $Q$ computed in the previous step induces a solution candidate $D_{Q}$. We group minimum cuts and solution candidates in the \emph{solution candidates set} $sol(D^{(k)})$. We choose among the solution candidates the one that minimizes 
 \begin{align}
-	E^{val}(\GG,Q,D_Q) &= \hat{E}_{\theta}({D_Q}) + E^{gcut}(\mathcal{G}_{\vec{I}},Q).
+	E^{val}_{ (\vec{\theta},\vec{\gamma}) }(\GG,Q,D_Q) &= \hat{E}_{\vec{\theta} }({D_Q}) + E^{gcut}_{ \vec{\gamma} }(\mathcal{G}_{\vec{I}},Q).
 	\label{ch8:eq:graphflow-energy}
 \end{align}
 }	
@@ -123,7 +123,7 @@ The GraphFlow algorithm implements a local-search strategy to minimize~\cref{ch8
  \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
  \SetKwComment{comment}{//}{}
  
- \Input{An image $\vec{I}$ or a digital set $D$; the optimization band $n$; the probe set parameter $a$; parameter vector $\vec{\theta}=(\alpha,\beta)$; parameter vector $\vec{\Gamma} = (\gamma_r,\gamma_b)$; the maximum number of iterations \MIt;} 
+ \Input{An image $\vec{I}$ or a digital set $D$; the optimization band $n$; the probe set parameter $a$; parameter vector $\vec{\theta}=(\alpha,\beta)$; parameter vector $\vec{\gamma} = (\gamma_r,\gamma_b)$; the maximum number of iterations \MIt;} 
  \BlankLine
  \If{ Image $\vec{I}$ is given }
  {
@@ -141,7 +141,7 @@ The GraphFlow algorithm implements a local-search strategy to minimize~\cref{ch8
 
 	\BlankLine
 	\comment{Candidate validation}
-	$( Q^{(k)}, \Ds^{(k)} ) \longleftarrow \displaystyle \argmin_{ (Q,S) \in sol(D^{(k)}) }{ \hat{E}_{\vec{\theta}}(S) + E^{gcut}_{\Gamma}{( \mathcal{G}_{\vec{I}},Q) }}$\; 	
+	$( Q^{(k)}, \Ds^{(k)} ) \longleftarrow \displaystyle \argmin_{ (Q,S) \in sol(D^{(k)}) }{ \hat{E}_{\vec{\theta}}(S) + E^{gcut}_{\vec{\gamma} }{( \mathcal{G}_{\vec{I}},Q) }}$\; 	
 	\It $\longleftarrow$ \It $+1$\;
 	
  }

@@ -1,7 +1,7 @@
 \chapter{Variational methods in Image Processing}
 \label{chapter:variational-methods-in-image-processing}
 
-A track should be constructed to connect some point in space $A$ to a lower altitude point $B$. Which form the track should take if we wish that a ball released at $A$ reaches $B$ in the shortest time? The curve known as brachistochrone or tautochrone is the answer of this puzzle solved by Jean Bernoulli and a classical problem of the \emph{calculus of variations}. 
+A track should be constructed to connect some point in space $p$ to a lower altitude point $q$. Which form the track should take if we wish that a ball released at $p$ reaches $q$ in the shortest time? The curve known as brachistochrone or tautochrone is the answer of this puzzle solved by Jean Bernoulli and a classical problem of the \emph{calculus of variations}. 
 
 The main object of calculus of variations are called \emph{functionals} or \emph{energies}, and a simple way to describe it is as a function whose variable is itself a function. Minimizing functionals is a more intricate problem than minimizing an usual function, as the variable in a functional has infinite dimension. Nonetheless, by means of the so called \emph{variations}, one can model infinitely small variations in the functional and do a rigorous analysis of its extremum, the main tool of which is the \emph{Euler-Lagrange} equation.
 
@@ -28,7 +28,7 @@ We can find examples of inverse problems in several branches of mathematics~\cit
 \hline
 \multicolumn{1}{|c|}{\textbf{Inverse problem}} & \multicolumn{1}{c|}{\textbf{Forward problem}} \\
 \hline
-\textbf{Projection}: Compute vector $v \in \mathbb{R}^3$ whose projection is $P(v) \in \mathbb{R}^2$ & Compute the projection $P(v) \in \mathbb{R}^2$ of vector $v \in R^3$\\
+\textbf{Projection}: Compute vector $\vec{v} \in \mathbb{R}^3$ whose projection is $P(\vec{v}) \in \mathbb{R}^2$ & Compute the projection $P(\vec{v}) \in \mathbb{R}^2$ of vector $\vec{v} \in R^3$\\
 \hline
 \textbf{Parameters inference}: Given a set of observations $\Gamma$, infer the parameters $(\mu,\sigma)$ of the Gaussian distribution that describes $\Gamma$ & Given a random variable $X$ following a Gaussian distribution with parameters $(\mu=0,\sigma=1)$, compute the probability $P(X \leq 0.42)$\\
 \hline
@@ -312,7 +312,7 @@ The ROF model~\cite{rudin92} assumes the image representation is smooth, and fro
 	\frac{\partial f}{\partial t} &= \nabla \cdot \left( \frac{\nabla f}{\norm{ \nabla f} } \right) - \lambda (f_{\widetilde{\vec{I}}} - f)
 \end{align*}
 %
-The left term is not differentiable, and a small $epsilon >0$ is added to the denominator in order to avoid numerical instability. However, the calibration of $\epsilon$ might be delicate, since a small $\epsilon$ might not be sufficient to avoid instability and a larger $\epsilon$ may disfigure the model. In~\cite{chambolle04} the total variation definition is exploited to create a convergent algorithm that works by successive projections and that solves model~\cref{ch1:eq:total-variation-denoising}. In~\cite{beck09a} a modified version of the previous algorithm has proven to have faster convergence. 
+The left term is not differentiable, and a small $\epsilon >0$ is added to the denominator in order to avoid numerical instability. However, the calibration of $\epsilon$ might be delicate, since a small $\epsilon$ might not be sufficient to avoid instability and a larger $\epsilon$ may disfigure the model. In~\cite{chambolle04} the total variation definition is exploited to create a convergent algorithm that works by successive projections and that solves model~\cref{ch1:eq:total-variation-denoising}. In~\cite{beck09a} a modified version of the previous algorithm has proven to have faster convergence. 
 
 The total variation term is characterized by its smooth properties while partially preserving some discontinuities across the edges. In this sense, total variation models produce results with sharper edges than those produced by the Tikhonov term (see~\cref{ch1:fig:denoising-results}) .
 

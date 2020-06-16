@@ -8,13 +8,13 @@
 
 \section{Digital elastica}
 \label{ch5:sec:continuous-digital-elastica}
-	The elastica energy of parameters $\Theta=(\alpha \geq 0, \beta \geq 0)$ for some Euclidean shape $S \subset \mathbb{R}^2$ is defined as
+	The elastica energy of parameters $\vec{\theta}=(\alpha \geq 0, \beta \geq 0)$ for some Euclidean shape $S \subset \mathbb{R}^2$ is defined as
 	\begin{align*}
-	E_{\Theta}(S) &= \int_{\partial S}{ \alpha + \beta \kappa(s)^2 ds}.
+	E_{\vec{\theta}}(S) &= \int_{\partial S}{ \alpha + \beta \kappa(s)^2 ds}.
 	\end{align*}
-Similarly, the digital elastica $\hat{E}_{\Theta}$ of some digitization $D_h(S)$ of $S$ is defined as
+Similarly, the digital elastica $\hat{E}_{\vec{\theta}}$ of some digitization $D_h(S)$ of $S$ is defined as
 	\begin{align}
-	\hat{E}_{\Theta}( D_h(S) ) = \sum_{\dot{\vec{e}} \in \partial_h S}{ \hat{s}( \dot{\vec{e}})\left(\; \alpha + \beta \hat{\kappa}^2(D_h(S),\dot{\vec{e}},h) \; \right)},
+	\hat{E}_{\vec{\theta}}( D_h(S) ) = \sum_{\dot{\vec{e}} \in \partial_h S}{ \hat{s}( \dot{\vec{e}})\left(\; \alpha + \beta \hat{\kappa}^2(D_h(S),\dot{\vec{e}},h) \; \right)},
 	\label{ch5:digital-elastica}
 	\end{align}
 where $\dot{\vec{e}}$ denotes the center of the linel $\vec{e}$ \daniel{and the estimators of length $\hat{s}$ and curvature $\hat{\kappa}$ are multigrid convergent}. In the
@@ -116,7 +116,7 @@ The \emph{LocalSearch}~\cref{ch5:alg:local-search} describes the local combinato
  \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
  \SetKwComment{comment}{//}{}
  
- \Input{A digital set $\Ds$; weight coefficients $\Theta=(\alpha , \beta)$; the maximum number of iterations \MIt}
+ \Input{A digital set $\Ds$; weight coefficients $\vec{\theta}=(\alpha , \beta)$; the maximum number of iterations \MIt}
  \BlankLine
  $t \longleftarrow 1$ \tcp*[l]{multiscale level}
  $k \longleftarrow 0$	\tcp*[l]{current iteration}
@@ -139,7 +139,7 @@ The \emph{LocalSearch}~\cref{ch5:alg:local-search} describes the local combinato
 	$Q^{\star} \longleftarrow D^{(k-1)}$\;
   	\For{$ Q \in \mathcal{N}^{(k,t)} $}
 	{
-		\If{ $\hat{E}_{\Theta}(Q)$ $<$ $\hat{E}_{\Theta}(Q^\star)$ }
+		\If{ $\hat{E}_{\vec{\theta}}(Q)$ $<$ $\hat{E}_{\vec{\theta}}(Q^\star)$ }
 		{
 			$Q^\star \longleftarrow Q$\; 
 		}	
@@ -147,7 +147,7 @@ The \emph{LocalSearch}~\cref{ch5:alg:local-search} describes the local combinato
 	\BlankLine
 	
 
-	\Delta $\longleftarrow$ $\hat{E}_{\Theta}(\Ds^{(k-1)}) - \hat{E}_{\Theta}(\Ds^{(k)})$\;	
+	\Delta $\longleftarrow$ $\hat{E}_{\vec{\theta}}(\Ds^{(k-1)}) - \hat{E}_{\vec{\theta}}(\Ds^{(k)})$\;	
 	
 	\If{ \Delta $\leq 0$ } 
 	{
@@ -419,7 +419,7 @@ Ellipse  & 626 & 1s (0.14s/it) & 2506 & 16s (0.44s/it) & 10038 & 286s (3.1s/it)\
 
 The simplified digital elastica is defined as
 	\begin{align}
-	\hat{E}_{\Theta}^{simp}( D_h(S) ) = \sum_{\dot{\vec{e}} \in \partial_h S}{ \alpha + \beta \hat{\kappa}_{r}^2(D_h(S),\dot{\vec{e}},h) }.
+	\hat{E}_{\vec{\theta}}^{simp}( D_h(S) ) = \sum_{\dot{\vec{e}} \in \partial_h S}{ \alpha + \beta \hat{\kappa}_{r}^2(D_h(S),\dot{\vec{e}},h) }.
 	\label{eq:simplified-digital-elastica}
 	\end{align}
 %	
@@ -459,19 +459,19 @@ In contrast with the previous section, the model described here is designed for 
 %
 In other words, the column vector $\vec{A}_i$ represents the pixels that are in the interior of the disk $B_{r}(y_i)$ of radius $r$ centered at $\vec{y}_i$. 
 \begin{align}
-	E_{\Theta}^{simp}(\vec{x},\vec{y}) =& \sum_{\vec{y}_i \in \vec{y}}{ \vec{y}_i \left(\; \alpha + \beta \hat{\kappa}_{r}^2(D,\vec{y}_i) \; \right)}\\\nonumber
+	E_{\vec{\theta}}^{simp}(\vec{x},\vec{y}) =& \sum_{\vec{y}_i \in \vec{y}}{ \vec{y}_i \left(\; \alpha + \beta \hat{\kappa}_{r}^2(D,\vec{y}_i) \; \right)}\\\nonumber
 			   =& \sum_{\vec{y}_i \in \vec{y}}{ \vec{y}_i \left(\; \alpha  + \beta \big( \frac{3}{r^3}(\frac{\pi}{r^2} - |B_r(\vec{y}_i)|)\big)^2\right)}\\\nonumber
 			   =& \sum_{\vec{y}_i \in \vec{y}}{ \vec{y}_i \left(\; \alpha + \frac{9}{r^6}\beta \big(c^2 - 2c\vec{A}_i^T\vec{x} + \vec{x}^T\vec{A}_i\vec{A}_i^T\vec{x}\big)\right)},			   
 	\end{align}
 %	
 where $c =  \pi r^2/2$. We remark that linels and pixels in the solution must be topologically consistent, .i.e., linels must form connected closed curves and the pixels must lie in the interior of those curves. This restriction is encoded in a set of topological constraints $T(\vec{x},\vec{y})$ detailed later. So far we have
 \begin{align*}
-	\min_{\vec{x} \in \daniel{\{0,1\}}^{|X|}, \vec{y} \in \daniel{\{0,1\}}^{|Y|}}{E_{\Theta}^{simp}(\vec{x},\vec{y})}, \quad \text{subject to } T(\vec{x},\vec{y}). \quad (P0)
+	\min_{\vec{x} \in \daniel{\{0,1\}}^{|X|}, \vec{y} \in \daniel{\{0,1\}}^{|Y|}}{E_{\vec{\theta}}^{simp}(\vec{x},\vec{y})}, \quad \text{subject to } T(\vec{x},\vec{y}). \quad (P0)
 \end{align*}
 %
 Additionaly, in real applications involving the minimization of elastica, we have a set of constraints $R$ that plays the role of regularization. For example, we may force some of the pixels in the original shape to be part of the solution; for imaging problems, we may add a data attachment term, and so on. Finally, we can write the general optimization problem as
 \begin{align*}
-	\min_{\vec{x} \in \daniel{\{0,1\}}^{|X|}, \vec{y} \in \daniel{\{0,1\}}^{|Y|}}{E_{\Theta}^{simp}(\vec{x},\vec{y})}, \quad \text{subject to } T(\vec{x},\vec{y}), R(\vec{x}) \quad (P1)
+	\min_{\vec{x} \in \daniel{\{0,1\}}^{|X|}, \vec{y} \in \daniel{\{0,1\}}^{|Y|}}{E_{\vec{\theta}}^{simp}(\vec{x},\vec{y})}, \quad \text{subject to } T(\vec{x},\vec{y}), R(\vec{x}) \quad (P1)
 \end{align*}
 %
 	Formulation $P1$ is a constrained binary non-convex third order problem and likely difficult to be solved optimally. Nonetheless, we can use standard optimization techniques to acquire some intuition on the model. 	

@@ -2,60 +2,111 @@
 \label{chapternotation}
 \addcontentsline{toc}{chapter}{Notation}
 
+{
+\setlength{\extrarowheight}{0.5em}
 \begin{longtable}{p{0.5cm}ll}
-\multicolumn{3}{l}{Domains}\\
-& $\mathbb{B}$ & $\{0,1\}$\\\
-& $\mathbb{U}$ & $[0,1]$\\
+\multicolumn{3}{l}{\textbf{Domains}}\\
 & $\mathbb{Z}$ & Integers\\
-& $\mathbb{R}$ & Reals\\[1em]
+& $\mathbb{R}$ & Reals\\
+& $\mathbb{R}_+$ & Positive reals\\
 
-\multicolumn{3}{l}{Vectors and matrices}\\
+\multicolumn{3}{l}{\textbf{Vectors and matrices}}\\
 & $\mathbf{A}$ & Matrix\\
 & $\mathbf{A}_i$ & $i$-th column of matrix $\mathbf{A}$\\
 & $\mathbf{A}_{i,j}$ & Element in the $i$th row and $j$th column of matrix $\mathbf{A}$\\
 & $\mathbf{x}$ & Vector\\
 & $\mathbf{x}_i$ & $i$th coefficient of vector $\mathbf{x}$\\[1em]
 
-\multicolumn{3}{l}{Functions}\\
+\multicolumn{3}{l}{\textbf{Functions}}\\
 & $f,g$ & Functions\\
 & $x,y,z$ & Variables \\
 & $a,b,c$ & Constants \\
 & $\hat{f}$ & Estimation function\\
 & $E_{\boldsymbol{\theta}}$ & Functional $E$  with parameter vector $\boldsymbol{\theta}$ \\[1em]
 
-\multicolumn{3}{l}{Sets}\\
-& $A$ & A set\\
-& $\mathcal{A}$ & A family of sets\\
+\multicolumn{3}{l}{\textbf{Sets and points}}\\
+& $A,B,C$ & A set\\
+& $p,q$ & Points\\
+& $\mathcal{A},\mathcal{B},\mathcal{C}$ & A family of sets\\
 & $\mathbbm{1}_A$ & Active vector for set $A$\\[1em]
 
+\multicolumn{3}{l}{\textbf{Image}}\\
+& $\vec{I}$ & Image matrix\\
+& $f_{\vec{I}}$ & Image function\\
+& $\Omega$ & Image domain\\
+& $\widetilde{\vec{I}}$ & Input image\\
+& $\mathbb{F}$ & Finite set of gray level values \\[1em]
 
-\multicolumn{3}{l}{Digital and continuous shapes}\\
+\multicolumn{3}{l}{\textbf{Graphs}}\\
+& $\mathcal{G}(\mathcal{V},\mathcal{E})$ & A graph and its vertices and edge sets \\
+& $\{v_p,v_q\}$ & An undirect edge \\ 
+& $\edge{v_p}{v_q}$ & A direct edge \\
+& $\mathcal{N}_4$ & Four-adjacency neighborhood \\
+& $\mathcal{N}_8$ & Eight-adjacency neighborhood \\[1em]
+
+
+\multicolumn{3}{l}{\textbf{Markov random fields}}\\
+& $\mathcal{H}$ & A Markov random field\\
+& $\vec{X}$ & A random variable vector \\
+& $Pr(\vec{X}_i=\vec{x}_i\;|\;\vec{Y}_j=\vec{y}_j )$ & Conditional probability \\
+& $\Gamma$ & A label set \\
+& $\phi$ & A clique potential function \\
+& $\mathcal{G}_{\vec{I}}$ & Image grid graph \\
+& $\mathcal{G}_{\vec{I}+}$ & Capacitated image grid graph\\[1em]
+
+\multicolumn{3}{l}{\textbf{Digital and continuous shapes}}\\
 & $S$ & Bidimensional Euclidean shape, i.e.,  $S \subset \mathbb{R}^2$\\
 & $D_h(S)$ & Digitization of Euclidean shape $S$  using a grid of size $h$\\
 & $D$ & Bidimensional digital shape, i.e., $D \subset \mathbb{Z}^2$\\
 & $B_r(p)$ & Digital ball of radius $r$  in a grid of size $h=1$ \\[1em]
 
-\multicolumn{3}{l}{LocalSearch}\\
-& $d_D$ & Signed Euclidean distance transform of shape $D$\\
+\multicolumn{3}{l}{\textbf{Notations for chapter 5 (A combinatorial model for digital elastica ... )}}\\
+& $d_D$ & Signed distance transformation of shape $D$\\
+& $I(D)$ & Inner pixel boundary of $D$\\
 & $R_m(D)$ & $m$-ring set of digital set $D$\\
 & $\mathcal{N}_n(D)$ & $n$-neighborhood of shape $D$\\[1em]
 
-\multicolumn{3}{l}{FlipFlow}\\
+\multicolumn{3}{l}{\textbf{Notations for chapter 6 (A 2-step evolution model driven by ...)}}\\
+& $w(p)$ & Variable index function for pixel $p$\\
 & $\Ds^{(k)}$ & The $k$-th digital shape in the evolution\\
 & $I^{(k)} = I(\Ds^{(k)})$ & The inner pixel boundary of the $k$-th digital shape\\
 & $X^{(k)} = X(I(\Ds^{(k)}))$ & The $k$-th set of optimization variables in the evolution\\
 & $F^{(k)} = \Ds^{(k)} \setminus I^{(k)}$ & The $k$-th trust foreground \\
-& $F_r^{(k)}(p),I_r^{(k)}(p),X_r^{(k)}(p)$ & Intersection of $k$-th sets F,I,X with $B_r(p)$\\
+& $F_r^{(k)}(p)$ & Intersection of $k$-th set $F^{(k)}$ with $B_r(p)$\\
 & $H_F,H_B$ & Mixed Gaussian distributions\\[1em]
 
-\multicolumn{3}{l}{BalanceFlow}\\
-& $O^{(k)}$ & Incident pixels (inner,outer) of $\partial D^{(k)}$\\
+\multicolumn{3}{l}{\textbf{Notations for chapter 7 (A single step evolution model driven by ... )}}\\
+& $O^{(k)}$ & Incident pixels (inner,outer) to $\partial D^{(k)}$\\
 & $u_r(D,p)$ & Balance coefficient for digital shape $D$ centered at $p$\\[1em]
 
-\multicolumn{3}{l}{GraphFlow}\\
-& $\mathcal{G}(\mathcal{V},\mathcal{E})$ & Unordered graph with vertex set $\mathcal{V}$ and edge set $\mathcal{E}$ \\
-& $I$ & $3$-channel colored image\\
-& $O_n$ & Optimization band of width $n$\\
+\multicolumn{3}{l}{\textbf{Notations for chapter 8 (Digital elastica minimization via graph cuts)}}\\
+& $E^{(gcut)}_{ \vec{\gamma} }$ & Standard graph cut energy \\
+& $E^{(gflow)}_{ \vec{\gamma} }$ & Candidate selection energy \\
+& $E^{(val)}_{ (\vec{\theta}, \vec{\gamma} )}$ & Validation energy \\
+& $\mathcal{P}_a(D)$ & The $a$-probe set of $D$ \\
+& $\mathcal{G}_D$ & The candidate graph for $D$ \\
+& $D^{+a}$ & Dilation of $D$ by a disk of radius $a$ \\
+& $D^{-a}$ & Erosion of $D$ by a disk of radius $a$ \\
+& $sol(D)$ & Solution candidates set\\
+& $O_n$ & Optimization band of width $n$\\[1em]
+
+\multicolumn{3}{l}{\textbf{Abbreviations}}\\
+& MAP & Maximum a posteriori \\
+& TV & Total variation \\
+& PDE & Partial differential equations \\
+& MRF & Markov random field\\
+& HMM & Hidden Markov model\\
+& PBF & Pseudo-boolean function \\
+& CS & Curve-shortening \\
+& DSS & Digital straight segment \\
+& MLP & Minimum length polygon \\
+& MDCA & Maximal digital circular arcs \\
+& II & Integral invariant \\
+& LS & LocalSearch \\
+& FF & FlipFlow \\
+& BF & BalanceFlow \\
+& GF & GraphFlow
 
 
 \end{longtable}
+}

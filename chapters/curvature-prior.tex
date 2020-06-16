@@ -149,7 +149,7 @@ Note the similarity between~\cref{ch3:eq:tv-flow-2} and the level set formulatio
 Naturally, the CS flow can also be used to do image denoising. If we think of noise as small artifacts with high gradient of color, the level curves corresponding to noise will have a very small radius, and will collapse faster than other level curves (see~\cref{ch3:fig:denoising-tv-curvature}). 
 
 
-In the geometric active contours model for image segmentation, the level sets of a predefined function $u$ (e.g., a smoothed version of function $1-\lambda_C$ where $C$ is a set that contains the object to be segmented \daniel{and $\lambda_C$ its characteristic funtion}) describes a CS flow motion modulated by an edge detector function $g$ (e.g., $g=(1+\norm{ \nabla f })^{-1}$).
+In the geometric active contours model for image segmentation, the level sets of a predefined function $u$ (e.g., a smoothed version of function $1-\chi_C$ where $C$ is a set that contains the object to be segmented \daniel{and $\chi_C$ its characteristic funtion}) describes a CS flow motion modulated by an edge detector function $g$ (e.g., $g=(1+\norm{ \nabla f })^{-1}$).
 \begin{align*}
 	u(0,x,y) &= u(x,y) \nonumber \\
 	\frac{du}{dt} &= g( \norm{\nabla f} )\norm{\nabla u}\nabla \cdot \left( \frac{\nabla u}{\norm{\nabla u}}  + v \right),
@@ -275,9 +275,9 @@ This fourth order expression is the main difficult in minimizing the Elastica. I
 
 \subsection{Imaging models using the Elastica}
 
-In~\cite{chan02elasticainpainting} the authors propose an inpainting model in which the image level lines interrupted by the inpainting domain are completed by Elastica curves. The key is to define an energy that minimize each of the level curves in terms of the Elastica simultaneously. Given an image $f_I:\Omega \rightarrow [0,1]$, let $\Gamma_{\lambda}$ be one of its level curve, i.e.,
+In~\cite{chan02elasticainpainting} the authors propose an inpainting model in which the image level lines interrupted by the inpainting domain are completed by Elastica curves. The key is to define an energy that minimize each of the level curves in terms of the Elastica simultaneously. Given an image $f_{\vec{I}}:\Omega \rightarrow [0,1]$, let $\Gamma_{\lambda}$ be one of its level curve, i.e.,
 \begin{align*}
-	\Gamma_{\lambda} &= \left\{ x \; | \; f_I(x)=\lambda \right\}.
+	\Gamma_{\lambda} &= \left\{ x \; | \; f_{\vec{I}}(x)=\lambda \right\}.
 \end{align*}
 %
 Therefore, we minimize each level curve in terms of the Elastica energy by minimizing the functional
@@ -288,24 +288,24 @@ Therefore, we minimize each level curve in terms of the Elastica energy by minim
 %
 Next, let $dt$ be the length element in the normal direction of the level curves. Therefore,
 \begin{align*}
-	\frac{d \lambda}{d t} &= \norm{\nabla f_I} \rightarrow d\lambda = \norm{\nabla f_I}dt.
+	\frac{d \lambda}{d t} &= \norm{\nabla f_{\vec{I}}} \rightarrow d\lambda = \norm{\nabla f_{\vec{I}}}dt.
 \end{align*}
 %
 Replacing the last expression in~\cref{ch3:eq:elastica-all-level-curves} we obtain
 \begin{align}
-	\int_{0}^{1}{ \int_{\Gamma_{\lambda}}{ \left(\alpha + \beta \nabla \cdot \left(\frac{\nabla f_I}{\norm{\nabla f_I}}\right) ^2 \right)\norm{\nabla f_I} dsdt}} &= \int_{\Omega}{ \left(\alpha + \beta \nabla \cdot \left(\frac{\nabla f_I}{\norm{\nabla f_I}}\right) ^2 \right)\norm{\nabla f_I}d\Omega}.
+	\int_{0}^{1}{ \int_{\Gamma_{\lambda}}{ \left(\alpha + \beta \nabla \cdot \left(\frac{\nabla f_{\vec{I}}}{\norm{\nabla f_{\vec{I}} }}\right) ^2 \right)\norm{\nabla f_I} dsdt}} &= \int_{\Omega}{ \left(\alpha + \beta \nabla \cdot \left(\frac{\nabla f_{\vec{I}}}{\norm{\nabla f_{\vec{I}} }}\right) ^2 \right)\norm{\nabla f_{\vec{I}} }d\Omega}.
 	\label{ch3:eq:chan-elastica-inpainting}
 \end{align}
 %
 The last expression is derived from the fact that $dt$ and $ds$ are orthogonal length elements. The authors propose a finite difference scheme for the gradient flow derived from the Euler-Lagrange of~\cref{ch3:eq:chan-elastica-inpainting}, which happens to be of $4th$ order. The high order poses some issues with numerical instability, namely the definition of the time step and convergence analysis, which is skipped. The running time is also quite high even for small inpainting domains. Moreover, one can expect a local solution at most, and giving the highly non-convex character of the equation, an acceptable local solution might be very difficult to be found without a conveniently chosen initial solution. Finally, the  method tends to produce blurry edges even for small inpainting domains. 
 
-The numerical instability arising from~\cref{ch3:eq:chan-elastica-inpainting} is lessen by the $3rd$ order gradient flow proposed in~\cite{ballester01filling}. The idea is to create a new variable $\theta$ to replace the unstable term $\nabla f_I / \norm{\nabla f_I}$ and include a penalization term that forces $\theta$ to assume the value of its original interpretation. The energy to be minimized is closely related to~\cref{ch3:eq:chan-elastica-inpainting} and is written as
+The numerical instability arising from~\cref{ch3:eq:chan-elastica-inpainting} is lessen by the $3rd$ order gradient flow proposed in~\cite{ballester01filling}. The idea is to create a new variable $\theta$ to replace the unstable term $\nabla f_{\vec{I}} / \norm{\nabla f_{\vec{I}}}$ and include a penalization term that forces $\theta$ to assume the value of its original interpretation. The energy to be minimized is closely related to~\cref{ch3:eq:chan-elastica-inpainting} and is written as
 \begin{align}
-	\int_{\Omega}{a|\nabla \cdot \theta|^2\left(\alpha + \beta \norm{ k * f_I}\right)d\Omega} + \int_{\Omega}{ \norm{\nabla f_I} - \theta \cdot \nabla f_I d_{\Omega}},\quad \norm{\theta} \leq 1.
+	\int_{\Omega}{a|\nabla \cdot \theta|^2\left(\alpha + \beta \norm{ k * f_{\vec{I}} }\right)d\Omega} + \int_{\Omega}{ \norm{\nabla f_{\vec{I}} } - \theta \cdot \nabla f_{\vec{I}} d_{\Omega}},\quad \norm{\theta} \leq 1.
 	\label{ch3:eq:ballester-inpainting}
 \end{align}
 %
-The kernel $k$ (e.g. Gaussian) smooths image $f_I$ and is included due to numerical reasons. Nonetheless,~\cref{ch3:eq:ballester-inpainting} suffers from similar issues to those of~\cref{ch3:eq:chan-elastica-inpainting}. Generally, PDE-based methods encounter difficulties in producing solutions with discontinuities, one of the main features of images.
+The kernel $k$ (e.g. Gaussian) smooths image $f_{\vec{I}}$ and is included due to numerical reasons. Nonetheless,~\cref{ch3:eq:ballester-inpainting} suffers from similar issues to those of~\cref{ch3:eq:chan-elastica-inpainting}. Generally, PDE-based methods encounter difficulties in producing solutions with discontinuities, one of the main features of images.
 
 A discrete approach to inpainting is proposed in~\cite{masnou98inpainting}. The model's first step is to identify pairs of admissible T-junctions, i.e., pixels in the outer boundary of the inpainting domain that have the same color value and orientation (see~\cref{ch3:fig:masnou-tjunctions}). Due to a property of level curves, for every value color value $\lambda$ there is an even number of T-junctions. Next, let $J$ be the set of T-junctions and $\Gamma_j^t$ a curve connecting an admissible pair $(j,t)$. Additionaly, we denote $\theta_j,\theta_t$ the respective angles the curve $\Gamma_j^t$ makes with the associated level set at $j$ and $t$. The authors propose to find a matching $\mathcal{M}=\{ (j,t) \; | \; j,t\text{ admissible} \}$ and its respective curves such that it minimizes the energy
 
