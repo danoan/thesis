@@ -1,7 +1,7 @@
 \chapter{Digital Geometry}
 \label{chapter:digital-geometry}
 
-The primitives of Euclidean geometry, such as lines and points, are idealized objects. A line segment is infinitely thin and a point is dimensionless. When referring to such entities, we eventually make use of visual representations and the line is incarnated as a trace and the point as a dot in the white board, for example. As long as we have the mathematical description of some shape $S$, we do not need any visual representation of it to compute its tangents, curvatures or perimeter. 
+The primitives of Euclidean geometry, such as lines and points, are idealized objects. A line segment is infinitely thin and a point is dimensionless. When referring to such entities, we eventually make use of visual representations and the line is incarnated as a trace and the point as a dot in the black board, for example. As long as we have the mathematical description of some shape $S$, we do not need any visual representation of it to compute its tangents, curvatures or perimeter. 
 
 In imaging, however, it is almost always the case that we do not have a mathematical description of the objects in the scene. We need to identify the primitives from its visual representations.  We are not dealing with idealized objects anymore, but with finite descriptions of them. One of the subjects of study of digital geometry, and the one focused in this chapter, is how to correctly measure geometric properties in digitized objects.
 
@@ -62,7 +62,7 @@ Two grid points $p_1=(x_1,y_1)$ and $p_2=(x_2,y_2)$ are $4$-adjacent iff $p_1 \n
 Two grid points $p_1=(x_1,y_1)$ and $p_2=(x_2,y_2)$ are $8$-adjacent iff $p_1 \neq p_2$ and $\max \{ |x_1-x_2|, |y_1-y_2| \} = 1$. We denote relation membership as $p_1A_8p_2$.
 \end{definition}
 
-The adjacency relations are illustrated in~\cref{ch4:fig:4-adjacency,ch4:fig:8-adjacency}. Armed with an adjacency relation, we can define the notions of path and connectivity. A \emph{$4$-connected path} is a sequence $\{p_1,p_2,\cdots, p_n\}$ of grid points such that $p_iA_4p_{i+1}$ for all $1 \leq i < n$. A set $P$ is \emph{$4$-connected} if for every $p,q \in P$ there exists a $4$-connected path starting at $p$ and ending at $q$. Analogously definitions holds for $8$-adjacency relation~(see~\cref{ch4:fig:connected-sets}).
+The adjacency relations are illustrated in~\cref{ch4:fig:4-adjacency,ch4:fig:8-adjacency}. Armed with an adjacency relation, we can define the notions of path and connectivity. A \emph{$4$-connected path} is a sequence $\{p_1,p_2,\cdots, p_n\}$ of grid points such that $p_iA_4p_{i+1}$ for all $1 \leq i < n$. A set $P$ is \emph{$4$-connected} if for every $p,q \in P$ there exists a $4$-connected path starting at $p$ and ending at $q$. Analogous definitions holds for $8$-adjacency relation~(see~\cref{ch4:fig:connected-sets}).
 
 
 The adjacency relations are also used to define the $4,8$ neighborhood sets of a grid point.~
@@ -91,7 +91,7 @@ Let $S \subset \mathbb{R}^2$ a shape in the plane. Its Gauss digitization $D_h(S
 \label{ch4:fig:gauss-digitization}
 \end{figure}
 
-In~\cref{ch4:fig:gauss-digitization} we show the Gauss digitization of an Euclidean ball of radius $5$. As one could expect, the Gauss digitization is not adequate to the digitization of lines. In this case, the grid intersection digitization is preferred.
+In~\cref{ch4:fig:gauss-digitization} we show the Gauss digitization of an Euclidean ball of radius $5$. As one could expect, the Gauss digitization is not adequate for the digitization of lines. In this case, the grid intersection digitization is preferred.
 
 \begin{definition}{Grid intersection digitization}
 The grid intersection digitization of a planar curve $\gamma$ is the set of all grid points in the digital grid that are closest (Euclidean distance) to the intersection points of $\gamma$ with the grid lines.
@@ -139,14 +139,14 @@ Finally, we refer to the \emph{digital contour} $\partial_h S$ of $D_h(S)$ as th
 \begin{figure}
 \center
 \includegraphics[scale=1]{figures/chapter4/dss/tangential-cover.png}
-\caption{\textbf{Tangential conver.} The tangential cover is the collection of all maximal DSS in the digital contour of some digital shape. (Extracted from~\cite{})}
+\caption{\textbf{Tangential conver.} The tangential cover is the collection of all maximal DSS in the digital contour of some digital shape. (Extracted from~\cite{lachaud13multigrid})}
 \label{ch4:fig:tangential-cover}
 \end{figure}
 
 
-\subsection{Exact sampling x digitization}
+\subsection{Exact sampling versus digitization}
 
-Let $S$ some regular shape in the plane, for example, a disk of radius $r$. Assume that we need to measure the perimeter of $S$ but we do not know that $S$ is a disk. Additionally, let us assume that we can ask to an oracle for a collection of $n$ points in the boundary of $S$. To make things simple, let us assume that the oracle give to us an ordered sequence of $n$ uniformly spaced points in the boundary of $S$ for a given orientation of $\partial S$. 
+Let $S$ some regular shape in the plane, for example, a disk of radius $r$. Assume that we need to measure the perimeter of $S$ but we do not know that $S$ is a disk. Additionally, let us assume that we can ask to an oracle for a collection of $n$ points on the boundary of $S$. To make things simple, let us assume that the oracle gives us an ordered sequence of $n$ uniformly spaced points on the boundary of $S$ for a given orientation of $\partial S$. 
 
 \begin{figure}
 \center
@@ -166,9 +166,9 @@ We could estimate the perimeter of $S$ by simply computing the length of the pol
 \begin{align*}
 	L(S) \approx \sum_{i=1}^{n-1}{ \norm{ \overline{p_ip_{i+1}} }}.
 \end{align*}
-This estimation converges to $2\pi r$ as the number of sampling points increase. Now, let us consider the scenario in which we have a digitization of $S$. The oracle give to us a digitization of $S$ in any resolution $h$. Can we measure the length of $S$ using the same strategy employed in the previous scenario?
+This estimation converges to $2\pi r$ as the number of sampling points increase. Now, let us consider the scenario in which we have a digitization of $S$. The oracle gives us a digitization of $S$ in any resolution $h$. Can we measure the length of $S$ using the same strategy employed in the previous scenario?
 
-Let us say that we engage in to estimating the length of $S$ by computing the length of the axis-aligned polygon derived from the digitization of $S$, as illustrated in~\cref{ch4:fig:exact-sampling-digitization}. We assume that the disk is centered at a grid point. It is easy to see that for each quarter of the disk, we have $r/h + 2$ horizontal steps and $r/h + 2$ vertical steps. Therefore,
+Let us say that we engage into estimating the length of $S$ by computing the length of the axis-aligned polygon derived from the digitization of $S$, as illustrated in~\cref{ch4:fig:exact-sampling-digitization}. We assume that the disk is centered at a grid point. It is easy to see that for each quarter of the disk, we have $r/h + 2$ horizontal steps and $r/h + 2$ vertical steps. Therefore,
 \begin{align*}
 	\hat{L}(S) &= 4h(r/h + r/h + 1) = 8r + 4h.
 \end{align*}
@@ -178,9 +178,9 @@ Several estimators based on the assignment of weights to local configurations we
 \begin{align*}
 	\hat{L}(S) &= h( 0.948 n_i + 1.343 n_d),
 \end{align*}
-where $n_i$ are the number of axis-aligned steps and $n_d$ the number of diagonal steps. Other estimators propose to use an extended set of configurations to cover a higher number of directions, but any of these approaches can achieve multigrid convergence, whatever the finite number of configurations employed~\cite{tajine03local}.
+where $n_i$ are the number of axis-aligned steps and $n_d$ the number of diagonal steps. Other estimators propose to use an extended set of configurations to cover a higher number of directions, but any of these approaches cannot achieve multigrid convergence, whatever the finite number of configurations employed~\cite{tajine03local}.
 
-This simple example points out that standard discretization strategies of continuous measures or energies, as the one proposed for the discrete elastica in~\cref{chapter:curvature-prior}, do not necessarily extend well in the digital world. The fundamental issue with digital objects is that we have to handle with \emph{digitization errors}. We do not have an exact sampling of the continuous object.
+This simple example points out that standard discretization strategies of continuous measures or energies, as the one proposed for the discrete elastica in~\cref{chapter:curvature-prior}, do not necessarily extend well in the digital world. The fundamental issue with digital objects is that we have to handle \emph{digitization errors}. We do not have an exact sampling of the continuous object.
 
 \section{Geometric measurements in digital objects}\label{ch4:sec:geometric-measurements}
 
@@ -237,7 +237,7 @@ where $\tau_S:\mathbb{R}^+\setminus \{0\} \rightarrow \mathbb{R}^+$ has null lim
 \end{definition}
 
 
-The $\lambda$-MST tangent estimator~\cite{lachaud07tangent} computes the tangential cover of $D_h(S)$ and then estimates the tangent direction at point $p \in \partial_h S$ as a weighted combination of the tangents directions $\tan^-1(a/b)$  of maximal DSS $(a,b,\mu,\varepsilon)$ passing through $p$. We recall that we defined digital contours as a collection of grid vertices, but we can always interpret them as grid points. It is enough to translate every grid vertex by $h(0.5,0.5)$.
+The $\lambda$-MST tangent estimator~\cite{lachaud07tangent} computes the tangential cover of $D_h(S)$ and then estimates the tangent direction at point $p \in \partial_h S$ as a weighted combination of the tangents directions $\tan^{-1}(a/b)$  of maximal DSS $(a,b,\mu,\varepsilon)$ passing through $p$. We recall that we defined digital contours as a collection of grid vertices, but we can always interpret them as grid points. It is enough to translate every grid vertex by $h(0.5,0.5)$.
 
 For a given order in the points of $\partial_h S$, a maximal DSS starting at $p_i$ and ending at $p_j$ is denoted $C_{ij}$. For each $p_k \in \partial_h S$, let $\mathcal{C}(p_k)$ be the set of maximal DSS's passing through $p_k$. The eccentricity of a point $p_k$ is defined as
 \begin{align*}
@@ -279,7 +279,7 @@ Analogously to digital straight segments, the \emph{digital circular arc} is the
 A segment $C \in \partial_h S$ is a digital circular arc if and only if the interior and exterior grid points of $C$ are circularly separable, i.e., there exists an Euclidean circle that either encloses the interior points without enclosing any exterior points or that encloses the exterior points without enclosing any interior point.
 \end{definition}
 
-An illustration is given in~\cref{ch4:fig:digital-circular-arc}.The Maximal Digital Circular Arcs estimator (MDCA)~\cite{roussillon11mdca} estimates the curvature at point $p \in \partial_h S$ as the inverse of the radius of the most centered digital circular arc that contains $p$. The MDCA estimator is multigrid convergent for the family of convex shapes in the plane with continuous, strictly positive and bounded curvature. An alternative is the $\lambda$-MDCA estimator~\cite{schindele17mdca}, which follows the same rational of the $\lambda$-MST. The $\lambda$-MDCA has been proven multigrid convergent for the same family of convex shapes with continuous curvature. It coverges with speed $O(h^{1/3})$.
+An illustration is given in~\cref{ch4:fig:digital-circular-arc}.The Maximal Digital Circular Arcs estimator (MDCA)~\cite{roussillon11mdca} estimates the curvature at point $p \in \partial_h S$ as the inverse of the radius of the most centered digital circular arc that contains $p$. The MDCA estimator is multigrid convergent for the family of convex shapes in the plane with continuous, strictly positive and bounded curvature. An alternative is the $\lambda$-MDCA estimator~\cite{schindele17mdca}, which follows the same rational of the $\lambda$-MST. The $\lambda$-MDCA has been proven multigrid convergent for the same family of convex shapes with continuous curvature. It converges with speed $O(h^{1/3})$.
 
 
 \begin{figure}
@@ -324,15 +324,15 @@ In~\cite{coeurjolly13integral}, the authors combine the approximation~\cref{ch4:
   Let $D_h(S)$ a digitization of $S \subset \mathbb{R}^2$. The integral invariant curvature estimator is defined for every point $p \in \partial_h S$ as
   \begin{align*}
     \hat{\kappa}_{r}(D_h(S),p,h) \coloneqq \frac{3}{r^3} \left( \frac{\pi r^2}{2} - \widehat{\text{Area}} \left( D_h\big( B_{r} ( p ) \big) \cap D_h(S), h \right) \right).
-    %% \hat{\kappa}_{r}(D,x,h) \coloneqq \frac{3}{r^3} \left( \frac{\pi r^2}{2} - \widehat{Area} \left( B_{r/h} ( \frac{1}{h} \cdot x ) \cap D, h \right) \right).
+    %% \hat{\kappa}_{r}(D,x,h) \coloneqq \frac{3}{r^3} \left( \frac{\pi r^2}{2} - \widehat{Area} \left( B_{r/h} ( \frac{1}{h} \cdot x ) \cap D, h \right) \right),
   \end{align*}
 \end{definition}
 %
-This estimator is multigrid convergent with speed $O(h^\frac{1}{3})$ for radii chosen as $r=\Theta(h^\frac{1}{3})$.  
+where $\widehat{\text{Area}}( D,h )$ estimated the area of $D$ by counting its grid points and then scaling them by $h^2$. \daniel{This estimator is multigrid convergent for the family of compact shapes in the plane with $3$-smooth boundary. It converges with speed $O(h^\frac{1}{3})$ for radii chosen as $r=\Theta(h^\frac{1}{3})$~\cite{lachaud17robust}.}
 
 \section{Conclusion}
 
-In imaging problems it is very rare to have a mathematical description of the objects in the scene. If we wish to measure geometry properties on these objects, we have to deal with its digitization error. Differently from a exact sampling, whose points can be located everywhere in $\mathbb{R}^2$, the digital grid restricts the sampling to a subset of $h\mathbb{Z}^2$. In this chapter we argue that we cannot extend standard discretization strategies to do geometric measurements in digital objects. Instead, we should study the problem from the point of view of digital geometry and the multigrid convergence property.
+In imaging problems it is very rare to have a mathematical description of the objects in the scene. If we wish to measure geometry properties on these objects, we have to deal with its digitization error. In contrast with exact sampling, whose points can be located everywhere in $\mathbb{R}^2$, the digital grid restricts the sampling to a subset of $h\mathbb{Z}^2$. In this chapter we have shown that we cannot extend standard discretization strategies to do geometric measurements in digital objects. Instead, we should study the problem from the point of view of digital geometry and the multigrid convergence property.
 
 
 %\section{Three types of error}
