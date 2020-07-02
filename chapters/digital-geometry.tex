@@ -178,7 +178,7 @@ Several estimators based on the assignment of weights to local configurations we
 \begin{align*}
 	\hat{L}(S) &= h( 0.948 n_i + 1.343 n_d),
 \end{align*}
-where $n_i$ are the number of axis-aligned steps and $n_d$ the number of diagonal steps. Other estimators propose to use an extended set of configurations to cover a higher number of directions, but any of these approaches cannot achieve multigrid convergence, whatever the finite number of configurations employed~\cite{tajine03local}.
+where $n_i$ are the number of axis-aligned steps and $n_d$ the number of diagonal steps. Other estimators propose to use an extended set of configurations to cover a higher number of directions, but none of these approaches cannot achieve multigrid convergence, whatever the finite number of configurations employed~\cite{tajine03local}.
 
 This simple example points out that standard discretization strategies of continuous measures or energies, as the one proposed for the discrete elastica in~\cref{chapter:curvature-prior}, do not necessarily extend well in the digital world. The fundamental issue with digital objects is that we have to handle \emph{digitization errors}. We do not have an exact sampling of the continuous object.
 
@@ -192,7 +192,7 @@ As exemplified in the previous section, geometric measurements in digital object
 
 Let $\mathcal{F}$ a family of shapes in the plane and $Q$ a global measurement (e.g., perimeter, area) on members of $\mathcal{F}$. Additionally, denote $D_h(S)$ a digitization of shape $S$ in a digital grid of resolution $h$. The estimator $\hat{Q}$ of $Q$ is multigrid convergent for the family $\mathcal{F}$ if and only if for every shape $S \in \mathcal{F}$, there exists $h_S > 0$ such that
 \begin{align*}
-\forall h \leq h_S, \quad |\hat{Q}(D_h(S,h)) - Q(S,h)| \leq \tau_S(h),
+\forall h \leq h_S, \quad |\hat{Q}(D_h(S),h) - Q(S)| \leq \tau_S(h),
 \end{align*}
 %
 where $\tau_S:\mathbb{R}^+\setminus \{0\} \rightarrow \mathbb{R}^+$ is the speed of convergence of $\hat{Q}$ towards $Q$ for $S$.
@@ -231,7 +231,7 @@ Tangent and curvature are examples of local properties computed along the bounda
 \begin{definition}{Multigrid convergence for local geometric quantities}
 Let $\mathcal{F}$ a family of shapes in the plane and $Q$ a local measurement along the boundary $\partial S$ of $S \in \mathcal{F}$. Additionally, denote $D_h(S)$ a digitization of $S$ in a digital grid of resolution $h$ and $\partial_h S$ its digital contour. The estimator $\hat{Q}$ of $Q$ is multigrid convergent for the family $\mathcal{F}$ if and only if for every shape $S \in \mathcal{F}$, there exists $h_S > 0$ such that the estimate $\hat{Q}(D_h(S),p,h)$ is defined for all $p \in \partial_h S$ with $0 < h < h_S$, and for any $x \in \partial S$,
 \begin{align*}
-	\forall p \in \partial_h S \text{ with } \norm{p-x}_{\infty} \leq h,\quad | \hat{Q}(D_h(S),p,h) - Q(S,x,h) | \leq \tau_S(h),	
+	\forall p \in \partial_h S \text{ with } \norm{p-x}_{\infty} \leq h,\quad | \hat{Q}(D_h(S),p,h) - Q(S,x) | \leq \tau_S(h),	
 \end{align*}
 where $\tau_S:\mathbb{R}^+\setminus \{0\} \rightarrow \mathbb{R}^+$ has null limit at $0$. This function defines the speed of convergence of $\hat{Q}$ towards $Q$ for $S$.
 \end{definition}
@@ -249,7 +249,7 @@ For a given order in the points of $\partial_h S$, a maximal DSS starting at $p_
 %
 The tangent direction at $p_k$ is estimated as
 \begin{align*}
-	\hat{\theta}(p_k) &= \frac{ \sum_{C_{ij} \in \mathcal{C}(p_k) }{ \lambda( e(p_k) ) \tan^-1(a_{ij}/b_{ij}) } }{ \sum_{C_{ij} \in \mathcal{C}(p_k) }{ \lambda( e(p_k) )} },
+	\hat{\theta}(p_k) &= \frac{ \sum_{C_{ij} \in \mathcal{C}(p_k) }{ \lambda( e(p_k) ) \tan^{-1}(a_{ij}/b_{ij}) } }{ \sum_{C_{ij} \in \mathcal{C}(p_k) }{ \lambda( e(p_k) )} },
 \end{align*}
 %
 where $\lambda$ is a mapping from $[0,1]$ to $\mathbb{R}^+$ with $\lambda(0)=\lambda(1)=0$ and $\lambda > 0$ elsewhere. The $\lambda$-MST estimator is multigrid convergent for the family of convex shapes that are twice differentiable with continuous curvature. The convergence speed is of $O(h^{1/3})$~\cite{lachaud07tangent}.
@@ -332,7 +332,7 @@ where $\widehat{\text{Area}}( D,h )$ estimated the area of $D$ by counting its g
 
 \section{Conclusion}
 
-In imaging problems it is very rare to have a mathematical description of the objects in the scene. If we wish to measure geometry properties on these objects, we have to deal with its digitization error. In contrast with exact sampling, whose points can be located everywhere in $\mathbb{R}^2$, the digital grid restricts the sampling to a subset of $h\mathbb{Z}^2$. In this chapter we have shown that we cannot extend standard discretization strategies to do geometric measurements in digital objects. Instead, we should study the problem from the point of view of digital geometry and the multigrid convergence property.
+In imaging problems it is very rare to have a mathematical description of the objects in the scene. If we wish to measure geometric properties on these objects, we have to deal with its digitization error. In contrast with exact sampling, whose points can be located everywhere in $\mathbb{R}^2$, the digital grid restricts the sampling to a subset of $h\mathbb{Z}^2$. In this chapter, we have shown that we cannot extend standard discretization strategies to do geometric measurements of digital objects. Instead, we should study the problem from the point of view of digital geometry and the multigrid convergence property.
 
 
 %\section{Three types of error}

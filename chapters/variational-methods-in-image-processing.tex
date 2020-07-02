@@ -7,19 +7,14 @@ The main object of calculus of variations are called \emph{functionals} or \emph
 
 The calculus of variations found in image processing a fertile field of applications, as images themselves can be seen as functions, and image processing tasks can be modeled as being the results of some functional minimization. In this chapter we present some popular variational techniques to approach image processing tasks, with a particular focus on image segmentation. 
 
-%\startchronology[startyear=1980,stopyear=2020, startdate=false, color=blue!40, stopdate=false, arrow=true, height=3pt]
-%\setupchronoevent{textstyle=\tiny,date=false}
-%\chronograduation[event]{10}
-%\chronoevent[markdepth=20pt]{1984}{\cite{geman84}}\chronoevent[markdepth=-20pt]{1988}{\cite{kass88}}\chronoevent[markdepth=40pt]{1989}{\cite{degiorgi89,mumford89}}\chronoevent[markdepth=-40pt]{1990}{\cite{ambrosio90}}\chronoevent[markdepth=60pt]{1993}{\cite{caselles93}}\chronoevent[markdepth=-60pt]{1994}{\cite{lucy94}}\chronoevent[markdepth=20pt]{1995}{\cite{mcinerney95}}\chronoevent[markdepth=-20pt]{1996}{\cite{kirsch96}}\chronoevent[markdepth=40pt]{1997}{\cite{cohen97,caselles97}}\chronoevent[markdepth=-40pt]{1998}{\cite{bertero98}}\chronoevent[markdepth=60pt]{1999}{\cite{mcinemey99,chambolle99,mcinerney99}}\chronoevent[markdepth=-60pt]{2002}{\cite{vese02}}\chronoevent[markdepth=20pt]{2005}{\cite{stroppa05}}\chronoevent[markdepth=-20pt]{2006}{\cite{chen06}}\chronoevent[markdepth=40pt]{2009}{\cite{benmansour09}}\chronoevent[markdepth=-40pt]{2010}{\cite{peyre10}}\chronoevent[markdepth=60pt]{2011}{\cite{bar11}}\chronoevent[markdepth=-60pt]{2012}{\cite{getreuer12}}\chronoevent[markdepth=20pt]{2015}{\cite{zhdanov15}}\chronoevent[markdepth=-20pt]{2017}{\cite{foare17}}\stopchronology
-
 \section{Inverse problems in imaging}
 %In the music world, nothing is as complex as an orchestra score. You have plenty of instruments following different tones, dynamics, intensities, rhythms and so on. But no matter the complexity, given the orchestra score a software can reproduce with perfection the piece of music. It is a totally  different story if you ask it to create the orchestra score from an audio file. Reading the score is a forward problem, and creating the score is an inverse problem.
 
-An archaeological museum decided to digitize some of its collections and make them available for digital visits over the internet. The chosen method of digitization consists into take a set of pictures for each object, in different camera positions, execute a \emph{stereo} algorithm to estimate point depths and finally reconstruct the 3D object. The stereo and reconstruction are examples of \emph{inverse problems} in imaging.
+An archaeological museum decided to digitize some of its collections and make them available for digital visits over the internet. The chosen method of digitization consists in taking a set of pictures for each object, in different camera positions, execute a \emph{stereo} algorithm to estimate point depths and finally reconstruct the 3D object. The stereo and reconstruction are examples of \emph{inverse problems} in imaging.
 
 Usually, inverse problems are characterized by a degree of \emph{uncertainty} or \emph{lack of information}. The 2D pictures in the problem above miss depth information, that should be \emph{inferred} by the stereo algorithm. On the other hand, if the shape geometry was known, e.g., the values of mean curvature were known for every infinitesimal point of the shape, then constructing a digital 3D representation would be a \emph{forward problem}. 
 
-We can find examples of inverse problems in several branches of mathematics~\cite{kirsch96}, geophysics~\cite{zhdanov15}, natural language processing~\cite{stroppa05}, astronomy~\cite{lucy94} and the list goes on. The image processing field itself is plenty of them~\cite{bertero98}. In fact, a great part of real world applications consists into inferring parameters of some model, i.e., an inverse problem. In~\cref{ch1:tab:inverse-problems-list} we list some examples of inverse problems and its corresponding forward version.
+We can find examples of inverse problems in several branches of mathematics~\cite{kirsch96}, geophysics~\cite{zhdanov15}, natural language processing~\cite{stroppa05}, astronomy~\cite{lucy94} and the list goes on. The image processing field itself is plenty of them~\cite{bertero98}. In fact, a great part of real world applications consists in inferring parameters of some model, i.e., an inverse problem. In~\cref{ch1:tab:inverse-problems-list} we list some examples of inverse problems and its corresponding forward version.
 
 \begin{table}
 \renewcommand{\arraystretch}{1.5}
@@ -99,7 +94,7 @@ The discrete representation is interpreted as a sampling of $m \times n$ element
 \end{figure}
 
 \subsubsection{Image denoising}
-Given an image $f_{\vec{\widetilde{I}}}$ corrupted with some noise from an external source, \emph{image denoising} consists in to find an estimation $f_{\widehat{\vec{I}}}$ of the original image that respects some quality criteria, usually encoded by the minimum of a functional $E$. 
+Given an image $f_{\vec{\widetilde{I}}}$ corrupted with some noise from an external source, \emph{image denoising} consists in finding an estimation $f_{\widehat{\vec{I}}}$ of the original image that respects some quality criteria, usually encoded by the minimum of a functional $E$. 
 
 Given $f_{\widetilde{\vec{I}}}$, find estimation $f_{\widehat{\vec{I}}}$ such that
 \begin{align*}
@@ -126,7 +121,7 @@ Given $f_I:\Omega \rightarrow [0,1]$ and a positive integer $n$, find partition 
 
 
 \subsubsection{Image inpainting}
-Given an image $f_{\widetilde{\vec{I}}}$ with a collection of missing patches $\mathcal{P}$, \emph{image inpainting} consists in to create an image $f_{\vec{I}}$ with the reconstructed missing patches such that a quality criteria, encoded as the minimum of some functional, is respected
+Given an image $f_{\widetilde{\vec{I}}}$ with a collection of missing patches $\mathcal{P}$, \emph{image inpainting} consists in creating an image $f_{\vec{I}}$ with the reconstructed missing patches such that a quality criteria, encoded as the minimum of some functional, is respected
 
 Given $f_{\widetilde{\vec{I}}}$ and missing patches $\mathcal{P}$, find image $f_{\vec{I}}$ such that
 \begin{align*}
@@ -174,21 +169,19 @@ The maximum a posteriori method was first introduced in the image processing com
 		\label{ch1:denoising-assumption-1}
 		\end{align} 
 		\end{assumption}
-where $\vec{N}$ is a $(m \times n)$ matrix of random variables $\vec{N}_{i,j}$ and $Pr\big( \vec{N}_{i,j} = n \big) = \frac{1}{\sqrt{2\pi}}\exp(- \daniel{ \lambda } \frac{n^2}{2} )$.		
+where $\vec{N}$ is a $(m \times n)$ matrix of random variables $\vec{N}_{i,j}$ and $Pr\big( \vec{N}_{i,j} = n \big) = \daniel{ \frac{1}{Z_1} }\exp(- \daniel{ \lambda } \frac{n^2}{2} )$, \daniel{with $Z_1$ being the normalization constant.}		
 	}
 	\item{Given some function $\rho$, a candidate image estimation $\vec{C}$ has probability	
 	\begin{assumption}
 	\begin{align}
-		Pr(\vec{C}) = \exp(-\rho(\vec{C})).
+		Pr(\vec{C}) = \daniel{\frac{1}{Z_2}}\exp(-\rho(\vec{C})),
 		\label{ch1:denoising-assumption-2}
 	\end{align}	 
+	\daniel{where $Z_2$ is the normalization constant.}
 	\end{assumption}
 	}
 \end{enumerate}
-
-%If we want to be precise, the sum operator in~\cref{ch1:denoising-assumption-1} should be redefined to be a closed operator in $\mathbb{F}^{m \times n}$. We skip this definition by arguing that because of the symmetry of the Gaussian distribution the computation of the probabilities that follows remains the same.
-
- We estimate the unknown original image $\vec{I}$ as the image $\vec{\widehat{I}}$ that is more likely to occur. Applying Bayes' theorem we obtain
+%If we want to be precise, the sum operator in~\cref{ch1:denoising-assumption-1} should be redefined to be a closed operator in $\mathbb{F}^{m \times n}$. We skip this definition by arguing that because of the symmetry of the Gaussian distribution the computation of the probabilities that follows remains the same. We estimate the unknown original image $\vec{I}$ as the image $\vec{\widehat{I}}$ that is more likely to occur. Applying Bayes' theorem we obtain
 \begin{align}
 	\vec{\widehat{I}} & = \argmax _{\vec{C}}{Pr(\vec{C} \; | \;\vec{\widetilde{I}})} = \argmax _{\vec{C}} \frac{Pr(\vec{\widetilde{I}} \; | \; \vec{C})Pr(\vec{C})}{Pr(\vec{\widetilde{I}})}.
 	\label{ch1:eq:probability-maximization}
@@ -196,23 +189,23 @@ where $\vec{N}$ is a $(m \times n)$ matrix of random variables $\vec{N}_{i,j}$ a
 %
 We have already all the elements to expand~\cref{ch1:eq:probability-maximization}. The probability of having the corrupted image $\vec{\widetilde{I}}$ given a candidate image $\vec{C}$ is derived from~\cref{ch1:denoising-assumption-1}, i.e.,
 \begin{align}
-	Pr(\vec{\widetilde{I}} \; | \; \vec{C}) &= Pr( \vec{N} = \vec{\widetilde{I}} - \vec{C} ) = \frac{1}{\sqrt{2\pi}}\exp\Big(- \frac{ \daniel{ \lambda }\norm{\vec{\widetilde{I}} - \vec{C} }^2}{2} \Big).
+	Pr(\vec{\widetilde{I}} \; | \; \vec{C}) &= Pr( \vec{N} = \vec{\widetilde{I}} - \vec{C} ) = \daniel{\frac{1}{Z_1}}\exp\Big(- \frac{ \daniel{ \lambda }\norm{\vec{\widetilde{I}} - \vec{C} }^2}{2} \Big).
 	\label{ch1:eq:probability-corrupted-image-given-original}
 \end{align}
 %
 The denominator term is computed as the joint probability
 \begin{align}
-	Pr(\widetilde{\vec{I}}) &= \sum_{\vec{J} \in \mathbb{F}^{m \times n}}{Pr(\vec{\widetilde{I}}\;|\; \vec{J})Pr(\vec{J})} = \frac{1}{\sqrt{2 \pi}}\sum_{\vec{J} \in \mathbb{F}^{m \times n}}{\exp\bigg(-\frac{\daniel{ \lambda }}{2}\norm{\widetilde{\vec{I}}-\vec{J}}^2 - \rho(\vec{J})}\bigg).
+	Pr(\widetilde{\vec{I}}) &= \sum_{\vec{J} \in \mathbb{F}^{m \times n}}{Pr(\vec{\widetilde{I}}\;|\; \vec{J})Pr(\vec{J})} = \daniel{ \frac{1}{Z_1Z_2} }\sum_{\vec{J} \in \mathbb{F}^{m \times n}}{\exp\bigg(-\frac{\daniel{ \lambda }}{2}\norm{\widetilde{\vec{I}}-\vec{J}}^2 - \rho(\vec{J})}\bigg).
 	\label{ch1:eq:joint-probability}
 \end{align}
 %
 Substituting~\cref{ch1:eq:probability-corrupted-image-given-original,ch1:eq:joint-probability} in~\cref{ch1:eq:probability-maximization} we obtain
 \begin{align}
-	\vec{\widehat{I}} & = \argmax _{\vec{C}} \frac{1}{\sqrt{2\pi}} \frac{\exp\Big(- \frac{\daniel{ \lambda }}{2}\norm{\vec{\widetilde{I}} - \vec{C}}^2 - \rho(\vec{C}) \Big) }{ \sum_{\vec{J} \in \mathbb{F}^{m \times n}}{\exp\bigg(-\frac{\daniel{ \lambda }}{2}\norm{\widetilde{\vec{I}}-\vec{J}}^2 - \rho(\vec{J})}\bigg) }
+	\vec{\widehat{I}} & = \argmax _{\vec{C}} \frac{\exp\Big(- \frac{\daniel{ \lambda }}{2}\norm{\vec{\widetilde{I}} - \vec{C}}^2 - \rho(\vec{C}) \Big) }{ \sum_{\vec{J} \in \mathbb{F}^{m \times n}}{\exp\bigg(-\frac{\daniel{ \lambda }}{2}\norm{\widetilde{\vec{I}}-\vec{J}}^2 - \rho(\vec{J})}\bigg) }
 	\label{ch1:eq:probability-maximization-expanded}
 \end{align}
 %
-Finnaly, solving~\cref{ch1:eq:probability-maximization-expanded} is equivalent to solve
+Finally, solving~\cref{ch1:eq:probability-maximization-expanded} is equivalent to solve
 \begin{align}
 	\vec{\widehat{I}} &= \argmin _{\vec{C}} \frac{\daniel{ \lambda }}{2}\norm{\vec{\widetilde{I}} - \vec{C}}^2 + \rho(\vec{C}).
 	\label{ch1:eq:minimization-form}
@@ -237,7 +230,7 @@ where $R$ is a functional derived from the choice of $\rho$. A popular choice fo
 %
 \subsection{Euler-Lagrange equation}
 
-We can establish some necessary optimization conditions for~\cref{ch1:tikhonov-formulation} by deriving its \emph{Euler-Lagrange} equation. Assume that function $g$ minimizes functional $F$, i.e.,
+We can establish some necessary optimal conditions for~\cref{ch1:tikhonov-formulation} by deriving its \emph{Euler-Lagrange} equation. Assume that function $g$ minimizes functional $F$, i.e.,
 \begin{align*}
 	g &= \argmin_{f}{F(f)}.
 \end{align*}
@@ -491,7 +484,7 @@ Let $u:\Omega \subset \mathbb{R}^2 \rightarrow [0,1]$ be a $C^2$ function. The c
 \end{align*}
 %
 %
-The \emph{geometric active contour} model consists into evolving an extension of $u$, by including an artificial time parameter $t$, and compute the steady solution of the flow
+The \emph{geometric active contour} model consists in evolving an extension of $u$, by including an artificial time parameter $t$, and compute the steady solution of the flow
 \begin{align}
 	u(0,x,y) &= u(x,y) \nonumber \\
 	\frac{du}{dt} &= g( \norm{\nabla f_{\vec{I}}} )\norm{\nabla u}\nabla \cdot \left( \frac{\nabla u}{\norm{\nabla u}}  + v \right),
@@ -515,7 +508,7 @@ Differently from the snakes, the geometric active contours handle changes in top
 \subfloat[Chan-Vese]{
 \includegraphics[scale=0.5]{figures/chapter1/segmentation/chan-vese-seg-don.png}
 }%
-\caption{\textbf{Curve evolution models}. Segmentation results of three curve evolution models. From top row to bottom: active contours, geometric active contours and Chan-Vese. The initial curve ($0$-level set) is colored in red and the final one is colored in green.}
+\caption{\textbf{Curve evolution models}. Segmentation results of three curve evolution models. From top row to bottom: active contours, geometric active contours and Chan-Vese. The initial curve ($0$-level set) is colored in red and the final one is colored in green. \daniel{The blue curve highlights an intermediate iteration}.}
 \label{ch1:fig:comparison-curve-evolution}
 \end{figure}
 
@@ -673,7 +666,7 @@ We reproduce the example given in~\cite{chan06} to illustrate a situation in whi
 %
 Therefore, for $R \in (1/\lambda, 2/\lambda)$, the flow of~\cref{ch1:eq:level-set-ball-flow} is going to stop at the local minimum $r=R$, even the global minimum being located at $r=0$. 
 %
-The parameter $\lambda$ is set by the user to calibrate the denoise capabilities of the model. In the example of~\cref{ch1:fig:local-solution-level-set}, it indicates whether a ball of certain radius should be considered as an object or as a noise element. In the illustrated case, with $\lambda=1$, the optimal solution consists to segment only the ball of largest radius in the picture, but Chan-Vese fails to converge to this solution.
+The parameter $\lambda$ is set by the user to calibrate the denoise capabilities of the model. In the example of~\cref{ch1:fig:local-solution-level-set}, it indicates whether a ball of certain radius should be considered as an object or as a noise element. In the illustrated case, with $\lambda=1$, the optimal solution consists in segmenting only the ball of largest radius in the picture, but Chan-Vese fails to converge to this solution.
 
 \begin{figure}
 \center
@@ -729,7 +722,7 @@ Therefore, if $\varphi^{\star}$ is the solution of the convex relaxed problem~\c
 
 The functional lifting technique creates an equivalent higher dimensional model with the property that binary solutions can be easily recovered from its relaxed solution. In~\cite{pock08} this strategy is extended for multilabeling problems and in~\cite{pock09,strekalovskiy12} they are used to create a convex relaxation of the Mumford-Shah model.
 
-To optimize the higher dimensional energy one could regularize the indicator and dirac delta functions in the same spirit of the Chan-Vese method, but it is usually preferable to use a convex optimization method that is suitable for non-differentiable functions as the proximal gradient~\cite{chambolle04}, FISTA~\cite{beck09a} or the primal-dual~\cite{chambolle11} algorithm. The results are very satisfactoring, but the running times  very high.
+To optimize the higher dimensional energy one could regularize the indicator and dirac delta functions in the same spirit of the Chan-Vese method, but it is usually preferable to use a convex optimization method that is suitable for non-differentiable functions as the proximal gradient~\cite{chambolle04}, FISTA~\cite{beck09a} or the primal-dual~\cite{chambolle11} algorithm. The results are very satisfactory, but the running times  very high.
 
 
 

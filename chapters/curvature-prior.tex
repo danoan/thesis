@@ -7,7 +7,7 @@ In imaging, the most widely use of curvature is, perhaps, as a smooth regulariza
 
 Beyond the smoothing role, curvature can be used to favor connectivity, suggesting that its use could be valuable in the segmentation of thin and elongated objects, a difficult class to standard segmentation models. In image inpainting, the \emph{elastica curve} revealed to be a suitable model to mimic the amodal completion phenomenon, believed to be the process behind the human vision in the perception of occluded objects~(e.g., see~\cref{ch3:fig:amodal-completion}). However, elastica minimization is a challenging task, mainly because of its non-convexity and the $4th$ order expression emerging from its Euler-Lagrange equation.
 
-In~\cref{ch3:sec:curvature-curve-shortening-flow,ch3:sec:diffusion-level-curves-motion}, we recall the definition of curvature and point out its role in some earlier imaging models. In~\cref{ch3:sec:elastica-curve}, we describe the elastica curve, and the challenges involved in the minimization of the elastica energy. ~cref{ch3:sec:discrete-methods-squared-curvature} describes discrete models aiming at the minimization of the elastica energy, which is an important topic of this thesis.
+In~\cref{ch3:sec:curvature-curve-shortening-flow,ch3:sec:diffusion-level-curves-motion}, we recall the definition of curvature and point out its role in some earlier imaging models. In~\cref{ch3:sec:elastica-curve}, we describe the elastica curve, and the challenges involved in the minimization of the elastica energy. ~\cref{ch3:sec:discrete-methods-squared-curvature} describes discrete models aiming at the minimization of the elastica energy, which is an important topic of this thesis.
 
 
 
@@ -128,7 +128,7 @@ In this case, each of the image level curves describes a CS flow.
 \section{Diffusion and level curves motion}
 \label{ch3:sec:diffusion-level-curves-motion}
 
-Several models in~\cref{chapter:variational-methods-in-image-processing} are stated as diffusion processes, but quite often a level curve evolution interpretation is more convenient. In this section we analyze the role of curvature, its properties in earlier models of image processing and how the dual interpretation of these models help us to gain extra insight on them.
+Several models in~\cref{chapter:variational-methods-in-image-processing} are stated as diffusion processes, but quite often a level curve evolution interpretation is more convenient. In this section we analyze the role of curvature, its properties in earlier models of image processing and how the dual interpretation of these models helps us to gain extra insight on them.
 
 \subsection{Curvature in denoising and image segmentation}
 
@@ -182,7 +182,7 @@ In the geometric active contours model for image segmentation, the level sets of
 %
 \subsection{Curvature and the connectivity principle applied to inpainting}
 
-We recall that the inpainting problem consists into reconstructing a collection of missing patches $\mathcal{P}$ of the image. The earlier inpainting model~\cite{bertalmio00image}  diffuses image information through the patches boundaries. The particularity of this model is that the Laplacian (heat equation) is diffused along the image level lines. Despite its impressive results, this models does not possess an important property which is expected in inpainting models: the \emph{connectivity principle}.
+We recall that the inpainting problem consists in reconstructing a collection of missing patches $\mathcal{P}$ of the image. The earlier inpainting model~\cite{bertalmio00image}  diffuses image information through the patches boundaries. The particularity of this model is that the Laplacian (heat equation) is diffused along the image level lines. Despite its impressive results, this models does not possess an important property which is expected in inpainting models: the \emph{connectivity principle}.
 
 
 \begin{figure}
@@ -222,7 +222,7 @@ The connectivity principle suggests that the curve connecting the endpoints of a
 \section{Elastica curve}
 \label{ch3:sec:elastica-curve}
 
-In 1691 James Bernoulli pose a challenge to his colleagues: What is the form taken by an elastic beam whose its endpoint $A$ is kept fixed in the ground while a weight is attached to its other endpoint $B$ such that the tangent at each of the endpoints are perpendicular? A simplified scheme is presented in~\cref{ch3:fig:james-scheme-elastica}.
+In 1691 James Bernoulli pose a challenge to his colleagues: What is the form taken by an elastic beam whose endpoint $A$ is kept fixed in the ground while a weight is attached to its other endpoint $B$ such that the tangent at each of the endpoints are perpendicular? A simplified scheme is presented in~\cref{ch3:fig:james-scheme-elastica}.
 
 \begin{figure}
 \center
@@ -299,7 +299,7 @@ Replacing the last expression in~\cref{ch3:eq:elastica-all-level-curves} we obta
 %
 The last expression is derived from the fact that $dt$ and $ds$ are orthogonal length elements. The authors propose a finite difference scheme for the gradient flow derived from the Euler-Lagrange of~\cref{ch3:eq:chan-elastica-inpainting}, which happens to be of $4th$ order. The high order poses some issues with numerical instability, namely the definition of the time step and convergence analysis, which is skipped. The running time is also quite high even for small inpainting domains. Moreover, one can expect a local solution at most, and giving the highly non-convex character of the equation, an acceptable local solution might be very difficult to be found without a conveniently chosen initial solution. Finally, the  method tends to produce blurry edges even for small inpainting domains. 
 
-The numerical instability arising from~\cref{ch3:eq:chan-elastica-inpainting} is lessen by the $3rd$ order gradient flow proposed in~\cite{ballester01filling}. The idea is to create a new variable $\theta$ to replace the unstable term $\nabla f_{\vec{I}} / \norm{\nabla f_{\vec{I}}}$ and include a penalization term that forces $\theta$ to assume the value of its original interpretation. The energy to be minimized is closely related to~\cref{ch3:eq:chan-elastica-inpainting} and is written as
+The numerical instability arising from~\cref{ch3:eq:chan-elastica-inpainting} is lessened by the $3rd$ order gradient flow proposed in~\cite{ballester01filling}. The idea is to create a new variable $\theta$ to replace the unstable term $\nabla f_{\vec{I}} / \norm{\nabla f_{\vec{I}}}$ and include a penalization term that forces $\theta$ to assume the value of its original interpretation. The energy to be minimized is closely related to~\cref{ch3:eq:chan-elastica-inpainting} and is written as
 \begin{align}
 	\int_{\Omega}{a|\nabla \cdot \theta|^2\left(\alpha + \beta \norm{ k * f_{\vec{I}} }\right)d\Omega} + \int_{\Omega}{ \norm{\nabla f_{\vec{I}} } - \theta \cdot \nabla f_{\vec{I}} d_{\Omega}},\quad \norm{\theta} \leq 1.
 	\label{ch3:eq:ballester-inpainting}
@@ -380,7 +380,7 @@ The constraints can be included in the objective function with its respective La
 %
 is convergent in the sense of $\Gamma$-convergence~\cite{bruckstein01epi}, i.e., the minimizer of the discrete elastica approaches the minimizer of the elastica as the number of discretization points goes to infinity. 
 
-The discrete elastica was proposed in the context of nonlinear splines with applications in shape design. In imaging, we have to consider additional constraints. For example,  digital images are defined in an uniform grid, while the discrete elastica imposes no restriction on the location of the interpolation points in the plane. In fact, this is a fundamental difference between discrete and digital settings. In the list that follows we point out some of the issues one has to handle in order to adapt the discrete elastica to be applied in image segmentation
+The discrete elastica was proposed in the context of nonlinear splines with applications in shape design. In imaging, we have to consider additional constraints. For example,  digital images are defined in an uniform grid, while the discrete elastica imposes no restriction on the location of the interpolation points in the plane. In fact, this is a fundamental difference between discrete and digital settings. In the list that follows, we point out some of the issues one has to handle in order to adapt the discrete elastica in image segmentation
 
 \begin{enumerate}
 	\item{\textbf{Data term:} The interpolation points should lie close to the contour of objects and by doing that we lose the implicit description of the curve as a sequence of lengths and angle deviations, being forced to also consider the points coordinates;}
@@ -471,7 +471,7 @@ Some results are displayed in~\cref{ch3:fig:schoenemann-results}. However, the c
 \includegraphics[scale=0.3]{figures/chapter3/schoenemann/schoenemann.png}
 }
 \end{minipage}%
-\caption{\textbf{Linear programming model~\cite{schoenemann09linear}.} In the left, examples of the $8$ and $16$-connectivity cellular complexes. The authors implementation consists into subdivide a pixel. For example, the $8$-connectivity is implemented by rescaling the image twice its size and let the model unit being composed of $4$ pixels of the rescaled image. In the right, a result with different connectivities using a data term derived from given foreground (green) and background (blue) seeds. }
+\caption{\textbf{Linear programming model~\cite{schoenemann09linear}.} In the left, examples of the $8$ and $16$-connectivity cellular complexes. The authors implementation consists in subdividing a pixel. For example, the $8$-connectivity is implemented by rescaling the image twice its size and let the model unit being composed of $4$ pixels of the rescaled image. In the right, a result with different connectivities using a data term derived from given foreground (green) and background (blue) seeds. }
 \end{figure}
 
 \subsection{Unconstrained formulations}

@@ -1,16 +1,11 @@
 \chapter{Discrete methods in Image Processing}
 \label{chapter:discrete-methods-in-image-processing}
 
-%\startchronology[startyear=1980,stopyear=2020, startdate=false, color=blue!40, stopdate=false, arrow=true, height=3pt]
-%\setupchronoevent{textstyle=\scriptsize,datestyle=\scriptsize,date=false}
-%\chronograduation[event]{10}
-%\chronoevent[markdepth=20pt]{1967}{\cite{viterbi67}}\chronoevent[markdepth=-20pt]{1981}{\cite{nemhauser81}}\chronoevent[markdepth=40pt]{1982}{\cite{pearl82}}\chronoevent[markdepth=-40pt]{1984}{\cite{geman84,hammer84}}\chronoevent[markdepth=60pt]{1985}{\cite{billionnet85}}\chronoevent[markdepth=-60pt]{1986}{\cite{besag86}}\chronoevent[markdepth=20pt]{1991}{\cite{boros91}}\chronoevent[markdepth=-20pt]{2001}{\cite{boykov01graphcut,boykov01fast}}\chronoevent[markdepth=40pt]{2002}{\cite{boros02pseudo}}\chronoevent[markdepth=-40pt]{2003}{\cite{boykov03geodesics,ishikawa03}}\chronoevent[markdepth=60pt]{2004}{\cite{kolmogorov04whatenergies}}\chronoevent[markdepth=-60pt]{2005}{\cite{kohli05efficiently}}\chronoevent[markdepth=20pt]{2006}{\cite{juan06active,szeliski06comparative}}\chronoevent[markdepth=-20pt]{2007}{\cite{rother07qpbo,veksler07graph}}\chronoevent[markdepth=40pt]{2008}{\cite{ramalingam08,delong08scalable,vicente08graph}}\chronoevent[markdepth=-40pt]{2009}{\cite{koller09,orlin09faster}}\chronoevent[markdepth=60pt]{2010}{\cite{ishikawa10}}\chronoevent[markdepth=-60pt]{2011}{\cite{blake11markov}}\stopchronology
-
-In the beginning of the last chapter we described the Bayesian rational for the denoising problem. We turn once again to probability thinking, but restricting our analysis to discrete probabilistic models. Markov Random Fields are in the conception of the methods discussed in this chapter, and an inspiration for many others. Image pixels are naturally interpreted as Markov states, and image properties, as spatial coherence, are encoded as potentials stored in the edges of the image grid graph. The MAP inference boils down to minimize the challenging class of pseudo-boolean functions. 
+In the beginning of the last chapter we described the Bayesian rational for the denoising problem. We turn once again to probability thinking, but restricting our analysis to discrete probabilistic models. Markov Random Fields are in the foundations of the methods discussed in this chapter, and an inspiration for many others. Image pixels are naturally interpreted as Markov states, and image properties, as spatial coherence, are encoded as potentials stored in the edges of the image grid graph. The MAP inference boils down to minimize the challenging class of pseudo-boolean functions. 
 
 In some fortunate cases, the functions can be minimized exactly and efficiently by a reduction to a max-flow (min-cut) problem, and it happens that such cases model imaging problems, as segmentation, nicely well. In fact, the minimum cut defines a partition, and one can interpret the cut as the contour separating two objects. It is the key for fruitful research that has followed. One can abstract the MRF machinery and define potentials on vertices and edges of the grid graph such that its minimum cut answers the problem being posed. Moreover, the potentials can model geometric properties of objects embedded in the grid graph, and one can use cuts to estimate the objects perimeters, for example.
 
-We start this chapter by giving a brief description of Markov Random Fields and the minimization problem arising from the MAP inference. In the second section we present some properties of pseudo-boolean functions and how to optimize them. In the third section we describe the special class of submodular functions and efficient algorithms to compute the minimum of such functions. Finally, we describe successful models in the image processing community based on graph cuts and how one can inject geometric information on them.
+We start this chapter by giving a brief description of Markov Random Fields and the minimization problem arising from the MAP inference. In the second section we present some properties of pseudo-boolean functions and how to optimize them. In the third section we describe the special class of submodular functions and efficient algorithms to compute the minimum of such functions. Finally, we describe successful models in the image processing community based on graph cuts and how one can inject geometric information in them.
 
 
 \section{Markov Random Fields}
@@ -191,7 +186,7 @@ The vector $\vec{Y}$ is called the vector of observed variables, and in image pr
 The set of labels $\Gamma_{\vec{X}}$ is defined according to the problem. In segmentation it could represent the different partitions in which to segment the image, e.g. a label to encode vehicles, another to encode pedestrians, a third to encode the sky and so on. In stereo, the labels could mean the relative depth of the object with respect to the others. In denoising and reconstruction problems in general, it could be the color intensities themselves. 
 
 \subsection{Grid graph and Tikhonov denoising revisited}
-Let $\vec{I} \in \mathbb{F}^{m \times n}$ a grayscale bidemensional image. We denote $p \in \vec{I}$ a pixel of $\vec{I}$.  We define its undirected \emph{grid graph} $\mathcal{G}_{\vec{I}}(\mathcal{V},\mathcal{E})$ as
+Let $\vec{I} \in \mathbb{F}^{m \times n}$ a grayscale bidimensional image. We denote $p \in \vec{I}$ a pixel of $\vec{I}$.  We define its undirected \emph{grid graph} $\mathcal{G}_{\vec{I}}(\mathcal{V},\mathcal{E})$ as
 \begin{align*}
 	\mathcal{V} &= \{ v_p \; | \; p \in \vec{I} \} \\
 	\mathcal{E} &= \big\{ \{v_p,v_q\} \; | \; p \in \vec{I} \text{ and } q \in \mathcal{N}_k(p) \big\},
@@ -231,7 +226,7 @@ the $\frac{1}{2}$ factor is necessary in order to compensate double counting of 
 %\end{figure}
 
 
-The success of this approach depends on our capacity to minimize the Gibbs energy in~\cref{ch2:eq:gibbs-energy-minimization}. For the Tikhonov multilabel HMM, it can be computed exactly and efficiently~\cite{ishikawa03}. However, MAP inference in general multilabel HMMs is in NP-hard. The scenario is a little bit better for binary HMMs, as we are going to see in the next section.
+The success of this approach depends on our capacity to minimize the Gibbs energy in~\cref{ch2:eq:gibbs-energy-minimization}. For the Tikhonov multilabel HMM, it can be computed exactly and efficiently~\cite{ishikawa03}. However, MAP inference in general multilabel HMMs is NP-hard. The scenario is a little bit better for binary HMMs, as we are going to see in the next section.
 
 \subsection{Potts and Ising models}
 
@@ -251,7 +246,7 @@ The term in the right of~\cref{ch2:eq:anisotropic-tv-model-denoising} is called 
 	\label{ch2:eq:potts-model-denoising-2}
 \end{align}
 %
-~\cref{ch2:eq:potts-model-denoising-1,ch2:eq:potts-model-denoising-2} defines a \emph{Potts model}. Minimizing~\cref{ch2:eq:potts-model-denoising-2} is in NP-hard~\cite{boykov01fast} if variables $x_p,x_q$ are not binary, i.e., the underneath HMM is a multilabel one. In the binary case,~\cref{ch2:eq:potts-model-denoising-1,ch2:eq:potts-model-denoising-2} are referred as the \emph{Ising model}, and this one can be minimized efficiently.
+~\cref{ch2:eq:potts-model-denoising-1,ch2:eq:potts-model-denoising-2} defines a \emph{Potts model}. Minimizing~\cref{ch2:eq:potts-model-denoising-2} is NP-hard~\cite{boykov01fast} if variables $x_p,x_q$ are not binary, i.e., the underneath HMM is a multilabel one. In the binary case,~\cref{ch2:eq:potts-model-denoising-1,ch2:eq:potts-model-denoising-2} are referred as the \emph{Ising model}, and this one can be minimized efficiently.
 
 \begin{figure}
 \center
@@ -268,10 +263,10 @@ The term in the right of~\cref{ch2:eq:anisotropic-tv-model-denoising} is called 
 \label{ch2:fig:comparison-convex-truncated}
 \end{figure}
 
-In fact, MAP inference in multilabel HMMs are much more difficult than MAP inference in binary HMMs. At first glance, the multilabeling extension does not seem to be an issue, as we can always transform a multilabel problem in a binary one by including as many as $\log_2 |\Gamma_{\vec{X}}|$ new variables. The difficulty is that the resulting energy is very likely to lie in a class of binary energies which its minimization is in NP-hard~\cite{ramalingam08}. Therefore, MAP inference in multilabel HMMs is not likely to be solved exactly in an efficient manner. Instead, approximation algorithms as $(\alpha,\beta)$-swap~\cite{boykov01fast} or range moves~\cite{veksler07graph} are used.
+In fact, MAP inference in multilabel HMMs are much more difficult than MAP inference in binary HMMs. At first glance, the multilabeling extension does not seem to be an issue, as we can always transform a multilabel problem in a binary one by including as many as $\log_2 |\Gamma_{\vec{X}}|$ new variables. The difficulty is that the resulting energy is very likely to lie in a class of binary energies whose minimization is NP-hard~\cite{ramalingam08}. Therefore, MAP inference in multilabel HMMs is not likely to be solved exactly in an efficient manner. Instead, approximation algorithms as $(\alpha,\beta)$-swap~\cite{boykov01fast} or range moves~\cite{veksler07graph} are used.
 %(we are going to discuss some of them in~\cref{ch2:sec:graph-cut-models}).
 
-In the next two sections we are going to focus on the analysis of binary first-order HMMs, i.e., MRF that are encoded by $1,2$-cliques potentials and binary random variables. This restriction is justified by two reasons: first because there exist efficient algorithms to solve them (see~\cref{ch2:tab:map-inference-binary-mrf}); and second because of its generality. A general MRF can be transformed into an equivalent binary first-order MRF by including a sufficient number of auxiliar variables. Naturally, such transformations are not always useful. In the multilabel case the derived energy is almost sure non-submodular and in the case of high-order cliques, the inclusion of auxiliar variables may turn the minimization problem impractical~\cite{ishikawa10}.
+In the next two sections we are going to focus on the analysis of binary first-order HMMs, i.e., MRF that are encoded by $1,2$-cliques potentials and binary random variables. This restriction is justified by two reasons: first because there exist efficient algorithms to solve them (see~\cref{ch2:tab:map-inference-binary-mrf}); and second because of its generality. A general MRF can be transformed into an equivalent binary first-order MRF by including a sufficient number of auxiliary variables. Naturally, such transformations are not always useful. In the multilabel case the derived energy is almost surely non-submodular and in the case of high-order cliques, the inclusion of auxiliary variables may turn the minimization problem impractical~\cite{ishikawa10}.
 
 
 \begin{table}
@@ -326,12 +321,12 @@ Pseudo-boolean functions (PBF) can be interpreted as \emph{set functions}, i.e.,
 %
 where $c_S \in \mathbb{R}$ is a coefficient associated to each subset $S$. ~\cref{ch2:eq:pbf-polynomial-form} is denoted the \emph{polynomial form} of PBF $f$. The \emph{order} of a PBF is defined as the cardinality of the largest subset $S$ in which $c_S>0$. The polynomial form is \textbf{unique}. 
 
-Sometimes is convenient to express $f$ in its so called \emph{posiform} representation, usually denoted by $\phi$ instead of $f$. In its posiform representation we use literals $x_i,\bar{x}_i \in L$  to represent states $1,0$ of indexed variable $i$ and all coefficients are positive except the one associated to the empty set.
+Sometimes it is convenient to express $f$ in its so called \emph{posiform} representation, usually denoted by $\phi$ instead of $f$. In its posiform representation we use literals $x_i,\bar{x}_i \in L$  to represent states $1,0$ of indexed variable $i$ and all coefficients are positive except the one associated to the empty set.
 \begin{align}
 	\phi(f) = \phi(x_1,\cdots,x_n) &= \sum_{T \subset 2^{L}}a_T{\prod_{p \in T}{p}},
 \end{align}
 %
-where $a_T \geq 0$ whenever $T\neq \emptyset$. The posiform representation can be seen as a truth table with positive values for all configurations, except the one in which all variables are set to zero. One can pass from posiform to polynome representation by exchanging $\bar{x}_i$ and $(1-x_i)$. A posiform is said \emph{maximum-constant}  if its constant term $C(\phi)$ is maximum among all posiforms representing $f$. A maximum-constant posiform is denoted $\phi^{\star}$. Both general and maximum-constants posiforms are \textbf{not unique} representations of the PBF $f$.
+where $a_T \geq 0$ whenever $T\neq \emptyset$. The posiform representation can be seen as a truth table with positive values for all configurations, except the one in which all variables are set to zero. One can pass from posiform to polynomial representation by exchanging $\bar{x}_i$ and $(1-x_i)$. A posiform is said \emph{maximum-constant}  if its constant term $C(\phi)$ is maximum among all posiforms representing $f$. A maximum-constant posiform is denoted $\phi^{\star}$. Both general and maximum-constants posiforms are \textbf{not unique} representations of the PBF $f$.
 
 \begin{example}The polynomial form and two possible posiform representations for the same PBF.
 \begin{align*}
@@ -360,7 +355,7 @@ Classical problems in combinatorial optimization as vertex cover, maximum indepe
     \min xyw &= \min zw + xy -2xy -2yz +3x .
 \end{align*} 
 %
-  This procedure can be extended and formally described in a polynomial time algorithm that transforms an arbitrary PBF $f$ in a quadratic PBF $g$ with the property that $\min f = \min g$~\cite{boros02pseudo}. We remark, however, that the transformation may add a prohibitive number of auxiliar variables, turning the minimization problem impractical. With that in mind, we are going to restrict our analysis to the optimization of quadratic PBFs.
+  This procedure can be extended and formally described in a polynomial time algorithm that transforms an arbitrary PBF $f$ in a quadratic PBF $g$ with the property that $\min f = \min g$~\cite{boros02pseudo}. We remark, however, that the transformation may add a prohibitive number of auxiliary variables, turning the minimization problem impractical. With that in mind, we are going to restrict our analysis to the optimization of quadratic PBFs.
   
 \subsubsection{Roof duality}
 
@@ -431,7 +426,7 @@ The strong persistency theorem allow us to fix some variables of the quadratic P
 
 \subsubsection{Master posiform and max-flow reduction}
 
-We present a construction given in~\cite{boros91,boros02pseudo} of a capacitated graph $G_{\phi}(\mathcal{V},\mathcal{E},c)$ that encodes some posiform $\phi$ with constant $C(\phi)=0$. The authors shown how to derive the max-constant posiform from the computation of the maximum flow of $G_{\phi}$. Let $\phi$ be a posiform of the form
+We present a construction given in~\cite{boros91,boros02pseudo} of a capacitated graph $G_{\phi}(\mathcal{V},\mathcal{E},c)$ that encodes some posiform $\phi$ with constant $C(\phi)=0$. The authors showed how to derive the max-constant posiform from the computation of the maximum flow of $G_{\phi}$. Let $\phi$ be a posiform of the form
 	\begin{align*}
 		\phi &= \sum_{p \in L}{a_pp} + \sum_{p,q \in L}{a_{pq}pq},
 	\end{align*}
@@ -464,7 +459,7 @@ Similarly, pairwise terms with literals $p,q$ have edges $\edge{v_p}{v_{\bar{q}}
 	\end{array}\right.
 \end{align*}
 %
-A construction of graph $G_{\phi}$ is illustrated in~\cref{ch2:fig:posiform-capacitated-graph-a}. Therefore, the posiform $\phi$ can also be written as $\phi = \sum_{ \edge{v_p}{v_q} \in \mathcal{E}}{ c_{p\bar{q}} }$. In fact, it is possible to shown that there is a bijection between the posiform with zero constant $\phi$ and the graph $G_{\phi}$.
+A construction of graph $G_{\phi}$ is illustrated in~\cref{ch2:fig:posiform-capacitated-graph-a}. Therefore, the posiform $\phi$ can also be written as $\phi = \sum_{ \edge{v_p}{v_q} \in \mathcal{E}}{ c_{p\bar{q}} }$. In fact, it is possible to show that there is a bijection between the posiform with zero constant $\phi$ and the graph $G_{\phi}$.
 
 
 A flow is a function $\varphi:\mathcal{E}\rightarrow \mathbb{R}_{+}$ that satisfies
@@ -610,7 +605,7 @@ $x$ & $y$ & $z$ & $f$\\
 \end{tabular}
 \end{center}
 
-The construction above is the core of the \emph{QPBO} algorithm~\cite{boros91} that finds partial solutions of general quadratic PBF. \daniel{The labeled variables by QPBO are guarantee to belong to an optimum solution. This last property is usually referred as the \emph{partial optimality property} of QPBO, and it is a consequence of the strong persistency theorem.} In the most cases, the master posiform allows us to eliminate only few variables, but if the function $f$ is a \emph{submodular} function, QPBO finds the minimum of $f$.
+The construction above is the core of the \emph{QPBO} algorithm~\cite{boros91} that finds partial solutions of general quadratic PBF. \daniel{The labeled variables by QPBO are guaranteed to belong to an optimum solution. This last property is usually referred as the \emph{partial optimality property} of QPBO, and it is a consequence of the strong persistency theorem.} In the most cases, the master posiform allows us to eliminate only few variables, but if the function $f$ is a \emph{submodular} function, QPBO finds the minimum of $f$.
 
 %The master posiform $\phi^{\star}(f)$ gives us a lower bound for the PBF $f$, which is called the roof dual. In some fortunate occasions, the master posiform allows us to simplify the original optimization problem in a trivial one. That is the case for the class of \emph{submodular} functions.
 
@@ -694,9 +689,9 @@ There are functions which are \daniel{neither} submodular \daniel{nor} supermodu
 	\item[]{\textbf{QPBO-Probe}: Implements a branch-and-bound technique in an attempt to increase the number of variables labeled by QPBO. It keeps the partial optimality property.}
 	\item[]{\textbf{QPBO-Improve}: An heuristic that is guaranteed to return a labeling of lower or equal value than the labeling giving by QPBO. The partial optimality property is lost.}
 \end{itemize}}
-As discussed in~\cref{ch2:sec:markov-random-fields,ch2:sec:pseudo-boolean-functions}, several problems in image processing can be modeled in terms of an HMM $\mathcal{H}$ defined over the image grid graph. The hidden states of $\mathcal{H}$ are often estimated as the maximum likelihood of the induced probability distribution given the set of observed variables $\vec{Y}$. \daniel{In that occasion, we mention that the success of this approach depended on the difficulty of the maximum likelihood computation. We observed that the general problem is in NP-Hard for multilabel HMM, and we turn our attention to binary ones. In this case, we have to solve a PBF optimization problem.}
+As discussed in~\cref{ch2:sec:markov-random-fields,ch2:sec:pseudo-boolean-functions}, several problems in image processing can be modeled in terms of an HMM $\mathcal{H}$ defined over the image grid graph. The hidden states of $\mathcal{H}$ are often estimated as the maximum likelihood of the induced probability distribution given the set of observed variables $\vec{Y}$. \daniel{In that occasion, we mention that the success of this approach depended on the difficulty of the maximum likelihood computation. We observed that the general problem is NP-Hard for multilabel HMM, and we turn our attention to binary ones. In this case, we have to solve a PBF optimization problem.}
 
-As we have seen, the optimization of a PBF is closely related with the computation of maximum flows, or equivalently, minimum cuts in a graph.\daniel{ In fact, in some applications such as binary segmentation, it is more practical to think in terms of a minimum cut problem than in terms of an HMM one. Both interpretations are equivalent and trigger different insights, but the graph cut mindset fits very nicely in the binary segmentation framework and it gives to us an implicit representation of a digital contour, which can be exploited to incorporate geometric information in the model.} %and  The last interpretation is quite convenient in some applications such as binary segmentation. In fact, to think of the problem as we are going to see in the next section that is more practical to think on the problem as a minimum-cut The cut The HMM machinery can be  as the  a point of view is quite enlightening, as we can interpret problems in imaging with the computation of minimum cuts in its grid graph. In the next chapter we \daniel{describe two models inspired in this idea.}
+As we have seen, the optimization of a PBF is closely related to the computation of maximum flows, or equivalently, minimum cuts in a graph.\daniel{ In fact, in some applications such as binary segmentation, it is more practical to think in terms of a minimum cut problem than in terms of an HMM one. Both interpretations are equivalent and trigger different insights, but the graph cut mindset fits very nicely in the binary segmentation framework and it gives to us an implicit representation of a digital contour, which can be exploited to incorporate geometric information in the model.} %and  The last interpretation is quite convenient in some applications such as binary segmentation. In fact, to think of the problem as we are going to see in the next section that is more practical to think on the problem as a minimum-cut The cut The HMM machinery can be  as the  a point of view is quite enlightening, as we can interpret problems in imaging with the computation of minimum cuts in its grid graph. In the next chapter we \daniel{describe two models inspired in this idea.}
 
 
 \section{Graph cut models}
@@ -729,7 +724,8 @@ where $H_{bg},H_{fg}$ are mixed Gaussian distributions derived from foreground a
 	\end{array}\right.
 \end{align*}
 %
-where $d_E(p,q)$ is the Euclidean distance between the pixel coordinates of $p,q$ and $\lambda$ is the parameter to control the influence of the terms in the energy. The value $\sigma$ is interpreted as a parameter to configure noise level of the input image; and $k$ denotes the chosen neighborhood cardinality of the graph (e.g. $8$).
+where $d_E(p,q)$ is the Euclidean distance between the pixel coordinates of $p,q$ %and $\lambda$ is the parameter to control the influence of the terms in the energy. 
+.The value $\sigma$ is interpreted as a parameter to configure the noise level of the input image; and $k$ denotes the chosen neighborhood cardinality of the graph (e.g. $8$).
 
 Finally, given weights $\gamma_r \geq 0$ and $\gamma_b \geq 0$, we define the cost function $c:\mathcal{E}^+\rightarrow \mathbb{R}$ as
 
@@ -792,7 +788,7 @@ Given the particular topology of grid graphs, specific versions of max-flow algo
 
 \subsection{Geodesics computation}
 
-We have seen the natural connection between cuts and binary segmentation describing the graph cut algorithm. The removal of a cut $\mathcal{E}'$ set partitions the grid graph in two disjoint connected components, one connected to the source and associated to the foreground and the other connected to the target and associated to the background. The cut $\mathcal{E}'$ itself can be related with the contour $\partial S$ of the foreground shape (see~\cref{ch2:fig:geodesic-grid-graph-shape-intersection}). In~\cite{boykov03geodesics} it was shown that one can define a cost function for the edge set $\mathcal{E}$ such that the cost of $\mathcal{E}'$ is arbitrarily close to the length of $\partial S$.
+In the previous section, we have seen the natural connection between graph cuts and binary segmentation. The removal of a cut $\mathcal{E}'$ set partitions the grid graph in two disjoint connected components, one connected to the source and associated to the foreground and the other connected to the target and associated to the background. The cut $\mathcal{E}'$ itself can be related with the contour $\partial S$ of the foreground shape (see~\cref{ch2:fig:geodesic-grid-graph-shape-intersection}). In~\cite{boykov03geodesics} it was shown that one can define a cost function for the edge set $\mathcal{E}$ such that the cost of $\mathcal{E}'$ is arbitrarily close to the length of $\partial S$.
 
 The key idea is to use the Cauchy-Crofton formula from integral geometry. In $2D$, let $\mathcal{L}$ be the set of all straight lines in the plane and $d\mathcal{L}$ a Lebesgue measure on this set. Then, the perimeter of a shape $S$ is given by
 \begin{align*}
@@ -878,7 +874,7 @@ Another interesting contribution in the attempt to inject geometric information 
 %\end{align}
 %%
 %%
-%As mentioned before, minimizing~\cref{ch2:eq:potts-model-denoising-bis-1,ch2:eq:potts-model-denoising-bis-2} is in NP-hard as long as variables $x_p,x_q$ take values in a set of cardinality greater than $2$. Notice that if we limit the problem to only two labels, let's say $\alpha,\beta$,~\cref{ch2:eq:potts-model-denoising-bis-1,ch2:eq:potts-model-denoising-bis-2} is a submodular PBF (Ising model) and can be minimized in polynomial time. The key is in to define the transformation function 
+%As mentioned before, minimizing~\cref{ch2:eq:potts-model-denoising-bis-1,ch2:eq:potts-model-denoising-bis-2} is NP-hard as long as variables $x_p,x_q$ take values in a set of cardinality greater than $2$. Notice that if we limit the problem to only two labels, let's say $\alpha,\beta$,~\cref{ch2:eq:potts-model-denoising-bis-1,ch2:eq:potts-model-denoising-bis-2} is a submodular PBF (Ising model) and can be minimized in polynomial time. The key is in to define the transformation function 
 %\begin{align*}
 %	T_{\alpha,\beta}(x_p,c_p) &= \left\{ \begin{array}{rl}
 %		\alpha,& \quad \text{if } ( x_p=\alpha \text{ or } x_p=\beta) ) \text{ and } c_p=0,\\[1em]
