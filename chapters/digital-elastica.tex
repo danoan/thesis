@@ -32,8 +32,8 @@ rescaled by $1/h$ and we set $h=1$).
 
 Given a digital shape $\Ds^{(0)}$ we describe a process that generates a
 sequence $\Ds^{(i)}$ of shapes with non-increasing elastica energy. The
-idea is to define a neighborhood of shapes $\mathcal{N}^{(i)}$ to the
-shape $\Ds^{(i)}$ and choose the element of $\mathcal{N}^{(i)}$ with
+idea is to define a neighborhood of shapes $\mathcal{W}^{(i)}$ to the
+shape $\Ds^{(i)}$ and choose the element of $\mathcal{W}^{(i)}$ with
 lowest energy.  
 
 Let $\Ds$ be a $2$-dimensional digital shape embedded in a domain $\Omega \subset \mathbb{Z}^2$. We adopt the cellular-grid model to represent $\Ds$, i.e., pixels and its lower dimensional counterparts, linels and pointels, are part of $\Ds$ (see~\cref{ch5:fig:cellular-grid-model}). In particular, we denote by $\partial \Ds$ the topological boundary of $\Ds$, i.e., the connected sequence of linels such that for each linel we have one of its incident pixels in $\Ds$ and the other not in $\Ds$.
@@ -76,14 +76,14 @@ where
 		\end{array} \right.
 \end{align*}
 \end{definition}
-\daniel{Thus, the $m$-ring is composed out of two sets of pixels with positive and negative distances to the shape $D$ if $m > 0$~(see~\cref{ch5:fig:ring-set}), and equal to the inner pixel boundary in the case $m=0$.} Consider the following set of neighbor candidates to $\Ds$:
+\daniel{Thus, the $m$-ring is composed of two sets of pixels with positive and negative distances to the shape $D$ if $m > 0$~(see~\cref{ch5:fig:ring-set}), and equal to the inner pixel boundary in the case $m=0$.} Consider the following set of neighbor candidates to $\Ds$:
 \begin{align*}
 \{ Q \; | \; Q \subset R_1(\Ds) \cup \Ds \; \text{and} \; \text{$Q$ is connected} \}.
 \end{align*}
 Such set can be extremely large and its complete exhaustion is prohibitively expensive.  Instead, we are going to use a subset of it.
 \begin{definition}{$n$-neighborhood}
 
-	Given a digital shape $\Ds \subset \Omega$, its $n$-neigh\-bor\-hood $\mathcal{N}_n(\Ds)$ is defined as the set of digital shapes that can be built from $\Ds$ by adding or removing a sequence of $k \in [0,n]$ connected pixels in $R_1(\Ds)$.
+	Given a digital shape $\Ds \subset \Omega$, its $n$-neigh\-bor\-hood $\mathcal{W}_n(\Ds)$ is defined as the set of digital shapes that can be built from $\Ds$ by adding or removing a sequence of $k \in [0,n]$ connected pixels in $R_1(\Ds)$.
 
 \end{definition}
 
@@ -95,12 +95,12 @@ Such set can be extremely large and its complete exhaustion is prohibitively exp
 \subfloat{
 \includegraphics[scale=0.25]{figures/chapter5/gcurves/gc/main-outer.pdf}
 }
-\caption{\daniel{\textbf{$12$-Neighborhood of the square shape.}The black linels mark the digital contour of the original shape and the gray linels mark the $1$-ring. In the left, a member of $\mathcal{N}_{12}$ in which the red pixels were removed; and in the right a member of $\mathcal{N}_{12}$ in which the yellow pixels were added.} }
+\caption{\daniel{\textbf{$12$-Neighborhood of the square shape.}The black linels mark the digital contour of the original shape and the gray linels mark the $1$-ring. In the left, a member of $\mathcal{W}_{12}$ in which the red pixels were removed; and in the right a member of $\mathcal{W}_{12}$ in which the yellow pixels were added.} }
 \label{ch5:fig:n12-neighborhood}
 \end{figure}
 
 
-\daniel{In~\cref{ch5:fig:n12-neighborhood} it is shown two members of the $\mathcal{N}_{12}$ neighborhood.} At first glance, we may be tempted to set the local-search neighborhood at the $k$-th iteration as the union of all $n$-neighborhood for $1<n<|\partial \Ds^{(k)}|$. However, that is often unnecessary and time consuming, as the greatest reduction in digital elastica for a member of $\mathcal{N}_n$ is likely very close to the greatest reduction for a member of $\mathcal{N}_{n-1}$. Moreover, we can improve running time by implementing a multiscale approach, i.e., we look for reductions in digital elastica for larger values of $n$ first, and in case of a negative answer we refine our search by choosing a smaller $n$.
+\daniel{In~\cref{ch5:fig:n12-neighborhood} it is shown two members of the $\mathcal{W}_{12}$ neighborhood.} At first glance, we may be tempted to set the local-search neighborhood at the $k$-th iteration as the union of all $n$-neighborhood for $1<n<|\partial \Ds^{(k)}|$. However, that is often unnecessary and time consuming, as the greatest reduction in digital elastica for a member of $\mathcal{W}_n$ is likely very close to the greatest reduction for a member of $\mathcal{W}_{n-1}$. Moreover, we can improve running time by implementing a multiscale approach, i.e., we look for reductions in digital elastica for larger values of $n$ first, and in case of a negative answer we refine our search by choosing a smaller $n$.
 
 The \emph{LocalSearch}~\cref{ch5:alg:local-search} describes the local combinatorial process and is suitable for \daniel{any combination of multigrid convergent estimators of perimeter and curvature. In our experiments, we set the $\lambda$-MST~\cite{lachaud07tangent} to estimate elementary length and perimeter. We compare our results for two curvature estimators: the MDCA~\cite{roussillon11mdca} and the integral invariant (II-$r$) estimator~\cite{coeurjolly13integral} ($r$ denoting the radius of the estimation ball).} 
 
@@ -131,13 +131,13 @@ The \emph{LocalSearch}~\cref{ch5:alg:local-search} describes the local combinato
 
 	$n  \longleftarrow |\partial \Ds^{(k)}|/2^t$  	\tcp*[l]{Maximum $n$-neighborhood value.}
 	
-	$\displaystyle \mathcal{N}^{(k,t)} \longleftarrow \displaystyle \mathcal{N}_{n}(\Ds^{(k)})$\;
+	$\displaystyle \mathcal{W}^{(k,t)} \longleftarrow \displaystyle \mathcal{W}_{n}(\Ds^{(k)})$\;
 	
 	\BlankLine
 	
 	\comment{Find neighbor shape with lowest energy.} 
 	$Q^{\star} \longleftarrow D^{(k-1)}$\;
-  	\For{$ Q \in \mathcal{N}^{(k,t)} $}
+  	\For{$ Q \in \mathcal{W}^{(k,t)} $}
 	{
 		\If{ $\hat{E}_{\vec{\theta}}(Q)$ $<$ $\hat{E}_{\vec{\theta}}(Q^\star)$ }
 		{
@@ -169,7 +169,7 @@ The \emph{LocalSearch}~\cref{ch5:alg:local-search} describes the local combinato
 
 \daniel{
 \section{Experimental results}
-We study the behaviour of~\cref{ch5:alg:local-search} in two problem configurations. 
+We study the behavior of~\cref{ch5:alg:local-search} in two problem configurations. 
 
 \begin{itemize}
 	\item[]{ \textbf{Free elastica.} The digital elastica~\cref{ch5:digital-elastica} is optimized without any constraint. }
@@ -180,9 +180,9 @@ We study the behaviour of~\cref{ch5:alg:local-search} in two problem configurati
 \subsection{Free elastica}
 \label{ch5:subsec:free-digital-elastica}
 \daniel{
-As observed in~\cref{ch3:sec:elastica-curve}, the closed planar curve that minimizes the free elastica is the circumference of a disk of radius $(\beta/\alpha)^{0.5}$
+As observed in~\cref{ch3:sec:elastica-curve}, the closed planar curve that minimizes the free elastica is the circumference of a disk of radius $(\beta/\alpha)^{1/2}$
 \begin{align*}
-	\partial B_{(\beta/\alpha)^{0.5}} = \argmin_C \int_{C}{ (\alpha + \beta \kappa^2)ds}.
+	\partial B_{(\beta/\alpha)^{1/2}} = \argmin_C \int_{C}{ (\alpha + \beta \kappa^2)ds}.
 \end{align*}
 }
 %We study the performance of~
@@ -340,7 +340,7 @@ Blue & 5.55 & 3.84\\
 $| \Delta E / \Delta \Ds |$ & 70 & 1400
 \end{tabular}
 \end{minipage}
-\caption{\daniel{\textbf{MDCA sensitivity to noise.}}A slight variation in the shape boundary (in this example, a $0.07\%$ change or $4$ pixels over $5310$) inflicts a considerably higher change in the energy value when using MDCA than when using II. }
+\caption{\daniel{\textbf{MDCA sensitivity to noise.}} The ratio of change in energy value $(\Delta E)$ by change of the number of pixels ($\Delta D$) is much higher for the MDCA than for the II estimator. }
 \label{fig:mdca-sensitivity}
 \end{figure}
 
@@ -380,7 +380,7 @@ $\alpha=0.1$ & $\alpha=0.01$ & $\alpha=0.001$\\[2em]
 
 The running time of~\cref{ch5:alg:local-search} is summarized in table~\cref{tab:summary-local-comb-rtime}. All the experiments in this thesis were executed on a $32$-core $2.4Ghz$ CPU. Although its use in practical applications is
 limited, we demonstrated that digital estimators are effective in their measurements and the flows evolve as expected, reaching the global optimum for some shapes \daniel{in the free elastica problem}. We
-observe that it is a complete digital approach, and we do not suffer from discretization and rounding problems, a common
+observe that this approach is fully digital, and we do not suffer from discretization and rounding problems, a common
 issue in continuous models.  Furthermore we have checked that this approach works indifferently with Integral Invariant
 curvature estimator and Maximal Digital Circular Arc curvature estimator, given an appropriate neighborhood. So the convergence of the digital curvature
 estimator seems to be the cornerstone to get a digital curve behaving like a continuous elastica. 
@@ -448,7 +448,7 @@ We argue that~\cref{eq:simplified-digital-elastica} is a reasonable approximatio
 \subsection{Optimization model for simplified digital elastica}
 \label{ch5:subsec:optimization-model-simplified-digital-elastica}
 
-In contrast with the previous section, the model described here is designed for the integral invariant estimator only. Let $\Ds \subset \frac{1}{2}\mathbb{Z}^2$ be the digitization of some shape $S \subset \mathbb{R}^2$ %using grid step $h$
+In contrast with the previous section, the model described here is designed for the integral invariant estimator only. Let $\Ds \subset \left( \mathbb{Z} + \frac{1}{2} \right)^2$ be the digitization of some shape $S \subset \mathbb{R}^2$ %using grid step $h$
  in half-integer coordinates space. We assume that $\Ds$ has $m$ pixels (located at integer coordinates) and $n$ linels (one and only one of its coordinates is $\frac{1}{2}$). Optimization variables are represented as column vectors $\vec{x} \in \daniel{\{0,1\}}^{m},\, \vec{y} \in \daniel{\{0,1\}}^{n}$ and its $i$-th coefficients are denoted  $\vec{x}_i,\vec{y}_i$.  Further, let $\vec{A} \in \daniel{\{0,1\}}^{m\times n}$ the matrix defined as
 \begin{align*}
 	\vec{A}_{i,j} = \left\{ \begin{array}{ll}
@@ -464,7 +464,7 @@ In other words, the column vector $\vec{A}_i$ represents the pixels that are in 
 			   =& \sum_{\vec{y}_i \in \vec{y}}{ \vec{y}_i \left(\; \alpha + \frac{9}{r^6}\beta \big(c^2 - 2c\vec{A}_i^T\vec{x} + \vec{x}^T\vec{A}_i\vec{A}_i^T\vec{x}\big)\right)},			   
 	\end{align}
 %	
-where $c =  \pi r^2/2$. We remark that linels and pixels in the solution must be topologically consistent, .i.e., linels must form connected closed curves and the pixels must lie in the interior of those curves. This restriction is encoded in a set of topological constraints $T(\vec{x},\vec{y})$ detailed later. So far we have
+where $c =  \pi r^2/2$. We remark that linels and pixels in the solution must be topologically consistent, i.e., linels must form connected closed curves and the pixels must lie in the interior of those curves. This restriction is encoded in a set of topological constraints $T(\vec{x},\vec{y})$ detailed later. So far we have
 \begin{align*}
 	\min_{\vec{x} \in \daniel{\{0,1\}}^{|X|}, \vec{y} \in \daniel{\{0,1\}}^{|Y|}}{E_{\vec{\theta}}^{simp}(\vec{x},\vec{y})}, \quad \text{subject to } T(\vec{x},\vec{y}). \quad (P0)
 \end{align*}
@@ -479,7 +479,7 @@ Additionaly, in real applications involving the minimization of elastica, we hav
 \subsection{Topological constraints}
 \label{ch5:subsec:topological-constraints}
 
-The estimation ball should be applied in the \daniel{digital contour} of the shape, which oblige us to impose topological constraints in the model to avoid inconsistent solutions. In order to accomplish that, we set an arbitrary orientation for the faces and another for the edges. We choose counter-clockwise for faces; left-to-right for horizontal edges; and bottom-to-up for vertical edges. \daniel{The topological constraints are essentially the same as those implemented in the linear programming model of~\cite{schoenemann09linear} and described in~\cref{ch3:sec:discrete-methods-squared-curvature}.}
+The estimation ball should be applied in the \daniel{digital contour} of the shape, which obliges us to impose topological constraints in the model to avoid inconsistent solutions. In order to accomplish that, we set an arbitrary orientation for the faces and another for the edges. We choose counter-clockwise for faces; left-to-right for horizontal edges; and bottom-to-up for vertical edges. \daniel{The topological constraints are essentially the same as those implemented in the linear programming model of~\cite{schoenemann09linear} and described in~\cref{ch3:sec:discrete-methods-squared-curvature}.}
 
 
 We create the vector $\vec{z} \in \daniel{\{0,1\}}^{2n}$. We map each linel identified by variable $\vec{y}_i$ to components $\vec{z}_{2i},\vec{z}_{2i+1}$, one for each possible orientation the linel may assume. Next, we extend the linel incidence matrix defined in~\cref{app2:pixel-incidence-matrix} to hold incidence with respect to oriented edges. The new matrix $\vec{T} \in \daniel{\{0,1\}}^{n \times m + 2n}$ is defined as
@@ -527,7 +527,7 @@ We observe that for a linel identified by variable $\vec{y}_i$, constraints $\ve
 %
 %
 \daniel{
-For example, let $\vec{u}_i$ be the auxiliar variable associated with the opt-term $\vec{z}_1\vec{x}_2{x}_4$. Then, we are going to add the following constraints
+For example, let $\vec{u}_i$ be the auxiliar variable associated with the opt-term $\vec{z}_1\vec{x}_2\vec{x}_4$. Then, we are going to add the following constraints
 \begin{align*}
 	\vec{u}_i &\leq \vec{z}_1 \\
 	\vec{u}_i &\leq \vec{x}_2 \\
@@ -550,7 +550,7 @@ The linearization of (P1) is written as
 \end{array}
 \end{align*}
 %
-	Finally, to obtain a binary vector we round the partial solution vector $\vec{x^{\star}} \in \mathbb{U}^m$. For an instance with $m$ pixels we have about $2m$ linels. After linearization, we can expect to have up to $O(m^3)$ variables, dampening our attempts to solve it globally even for low resolution images. One can also try quadratic formulations by linearizing only the third order terms. Unfortunately, the matrix of quadratic terms is not semi-definite positive, fundamental condition for efficient optimization of the model.
+	Finally, to obtain a binary vector we round the partial solution vector $\vec{x^{\star}} \in \mathbb{U}^m$. For an instance with $m$ pixels we have about $2m$ linels. After linearization, we can expect to have up to $O(m^3)$ variables, dampening our attempts to solve it globally even for low resolution images. One can also try quadratic formulations by linearizing only the third order terms. Unfortunately, the matrix of quadratic terms is not semi-definite positive, a fundamental condition for efficient optimization of the model.
 	
 
 
@@ -562,7 +562,7 @@ We can use the pixel incidence matrix defined in~\cref{app2:pixel-incidence-matr
 		\vec{q} &= \vec{P}^T\vec{P} \vec{x}
 	\end{align*}
 %
-In order to supress the sign, we define diagonal matrix $\vec{Q} \in \mathbb{R}^{m \times m }$ as
+In order to suppress the sign, we define diagonal matrix $\vec{Q} \in \mathbb{R}^{m \times m }$ as
 \begin{align*}
 	\vec{Q} = diag(\vec{q})diag(\vec{q})
 \end{align*}
@@ -574,12 +574,12 @@ Let $\vec{B} \in \mathbb{B}^{m\times m}$ such that column vector $\vec{B}_j$ rep
 \end{align}
 %
 %
-where $\mathbf{1} = (1,1, \cdots , 1)^T \in \mathbb{R}^m$. ~\cref{eq:unconstrained-digital-elastica} involves the minimization of a fourth order equation and therefore hard to be optimized.
+where $\mathbf{1} = (1,1, \cdots , 1)^T \in \mathbb{R}^m$. ~\cref{eq:unconstrained-digital-elastica} involves the minimization of a fourth order equation and is therefore hard to optimize.
 
 \section{Conclusion}
 \label{ch5:sec:conclusion}
 \daniel{
-We have defined a local combinatorial scheme and provided an algorithm to minimize the digital elastica. We have shown experimental results of the LocalSearch algorithm for shapes with different geometries and we observed that the method converges to the expected global optimum in the free elastica problem, justifying the interest for multigrid convergent estimators. The same model can also be used to solve the constrained elastica problem, but its more likely to stop in a local minimum. 
+We have defined a local combinatorial scheme and provided an algorithm to minimize the digital elastica. We have shown experimental results of the LocalSearch algorithm for shapes with different geometries and we observed that the method converges to the expected global optimum in the free elastica problem, justifying the interest for multigrid convergent estimators. The same model can also be used to solve the constrained elastica problem, but is more likely to stop in a local minimum. 
 
 We observed that a global optimization method is important to recover the completion property of curvature. However, the high order of the elastica energy makes it a challenging energy to be globally optimized. We sketched some global optimization models for minimizing the simplified elastica (of lower order) using standard techniques of optimization. The difficulties we pointed out suggest that a practical global optimization model using the II estimator, if it exists, should make use of ingenious techniques. 
 

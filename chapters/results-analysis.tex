@@ -1,7 +1,7 @@
-\chapter{Results analysis}
+\chapter{Experimental analysis}
 \label{chapter:results-analysis}
 
-In this chapter we analyse the results produced by the four models developed in this thesis. We are going to compare its results for each of the three problems considered: free elastica, constrained elastica and image segmentation.~\cref{ch9:tab:models-summary} summarizes the models properties.
+In this chapter we analyse the results produced by the four models developed in this thesis. We are going to compare their outputs for each of the three problems considered: free elastica, constrained elastica and image segmentation.~\cref{ch9:tab:models-summary} summarizes the models properties.
 
 In the image segmentation section, we compare our results with the linear model for curvature regularization of~\cite{schoenemann09linear}.
 
@@ -22,7 +22,7 @@ GraphFlow (GF) & easy & fast & yes(opt) & yes & yes
 
 \section{Free elastica}
 
-The free elastica problem consists in finding a shape with the lowest digital elastica. The approach to solve this problem, as well the two others that follow, is to iteratively evolve an initial shape to another with lower digital elastica value. We have ran two experiments, summarized in~\cref{ch9:tab:free-elastica-parameters-summary}, to illustrate the evolution process behaviour for each of the models described in this thesis. 
+The free elastica problem consists in finding a shape with the lowest digital elastica. The approach to solve this problem, as well the two others that follow, is to iteratively evolve an initial shape to another with lower digital elastica value. We have ran two experiments, summarized in~\cref{ch9:tab:free-elastica-parameters-summary}, to illustrate the evolution process behavior for each of the models described in this thesis. 
 
 We make a distinction between the radius used to compute the balance coefficient $(bRadius)$ and the one used to estimate curvature using the II-estimator $(vRadius)$ in the validation function of GraphFlow and LocalSearch. In particular, the $vRadius$ is the one used to plot the graphs in~\cref{ch9:fig:plots-free-elastica-general,ch9:fig:plots-free-elastica-radius-choice}. Moreover, the $vRadius$ is always scaled by the grid step, while the $bRadius$ is never scaled.
 
@@ -49,7 +49,7 @@ Exp-General & $400$ & $5$ & $7$ & $0.25$ & $0.01$ & $1$  & $5$ & $2$ & $3$ \\
   The Exp-General experiment executes each model using the listed parameters in~\cref{ch9:tab:free-elastica-parameters-summary} for $5$ different parametric shapes. The results for the Exp-General experiment are shown in~\cref{ch9:fig:results-free-elastica-general}. One can check in the plots of~\cref{ch9:fig:plots-free-elastica-general} how the digital elastica value evolves at each iteration. For this experiment we also provide~\cref{ch9:tab:rtime-free-elastica-general} with the model's respective running times.
   
 
-We observe that both LocalSearch and GraphFlow evolves the initial shape to another shape closer to the optimal one, e.g., for $\alpha=0.01$, the model evolves to the disk of radius $10$. However, the GraphFlow model is simpler to implement and much faster than LocalSearch (see~\cref{ch9:tab:rtime-free-elastica-general}). Even with a smaller neighborhood, the GraphFlow achieves its convergence first than LocalSearch in two occasions, one in the square and another in the flower evolution.
+We observe that both LocalSearch and GraphFlow evolves the initial shape to another shape closer to the optimal one, e.g., for $\alpha=0.01$, the model evolves to the disk of radius $10$. However, the GraphFlow model is simpler to implement and much faster than LocalSearch (see~\cref{ch9:tab:rtime-free-elastica-general}). Even with a smaller neighborhood, the GraphFlow achieves its convergence before LocalSearch in two occasions, one in the square and another in the flower evolution.
 
 At the first iterations, FlipFlow and BalanceFlow produce shapes with lower digital elastica energy. However, the models do not stop to evolve even if a shape of smaller perimeter and lower digital elastica ceases to exist, and starting from this point, the digital elastica value increases.
 
@@ -116,7 +116,7 @@ LocalSearch & FlipFlow & BalanceFlow & GraphFlow\\[1em]
 
 \subsection{Exp-Radius}
 
-In the Exp-Radius experiment, we set the length penalization parameter to $\alpha=0.001$. Compared to the Exp-General, the expected behaviour is that the shapes will grow till reach the optimal disk of radius $1/0.001^{0.5} \approx 31$. This experiment confirms the natural observation that the choice of the $bRadius$ parameter influences the produced flows. The experiment was not executed for the LocalSearch model as this model is not sensitive to the $bRadius$ parameter.
+In the Exp-Radius experiment, we set the length penalization parameter to $\alpha=0.001$. Compared to the Exp-General, the expected behavior is that the shapes will grow till reach the optimal disk of radius $1/0.001^{0.5} \approx 31$. This experiment confirms the natural observation that the choice of the $bRadius$ parameter influences the produced flows. The experiment was not executed for the LocalSearch model as this model is not sensitive to the $bRadius$ parameter.
 
 In the case of FlipFlow and BalanceFlow, the evolution goes faster with a larger radius, and, as mentioned before, the shape never grows, it only shrinks. On the other hand, GraphFlow is sensitive to the value of $\alpha$ and the shapes can grow or shrink acoordingly. Moreover, the choice of $bRadius$ defines how closer the solution will be from the optimum in the case of the GraphFlow.
 
@@ -385,12 +385,12 @@ SLCR & 2.87min & 52.24min & 18.4min\\
 \label{ch9:tab:rtime-image-segmentation-general} 
 \end{figure}
 
-\subsection{Parameters influence}
+\subsection{Influence of parameters}
 The models offer parameters to control the relative weight of length $(\alpha)$, curvature $(\beta)$ and data ($\gamma,\gamma _r, \gamma _b$). We recall that FF and BF accept a single regional parameter $\gamma$ for data, while GF accepts $\gamma _r$ to ponderate a regional term and $\gamma _b$ to weight a boundary term. The Graph cut input and its result are shown in~\cref{ch9:fig:grabcut-input-image-segmentation}. The experiment results are displayed in~\cref{ch9:fig:exp-alpha-image-segmentation,ch9:fig:exp-beta-image-segmentation,ch9:fig:exp-gamma-image-segmentation,ch9:fig:exp-radius-image-segmentation}. 
 
-The FlipFlow and BalanceFlow present similar results for all experiments, as expected. The Exp-$\alpha$ experiment regularizes only length, and we can observe that the segmentations produced by all three models tend to be staircased. We remark that in the GF model, length penalization is not present in the cost function of the candidate graph, but only in the validation function. In particular, we need  a $a$-probe set with $a>0$ to have length penalization an influence in the produced segmentation.
+The FlipFlow and BalanceFlow present similar results for all experiments, as expected. The Exp-$\alpha$ experiment regularizes only length, and we can observe that the segmentations produced by all three models tend to be staircased. We remark that in the GF model, length penalization is not present in the cost function of the candidate graph, but only in the validation function. In particular, we need  a $a$-probe set with $a>0$ so that length penalization has an influence in the produced segmentation.
 
-In experiment Exp-$\beta$ we vary the squared curvature weigth coefficient. We observe in~\cref{ch9:fig:exp-beta-image-segmentation} that the produced segmentation smooths out for increasing values of $\beta$. We recall that the shrink/growing behaviour in the GF is controlled by the value of $\alpha$. The FF, and BF grow in concavities, but unless a local optimum is found, it tends to shrink.
+In experiment Exp-$\beta$ we vary the squared curvature weight coefficient. We observe in~\cref{ch9:fig:exp-beta-image-segmentation} that the produced segmentation smooths out for increasing values of $\beta$. We recall that the shrink/growing behavior in the GF is controlled by the value of $\alpha$. The FF and BF grow in concavities, but unless a local optimum is found, they tend to shrink.
 
 The models' response for the variation of data term is shown in~\cref{ch9:fig:exp-gamma-image-segmentation}. A higher value of $\gamma$ tends to produce results similar to the initial segmentation given by Graph cut, i.e., with almost no length or curvature regularization.
 
@@ -403,7 +403,7 @@ Finally, Exp-$bRadius$ illustrates how the choice of the estimation ball radius 
 \includegraphics[scale=0.4]{figures/chapter9/segmentation/seeds.png} &
 \includegraphics[scale=0.4]{figures/chapter9/segmentation/gc-seg.png}
 \end{tabular}
-\caption{Foreground (green) and background (blue) seeds are shown in the left and the resulting Graph cut segmentation int the right.}
+\caption{Foreground (green) and background (blue) seeds are shown in the left and the resulting Graph cut segmentation in the right.}
 \label{ch9:fig:grabcut-input-image-segmentation}
 \end{figure}
 
@@ -626,7 +626,7 @@ The SLCR tends to oversegment, notably in the man-in-white and the camel picture
 
 \section{Conclusion}
 
-All the four models described in this thesis can be used to produce shapes of lower digital elastica. Moreover, the FlipFlow,BalanceFlow and GraphFlow can be extended to do image segmentation with curvature regularization. In particular, the GraphFlow is a straightforward extension of the standard Graph cut model, which originally does not implement geometric regularization, and presents lower running times than FF and BF. Finally, our models have shown to be competitive with the SLCR segmentation algorithm that employs curvature regularization.
+All the four models described in this thesis can be used to produce shapes of lower digital elastica. Moreover, the FlipFlow,BalanceFlow and GraphFlow can be extended to do image segmentation with curvature regularization. In particular, the GraphFlow is a straightforward extension of the standard Graph cut model, which originally does not implement geometric regularization, and presents lower running times than FF and BF. Additionally, we observe that the GraphFlow can recover the completion property associated to the squared curvature regularization in some occasions. Finally, our models are competitive with the SLCR segmentation algorithm that employs curvature regularization.
 
 
 

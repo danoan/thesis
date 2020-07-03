@@ -12,7 +12,7 @@ We describe the binary non-submodular FlipFlow energy and discuss some curious a
 \section{FlipFlow model}
 \label{ch6:sec:flipflow-model}
 
-In this section we describe the FlipFlow model that aims to evolve an initial digital shape $\Ds$ into another of lower digital elastica value. The FlipFlow algorithm consists into deciding, at each iteration $k$, which pixels in the \emph{inner boundary} of $\Ds^{(k)}$ are to be removed  and which are to be kept. 
+In this section we describe the FlipFlow model that aims to evolve an initial digital shape $\Ds$ into another of lower digital elastica value. The FlipFlow algorithm consists in deciding, at each iteration $k$, which pixels in the \emph{inner boundary} of $\Ds^{(k)}$ are to be removed  and which are to be kept. 
 
 \subsection{Definitions}
 \label{ch6:subsec:definitions}
@@ -61,7 +61,7 @@ where $c_1=3/r^6$ and $c_2=\pi r^2/2$.
 The following sets are important in the expansion of $~\cref{eq:curvature-estimator-pixels}$.
 \begin{align*}
 	\begin{array}{rll}
-	F^{(k)} &:= \Ds^{(k)} \setminus I^{(k)} & \text{ \daniel{(Sure foreground) }} \\
+	F^{(k)} &:= \Ds^{(k)} \setminus I^{(k)} & \text{ \daniel{(Invariant foreground) }} \\
 	F_r^{(k)}(p) &:= F^{(k)} \cap B_r(p) &\\
 	I_r^{(k)}(p) &:= I^{(k)} \cap B_r(p) & \\
 	X_r^{(k)}(p) &:= X\big( I_r^{(k)}(p) \big). & \\	
@@ -156,7 +156,7 @@ the center of the estimation ball towards the interior of the shape, which means
 why we take the complement of the optimization solution.
 
 
-The explanation above covers the treatment of convex parts, but the way to treat concavities is not much different. Indeed, concave regions are convex in the shape complement. The FlipFlow~\cref{ch6:alg:evolution-model} is made of two modes: shrink and expansion. The shrink mode handles convexities and its reasoning is explained in the last paragraph. The expansion mode operates exactly in the same way, but at the image complement, and by doing this we are able to handle
+The explanation above covers the treatment of convex parts, but the way to treat concavities is not much different. Indeed, concave regions are convex in the shape complement. The FlipFlow~\cref{ch6:alg:evolution-model} is made of two modes: shrink and expansion. The shrink mode handles convexities and its reasoning is explained in the previous paragraph. The expansion mode operates exactly in the same way, but on the image complement, and by doing this we are able to handle
 concavities. It is called expansion mode because the optimization region, in this case, is the outer pixel boundary of
 the original shape. Table~\cref{tab:flow-summary} sums up these arguments.
 
@@ -258,7 +258,7 @@ varies across values of $m$ differs from shape to shape, as is illustrated in~\c
 
   We have used QPBOI to solve $E_{(\vec{\theta},m)}^{flip}$. Naturally, in the case where all pixels are labeled by QPBOP, QPBOI returns the same labeling as QPBOP. In the next section we show that by evaluating the estimation ball at outer rings, we eliminate the artifacts and we produce smoother flows while preserving a qualitative measure of curvature.
   
-  \daniel{We postpone the comparison of the proposed methods in this thesis to~\cref{chapter:results-analysis}. At this point, we retain us to say that the FlipFlow performs up to 10x faster than the LocalSearch algorithm.} 
+  \daniel{We postpone the comparison of the proposed methods in this thesis to~\cref{chapter:results-analysis}. At this point, we observe that the FlipFlow performs up to 10x faster than the LocalSearch algorithm.} 
 
 
 \begin{figure}
@@ -281,7 +281,7 @@ varies across values of $m$ differs from shape to shape, as is illustrated in~\c
 \subfloat[]{ \includegraphics[scale=0.38]{figures/chapter6/unlabeled-ratio/plots/unlabeled-per-iterations/h0.25/radius-5/plot-model-flower-concavities-probe.pdf}}\\%
 \subfloat[]{ \includegraphics[scale=0.38]{figures/chapter6/unlabeled-ratio/plots/unlabeled-per-iterations/h0.25/radius-9/plot-model-flower-concavities-probe.pdf}}%
 \end{minipage}
-\caption{\daniel{\textbf{Unlabeled variables ratio across $m$-rings.}}For each plot, we first produce the sequence of shapes $\left\{ \Ds^{(k)} \right\}$ executing FlipFlow with $m=r$. Then, for each shape in $\left\{ \Ds^{(k)} \right\}$, we execute one iteration of FlipFlow for different values of $m$ and we count the unlabeled pixels. The number of unlabeled pixels by QPBOP remains high for lower values of $m$, and goes to zero when $m=r$. %We observe the same behavior for varying radius values.
+\caption{\daniel{\textbf{Unlabeled variables ratio across $m$-rings.}}For each plot, we first produce the sequence of shapes $\left\{ \Ds^{(k)} \right\}$ executing FlipFlow with $m=r$. Then, for each shape in $\left\{ \Ds^{(k)} \right\}$, we execute one iteration of FlipFlow for different values of $m$ and we count the unlabeled pixels. The number of unlabeled pixels by QPBOP remains high for small values of $m$, and goes to zero when $m=r$. %We observe the same behavior for varying radius values.
 }
 \label{ch6:fig:unlabeled-versus-iterations}
 \end{figure}
@@ -347,7 +347,7 @@ $m=1$ & $m=4$ & $m=5$\\
 \includegraphics[scale=0.22]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level4/summary.pdf} &
 \includegraphics[scale=0.22]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level5/summary.pdf} 
 \end{tabular}
-\caption{\daniel{\textbf{FlipFlow results for $\mathbf{r=5}$.}} By positioning the estimation ball on outer rings, we minimize artifacts creation. %The radius of the estimation ball used here equals to $5$ and the curves are displayed every $10$ iterations.
+\caption{\daniel{\textbf{FlipFlow results for $\mathbf{r=5}$.}} By positioning the estimation ball on outer rings, we minimize the apparition of sharp artifacts. %The radius of the estimation ball used here equals to $5$ and the curves are displayed every $10$ iterations.
 }
 \label{ch6:fig:mrings-r5-evolution}
 \end{figure}
@@ -364,7 +364,7 @@ $m=1$ & $m=6$ & $m=9$\\
 \includegraphics[scale=0.22]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level6/summary.pdf} &
 \includegraphics[scale=0.22]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level9/summary.pdf}
 \end{tabular}
-\caption{\daniel{\textbf{FlipFlow results for $\mathbf{r=9}$.}} By positioning the estimation ball on outer rings, we minimize artifacts creation. %The radius of the estimation ball used here equals to $9$ and the curves are displayed every $10$ iterations.
+\caption{\daniel{\textbf{FlipFlow results for $\mathbf{r=9}$.}} By positioning the estimation ball on outer rings, we minimize the apparition of sharp artifacts. %The radius of the estimation ball used here equals to $9$ and the curves are displayed every $10$ iterations.
 }
 \label{ch6:fig:mrings-r9-evolution}
 \end{figure}
@@ -483,9 +483,9 @@ An illustration of the application of the FlipFlow model in image segmentation i
 \daniel{
 We proposed the FlipFlow algorithm, an evolution process based on the minimization of a second-order non-submodular energy that produces shapes of decreasing digital elastica until a certain inflexion point. We point out the submodularization effect of evaluating the FlipFlow model at outer $m$-rings and we observed that the model evolves the shapes in a similar fashion to the curve-shortening flow for an appropriate choice of parameters. 
 
-The FlipFlow operates in two distinct modes: the shrink and the expansion modes. They are responsible for the treatment of convexities and concavities regions, respectively. The model handles changes in topology and can be extended to include extra terms as data regularization term. In particular, we described an application of the FlipFlow model to image segmentation.
+The FlipFlow algorithm operates in two distinct modes: the shrink and the expansion modes. They are responsible for the treatment of convex and concave regions, respectively. The model handles changes in topology and can be extended to include extra terms as data regularization term. In particular, we described an application of the FlipFlow model to image segmentation.
 
-It is remarkable that curvature regularization is achieved by evaluating the estimation disks at outer rings. It is also surprising the fact that we are using a quite non-standard operation of taking the solution complement. We have developed an heuristic reasoning to explain the latter and we argue in~\cref{app:curvature-and-distant-disks} that curvature can still be measured evaluating disks at outer rings. Nonetheless, we may have taken an unnecessary tortuous path and missed the fundamental concept behind it. In the next chapter we identify the key concept behind the FlipFlow model to define a variant of this algorithm which is easier to implement.
+It is remarkable that curvature regularization is achieved by evaluating the estimation disks at outer rings. Another surprising fact is that we are using a quite non-standard operation of taking the solution complement. We have developed an heuristic reasoning to explain the latter and we argue in~\cref{app:curvature-and-distant-disks} that curvature can still be measured evaluating disks at outer rings. Nonetheless, we may have taken an unnecessary tortuous path and missed the fundamental concept behind it. In the next chapter we identify the key concept behind the FlipFlow model to define a variant of this algorithm which is easier to implement.
 }
 
 %We presented the FlipFlow model in~\cref{ch6:sec:flipflow-model}, an evolution process that produces shapes of decreasing digital elastica until a certain inflexion point.~\cref{ch6:alg:evolution-model} operates in two distinct modes: the shrink and the expansion modes. They are responsible for the treatment of convexities and concavities regions, respectively. 
