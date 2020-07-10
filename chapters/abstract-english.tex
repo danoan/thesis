@@ -1,3 +1,11 @@
-\textbf{Abstract}
+\begin{center} 
+ \textbf{Abstract}
+\end{center}
 
-This is the english abstract!
+Several problems in image processing belong to the class of inverse problems, and hypotheses should be made to have a well-defined formulation, i.e., a formulation in which a solution exists and it is unique. A possibility is to use geometric criteria to regularize the problem, e.g., to favor solutions with smooth contours or short perimeters. This process is called regularization. 
+
+However, it is likely the case that the objects in the scene have unknown mathematical representations and that such geometric measurements should be computed in place, considering only their visual representation: In the case of image processing, a digital image. Usually, such measurements are computed without considering the nature of the digital domain, and consequently, are not guaranteed to converge neither approximate the expected Euclidean quantity. The regularization is thus incorrect or not precise, and the solutions biased.
+
+Recently, several digital estimators of geometric properties such as tangent and curvature were proven multigrid convergent. In other words, the estimated values computed in the digital representation of a shape converges towards the values computed in its Euclidean representation as the digital mesh becomes finer and finer. However, there exist few models in the image processing literature that make use of them. That is because such estimators are more difficult to integrate in an optimization framework.
+
+In this thesis, we investigate the use of multigrid convergent estimators and their applications in image processing. In particular, we aim to integrate regularizers based on convergent estimators of curvature in image segmentation problems. We present four combinatorial models based on the elastica energy (a classical geometric regularization term combining perimeter and curvature) with applications in image segmentation. Next, we evaluate our results and compare with similar methods. The results have shown to be very competitive with the state of art.

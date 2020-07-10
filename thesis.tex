@@ -1,5 +1,6 @@
 \documentclass[a4paper,12pt]{book}
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage[toc,page]{appendix}
 %\usepackage{chronosys}
 \usepackage{amstext,amsmath,amssymb,bm,bbm,mathtools,accents}
@@ -19,6 +20,7 @@
 \usepackage{longtable}
 \usepackage{layouts}
 \usepackage[export]{adjustbox}
+\usepackage[french,english]{babel}
 
 
 %\usepackage{natbib}
@@ -47,9 +49,15 @@
 	\author{Daniel Antunes}
 	\date{}
 	\maketitle
+
+	\include{chapters/abstract-english}
+	\selectlanguage{french}
+	\include{chapters/abstract-french}
+	\selectlanguage{english}
+
 	
 	\tableofcontents	
-	\include{chapters/acknowledgements}
+%	\include{chapters/acknowledgments}
 	\include{chapters/notation}
 	\include{chapters/introduction}
 	\part{Image Processing and Digital Geometry}

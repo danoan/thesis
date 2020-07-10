@@ -1,3 +1,11 @@
-\textbf{Résumé}
+\begin{center} 
+ \textbf{Résumé}
+\end{center}
 
-Ça c'est le résumé en Français!
+Beaucoup de problèmes en analyse d’images sont caractérisés comme des problèmes inverses, et des hypothèses s'avèrent nécessaire pour obtenir un formulation bien posée, c’est-à-dire que le problème ait une solution et que celle-ci soit unique. Une approche possible consiste à utiliser des critères géométriques pour régulariser le problème, par exemple pour favoriser des solutions avec des contours lisses ou de faible périmètre. 
+
+Cependant, dans le cadre de l’analyse d’image; nous ne disposons pas de la représentation mathématique des objets dans une scène observée. Nous devons utiliser les seules données discrètes (les couleurs des pixels de l’image) qui approchent ces objets et les mesures géométriques sont alors délicates. Les méthodes classiques prennent peu en compte la nature discrète des données dans leur mesure. En conséquence, nous n’avons pas de garanties de convergence ou même d’approximation des mesures effectuées par rapport aux mesures euclidiennes attendues. La régularisation dans le processus de traitement d’image est alors incorrecte ou peu précise, et les solutions trouvées sont alors biaisées.
+
+Récemment, plusieurs estimateurs discrets de propriétés géométriques, notamment liés à la longueur, à la tangente et à la courbure, ont été prouvé convergents multigrilles. Autrement dit la valeur mesurée par ces estimateurs sur la représentation discrète d’une forme converge vers la valeur mesurée sur sa forme euclidienne quand on utilise des grilles de discrétisations de plus en plus fines. Néanmoins, on constate que la littérature d’analyse d’image comporte peu de modèles qui utilisent des estimateurs convergents multigrille. Cela vient du fait qu’il est plus difficile des les intégrer dans les algorithmes de résolution.
+
+Dans cette thèse, nous explorons l’utilisation d’estimateurs convergents multigrille dans des applications en analyse d’image. Plus spécifiquement nous cherchons à intégrer des régularisations basées sur des estimateurs convergents de courbure dans des processus de segmentation d’image. Nous présentons quatre modèles variationnels combinatoires basés sur l’énergie dite “Elastica” (combinaison classique de régularisation géométrique utilisant la longueur et la courbure) avec application en segmentation d’image. Nos résultats sont ensuite évaluées et comparées avec des méthodes similaires, et nos modèles s’avèrent très compétitifs avec l’état de l’art.
