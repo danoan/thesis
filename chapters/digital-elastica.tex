@@ -550,7 +550,7 @@ The linearization of (P1) is written as
 \end{array}
 \end{align*}
 %
-	Finally, to obtain a binary vector we round the partial solution vector $\vec{x^{\star}} \in \mathbb{U}^m$. For an instance with $m$ pixels we have about $2m$ linels. After linearization, we can expect to have up to $O(m^3)$ variables, dampening our attempts to solve it globally even for low resolution images. One can also try quadratic formulations by linearizing only the third order terms. Unfortunately, the matrix of quadratic terms is not semi-definite positive, a fundamental condition for efficient optimization of the model.
+	Finally, to obtain a binary vector we round the partial solution vector $\vec{x^{\star}} \in [0,1]^m$. For an instance with $m$ pixels we have about $2m$ linels. After linearization, we can expect to have up to $O(m^3)$ variables, dampening our attempts to solve it globally even for low resolution images. One can also try quadratic formulations by linearizing only the third order terms. Unfortunately, the matrix of quadratic terms is not semi-definite positive, a fundamental condition for efficient optimization of the model.
 	
 
 
