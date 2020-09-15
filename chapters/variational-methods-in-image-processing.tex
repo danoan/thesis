@@ -514,7 +514,7 @@ Differently from the snakes, the geometric active contours handle changes in top
 
 
 \subsection{Level set}
-	The active contour and its geometric version are both edge-based methods, a natural strategy for image segmentation but with limitations, e.g., the models may encounter some difficulties to segment objects with holes. The \emph{Chan-Vese} method proposes the inclusion of a region-based term and it generalizes the level-set approach already presented in the geometric active contour model. 
+	The active contour and its geometric version are both edge-based methods, a natural strategy for image segmentation but with limitations, e.g., the models may encounter some difficulties to segment objects with holes. The \emph{Chan-Vese}~\cite{chan01} method proposes the inclusion of a region-based term and it generalizes the level-set approach already presented in the geometric active contour model. 
 	
 	Let $f_{\vec{I}}:\Omega \subset \mathbb{R}^2 \rightarrow [0,1]$ a grayscale image and $F \subset \Omega$ an open set such that the pair $(F,\Omega \setminus F)$ is the searched binary partition. Further, assume that there exists a function $\phi: \Omega \rightarrow \mathbb{R}$ with bounded first derivative. The image partitions are identified in the following fashion
 \begin{align*}
