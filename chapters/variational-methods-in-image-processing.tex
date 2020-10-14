@@ -1,7 +1,7 @@
 \chapter{Variational methods in Image Processing}
 \label{chapter:variational-methods-in-image-processing}
 
-A track should be constructed to connect some point in space $p$ to a lower altitude point $q$. Which form the track should take if we wish that a ball released at $p$ reaches $q$ in the shortest time? The curve known as brachistochrone or tautochrone is the answer of this puzzle solved by Jean Bernoulli and a classical problem of the \emph{calculus of variations}. 
+A track should be constructed to connect some point $p$ to a lower altitude point $q$. Which form the track should take if we wish that a ball released at $p$ reaches $q$ in the shortest time? The curve known as brachistochrone or tautochrone is the answer of this puzzle solved by Jean Bernoulli and a classical problem of the \emph{calculus of variations}. 
 
 The main object of calculus of variations are called \emph{functionals} or \emph{energies}, and a simple way to describe it is as a function whose variable is itself a function. Minimizing functionals is a more intricate problem than minimizing an usual function, as the variable in a functional has infinite dimension. Nonetheless, by means of the so called \emph{variations}, one can model infinitely small variations in the functional and do a rigorous analysis of its extremum, the main tool of which is the \emph{Euler-Lagrange} equation.
 
@@ -121,7 +121,7 @@ Given $f_I:\Omega \rightarrow [0,1]$ and a positive integer $n$, find partition 
 
 
 \subsubsection{Image inpainting}
-Given an image $f_{\widetilde{\vec{I}}}$ with a collection of missing patches $\mathcal{P}$, \emph{image inpainting} consists in creating an image $f_{\vec{I}}$ with the reconstructed missing patches such that a quality criteria, encoded as the minimum of some functional, is respected
+Given an image $f_{\widetilde{\vec{I}}}$ \revision{and} a collection of missing patches $\mathcal{P}$, \revision{the problem of} \emph{image inpainting} consists in creating an image $f_{\vec{I}}$ with the reconstructed missing patches such that a quality criteria, encoded as the minimum of some functional, is respected
 
 Given $f_{\widetilde{\vec{I}}}$ and missing patches $\mathcal{P}$, find image $f_{\vec{I}}$ such that
 \begin{align*}
@@ -182,6 +182,7 @@ where $\vec{N}$ is a $(m \times n)$ matrix of random variables $\vec{N}_{i,j}$ a
 	}
 \end{enumerate}
 %If we want to be precise, the sum operator in~\cref{ch1:denoising-assumption-1} should be redefined to be a closed operator in $\mathbb{F}^{m \times n}$. We skip this definition by arguing that because of the symmetry of the Gaussian distribution the computation of the probabilities that follows remains the same. We estimate the unknown original image $\vec{I}$ as the image $\vec{\widehat{I}}$ that is more likely to occur. Applying Bayes' theorem we obtain
+\revision{Then, the original image is estimated as the candidate image with the highest probability to have occured given the noisy image, i.e.,}
 \begin{align}
 	\vec{\widehat{I}} & = \argmax _{\vec{C}}{Pr(\vec{C} \; | \;\vec{\widetilde{I}})} = \argmax _{\vec{C}} \frac{Pr(\vec{\widetilde{I}} \; | \; \vec{C})Pr(\vec{C})}{Pr(\vec{\widetilde{I}})}.
 	\label{ch1:eq:probability-maximization}
@@ -283,7 +284,7 @@ The Tikhonov term favors images with smooth variations in color, but the smoothn
 
 
 \subsection{Total variation regularization}
-An alternative to Tikhonov regularization is to use the so called \emph{total variation} of the image function. For a smooth function $f$, its total variation is computed as
+An alternative to Tikhonov regularization is to use the so called \emph{total variation} of the image function. For a smooth function $f$, its total variation is \revision{defined} as
 \begin{align*}
 	TV(f) &= \int_{\Omega}{ \norm{ \nabla f } }.
 \end{align*}
@@ -294,7 +295,7 @@ For a more general (possibly not differentiable) locally integrable function $f:
 		  &= \sup \left\{ - \int_{\Omega}{u \nabla \cdot \phi} \; | \; \phi \in C_c^{1}(\Omega, \mathbb{R}^n) \text{ and } \norm{\phi}_{\infty} \leq 1 \right\},	
 \end{align*}
 %
-where $\phi$ is vector-valued infinitely differentiable function with compact support. The image denoising total variation model is written as
+where $\phi$ is vector-valued \revision{continuously} differentiable function with compact support. The image denoising total variation model is written as
 \begin{align}
 	f_{\vec{\widehat{I}}} &= \argmin_{f} \frac{\lambda}{2} \int_{\Omega}{ \norm{ f_{\widetilde{I}} - f}^2dx} + TV(f).
 	\label{ch1:eq:total-variation-denoising}
@@ -316,7 +317,7 @@ In this section we give an overview of the key techniques in variational models 
 \subsubsection{Mumford-Shah}
 The $L2$-norm regularization has nice optimization properties, but it does not preserve discontinuities along the object boundaries. This effect is attenuate using a $L1$-norm, but it it not sufficient to avoid blurred edges. The\emph{Mumford-Shah} functional~\cite{mumford89} handles this issue by incorporating the edges in its formulation in the form of a set of discontinuities $\mathcal{K}$ and limiting the $L2$-norm regularization to points in the interior of objects, i.e.,  $\Omega \setminus \mathcal{K}$. Moreover, the set $\mathcal{K}$ itself is compelled to be of small length. The Mumford-Shah model consists in minimizing the following functional 
 \begin{align}
-	(f_{\vec{\widehat{I}}},\mathcal{\widehat{K}}) &= \argmin_{f,\mathcal{K}} \alpha \int_{\Omega}{ \norm{f_{\vec{\widetilde{I}}}-f}dx} + \beta \int_{\Omega \setminus \mathcal{K}}{\norm{\nabla f}dx} + \lambda Per(\mathcal{K})
+	(f_{\vec{\widehat{I}}},\mathcal{\widehat{K}}) &= \argmin_{f,\mathcal{K}} \alpha \int_{\Omega}{ \revision{\norm{f_{\vec{\widetilde{I}}}-f}^2}dx} + \beta \int_{\Omega \setminus \mathcal{K}}{ \revision{\norm{\nabla f}^2}dx} + \lambda Per(\mathcal{K})
 	\label{ch1:mumford-shah-functional}
 \end{align}
 %
@@ -336,7 +337,7 @@ Nonetheless, there exist several approximations to the Mumford-Shah functional. 
 %
 The length and smoothness regularization term favors curves of smooth variations and  small length while the edge term compels the curve to stop at regions of high variation of color intensity. 
 
-The snakes method was devised having an interactive framework in mind. First of all, the user must set the initial curve close to the object to be segmented, and besides that, a set of additional tools as anchor points, repulsion and spring forces are available for online modification of the problem. The user can make use of these tools to conveniently perturb the current solution and force the curve to evolve to the expected local optimum.
+The snakes method was devised having an interactive framework in mind. First of all, the user must set the initial curve \revision{such that it encloses} the object to be segmented, and besides that, a set of additional tools as anchor points, repulsion and spring forces are available for online modification of the problem. The user can make use of these tools to conveniently perturb the current solution and force the curve to evolve to the expected local optimum.
 
 The active contours is an influential paradigm for image segmentation and it was particularly popular for segmenting medical images~\cite{mcinerney99}. Variations of the original model include extension to 3D-segmentation~\cite{mcinemey99} and topologically adaptable snakes~\cite{mcinerney95}.
 
@@ -495,7 +496,7 @@ where $g$ is a non-increasing function that plays the role of an edge-detector, 
 
 Following~\cref{ch1:geometric-active-contour}, the gray level at some point $(x,y)$ changes proportionally to the curvature of its belonging level set. The constant $v$ forces the change in $u$ to be always positive, i.e., pixels gets lighter, never darker. The term $\norm{\nabla u}$ allows $u$ to evolve only at some neighborhood of the $0$-level-set boundary and the term $g(\norm{\nabla f_{\vec{I}}})$ makes the evolution to stop if an edge is reached. At the steady solution of~\cref{ch1:geometric-active-contour} the segmented objects of $\vec{I}$ corresponds to the $0$-level set of $u$.
 
-Differently from the snakes, the geometric active contours handle changes in topology of the initial curve. In figure~\cref{ch1:fig:comparison-curve-evolution}, the initial $0$-level set of $u$ splits in three disjoint sets at the steady solution of~\cref{ch1:geometric-active-contour}. However, the geometric active contour models cannot segment objects with holes without including a region-based term~\cite{chen06}.
+Differently from the snakes, the geometric active contours handle changes in topology of the initial curve. In figure~\cref{ch1:fig:comparison-curve-evolution}, the initial $0$-level set of $u$ splits in \revision{two} disjoint sets at the steady solution of~\cref{ch1:geometric-active-contour}. However, the geometric active contour models cannot segment objects with holes without including a region-based term~\cite{chen06}.
 
 \begin{figure}
 \center
@@ -526,7 +527,7 @@ Differently from the snakes, the geometric active contours handle changes in top
 	In possession of the partition descriptor $\phi$, the following energy is proposed	
 \begin{align}
 	F(\phi,x) &= \mu Length(\phi,x) + \nu Area(\phi,x) + \lambda_1 Foreground(\phi,x) + \lambda_2 Background(\phi,x) \nonumber \\	
-	&= \mu \int_{\Omega}{\delta_0(\phi(x))\norm{ \nabla \phi(x)}dx} + \nu \int_{\Omega}{H(\phi(x))dx} \nonumber \\
+	&= \mu \int_{\Omega}{\delta_0(\phi(x))\norm{ \nabla \phi(x)}dx} + \nu \revision{\int_{\Omega}{1-H(\phi(x))dx}} \nonumber \\
 	&+ \lambda_1 \int_{\Omega}{\big(1-H(\phi(x))\big)\norm{f_{\vec{I}}(x) - c_F}^2dx} + \lambda_2\int_{\Omega}{H(\phi(x)\norm{f_{\vec{I}}(x)-c_B}^2dx},
 	\label{ch1:eq:chan-vese-functional}
 \end{align}
@@ -632,7 +633,7 @@ In order to use tools from convex optimization one needs to define a convex ener
 
 \subsubsection{Functional lifting}
 
-Consider the binary image denoising problem. Let $f_{\widetilde{\vec{I}}}$ the observed noisy image and consider the total variation model for binary denoising
+Consider the binary image denoising problem. Let $\revision{f_{\widetilde{\vec{I}}}:\Omega \rightarrow [0,1]}$ the observed noisy image and consider the total variation model for binary denoising
 \begin{align}
 	\min_{f_{\vec{I}}:\Omega \rightarrow \{0,1\} } E^{2-den}(f_{\vec{I}}) &= \min_{f_{\vec{I}}} \int_{\Omega}{\norm{\nabla f_{\vec{I}}}} + \lambda \int_{\Omega}{ (f_{\vec{I}}-f_{\widetilde{\vec{I}}})^2}
 	\label{ch1:eq:binary-denoising-model},
@@ -650,23 +651,38 @@ Whose a local minimum is a steady solution of
 	\label{ch1:eq:level-set-ball-flow}
 \end{align}
 %
-We reproduce the example given in~\cite{chan06} to illustrate a situation in which the Chan-Vese method returns a local optimum solution. Assume that the observed image is the characteristic function of a ball of radius $R$, i.e., $f_{\widetilde{\vec{I}}}(x) = \mathbf{1}_{B_R}(x)$. Moreover, we set the initial guess of the level-set function to be precisely the observed image, i.e., $\phi_0(x) = f_{\widetilde{\vec{I}}}(x)$. The evolution given by~\cref{ch1:eq:level-set-ball-flow} maintains the radial symmetry of $\phi_0$, which means that $\phi^{(t)}$ will represent the characteristic function of some ball of radius $r$. In other words, for this particular setting, ~\cref{ch1:eq:2-den-level-set-energy} is equivalent to
+We reproduce the example given in~\cite{chan06} to illustrate a situation in which the Chan-Vese method returns a local optimum solution. Assume that the observed image $f_{\widetilde{\vec{I}}}$ is the characteristic function 
+of some \revision{disk of unknown radius to which some noise is included. In this example, the noise function itself includes (or removes) disks of radius smaller than $2$ (see~\cref{ch1:fig:local-solution-level-set}). Then, }we set the initial guess of the level-set function to be precisely the observed image, i.e., $\phi_0(x) = f_{\widetilde{\vec{I}}}(x)$. 
+
+The evolution given by~\cref{ch1:eq:level-set-ball-flow} maintains the radial symmetry of $\phi_0$, which means that $\phi^{(t)}$ represents the \revision{characteristic function of a collection of disks, that is, the main disk and the noise, composed of disks of radius smaller than $2$. In other words, for a single disk of radius $R$ in the image, ~\cref{ch1:eq:2-den-level-set-energy} is equivalent to}
+%
 \begin{align}
-	\min_{r} g(r,\lambda) &= \min_r 2\pi r + \lambda \pi |R^2-r^2|, \quad r \geq 0.
+	\min_{r} g(r,\lambda) &= \min_r 2\pi r + \lambda \pi |r^2 - R^2|, \quad r \geq 0.
 	\label{ch1:eq:balls-evolution}
 \end{align}
 %
+%We reproduce the example given in~\cite{chan06} to illustrate a situation in which the Chan-Vese method returns a local optimum solution. Assume that the observed image is the characteristic function of a ball of radius $R$, i.e., $f_{\widetilde{\vec{I}}}(x) = \mathbf{1}_{B_R}(x)$. Moreover, we set the initial guess of the level-set function to be precisely the observed image, i.e., $\phi_0(x) = f_{\widetilde{\vec{I}}}(x)$. The evolution given by~\cref{ch1:eq:level-set-ball-flow} maintains the radial symmetry of $\phi_0$, which means that $\phi^{(t)}$ will represent the characteristic function of some ball of radius $r$. In other words, for this particular setting, ~\cref{ch1:eq:2-den-level-set-energy} is equivalent to
 %
-~\cref{ch1:eq:balls-evolution} has a local minimum at $r=R$ and a local maximum at $r=1/\lambda$. Depending on the value of $\lambda$, its global minimizer will be at $r=0$ or $r=R$. For a fixed $\lambda$, let's consider the case in which $g(0,\lambda) < g(R,\lambda)$.
-\begin{align*}
-	g(0,\lambda) &\leq g(R,\lambda) \\
-	\lambda \pi R^2 &\leq 2\pi R \\
-	R &\leq \frac{2}{\lambda}
-\end{align*}
 %
-Therefore, for $R \in (1/\lambda, 2/\lambda)$, the flow of~\cref{ch1:eq:level-set-ball-flow} is going to stop at the local minimum $r=R$, even the global minimum being located at $r=0$. 
 %
-The parameter $\lambda$ is set by the user to calibrate the denoise capabilities of the model. In the example of~\cref{ch1:fig:local-solution-level-set}, it indicates whether a ball of certain radius should be considered as an object or as a noise element. In the illustrated case, with $\lambda=1$, the optimal solution consists in segmenting only the ball of largest radius in the picture, but Chan-Vese fails to converge to this solution.
+%\begin{align}
+%	\min_{r} g(r,\lambda) &= \min_r 2\pi r + \lambda \pi |R^2-r^2|, \quad r \geq 0.
+%	\label{ch1:eq:balls-evolution}
+%\end{align}
+%
+%
+~\cref{ch1:eq:balls-evolution} has a local minimum at $r=R$ and a local maximum at $r=1/\lambda$. \revision{However, depending} on the value of $\lambda$, its global minimizer will be at $r=0$ or $r=R$. For a fixed $\lambda$, let's consider the case in which $g(0,\lambda) < g(R,\lambda)$.
+%
+\revision{\begin{align*}
+	g(0,\lambda) &< g(R,\lambda) \\
+	\lambda \pi R^2 &< 2\pi R \\
+	R &< \frac{2}{\lambda}
+\end{align*}}
+%
+\revision{Therefore, for any disk of radius $R \in (1/\lambda, 2/\lambda)$, the flow of~\cref{ch1:eq:level-set-ball-flow} is going to stop at the local minimum $r=R$, even though the global minimum is located at $r=0$.} 
+
+
+The parameter $\lambda$ is set by the user to calibrate the denoise capabilities of the model. In the example of~\cref{ch1:fig:local-solution-level-set}, it indicates whether a \revision{disk} of certain radius should be considered as an object or as a noise element. In the illustrated case, with $\lambda=1$, the optimal solution consists in segmenting only the \revision{disk} of largest radius in the picture, but Chan-Vese fails to converge to this solution \revision{because it gets stuck in local minimum $r=R$ for the noise disks with $R \in (1,2)$.}
 
 \begin{figure}
 \center
@@ -680,7 +696,7 @@ The parameter $\lambda$ is set by the user to calibrate the denoise capabilities
 \label{ch1:fig:local-solution-level-set}
 \end{figure}
 
-In~\cite{chan06} the authors use an upper-level set representation to derive an equivalent model to~\cref{ch1:eq:binary-denoising-model} but with the particular property that global  optimum solution can be recovered by simple thresholding. The function $u$ can be rewritten in terms of its upper level representation as
+\revision{In~\cite{pock08}}, the authors use an upper-level set representation to derive an equivalent model to~\cref{ch1:eq:binary-denoising-model} but with the particular property that global  optimum solution can be recovered by simple thresholding. The function $u$ can be rewritten in terms of its upper level representation as
 \begin{align*}
 	f_{\vec{I}}(x) &= \int_{0}^{1}{\varphi (x,\mu)d\mu},
 \end{align*}
@@ -693,7 +709,7 @@ where $\varphi(x,\mu)$ is its $\mu$-th upper level set, i.e.,
 	\end{array}\right.
 \end{align*}
 %
-Using the co-area formula we rewrite the total variation term as
+Using the \revision{co-area formula~\cite{fleming1960integral}} we rewrite the total variation term as
 \begin{align*}
 	\int_{\Omega}{ \norm{ \nabla f_{\vec{I}} } } &= \int_{\Omega}{ \int_{0}^{1}{ \norm{ \nabla \varphi (x,\mu) }dxd\mu }}
 \end{align*}
@@ -701,8 +717,8 @@ Using the co-area formula we rewrite the total variation term as
 %
 and we can rewrite~\cref{ch1:eq:binary-denoising-model} as
 \begin{align}
-	\min_{\varphi:\Omega \rightarrow \{0,1\} }E^{2-den} &= \min_{\varphi} \int_{\Omega}{ \int_{0}^{1}{\norm{ \varphi(x,\mu)}} } + (\mu -f_{\widetilde{\vec{I}}}(x))^2\delta(f_{\vec{I}}(x)-\mu) dxd\mu \\
-	&= \min_{\varphi } \int_{\Sigma}{\norm{ \varphi(x,\mu)} + (\mu -f_{\widetilde{I}}(x))^2|\partial_\mu \varphi (x,\mu)|d\Sigma},
+	\min_{\varphi:\Omega \rightarrow \{0,1\} }E^{2-den} &= \min_{\varphi} \int_{\Omega}{ \int_{0}^{1}{\norm{ \revision{\nabla} \varphi(x,\mu)}} } + (\mu -f_{\widetilde{\vec{I}}}(x))^2\delta(f_{\vec{I}}(x)-\mu) dxd\mu \\
+	&= \min_{\varphi } \int_{\Sigma}{\norm{ \revision{\nabla} \varphi(x,\mu)} + (\mu -f_{\widetilde{\vec{I}}}(x))^2|\partial_\mu \varphi (x,\mu)|d\Sigma},
 	\label{ch1:eq:upper-level-formulation}
 \end{align}
 %
@@ -715,10 +731,10 @@ where $\Sigma = [\Omega \times [0,1]]$. It happens that in the new formulation~\
 we can once again rewrite $E^{2-den}$ in terms of the upper level set representation of $\varphi$ 
 \begin{align*}
 	 E^{2-den} &= \int_{\Sigma}{ \int_{0}^{1}{{\norm{ \mathbf{1}_{\{\varphi > \gamma\}}}  + (\mu -f_{\widetilde{I}}(x))^2|\partial_\mu \mathbf{1}_{\{\varphi > \gamma\}}| d\Sigma}d\gamma}} \\
-	 E^{2-den} &= \int_{0}^{1}{ E^{2-den}( \mathbf{1}_{\{\varphi > \gamma\}} )d\gamma }
+	 &= \int_{0}^{1}{ E^{2-den}( \mathbf{1}_{\{\varphi > \gamma\}} )d\gamma }
 \end{align*}
 %
-Therefore, if $\varphi^{\star}$ is the solution of the convex relaxed problem~\cref{ch1:eq:relaxed-binary-denoising}, $\mathbf{1}_{\{\varphi^{\star} > \gamma \}}$ is also an optimal solution of $E^{2-den}$ for almost every choice of $\gamma$. 
+Therefore, if $\varphi^{\star}$ is the solution of the convex relaxed problem~\cref{ch1:eq:relaxed-binary-denoising}, $\mathbf{1}_{\{\varphi^{\star} > \gamma \}}$ is also an optimal solution \revision{of the binary one} for almost every choice of $\gamma$. 
 
 The functional lifting technique creates an equivalent higher dimensional model with the property that binary solutions can be easily recovered from its relaxed solution. In~\cite{pock08} this strategy is extended for multilabeling problems and in~\cite{pock09,strekalovskiy12} they are used to create a convex relaxation of the Mumford-Shah model.
 
