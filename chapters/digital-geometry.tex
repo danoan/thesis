@@ -19,15 +19,15 @@ We introduce basic concepts of digital geometry in~\cref{ch4:sec:ground-concepts
 
 \section{Ground concepts}\label{ch4:sec:ground-concepts}
 
-In this section we define the grid point model and its adjacency relations, which allow us to define the digital line primitive. Next, we describe the grid intersection and Gauss digitization mappings, which link continuous objects to its digital representations in the grid point model. The concepts defined in this section can be explored in much more depth in the book~\cite{klette04digital}.
+In this section, we define the grid point model and its adjacency relations. \revision{Together,} they allow us to define the digital line primitive. Next, we describe the grid intersection and Gauss digitization mappings, which link continuous objects to its digital representations in the grid point model. The concepts defined in this section can be explored in much more depth in the book~\cite{klette04digital}.
 
 \subsection{Digital grid, digitization and digital line}
 
 \begin{definition}{$2D$ Digital grid}
-The $2D$ digital grid $h\mathbb{Z}^2 = \{ p = (h \cdot i,h \cdot j) \; | \; i,j \in \mathbb{Z}\}$ with grid step (resolution) $h \in \mathbb{R}^+ \setminus \{0\}$ is a regular sampling of the plane. Its members are called \emph{grid points}.
+The $2D$ digital grid $h\mathbb{Z}^2 = \{ p = (h \cdot i,h \cdot j) \; | \; i,j \in \mathbb{Z}\}$ with grid step (resolution) $h \in \mathbb{R}_++ \setminus \{0\}$ is a regular sampling of the plane. Its members are called \emph{grid points}.
 \end{definition}
 
-We can think of the digital grid as a regular tessellation of the plane. The grid points are the center of the \emph{grid squares} (pixels). The other components, \emph{grid edges } and \emph{grid vertices} are illustrated in~\cref{ch4:fig:grid-point-model}. They form the \emph{grid point model} of the plane. Next we define the two commonest adjacency relations in the grid point model.
+We can think of the digital grid as a regular tessellation of the plane. The grid points are the center of the \emph{grid squares} (pixels). The other components, \emph{grid edges } and \emph{grid vertices} are illustrated in~\cref{ch4:fig:grid-point-model}. They form the \emph{grid point model} of the plane. Next, we define the two commonest adjacency relations in the grid point model.
 
 \begin{figure}
 \begin{minipage}{0.6\textwidth}
@@ -73,7 +73,7 @@ The adjacency relations are also used to define the $4,8$ neighborhood sets of a
 Next, we are going to define mappings that will give us the grid point representation of  continuous objects.
 
 \begin{definition}{Gauss digitization}
-Let $S \subset \mathbb{R}^2$ a shape in the plane. Its Gauss digitization $D_h(S)$ in a digital grid of resolution $h \in \mathbb{R}^+\setminus \{0\}$ is defined as the set of grid points contained in $S$.
+Let $S \subset \mathbb{R}^2$ a shape in the plane. Its Gauss digitization $D_h(S)$ in a digital grid of resolution $h \in \mathbb{R}_+\setminus \{0\}$ is defined as the set of grid points contained in $S$.
 \end{definition}
 
 \begin{figure}
@@ -108,7 +108,7 @@ The grid intersection digitization of a planar curve $\gamma$ is the set of all 
 \subfloat[]{
 \includegraphics[scale=0.5]{figures/chapter4/digitization/grid-intersection-3.png}
 }
-\caption{\textbf{Grid intersection digitization.} The Euclidean line is superposed in the digital grid in a); the closest grid points from the intersection with the grid lines are highlighted in blue in b); the grid intersection digitization of the line segment. The digitized segment is $8$-connected.}
+\caption{\textbf{Grid intersection digitization.} The Euclidean line is superposed in the digital grid in a); the closest grid points from the intersection with the grid lines are highlighted in blue in b); the grid intersection digitization of the line segment \revision{is given in c}). The digitized segment is $8$-connected.}
 \label{ch4:fig:grid-intersection-digitization}
 \end{figure}
 
@@ -132,7 +132,7 @@ Let $a,b,\mu \in \mathbb{Z}$ such that gcd$(a,b)=1$. The digital straight segmen
 \label{ch4:fig:dss}
 \end{figure}
 
-The value of $\varepsilon$ defines the connectivity of the DSS, as illustrated in~\cref{ch4:fig:dss}. In applications we are going to be interested in the recognition of maximal DSS, for which linear time algorithms are available~(some of them described in~\cite{klette04digital}, chapter 9). A maximal DSS is a DSS that is not contained in any other DSS. The collection of maximal DSS's in the boundary of a digital set form its~\emph{tangential cover}~(see~\cref{ch4:fig:tangential-cover}). The tangential cover computation is a fundamental step in the computation of convergent estimators of tangent, as we are going to see in the next section.
+The value of $\varepsilon$ defines the connectivity of the DSS, as illustrated in~\cref{ch4:fig:dss}. In applications, we are going to be interested in the recognition of maximal DSS's, for which linear time algorithms are available~(some of them described in~\cite{klette04digital}, chapter 9). A maximal DSS is a DSS that is not contained in any other DSS. The collection of maximal DSS's in the boundary of a digital set form its~\emph{tangential cover}~(see~\cref{ch4:fig:tangential-cover}). The tangential cover computation is a fundamental step in the computation of convergent estimators of tangent, as we are going to see in the next section.
 
 Finally, we refer to the \emph{digital contour} $\partial_h S$ of $D_h(S)$ as the collection of grid vertices on the boundary of the axis-aligned polygonal shape formed by the grid squares of $D_h(S)$.
 
@@ -146,7 +146,7 @@ Finally, we refer to the \emph{digital contour} $\partial_h S$ of $D_h(S)$ as th
 
 \subsection{Exact sampling versus digitization}
 
-Let $S$ some regular shape in the plane, for example, a disk of radius $r$. Assume that we need to measure the perimeter of $S$ but we do not know that $S$ is a disk. Additionally, let us assume that we can ask to an oracle for a collection of $n$ points on the boundary of $S$. To make things simple, let us assume that the oracle gives us an ordered sequence of $n$ uniformly spaced points on the boundary of $S$ for a given orientation of $\partial S$. 
+Let $S$ some regular shape in the plane, for example, a disk of radius $r$. \revision{We wish to} measure the perimeter of $S$, but \revision{let us assume that }we do not know that $S$ is a disk. Additionally, let us assume that we can ask to an oracle for a collection of $n$ points on the boundary of $S$. To make things simple, let us assume that the oracle gives us an ordered sequence of $n$ uniformly spaced points on the boundary of $S$ for a given orientation of $\partial S$. 
 
 \begin{figure}
 \center
@@ -168,17 +168,17 @@ We could estimate the perimeter of $S$ by simply computing the length of the pol
 \end{align*}
 This estimation converges to $2\pi r$ as the number of sampling points increase. Now, let us consider the scenario in which we have a digitization of $S$. The oracle gives us a digitization of $S$ in any resolution $h$. Can we measure the length of $S$ using the same strategy employed in the previous scenario?
 
-Let us say that we engage into estimating the length of $S$ by computing the length of the axis-aligned polygon derived from the digitization of $S$, as illustrated in~\cref{ch4:fig:exact-sampling-digitization}. We assume that the disk is centered at a grid point. It is easy to see that for each quarter of the disk, we have $r/h + 2$ horizontal steps and $r/h + 2$ vertical steps. Therefore,
+Let us say that we engage into estimating the length of $S$ by computing the length of the axis-aligned polygon derived from the digitization of $S$, as illustrated in~\cref{ch4:fig:exact-sampling-digitization}. We assume that the disk is centered at a grid point. It is easy to see that for each quarter of the disk, we have \revision{$2r/h + 1$ horizontal and vertical steps}. Therefore,
 \begin{align*}
-	\hat{L}(S) &= 4h(r/h + r/h + 1) = 8r + 4h.
+	\hat{L}(S) &= 4h(2r/h + 1) = 8r + 4h.
 \end{align*}
 %
 The estimator converges to $8r$ as the resolution increases. %Things get more complicated if the disk is not centered at a grid point. 
-Several estimators based on the assignment of weights to local configurations were proposed. The BLUE (best linear unbiased) estimator~\cite{dorst87length} estimates perimeter as 
+Several estimators based on the assignment of weights to local configurations were proposed. The BLUE (best linear unbiased) estimator~\cite{dorst87length} \revision{uses a $8$-neighborhood} to estimate perimeter as 
 \begin{align*}
 	\hat{L}(S) &= h( 0.948 n_i + 1.343 n_d),
 \end{align*}
-where $n_i$ are the number of axis-aligned steps and $n_d$ the number of diagonal steps. Other estimators propose to use an extended set of configurations to cover a higher number of directions, but none of these approaches cannot achieve multigrid convergence, whatever the finite number of configurations employed~\cite{tajine03local}.
+where $n_i$ \revision{is} the number of axis-aligned steps and $n_d$ the number of diagonal steps. Other estimators propose to use an extended set of configurations to cover a higher number of directions, but none of these approaches \revision{can} achieve multigrid convergence, whatever the finite number of configurations employed~\cite{tajine03local}.
 
 This simple example points out that standard discretization strategies of continuous measures or energies, as the one proposed for the discrete elastica in~\cref{chapter:curvature-prior}, do not necessarily extend well in the digital world. The fundamental issue with digital objects is that we have to handle \emph{digitization errors}. We do not have an exact sampling of the continuous object.
 
@@ -195,7 +195,7 @@ Let $\mathcal{F}$ a family of shapes in the plane and $Q$ a global measurement (
 \forall h \leq h_S, \quad |\hat{Q}(D_h(S),h) - Q(S)| \leq \tau_S(h),
 \end{align*}
 %
-where $\tau_S:\mathbb{R}^+\setminus \{0\} \rightarrow \mathbb{R}^+$ is the speed of convergence of $\hat{Q}$ towards $Q$ for $S$.
+where $\tau_S:\mathbb{R}_+\setminus \{0\} \rightarrow \mathbb{R}_+$ is the speed of convergence of $\hat{Q}$ towards $Q$ for $S$.
 
 \end{definition}
 
@@ -206,7 +206,7 @@ In the following, we give some examples of multigrid convergent estimators for p
 	\item[]{\textbf{MLP estimator~\cite{sloboda98approximation}}: It estimates the perimeter of the digital contour as the perimeter of the minimum length polygon that separates interior grid points from exterior grid points~(see~\cref{ch4:fig:mlp}). It is multigrid convergent for all finite convex shapes.}
 \end{itemize}
 
-The DSS estimator can be implement in linear-time by using a linear-time DSS recognition algorithm. A linear-time algorithm for the MLP computation is also available~\cite{provenccal09two}.
+The DSS estimator can be \revision{implemented} in linear-time by using a linear-time DSS recognition algorithm. A linear-time algorithm for the MLP computation is also available~\cite{provenccal09two}.
 
 \begin{figure}
 \center
@@ -233,7 +233,7 @@ Let $\mathcal{F}$ a family of shapes in the plane and $Q$ a local measurement al
 \begin{align*}
 	\forall p \in \partial_h S \text{ with } \norm{p-x}_{\infty} \leq h,\quad | \hat{Q}(D_h(S),p,h) - Q(S,x) | \leq \tau_S(h),	
 \end{align*}
-where $\tau_S:\mathbb{R}^+\setminus \{0\} \rightarrow \mathbb{R}^+$ has null limit at $0$. This function defines the speed of convergence of $\hat{Q}$ towards $Q$ for $S$.
+where $\tau_S:\mathbb{R}_+\setminus \{0\} \rightarrow \mathbb{R}_+$ has null limit at $0$. This function defines the speed of convergence of $\hat{Q}$ towards $Q$ for $S$.
 \end{definition}
 
 
@@ -295,13 +295,13 @@ An illustration is given in~\cref{ch4:fig:digital-circular-arc}.The Maximal Digi
 
 The next curvature estimator is based on the concept of integral invariants. Generally speaking, an invariant is a function whose value is unaffected by the action of some group on the elements of its domain. The curvature, for example, is an invariant for shapes in $\mathbb{R}^2$ with respect to the Euclidean group of rigid transformations. However, curvature is a second order differential invariant and its computation is very sensitive to noise. In the digital grid, the issues appearing in tangent estimation are amplified for curvature estimation.
 
-An integral invariant, on the other hand, is a value computed via integration and one can expect to be much more robust to noise. In the context of digital estimation, an integral invariant is attractive because we have already a very simple multigrid convergent estimator to estimate the area. In~\cite{manay04intinvariant}, the authors define the integral area invariant and link it with the measurement of curvature
+An integral invariant, on the other hand, is a value computed via integration and one can expect \revision{more robustness} to noise. In the context of digital estimation, an integral invariant is attractive because we have already a very simple multigrid convergent estimator to estimate the area. In~\cite{manay04intinvariant}, the authors define the integral area invariant and link it with the measurement of curvature
 
 \begin{definition}{Integral area invariant}
-  Let $S \subset \mathbb{R}^2$ and $B_r(x)$ the Euclidean ball of radius $r$ centered at point $x$. Further, let  $\mathbbm{1}_S(\cdot)$ be the characteristic function of $S$. The integral area invariant $\sigma_{S,r}(\cdot)$ is
+  Let $S \subset \mathbb{R}^2$ and $B_r(x)$ the Euclidean ball of radius $r$ centered at point $x$. Further, let  $\mathbf{1}_S(\cdot)$ be the characteristic function of $S$. The integral area invariant $\sigma_{S,r}(\cdot)$ is
   defined as
   \begin{align*}
-    \forall x \in \partial S, \quad \sigma_{S,r}(x) = \int_{B_r(x)}{ \mathbbm{1}_S(y) dy}.
+    \forall x \in \partial S, \quad \sigma_{S,r}(x) = \int_{B_r(x)}{ \mathbf{1}_S(y) dy}.
   \end{align*}
 \end{definition}
 %
@@ -328,7 +328,7 @@ In~\cite{coeurjolly13integral}, the authors combine the approximation~\cref{ch4:
   \end{align*}
 \end{definition}
 %
-where $\widehat{\text{Area}}( D,h )$ estimated the area of $D$ by counting its grid points and then scaling them by $h^2$. \daniel{This estimator is multigrid convergent for the family of compact shapes in the plane with $3$-smooth boundary. It converges with speed $O(h^\frac{1}{3})$ for radii chosen as $r=\Theta(h^\frac{1}{3})$~\cite{lachaud17robust}.}
+where $\widehat{\text{Area}}( D,h )$ estimates the area of $D$ by counting its grid points and then scaling them by $h^2$. \daniel{This estimator is multigrid convergent for the family of compact shapes in the plane with $3$-smooth boundary. It converges with speed $O(h^\frac{1}{3})$ for radii chosen as $r=\Theta(h^\frac{1}{3})$~\cite{lachaud17robust}.}
 
 \section{Conclusion}
 
