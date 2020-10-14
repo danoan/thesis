@@ -38,7 +38,7 @@ Derivating the last expression in both sides we obtain
 	  &= 2\frac{\partial ^2 C}{\partial s^2} \cdot T(s).
 \end{align*}
 %
-We conclude that $\frac{\partial ^2 C}{\partial s^2}$ is orthogonal to $T(s)$, and that the curvature is given by the normal component of $\frac{\partial ^2 C}{\partial s^2}$, i.e.,
+We conclude that $\frac{\partial ^2 C}{\partial s^2}$ is orthogonal to $T(s)$, and that the curvature is given by the normal component of $\frac{\partial ^2 C}{\partial s^2}$\revision{ (the curvature is defined as the Euclidean norm of the derivative of the unitary tangent of the curve)}, i.e.,
 \begin{align*}
 	\frac{\partial ^2 C}{\partial s^2} &= \kappa(s) N(s).
 \end{align*}
@@ -128,7 +128,7 @@ In this case, each of the image level curves describes a CS flow.
 \section{Diffusion and level curves motion}
 \label{ch3:sec:diffusion-level-curves-motion}
 
-Several models in~\cref{chapter:variational-methods-in-image-processing} are stated as diffusion processes, but quite often a level curve evolution interpretation is more convenient. In this section we analyze the role of curvature, its properties in earlier models of image processing and how the dual interpretation of these models helps us to gain extra insight on them.
+Several models in~\cref{chapter:variational-methods-in-image-processing} are stated as diffusion processes, but quite often a \revision{(level)} curve evolution interpretation is more convenient. In this section we analyze the role of curvature, its properties in earlier models of image processing and how the dual interpretation of these models helps us to gain extra insight on them.
 
 \subsection{Curvature in denoising and image segmentation}
 
@@ -182,7 +182,7 @@ In the geometric active contours model for image segmentation, the level sets of
 %
 \subsection{Curvature and the connectivity principle applied to inpainting}
 
-We recall that the inpainting problem consists in reconstructing a collection of missing patches $\mathcal{P}$ of the image. The earlier inpainting model~\cite{bertalmio00image}  diffuses image information through the patches boundaries. The particularity of this model is that the Laplacian (heat equation) is diffused along the image level lines. Despite its impressive results, this models does not possess an important property which is expected in inpainting models: the \emph{connectivity principle}.
+We recall that the inpainting problem consists in reconstructing a collection of missing patches $\mathcal{P}$ of the image. The earlier inpainting model~\cite{bertalmio00image}  diffuses image information through the patches boundaries. The particularity of this model is that the Laplacian (heat equation) is diffused along the image level lines. Despite its impressive results, this models does not possess an important property which is \revision{desirable} in inpainting models: the \emph{connectivity principle}.
 
 
 \begin{figure}
@@ -222,7 +222,7 @@ The connectivity principle suggests that the curve connecting the endpoints of a
 \section{Elastica curve}
 \label{ch3:sec:elastica-curve}
 
-In 1691 James Bernoulli pose a challenge to his colleagues: What is the form taken by an elastic beam whose endpoint $A$ is kept fixed in the ground while a weight is attached to its other endpoint $B$ such that the tangent at each of the endpoints are perpendicular? A simplified scheme is presented in~\cref{ch3:fig:james-scheme-elastica}.
+In 1691, James Bernoulli posed a challenge to his colleagues: What is the form taken by an elastic beam whose endpoint $A$ is kept fixed in the ground while a weight is attached to its other endpoint $B$ such that the tangent at each of the endpoints are perpendicular \revision{with the horizontal and vertical axis, respectively}? A simplified scheme is presented in~\cref{ch3:fig:james-scheme-elastica}.
 
 \begin{figure}
 \center
@@ -249,55 +249,56 @@ The generalized elastica in $2$D is the planar curve $C$ of fixed length $L$ who
 	\end{array}	
 \end{align*}
 %
-Given parameters $\alpha \geq 0, \beta \geq 0$ we incorporate the isoperimetric constraint in the objective function (can be interpreted as a Lagrange multiplier) to define the Elastica energy as
+Given parameters $\alpha \geq 0, \beta \geq 0$ we incorporate the isoperimetric constraint in the objective function (can be interpreted as a Lagrange multiplier) to define the elastica energy as
 \begin{align}
 	E(C) &= \int_{C}{\alpha + \beta \kappa^2 ds}.
 	\label{ch3:eq:elastica-energy}
 \end{align}
 %
-If we do not impose any constraint in~\cref{ch3:eq:elastica-energy}, its minimization is interesting only if $\alpha >0$ and $\beta >0$ and we call this problem the \emph{free Elastica}. On the other hand, if one imposes constraints to the minimization of~\cref{ch3:eq:elastica-energy}(e.g., fixed tangent endpoints), we refer to this problem as the \emph{constrained Elastica}.
+If we do not impose any constraint in~\cref{ch3:eq:elastica-energy}, its minimization is interesting only if $\alpha >0$ and $\beta >0$ and we call this problem the \emph{free elastica}. On the other hand, if one imposes constraints to the minimization of~\cref{ch3:eq:elastica-energy}(e.g., fixed tangent endpoints), we refer to this problem as the \emph{constrained elastica}.
 
-One can easily derive the solution of the free Elastica for a closed curve. Setting $\beta=0$, the minimization of~\cref{ch3:eq:elastica-energy} behaves as the curve-shortening flow of section~\cref{ch3:sec:curve-shortening-flow}. On the other hand, if we set $\alpha =0$, the minimum is a disk of infinite radius. For the intermediate case, with both parameters greater than zero, it is easy to see that the solution is a circle $C_r$ of some radius $r$, therefore
+One can easily derive the solution of the free elastica for a closed curve. Setting $\beta=0$, the minimization of~\cref{ch3:eq:elastica-energy} behaves as the curve-shortening flow of section~\cref{ch3:sec:curve-shortening-flow}. On the other hand, if we set $\alpha =0$, the minimum is a disk of infinite radius. For the intermediate case, with both parameters greater than zero, it is easy to see that the solution is a circle $C_r$ of some radius $r$, therefore
 \begin{align*}
 	C_r = \argmin_C E(C) \rightarrow \frac{ \partial}{\partial r} \int_{C_r}{\alpha + \beta \kappa^2 ds} &= 0 \\
 	\frac{\partial}{\partial r} \big( \alpha 2\pi r + 2\beta \pi/r \big) & = 0 \\
 	r &= \left(\frac{\beta}{\alpha}\right)^{1/2}.
 \end{align*}
 %
-In general, a planar curve $C$ minimizing the Elastica energy satisfies the following Euler-Lagrange equation~\cite{chan02elasticainpainting,singer08lectures}
+In general, a planar curve $C$ minimizing the elastica energy satisfies the following Euler-Lagrange equation~\cite{chan02elasticainpainting,singer08lectures}
 \begin{align}
 		2\kappa_{ss} + \kappa^3 = \frac{\alpha}{\beta}\kappa \Leftrightarrow \frac{\partial ^4 C}{\partial s^4} + \left( \frac{\partial ^2 C}{\partial s^2} \right)^3 = \frac{\alpha}{\beta}\frac{\partial ^2 C}{\partial s^2}.
 		\label{ch3:eq:euler-lagrange-equation-elastica}
 \end{align}
 %
 %
-This fourth order expression is the main difficult in minimizing the Elastica. In the following we are going to describe some models that attempt to minimize the Elastica and the strategies employed.
+This fourth order expression is the main difficult in minimizing the elastica. In the following we are going to describe some models that attempt to minimize the elastica and the strategies employed.
 
-\subsection{Imaging models using the Elastica}
+\subsection{Imaging models using the elastica}
 
-In~\cite{chan02elasticainpainting} the authors propose an inpainting model in which the image level lines interrupted by the inpainting domain are completed by Elastica curves. The key is to define an energy that minimize each of the level curves in terms of the Elastica simultaneously. Given an image $f_{\vec{I}}:\Omega \rightarrow [0,1]$, let $\Gamma_{\lambda}$ be one of its level curve, i.e.,
+In~\cite{chan02elasticainpainting} the authors propose an inpainting model in which the \revision{interrupted level lines in the inpainting domain are completed by elastica curves}. The key is to define an energy that found the elastica of all level curves simultaneously. Given an image $f_{\vec{I}}:\Omega \rightarrow [0,1]$, let $\Gamma_{\lambda}$ be one of its level curves, i.e.,
 \begin{align*}
 	\Gamma_{\lambda} &= \left\{ x \; | \; f_{\vec{I}}(x)=\lambda \right\}.
 \end{align*}
 %
-Therefore, we minimize each level curve in terms of the Elastica energy by minimizing the functional
+Next, for an interrupted level curve $\Gamma_{\lambda}$, we wish to connect its endpoints with an elastica curve $\gamma_{\lambda}$, i.e.,
+%
 \begin{align}
-	\int_{0}^{1}{ \int_{\Gamma_{\lambda}}{ \left( \alpha + \beta \kappa ^2 \right) dsd\lambda}} = \int_{0}^{1}{ \int_{\Gamma_{\lambda}}{ \left(\alpha + \beta \nabla \cdot \left(\frac{\nabla f_I}{\norm{\nabla f_I}}\right) ^2 \right) dsd\lambda}}
+	\int_{0}^{1}{ \int_{\gamma_{\lambda}}{ \left( \alpha + \beta \kappa ^2 \right) dsd\lambda}} = \int_{0}^{1}{ \int_{\gamma_{\lambda}}{ \left(\alpha + \beta \nabla \cdot \left(\frac{\nabla f_I}{\norm{\nabla f_I}}\right) ^2 \right) dsd\lambda}}
 	\label{ch3:eq:elastica-all-level-curves}
 \end{align}
 %
-Next, let $dt$ be the length element in the normal direction of the level curves. Therefore,
+\revision{Notice that $\gamma_{\lambda}$ is unknown, but let us assume that we know them for a moment.} Next, let $dt$ be the length element in the normal direction of the level curves. Therefore,
 \begin{align*}
 	\frac{d \lambda}{d t} &= \norm{\nabla f_{\vec{I}}} \rightarrow d\lambda = \norm{\nabla f_{\vec{I}}}dt.
 \end{align*}
 %
 Replacing the last expression in~\cref{ch3:eq:elastica-all-level-curves} we obtain
 \begin{align}
-	\int_{0}^{1}{ \int_{\Gamma_{\lambda}}{ \left(\alpha + \beta \nabla \cdot \left(\frac{\nabla f_{\vec{I}}}{\norm{\nabla f_{\vec{I}} }}\right) ^2 \right)\norm{\nabla f_I} dsdt}} &= \int_{\Omega}{ \left(\alpha + \beta \nabla \cdot \left(\frac{\nabla f_{\vec{I}}}{\norm{\nabla f_{\vec{I}} }}\right) ^2 \right)\norm{\nabla f_{\vec{I}} }d\Omega}.
+	\int_{0}^{1}{ \int_{\gamma_{\lambda}}{ \left(\alpha + \beta \nabla \cdot \left(\frac{\nabla f_{\vec{I}}}{\norm{\nabla f_{\vec{I}} }}\right) ^2 \right)\norm{\nabla f_I} dsdt}} &= \int_{\Omega}{ \left(\alpha + \beta \nabla \cdot \left(\frac{\nabla f_{\vec{I}}}{\norm{\nabla f_{\vec{I}} }}\right) ^2 \right)\norm{\nabla f_{\vec{I}} }d\Omega}.
 	\label{ch3:eq:chan-elastica-inpainting}
 \end{align}
 %
-The last expression is derived from the fact that $dt$ and $ds$ are orthogonal length elements. The authors propose a finite difference scheme for the gradient flow derived from the Euler-Lagrange of~\cref{ch3:eq:chan-elastica-inpainting}, which happens to be of $4th$ order. The high order poses some issues with numerical instability, namely the definition of the time step and convergence analysis, which is skipped. The running time is also quite high even for small inpainting domains. Moreover, one can expect a local solution at most, and giving the highly non-convex character of the equation, an acceptable local solution might be very difficult to be found without a conveniently chosen initial solution. Finally, the  method tends to produce blurry edges even for small inpainting domains. 
+The last expression is derived from the fact that $dt$ and $ds$ are orthogonal length elements. \revision{Therefore, we have an equivalent optimization problem but acting in the whole image domain.} The authors propose a finite difference scheme for the gradient flow derived from the Euler-Lagrange of~\cref{ch3:eq:chan-elastica-inpainting}, which happens to be of $4th$ order. The high order poses some issues with numerical \revision{stability}, namely the definition of the time step and convergence analysis, which is skipped. The running time is also quite high even for small inpainting domains. Moreover, one can expect a local solution at most, and giving the highly non-convex character of the equation, an acceptable local solution might be very difficult to be found without a conveniently chosen initial solution. Finally, the  method tends to produce blurry edges even for small inpainting domains. 
 
 The numerical instability arising from~\cref{ch3:eq:chan-elastica-inpainting} is lessened by the $3rd$ order gradient flow proposed in~\cite{ballester01filling}. The idea is to create a new variable $\theta$ to replace the unstable term $\nabla f_{\vec{I}} / \norm{\nabla f_{\vec{I}}}$ and include a penalization term that forces $\theta$ to assume the value of its original interpretation. The energy to be minimized is closely related to~\cref{ch3:eq:chan-elastica-inpainting} and is written as
 \begin{align}
@@ -305,9 +306,9 @@ The numerical instability arising from~\cref{ch3:eq:chan-elastica-inpainting} is
 	\label{ch3:eq:ballester-inpainting}
 \end{align}
 %
-The kernel $k$ (e.g. Gaussian) smooths image $f_{\vec{I}}$ and is included due to numerical reasons. Nonetheless,~\cref{ch3:eq:ballester-inpainting} suffers from similar issues to those of~\cref{ch3:eq:chan-elastica-inpainting}. Generally, PDE-based methods encounter difficulties in producing solutions with discontinuities, one of the main features of images.
+The kernel $k$ (e.g. Gaussian) smooths image $f_{\vec{I}}$ and is included due to numerical \revision{issues}. Nonetheless,~\cref{ch3:eq:ballester-inpainting} suffers from similar issues to those of~\cref{ch3:eq:chan-elastica-inpainting}. Generally, PDE-based methods encounter difficulties in producing solutions with discontinuities, one of the main features of images.
 
-A discrete approach to inpainting is proposed in~\cite{masnou98inpainting}. The model's first step is to identify pairs of admissible T-junctions, i.e., pixels in the outer boundary of the inpainting domain that have the same color value and orientation (see~\cref{ch3:fig:masnou-tjunctions}). Due to a property of level curves, for every value color value $\lambda$ there is an even number of T-junctions. Next, let $J$ be the set of T-junctions and $\Gamma_j^t$ a curve connecting an admissible pair $(j,t)$. Additionaly, we denote $\theta_j,\theta_t$ the respective angles the curve $\Gamma_j^t$ makes with the associated level set at $j$ and $t$. The authors propose to find a matching $\mathcal{M}=\{ (j,t) \; | \; j,t\text{ admissible} \}$ and its respective curves such that it minimizes the energy
+A discrete approach to inpainting is proposed in~\cite{masnou98inpainting}. The model's first step is to identify pairs of admissible T-junctions, i.e., pixels in the outer boundary of the inpainting domain that have the same color value and orientation (see~\cref{ch3:fig:masnou-tjunctions}). Due to a property of level curves, for every color value $\lambda$ there is an even number of T-junctions. Next, let $J$ be the set of T-junctions and $\Gamma_j^t$ a curve connecting an admissible pair $(j,t)$. Additionaly, we denote $\theta_j,\theta_t$ the respective angles the curve $\Gamma_j^t$ makes with the associated level set at $j$ and $t$. The authors propose to find a matching $\mathcal{M}=\{ (j,t) \; | \; j,t\text{ admissible} \}$ and its respective curves such that it minimizes the energy
 
 \begin{figure}
 \center
@@ -330,7 +331,7 @@ A discrete approach to inpainting is proposed in~\cite{masnou98inpainting}. The 
 Assuming that one knows the optimal matching $\mathcal{M}$, the curves connecting the T-junctions pairs are geodesics. In the plane, that means that the T-junctions are connected by polygonal curves. An ingenious dynamic programming algorithm is conceived  by exploiting the causality relation imposed by the non-crossing constraint of the level curves and excellent results are obtained. In particular, the algorithm can reconstruct large inpainting domains and does not produce blurry edges (see~\cref{ch3:fig:masnou-inpainting}). However,~\cref{ch3:eq:masnou-inpainting} cannot produce curvy level lines.
 
 
-The work of~\cite{masnou98inpainting} illustrates an advantage of discrete approaches to image models: discontinuities are naturally implemented. To find a discrete model is not a trivial task, and sometimes a compromise needs to be done in order to achieve efficiency, as it was the case in~\cite{masnou98inpainting}, in which the absolute value of the curvature is used instead of its square. In the next section we are going to describe some discrete models for Elastica in its most known form, i.e., using the square of the curvature.
+The work of~\cite{masnou98inpainting} illustrates an advantage of discrete approaches to image models: discontinuities are naturally implemented. To find a discrete model is not a trivial task, and sometimes a compromise needs to be done in order to achieve efficiency, as it was the case in~\cite{masnou98inpainting}, in which the absolute value of the curvature is used instead of its square. In the next section we are going to describe some discrete models for elastica in its \revision{original} form, i.e., using the square of the curvature.
 
 
 \section{Discrete methods and squared curvature}
@@ -341,7 +342,7 @@ The work of~\cite{masnou98inpainting} illustrates an advantage of discrete appro
 Let $\mathcal{P}_n=\{p_i \; | \; 1 \leq i \leq n\}$ a sequence of $n$ points describing a polygonal line. We define the following elements (an illustration is given in~\cref{ch3:fig:bruckstein-polygonal-line}).
 \begin{align*}
 \begin{array}{rll}
-\text{Segment length:} & \quad \ell_i,& \quad 1 \leq i \leq n\\[0.5em]
+\text{Segment length:} & \quad \ell_i,& \quad 1 \leq i \leq n\revision{-1}\\[0.5em]
 \text{Segment angle:} & \quad \psi_i,& \quad 1 \leq i \leq n-1\\[0.5em]
 \text{Angle deviation:} & \quad \theta_i,& \quad 1 \leq i \leq n-2.
 \end{array}
@@ -385,7 +386,7 @@ The discrete elastica was proposed in the context of nonlinear splines with appl
 \begin{enumerate}
 	\item{\textbf{Data term:} The interpolation points should lie close to the contour of objects and by doing that we lose the implicit description of the curve as a sequence of lengths and angle deviations, being forced to also consider the points coordinates;}
 	\item{\textbf{Contour complexity:} We are handling closed contours, meaning that we likely have to minimize not one but many elasticas along a single contour (not to mention multisegmentation). In practice, that means that we have to chose feature points in the image to force the curve to pass through them;}
-	\item{\textbf{Point sampling:} Finally, one has to decide how many points to use in the interpolation and where to position them (a uniform sampling is unlikely a good strategy), bearing in mind the compromise between number of points and computation time.}
+	\item{\textbf{Point sampling:} Finally, one has to decide how many points to use in the interpolation and where to position them (an uniform sampling is unlikely \revision{to be} a good strategy), bearing in mind the compromise between number of points and computation time.}
 \end{enumerate}
 
 
@@ -422,7 +423,7 @@ Let $n,m$ the number of cells and edges, respectively. We establish a convention
 \includegraphics[scale=0.6]{figures/chapter3/schoenemann/schoenemann_cell_linel_orientation.png}
 \end{center}
 
-One binary variable is defined for each cell and two other binary variables are defined for each linel, one for each possible orientation the linel may assume. We refer to the variables associated to linels as edges. The variables are grouped in vector $\vec{x} \in \{0,1\}^{n+2m}$ and, hence, a solution is made of active cells and active edges. However, we have to make sure that solutions are consistent, i.e., a solution $\vec{x}$ must encode a digital surface. 
+One binary variable is defined for each cell and two other binary variables are defined for each linel, one for each possible orientation the linel may assume. We refer to the variables associated to linels as edges. The variables are grouped in \revision{the} vector $\vec{x} \in \{0,1\}^{n+2m}$ and, hence, a solution is made of active cells and active edges. However, we have to make sure that solutions are consistent, i.e., a solution $\vec{x}$ must encode a digital surface. 
 
 A digital surface is composed of a set of cells and a closed path (loop) of edges forming its boundary. To enforce digital surfaces, we define an incidence relation between linels and cells and between linels and edges. This relation is encoded by matrix $\vec{A} \in \{-1,0,1\}^{m\times(n+2m)}$ 
 \begin{align*}
@@ -476,9 +477,9 @@ Some results are displayed in~\cref{ch3:fig:schoenemann-results}. However, the c
 
 \subsection{Unconstrained formulations}
 
-The high number of variables and constraints explain the high running time of the linear programming approach. In~\cite{zehiry10fast}, the authors encode the squared curvature value in an unconstrained quadratic non-submodular PBF and propose a model for binary image segmentation.
+The high number of variables and constraints explains the high running time of the linear programming approach. In~\cite{zehiry10fast}, the authors encode the squared curvature value in an unconstrained quadratic non-submodular PBF and propose a model for binary image segmentation.
 
-Let $I$ be a digital image with $n$ pixels. We associate to each pixel the binary variable $\vec{x}_i$ indicating if the pixel belongs to foreground ($x_i=1$) or background ($x_i=0$). For a given segmentation $\vec{x}$, one can identify $90$ degrees turns in the segmentation contour by inspecting sequential pairs of vertices neighbors (given an order on the neighbors), as illustrated in figure~\cref{ch3:fig:elzehiry-turn-angles}. The turns can expressed as a $3$-clique potential, as shown in the table below
+Let $I$ be a digital image with $n$ pixels. We associate to each pixel the binary variable $\vec{x}_i$ indicating if the pixel belongs to foreground ($x_i=1$) or background ($x_i=0$). For a given segmentation $\vec{x}$, one can identify $90$ degrees turns in the segmentation contour by inspecting sequential pairs of vertices neighbors (given an order on the neighbors), as illustrated in figure~\cref{ch3:fig:elzehiry-turn-angles}. The turns \revision{are} expressed as $3$-clique potentials, as shown in the table below
 
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
