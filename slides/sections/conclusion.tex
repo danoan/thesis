@@ -1,0 +1,53 @@
+\begin{frame}
+	{Summary}	
+
+	\begin{itemize}
+		\item<1->{Digital geometry is the geometry of \emph{finite sets}.}
+		\item<2->{Recent results of \emph{multigrid convergence} for several digital geometric estimators.}		
+		\item<3->{Local search model:}				
+		\begin{itemize}
+			\item<3->{Evolve initial shapes to the\emph{global optimum} one in the \emph{free Elastica} problem.}
+			\item<4->{Evolves initial shape to some other shape close to the optimum for the \emph{constrained Elastica} problem.}				
+			\item<5->{\emph{High} running time.}
+		\end{itemize}
+		
+		\item<6->{Graph-cut flow:}
+			\begin{itemize}
+				\item<6->{Same as for the free Elastica problem, but \emph{much faster}.}
+				\item<7->{Space for improvement in the constrained Elastica problem (\emph{random neighborhoods}?).}				
+			\end{itemize}
+
+		\item<8->{Minimum cut and image segmentation}
+		\begin{itemize}
+			\item<9->{GrabCut algorithm.}
+			\item<10->{Graph-cut flow segmentation: Injects \emph{curvature} information in the graph-cut model.}
+		\end{itemize}
+	\end{itemize}
+		
+\end{frame}
+
+\begin{frame}
+	{Conclusion}
+	
+	\begin{itemize}
+		\item<1->{\emph{Multigrid convergence} is the key property to evaluate the quality of an estimator in digital data.}
+		\item<2->{Multigrid convergent estimators are suitable to \emph{optimization}.}		
+		\item<3->{Multigrid convergent estimators can be \emph{injected} in the fast graph-cut framework for image segmentation.}				
+	\end{itemize}
+
+	\onslide<4->{	
+	\vspace{2em}
+	\textbf{Future work}
+	\begin{itemize}
+		\item<5->{Random neighborhoods.}	
+		\item<6->{Multiresolution.}
+		\item<7->{Automatization.}
+	\end{itemize}
+	}
+	
+\end{frame}
+
+\begin{frame}
+\center
+\huge Thank you!
+\end{frame}
