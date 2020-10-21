@@ -3,14 +3,13 @@
 \begin{frame}
 	{Motivation}	
 	{Image analysis}
-	
+\only<1-2>{
+\begin{minipage}[t][0.25\textheight][t]{\textwidth}
 	The problems we are interested in come from \emph{Image Analysis}.
 	
 	\pause
 	\vspace{1em}
-
-\only<2>{
-\begin{minipage}[t][0.25\textheight][t]{\textwidth}
+	
 \textbf{Segmentation:} Given input image $f_I:\Omega \rightarrow [0,1]$, find natural number $n$ and partition $\mathcal{I}^{\star} = \{ \Omega_i \subset \Omega \; | \; i \leq n \}$ such that $f_{\widehat{\vec{I}}}$
 %
 %
@@ -34,12 +33,14 @@
 \center
 \includegraphics[scale=0.15]{figures/motivation/pock-segmentation.png}
 \end{minipage}
-\end{minipage}
-}
+\end{minipage}}
 %
 %
 \onslide<3->{
-\begin{minipage}[t][0.13\textheight][t]{\textwidth}
+\begin{minipage}[t][0.2\textheight][t]{\textwidth}
+	The problems we are interested in come from \emph{Image Analysis}.
+	
+	\vspace{1em}
 \begin{tabular}{p{0.6\textwidth}p{0.2\textwidth}}
 \textbf{Segmentation:} $\mathcal{I}^{\star} = \argmin_{\mathcal{I}} E_{seg}(\mathcal{I},f_{\vec{I}})$ & \raisebox{-.5\height}{\includegraphics[scale=0.12]{figures/motivation/segmentation-stylised.png}}
 \end{tabular}
