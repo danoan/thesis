@@ -1,0 +1,159 @@
+\section{Elastica minimization via graph-cuts}
+
+\begin{frame}
+\huge
+Elastica minimization via graph-cuts
+\end{frame}
+
+\begin{frame}
+{Elastica minimization via graph-cuts}
+{Zero level set of balance coefficient}
+\center
+\includegraphics[scale=0.25]{figures/non-submodular-elastica/balance-coefficient-zero-level-set.png}
+\end{frame}
+
+\begin{frame}
+{Elastica minimization via graph-cuts}
+{Building the graph}
+
+\begin{minipage}{0.3\textwidth}
+\only<1>{
+\includegraphics[scale=0.5]{figures/graphcut/graph-model-1.png}}%
+\only<2,3>{
+\includegraphics[scale=0.5]{figures/graphcut/graph-model-2.png}}%
+\only<4->{
+\includegraphics[scale=0.5]{figures/graphcut/graph-model-3.png}}%
+\end{minipage}
+%
+%
+\begin{minipage}{0.69\textwidth}
+\footnotesize
+\begin{itemize}
+\onslide<2->{\item{Optimization band
+\begin{align*}
+\only<2>{O_n(D) :=& \{ p \in D \; | \; -n \leq d_D(p) \leq n \} \\}
+\only<3->{O(D) :=& \{ p \in D \; | \; -n \leq d_D(p) \leq n \} \\}
+\onslide<4->{F(D) :=& D \setminus O(D)}
+\end{align*}}}
+\onslide<5->{\item{Graph $\mathcal{G}_D(\mathcal{V},\mathcal{E},c)$
+\begin{align*}
+\mathcal{V} &= \{ v_p \; | \; p \in O(D) \} \cup \{s,t\} \\
+\highlight{7}{5,6,8-}{\mathcal{E}} &= \highlight{7}{5,6,8-}{\{ \{v_p,v_q\} \; | \; p,q \in O(D) \text{ and } q \in \mathcal{N}_4(p) \}} \cup \highlight{6}{5,7-}{\mathcal{E}_{st}} \\
+\highlight{6}{5,7-}{\mathcal{E}_{st}} &= \highlight{6}{5,7-}{\{ (s,v_p), (v_p,t) \; | \; p \in O(D) \}}
+\end{align*}}}
+\onslide<8->{\item{Edge's weight
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{edge} $e$ & $\mathbf{c(e)}$\\
+\hline
+$\{v_p, v_q\}$ & $ u_r(D,p) + u_r(D,q) $\\
+\hline
+$(s,v_p)$ & $M$\\
+\hline
+$(v_p, t)$ & $M$\\
+\hline
+\end{tabular}
+\end{center}
+}}
+\onslide<9->{\item{Digital shape update
+\begin{align*}
+D^{(k+1)} &= F(D^{(k)}) + S^{(k)}
+\end{align*}}}
+\end{itemize}
+\end{minipage}
+\end{frame}
+%
+%
+%
+\begin{frame}
+{Elastica minimization via graph-cuts}
+{Shape evolution}
+\center
+\onslide<2->{Stop if Elastica increases $(\alpha=1/22^2,\beta=1)$\\[1em]}
+\only<1>{
+\begin{tabular}{cc}
+\includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow/triangle-scaled.png}\hspace{3em} &
+\includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow/square-scaled.png}\\[2em]
+\includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow/flower.png}\hspace{3em} &
+\includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow/bean.png}
+\end{tabular}}
+\only<2>{
+\begin{tabular}{cc}
+\includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow-always-improve/triangle.png}\hspace{3em} &
+\includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow-always-improve/square.png}\\[2em]
+\includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow-always-improve/flower.png}\hspace{3em} &
+\includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow-always-improve/bean.png}
+\end{tabular}}
+\end{frame}
+
+\begin{frame}
+{Elastica minimization via graph-cuts}
+{The $a$-probe set}
+
+\begin{definition}[$a$-probe set]
+	Let $\Ds \subset \Omega \subset \mathbb{Z}^2$ a digital set and $a$ a natural number. The $a$-probe set of $\Ds$ is defined as
+	\begin{align*}
+		\mathcal{P}_a(\Ds) &= \Ds \cup \bigcup_{a' < a}{\Ds^{+a'} \cup \Ds^{-a'}},
+	\end{align*}
+	where $\Ds^{+a}$($\Ds^{-a}$) denotes a dilation(erosion) by a disk of radius $a$.
+\end{definition}
+
+\textbf{Candidate selection}
+\[\begin{array}{l}
+	sol(D^{(k)}) \longleftarrow \bigcup_{D' \in \mathcal{P}_a(D^{(k)})} \Big\{ F^{(k)} + S  \; | \; mincut(S,\mathcal{G}_{D'}) \Big\} 	
+\end{array}
+\]
+
+\textbf{Candidate validation}
+\[\begin{array}{l}
+\Ds^{(k+1)} \longleftarrow \displaystyle \argmin_{ D' \in sol(D^{(k)}) }{ \hat{E}_{\vec{\theta}}(D')}
+\end{array}
+\]
+
+\end{frame}
+
+\begin{frame}
+{Elastica minimization via graph-cuts}
+{Shape evolution with $a$-probe set}
+
+\center
+\only<1>{Stop if Elastica increases $(\alpha=1/22^2,\beta=1)$ \\[1em]}
+\only<2>{Always update $(\alpha=1/22^2,\beta=1)$ \\[1em]}
+\only<1>{
+\begin{tabular}{cc}
+\includegraphics[scale=0.12]{figures/graphcut/with-neighborhood-flow-always-improve/triangle.png}\hspace{3em} &
+\includegraphics[scale=0.12]{figures/graphcut/with-neighborhood-flow-always-improve/square.png}\\[2em]
+\includegraphics[scale=0.12]{figures/graphcut/with-neighborhood-flow-always-improve/flower.png}\hspace{3em} &
+\includegraphics[scale=0.12]{figures/graphcut/with-neighborhood-flow-always-improve/bean.png}
+\end{tabular}}
+%
+%
+\only<2>{
+\begin{tabular}{cc}
+\includegraphics[scale=0.12]{figures/graphcut/with-neighborhood-flow/radius_16/triangle.png}\hspace{3em} &
+\includegraphics[scale=0.12]{figures/graphcut/with-neighborhood-flow/radius_16/square.png}\\[2em]
+\includegraphics[scale=0.12]{figures/graphcut/with-neighborhood-flow/radius_16/flower.png}\hspace{3em} &
+\includegraphics[scale=0.12]{figures/graphcut/with-neighborhood-flow/radius_16/bean.png}
+\end{tabular}}
+\end{frame}
+
+\begin{frame}
+{Elastica minimization via graph-cuts}
+{Shape evolution with $a$-probe set}
+
+\begin{minipage}{0.25\textwidth}
+\center
+\includegraphics[scale=0.06]{figures/graphcut/with-neighborhood-flow/radius_16/triangle.png}\\[1em]
+\includegraphics[scale=0.06]{figures/graphcut/with-neighborhood-flow/radius_16/square.png}\\[1em]
+\includegraphics[scale=0.06]{figures/graphcut/with-neighborhood-flow/radius_16/flower.png}\\[1em]
+\includegraphics[scale=0.06]{figures/graphcut/with-neighborhood-flow/radius_16/bean.png}
+\end{minipage}%
+%
+%
+\begin{minipage}{0.74\textwidth}
+\center
+\includegraphics[scale=0.18]{figures/graphcut/with-neighborhood-flow/plots/elastica.png}\\
+\includegraphics[scale=0.18]{figures/graphcut/with-neighborhood-flow/plots/bars.png}
+\end{minipage}
+\end{frame}
