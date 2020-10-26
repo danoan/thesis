@@ -1,53 +1,79 @@
-\begin{frame}
-	{Summary}	
-
-	\begin{itemize}
-		\item<1->{Digital geometry is the geometry of \emph{finite sets}.}
-		\item<2->{Recent results of \emph{multigrid convergence} for several digital geometric estimators.}		
-		\item<3->{Local search model:}				
-		\begin{itemize}
-			\item<3->{Evolve initial shapes to the\emph{global optimum} one in the \emph{free Elastica} problem.}
-			\item<4->{Evolves initial shape to some other shape close to the optimum for the \emph{constrained Elastica} problem.}				
-			\item<5->{\emph{High} running time.}
-		\end{itemize}
-		
-		\item<6->{Graph-cut flow:}
-			\begin{itemize}
-				\item<6->{Same as for the free Elastica problem, but \emph{much faster}.}
-				\item<7->{Space for improvement in the constrained Elastica problem (\emph{random neighborhoods}?).}				
-			\end{itemize}
-
-		\item<8->{Minimum cut and image segmentation}
-		\begin{itemize}
-			\item<9->{GrabCut algorithm.}
-			\item<10->{Graph-cut flow segmentation: Injects \emph{curvature} information in the graph-cut model.}
-		\end{itemize}
-	\end{itemize}
-		
-\end{frame}
+\section{Conclusion}
 
 \begin{frame}
-	{Conclusion}
-	
-	\begin{itemize}
-		\item<1->{\emph{Multigrid convergence} is the key property to evaluate the quality of an estimator in digital data.}
-		\item<2->{Multigrid convergent estimators are suitable to \emph{optimization}.}		
-		\item<3->{Multigrid convergent estimators can be \emph{injected} in the fast graph-cut framework for image segmentation.}				
-	\end{itemize}
+{Conclusion}
+{Summary of models}
 
-	\onslide<4->{	
-	\vspace{2em}
-	\textbf{Future work}
-	\begin{itemize}
-		\item<5->{Random neighborhoods.}	
-		\item<6->{Multiresolution.}
-		\item<7->{Automatization.}
-	\end{itemize}
-	}
-	
-\end{frame}
+\onslide<1->{
+\begin{table}[H]
+\footnotesize
+\centering
+\begin{tabular}{r|ccccc}
+Model & Implementation & RT & Free & Constrained & Image.\\
+\hline
+LocalSearch (LS) & medium & slow & yes(opt) & yes & no \\
+FlipFlow (FF) & hard & acceptable & yes & no & yes \\
+BalanceFlow (BF) & medium & acceptable & yes & no & yes \\
+GraphFlow (GF) & easy & fast & yes(opt) & yes & yes
+\end{tabular}
+\caption{\textbf{Models summary.} The qualitative attributes are relative, e.g., the GraphFlow presents the lowest running time while LocalSearch presents the highest.}
+\end{table}}
 
-\begin{frame}
+\onslide<2->{
+\begin{figure}
 \center
-\huge Thank you!
+\captionsetup{type=table}
+\footnotesize
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+& Pixels & LocalSearch & FlipFlow & BalanceFlow & GraphFlow \\
+\hline
+Triangle & 8315 & 4.8s/it & 0.4s/it & 0.38s/it & 0.14s/it\\
+Square & 12769 & 2s/it & 0.51s/it & 0.47s/it & 0.12s/it\\
+Ellipse  & 10038 & 3.1s/it & 0.64s/it & 0.57s/it & 0.1s/it \\
+Flower & 26321 & 12.3s/it & 1.23s/it & 0.94s/it & 0.14s/it\\
+Bean  & 25130 & 6.4s/it & 1.2s/it & 1.17s/it & 0.16s/it\\
+\hline
+\end{tabular}
+\caption{\textbf{Exp-General summary.} Running time and input size of Exp-General experiment for the free elastica.}
+\end{figure}}
+
+\end{frame}
+
+\begin{frame}
+{Conclusion}
+{Summary of models}
+
+\begin{itemize}
+\item{Four discrete local models of elastica minimization based on multigrid convergent estimators.}
+\item{Extra terms, such as data fidelity, are easily included in GraphFlow model.}
+\item{Contour completion can be recovered in some cases.}
+\end{itemize}
+
+\textbf{Pros}
+\begin{itemize}
+\item{Parellizable.}
+\item{Neighborhood flexibility.}
+\end{itemize}
+
+\textbf{Cons}
+\begin{itemize}
+\item{Vulnerable to bad local minimum.}
+\item{Contour completion is difficult to recover and more expensive.}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+{Conclusion}
+{Perspectives}
+
+\begin{itemize}
+\item{GraphFlow and perimeter: enrich the cost function of GraphFlow with the weights defined in~\cite{}. }
+\item{Different neighborhoods: random, linear extension.}
+\item{Dynamic radius: use MDCA (parameter free) to adapt the estimation disk radius to use.}
+\item{Multiresolution: Improve running time; or improve estimator precision.}
+\item{Global optimization and multigrid convergent estimators: }
+\end{itemize}
+
 \end{frame}
