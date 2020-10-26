@@ -7,8 +7,10 @@
 \usepackage{caption,subcaption}
 \usepackage{animate}
 \captionsetup{compatibility=false}
-\usepackage{natbib}
-\setcitestyle{authoryear, square}
+
+\usepackage[style=alphabetic,maxbibnames=99,backref=true,backend=biber]{biblatex}
+\AtBeginBibliography{\footnotesize}
+\addbibresource{main.bib}
 
 \usepackage[linesnumbered,commentsnumbered,ruled,vlined]{algorithm2e}
 \usepackage[linewidth=2.5pt,linecolor=black,nobreak=true]{mdframed}
@@ -57,7 +59,7 @@
   \maketitle
   \captionsetup[subfigure]{labelformat=empty}
 
-%\include{sections/motivation}
+\include{sections/motivation}
 
 \begin{frame}
 	{Presentation plan}
@@ -84,16 +86,13 @@
 
 \end{frame}
 
-%\include{sections/combinatorial-elastica}
-%\include{sections/non-submodular-elastica}
+\include{sections/combinatorial-elastica}
+\include{sections/non-submodular-elastica}
 \include{sections/elastica-graphcuts}
-%
-\nocite{*}
-\bibliographystyle{abbrvnat}
+
 \begin{frame}[allowframebreaks]
-    \frametitle{References}
-	
-    \bibliography{sections/bibliography/multigrid-convergence}
+    \frametitle{References}	
+    \printbibliography
 \end{frame}
 
 
