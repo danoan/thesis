@@ -8,6 +8,31 @@ A quadratic non-submodular formulation for elastica
 \end{frame}
 
 \begin{frame}
+{Non-submodular elastica}	
+{Local models and completion effect}
+
+\begin{minipage}[t][0.7\textheight][t]{1\textwidth}
+\center
+
+The completion effect can be difficult to recover in local approaches.\vspace{1em}
+
+\only<2>{
+\includegraphics[scale=0.5]{figures/non-submodular-elastica/completion/completion-1.png}
+}%
+\only<3>{
+\includegraphics[scale=0.5]{figures/non-submodular-elastica/completion/completion-2.png}
+}%
+\only<4->{
+\includegraphics[scale=0.5]{figures/non-submodular-elastica/completion/completion-3.png}
+}%
+\vspace{1em}
+
+\onslide<5->{However, a global optimization carries its own bag of issues.}
+\end{minipage}
+
+\end{frame}
+
+\begin{frame}
 	{Non-submodular elastica}	
 	{Difficulties with a global model}
 \begin{minipage}[t][0.6\textheight][t]{1\textwidth}
@@ -75,8 +100,9 @@ $\hat{\kappa}(p) = \frac{3}{r^3}\left( \frac{\pi r^2}{2} - | B_r(p) \cap X | \ri
 \end{minipage}
 
 \begin{itemize}
-\item{Define an optimization band (yellow) as the inner contour of the shape, denoted $I$.}
-\item{Set pixels such that the curvature estimation is reduced}
+\item{Define the optimization region (yellow) as the inner contour of the shape, denoted $I$.}
+\item{Evolve the estimation disks in the current contour.}
+\item{Set pixels such that the curvature estimation is reduced.}
 \end{itemize}
 \end{frame}
 
@@ -106,34 +132,52 @@ $\hat{\kappa}(p) = \frac{3}{r^3}\left( \frac{\pi r^2}{2} - | B_r(p) \cap X | \ri
 {FlipFlow}
 \begin{minipage}[t][0.6\textheight][t]{1\textwidth}
 \footnotesize
-\only<1-5>{
+\only<1-6>{
 \begin{align*}
   E_{(\vec{\theta},m)}^{flip}( \highlight{2}{1,3-5}{ \Ds^{(k)},X^{(k)} } ) =& \sum_{ x_j \in X^{(k)}}{ \alpha s(x_j)} +  \sum_{ p \in \highlight{3}{1-2,4-}{R_m(\Ds^{(k)})}}{\beta \hat{\kappa}(p)^2}\\ 
-  \onslide<4->{=& \sum_{ x_j \in X^{(k)}}{ \alpha \highlight{5}{1-4,6-}{s(x_j)}} \\
+  \onslide<5->{=& \sum_{ x_j \in X^{(k)}}{ \alpha \highlight{6}{1-5,7-}{s(x_j)}} \\
   +&\sum_{ \substack{p \in \\ R_m(\Ds^{(k)})}}{ 2c_1 \beta  \Big( { (1/2+ |F_{r}^{(k)}(p)|-c_2) \cdot \sum_{ \substack{ x_j \in \\ X_{r}^{(k)}(p)}}{x_j} } + \sum_{ \substack{j<l, \\ x_j,x_l \in \\ X_{r}^{(k)}(p) } }{x_jx_l} \Big) }}
 \end{align*}}
-\only<6->{
+\only<7->{
 \begin{align*}
-  E_{(\vec{\theta},m)}^{flip}( \highlight{2}{1,3-5}{ \Ds^{(k)},{\highlight{6}{7-}{1-X^{(k)}} }} ) =& \sum_{ x_j \in X^{(k)}}{ \alpha s(x_j)} +  \sum_{ p \in \highlight{3}{1-2,4-}{R_m(\Ds^{(k)})}}{\beta \hat{\kappa}(p)^2}\\ 
-  \onslide<4->{=& \sum_{ x_j \in X^{(k)}}{ \alpha \highlight{5}{1-4,6-}{s(x_j)}} \\
+  E_{(\vec{\theta},m)}^{flip}( \highlight{2}{1,3-5}{ \Ds^{(k)},{\highlight{7}{8-}{1-X^{(k)}} }} ) =& \sum_{ x_j \in X^{(k)}}{ \alpha s(x_j)} +  \sum_{ p \in \highlight{4}{1-3,5-}{R_m(\Ds^{(k)})}}{\beta \hat{\kappa}(p)^2}\\ 
+  \onslide<5->{=& \sum_{ x_j \in X^{(k)}}{ \alpha \highlight{6}{1-5,7-}{s(x_j)}} \\
   +&\sum_{ \substack{p \in \\ R_m(\Ds^{(k)})}}{ 2c_1 \beta  \Big( { (1/2+ |F_{r}^{(k)}(p)|-c_2) \cdot \sum_{ \substack{ x_j \in \\ X_{r}^{(k)}(p)}}{x_j} } + \sum_{ \substack{j<l, \\ x_j,x_l \in \\ X_{r}^{(k)}(p) } }{x_jx_l} \Big) }}
 \end{align*}}
 \end{minipage}
 %
 %
+\only<4>{
+	\begin{figure}
+	\begin{tikzpicture}[overlay, remember picture] 
+	\node at (current page.center) 
+	    [
+	    anchor=center,
+	    xshift=0mm,
+	    yshift=0mm
+	    ] 
+	{
+	
+	\includegraphics[scale=0.05]{figures/non-submodular-elastica/ring.png}
+		
+	};
+	\end{tikzpicture}	
+	\end{figure}}%
+%
+%
 \begin{minipage}[t][0.39\textheight][t]{1\textwidth}
-\only<2-3>{
+\only<2-4>{
 \begin{center}
 $\displaystyle
 D \subset \Omega \subset \mathbb{Z}^2, \quad
 X^{(k)} := \{ \; x_i \in \{0,1\} \; | \; p_i \in I^{(k)} \; \}$
 \end{center}}
-\only<3>{
+\only<3-4>{
 \begin{center}
 $\displaystyle
 R_m(D) := \{ p \; | \; m-1 < d_D(p) \leq m \} \cup \{ p \; | \; -m+1 > d_D(p) \geq -m \}$
 \end{center}}
-\only<5>{
+\only<6>{
 \begin{center}
 \[
   s(x_j)=\sum_{q_i \in \mathcal{N}_4(p_j)}{ t(q_i) }, \quad \text{where } t(q_i) = \left\{\begin{array}{ll}
@@ -143,7 +187,7 @@ R_m(D) := \{ p \; | \; m-1 < d_D(p) \leq m \} \cup \{ p \; | \; -m+1 > d_D(p) \g
   \end{array}\right.
 \]
 \end{center}}
-\only<6>{
+\only<7>{
 \begin{center}
 \[
   s(x_j)=\sum_{q_i \in \mathcal{N}_4(p_j)}{ t(q_i) }, \quad \text{where } t(q_i) = \left\{\begin{array}{ll}
@@ -155,8 +199,8 @@ R_m(D) := \{ p \; | \; m-1 < d_D(p) \leq m \} \cup \{ p \; | \; -m+1 > d_D(p) \g
 \end{center}}
 \begin{minipage}{0.49\textwidth}
 \scriptsize
-\only<8->{\transparent{0.4}}
-\only<7->{
+\only<9->{\transparent{0.4}}
+\only<8->{
 \begin{center}
 Shrink mode (convexities)
 \[
@@ -169,7 +213,7 @@ Shrink mode (convexities)
 \end{minipage}
 \begin{minipage}{0.49\textwidth}
 \scriptsize
-\only<8->{
+\only<9->{
 \begin{center}
 Expansion mode (concavities)
 \[
@@ -236,12 +280,26 @@ $m=1$ & $m=3$ & $m=4$ & $m=5$ \\
 {Unlabeled ratio}
 \includegraphics[scale=0.28]{figures/non-submodular-elastica/level-effect/plot-unlabeled-triangle.png}\hspace{1em}
 \includegraphics[scale=0.28]{figures/non-submodular-elastica/level-effect/plot-unlabeled-flower.png}
+
+\begin{minipage}[t][0.5\textheight]{1\textwidth}
+%
+\only<2>{
+\center
+\begin{tabular}{cc}
+$m=1$ & $m=3$\\[1em]
+\includegraphics[scale=0.13]{figures/non-submodular-elastica/level-effect/triangle-l1.png}&
+\includegraphics[scale=0.13]{figures/non-submodular-elastica/level-effect/triangle-l3.png}
+\end{tabular}}%
+%
 \begin{itemize}
-{\only<3->{\transparent{0.4}}
-\onslide<2->{\item{Given that we evaluate the curvature estimator on the initial contour, how to change the pixels in this contour to reduce the difference of inner and outer pixels?}}
+{\only<4->{\transparent{0.4}}
+\onslide<3->{\item{Given that we evaluate the curvature estimator on the \emph{initial contour}, how pixels should change with respect this contour to reduce the difference of inner and outer pixels?}}
 }
-\onslide<3->{\item{Given that the shape does not change, where the estimation disks should be centered in order to reduce the difference of inner and outer pixels?}}
-\end{itemize}
+\onslide<4->{\item{Given that the shape does not change, where the estimation disks should be centered in order to reduce the difference of inner and outer pixels?}}
+\end{itemize}%
+%
+\end{minipage}
+
 
 \end{frame}
 
@@ -270,13 +328,16 @@ u_r(D,p) &= \left( \frac{\pi r^2}{2} - |B_r(p) \cap D| \right)^2
 {Conclusion}
 
 \begin{itemize}
-\item{Change pixels in the contour in order to reduce the difference between inner and outer pixels.}
+\item{Change pixels in current contour to reduce the difference between inner and outer pixels.}
 \item{Quadratic non-submodular energy.}
 \pause
 \item{Farther rings: better results when disks are evaluated farther from the contour. }
 \pause
 \item{Pos-processing procedure: contour correction. }
-\pause
+\pause\vspace{1em}
+
+\textbf{How to explain perturbations?}
+
 \item{Unstable hypothesis: fixing the contour (dimension 1) is more sensitive than fixing the shape (dimension 2).}
 \item{Make the shape evolve to the zero level set of its balance coefficient.}
 \end{itemize}
