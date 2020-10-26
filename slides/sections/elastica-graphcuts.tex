@@ -7,6 +7,18 @@ Elastica minimization via graph-cuts
 
 \begin{frame}
 {Elastica minimization via graph-cuts}
+{Graph cut}
+\center
+\only<1>{
+\includegraphics[scale=0.25]{figures/graphcut/cut-1.png}}%
+\only<2>{
+\includegraphics[scale=0.25]{figures/graphcut/cut-2.png}}%
+\only<3>{
+\includegraphics[scale=0.25]{figures/graphcut/cut-3.png}}%
+\end{frame}
+
+\begin{frame}
+{Elastica minimization via graph-cuts}
 {Zero level set of balance coefficient}
 \center
 \includegraphics[scale=0.25]{figures/non-submodular-elastica/balance-coefficient-zero-level-set.png}
@@ -19,9 +31,9 @@ Elastica minimization via graph-cuts
 \begin{minipage}{0.3\textwidth}
 \only<1>{
 \includegraphics[scale=0.5]{figures/graphcut/graph-model-1.png}}%
-\only<2,3>{
+\only<2-4>{
 \includegraphics[scale=0.5]{figures/graphcut/graph-model-2.png}}%
-\only<4->{
+\only<5->{
 \includegraphics[scale=0.5]{figures/graphcut/graph-model-3.png}}%
 \end{minipage}
 %
@@ -70,7 +82,7 @@ D^{(k+1)} &= F(D^{(k)}) + S^{(k)}
 {Elastica minimization via graph-cuts}
 {Shape evolution}
 \center
-\onslide<2->{Stop if Elastica increases $(\alpha=1/22^2,\beta=1)$\\[1em]}
+\onslide<2->{Stop if elastica increases $(\alpha=1/22^2,\beta=1)$\\[1em]}
 \only<1>{
 \begin{tabular}{cc}
 \includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow/triangle-scaled.png}\hspace{3em} &
@@ -118,7 +130,7 @@ D^{(k+1)} &= F(D^{(k)}) + S^{(k)}
 {Shape evolution with $a$-probe set}
 
 \center
-\only<1>{Stop if Elastica increases $(\alpha=1/22^2,\beta=1)$ \\[1em]}
+\only<1>{Stop if elastica increases $(\alpha=1/22^2,\beta=1)$ \\[1em]}
 \only<2>{Always update $(\alpha=1/22^2,\beta=1)$ \\[1em]}
 \only<1>{
 \begin{tabular}{cc}
@@ -156,4 +168,79 @@ D^{(k+1)} &= F(D^{(k)}) + S^{(k)}
 \includegraphics[scale=0.18]{figures/graphcut/with-neighborhood-flow/plots/elastica.png}\\
 \includegraphics[scale=0.18]{figures/graphcut/with-neighborhood-flow/plots/bars.png}
 \end{minipage}
+\end{frame}
+
+\begin{frame}
+{Elastica minimization via graph-cuts}
+{Contour correction}
+
+\begin{minipage}{0.5\textwidth}
+\center
+\only<1>{
+\includegraphics[scale=0.45]{figures/graphcut/contour-correction/cat/gc-seg.png}
+
+Initial segmentation
+
+}%
+\only<2>{
+\includegraphics[scale=0.45]{figures/graphcut/contour-correction/vase/gc-seg.png}
+
+Initial segmentation
+
+}%
+\only<3,4>{
+\includegraphics[scale=0.4]{figures/graphcut/contour-correction/coala/gc-seg.png}
+
+Initial segmentation
+
+}%
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+\center
+\only<1>{
+\includegraphics[scale=0.45]{figures/graphcut/contour-correction/cat/corrected-seg.png}
+
+$0.825s$ ($3$ it)
+
+}%
+\only<2>{\includegraphics[scale=0.45]{figures/graphcut/contour-correction/vase/corrected-seg.png}
+
+$0.746s$ ($3$ it)
+
+}%
+\only<3>{\includegraphics[scale=0.4]{figures/graphcut/contour-correction/coala/5it.png}
+
+$1.1s$ ($3$ it)
+
+}%
+\only<4>{\includegraphics[scale=0.4]{figures/graphcut/contour-correction/coala/30it.png}
+
+$10s$ ($30$ it)
+
+}%
+\end{minipage}%
+
+\end{frame}
+
+\begin{frame}
+{Elastica minimization via graph-cuts}
+{Contour completion}
+
+\begin{minipage}[t][0.47\textheight]{1\textwidth}
+\center
+\includegraphics[scale=0.28]{figures/graphcut/contour-completion/green-snake/gc-seg.png}
+
+Initial segmentation
+
+\end{minipage}
+\vspace{1em}
+\begin{minipage}[t][0.47\textheight]{1\textwidth}
+\center
+\includegraphics[scale=0.28]{figures/graphcut/contour-completion/green-snake/corrected-seg.png}
+
+$17s$ ($62$ it)
+
+\end{minipage}
+
+
 \end{frame}
