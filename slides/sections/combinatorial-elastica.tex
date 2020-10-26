@@ -12,15 +12,15 @@ A combinatorial model for elastica
 	{Digital elastica}
 %	
 		\begin{definition}[Digital elastica energy]
-		Let $\hat{s}$ and $\hat{\kappa}$ multigrid convergent estimators of local length and curvature. The digital elastica energy of a digital shape $S \subset \Omega \subset \mathbb{Z}^2$ is defined as
+		Let $\hat{\kappa}$ and $\hat{s}$ multigrid convergent estimators of curvature and local length. The digital elastica energy of a digital shape $D \subset \Omega \subset \mathbb{Z}^2$ of parameters $\vec{\theta} = (\alpha \geq 0, \beta \geq 0)$ is defined as
 %		
 		\begin{align*}
-			\hat{E}(S) = \sum_{e \in \partial_h(S)}{\hat{s}(e) \Big(\: \alpha + \beta \hat{\kappa}^2(e) \: \Big). }
+			\hat{E}_{\vec{\theta}}(D) = \sum_{\dot{e} \in \partial_h(D)}{\hat{s}(\dot{e}) \Big(\: \alpha + \beta \hat{\kappa}^2(\dot{e}) \: \Big). }
 		\end{align*}
 	\end{definition}
 %	
 	\begin{itemize}
-		\item<2->{\emph{Local search}: set a local neighborhood $\mathcal{N}(S)$ of $S$ and pick the shape $X^{\star} \in \mathcal{N}(S)$ among those of minimum digital elastica value.}
+		\item<2->{\emph{Local search}: set a local neighborhood $\mathcal{W}(D)$ of $D$ and pick the shape $X^{\star} \in \mathcal{W}(D)$ among those of minimum digital elastica value.}
 	\end{itemize}
 \end{frame}
 
@@ -36,23 +36,23 @@ A combinatorial model for elastica
  \SetKwData{Best}{best} 
  \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
  
- \Input{A digital set $S$; coefficient $\alpha, \beta$; the maximum number of iterations \MIt; and a stop condition \Tol}
+ \Input{A digital set $D$; coefficients  $\vec{\theta}=(\alpha, \beta)$; the maximum number of iterations \MIt; and a stop condition \Tol}
  \BlankLine
  \Delta $\longleftarrow$ \Tol+1\;
  $i \longleftarrow 0$\;
- $S^{(0)} \longleftarrow S$\;
- $X^\star \longleftarrow S$\;
+ $D^{(0)} \longleftarrow D$\;
+ $X^\star \longleftarrow D$\;
  \While{ \color{black} \It $<$ \MIt \bf{and} \Delta $>$ \Tol  }{
-  	\For{$\color{black} X \in \mathcal{N}(S^{(i)}) $}
+  	\For{$\color{black} X \in \mathcal{W}(S^{(i)}) $}
 	{
-		\If{\color{black} $\hat{E}(X)$ $<$ $\hat{E}(X^\star)$ }
+		\If{\color{black} $\hat{E}_{\vec{\theta}}(D)$ $<$ $\hat{E}_{\vec{\theta}}(X^\star)$ }
 		{
 			$X^\star \longleftarrow X$
 		}
 	}
+	$D^{(i+1)} \longleftarrow X^\star$\;
+	\Delta $\longleftarrow$ $\hat{E}_{\vec{\theta}}(D^{(i)}) - \hat{E}_{\vec{\theta}}(D^{(i+1)})$\;	
 	\It $\longleftarrow$ \It $+1$\;
-	$S^{(i)} \longleftarrow X^\star$\;
-	\Delta $\longleftarrow$ $\hat{E}(S^{(i-1)}) - \hat{E}(S^{(i)})$\;	
  }
 \end{algorithm}
 \end{frame}
@@ -134,7 +134,9 @@ For $\alpha=0.01,\; \beta=1$
 \begin{frame}
 	{Combinatorial Elastica}
 	{Other experiments}
-	
+\begin{center}
+$\alpha=0.001, \beta=1$	
+\end{center}
 \begin{minipage}{0.49\textwidth}
 \center
 \includegraphics[scale=0.25]{figures/combinatorial-elastica/other-experiments/ii/elastica/len_pen_0.001000/jonctions_1/curve_segs_4/best/gs_0.25000/flower.png}
