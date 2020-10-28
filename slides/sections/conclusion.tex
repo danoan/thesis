@@ -9,7 +9,7 @@
 \footnotesize
 \centering
 \begin{tabular}{r|ccccc}
-Model & Implementation & RT & Free & Constrained & Image.\\
+Model & Implementation & RT & Free & Constrained & Image\\
 \hline
 LocalSearch (LS) & medium & slow & yes(opt) & yes & no \\
 FlipFlow (FF) & hard & acceptable & yes & no & yes \\
@@ -46,20 +46,28 @@ Bean  & 25130 & 6.4s/it & 1.2s/it & 1.17s/it & 0.16s/it\\
 
 \begin{itemize}
 \item{Four discrete local models of elastica minimization based on multigrid convergent estimators.}
-\item{Extra terms, such as data fidelity, are easily included in GraphFlow model.}
+\pause
+\item{Extra terms, such as data fidelity, can be attached to FlipFlow/BalanceFlow and GraphFlow models.}
+\pause
 \item{Contour completion can be recovered in some cases.}
+\pause
 \end{itemize}
 
 \textbf{Pros}
 \begin{itemize}
+\item{No model of curve.}
+\pause
 \item{Parellizable.}
+\pause
 \item{Neighborhood flexibility.}
+\pause
 \end{itemize}
 
 \textbf{Cons}
 \begin{itemize}
-\item{Vulnerable to bad local minimum.}
-\item{Contour completion is difficult to recover and more expensive.}
+\item{Susceptible to bad local minimum.}
+\pause
+\item{Contour completion is difficult to recover and usually more expensive.}
 \end{itemize}
 
 \end{frame}
@@ -69,11 +77,21 @@ Bean  & 25130 & 6.4s/it & 1.2s/it & 1.17s/it & 0.16s/it\\
 {Perspectives}
 
 \begin{itemize}
-\item{GraphFlow and perimeter: enrich the cost function of GraphFlow with the weights defined in~\cite{}. }
+\item{GraphFlow and perimeter: enrich the cost function of GraphFlow with the weights defined in~\cite{boykov03geodesics}. }
+\pause
 \item{Different neighborhoods: random, linear extension.}
+\pause
 \item{Dynamic radius: use MDCA (parameter free) to adapt the estimation disk radius to use.}
+\pause
 \item{Multiresolution: Improve running time; or improve estimator precision.}
-\item{Global optimization and multigrid convergent estimators: }
+\pause
+\item{Global optimization and multigrid convergent estimators: Do there exist a practicable model for elastica?}
 \end{itemize}
 
+\end{frame}
+
+\begin{frame}
+\huge
+\center
+Thank you!
 \end{frame}
