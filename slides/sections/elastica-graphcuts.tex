@@ -81,22 +81,65 @@ D^{(k+1)} &= F(D^{(k)}) + S^{(k)}
 \begin{frame}
 {Elastica minimization via graph-cuts}
 {Shape evolution}
-\center
-\onslide<2->{Stop if elastica increases $(\alpha=1/22^2,\beta=1)$\\[1em]}
-\only<1>{
+
+\begin{center}
+$\alpha=1/8^2, \beta=1.$\\[1em]
+
 \begin{tabular}{cc}
-\includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow/triangle-scaled.png}\hspace{3em} &
-\includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow/square-scaled.png}\\[2em]
-\includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow/flower.png}\hspace{3em} &
-\includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow/bean.png}
-\end{tabular}}
-\only<2>{
+\includegraphics[scale=0.1]{figures/graphcut/no-neighborhood-flow-always-evolve/0.015625/triangle.png}\hspace{3em} &
+\includegraphics[scale=0.08]{figures/graphcut/no-neighborhood-flow-always-evolve/0.015625/square.png}\\[1em]
+\includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow-always-evolve/0.015625/flower.png}\hspace{3em} &
+\includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow-always-evolve/0.015625/bean.png}
+\end{tabular}
+\end{center}
+
+\onslide<2->{
+\begin{itemize}
+\item{What if we stop the evolution when elastica increases?}
+\end{itemize}}
+
+\end{frame}
+
+\begin{frame}
+{Elastica minimization via graph-cuts}
+{Shape evolution}
+
+\begin{center}
+Stop if elastica increases $(\alpha=1/8^2,\beta=1)$\\[1em]
+
 \begin{tabular}{cc}
-\includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow-always-improve/triangle.png}\hspace{3em} &
-\includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow-always-improve/square.png}\\[2em]
-\includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow-always-improve/flower.png}\hspace{3em} &
-\includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow-always-improve/bean.png}
-\end{tabular}}
+\includegraphics[scale=0.1]{figures/graphcut/no-neighborhood-flow-always-improve/0.015625/triangle.png}\hspace{3em} &
+\includegraphics[scale=0.08]{figures/graphcut/no-neighborhood-flow-always-improve/0.015625/square.png}\\[2em]
+\includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow-always-improve/0.015625/flower.png}\hspace{3em} &
+\includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow-always-improve/0.015625/bean.png}
+\end{tabular}
+
+\end{center}
+
+
+
+
+\end{frame}
+
+\begin{frame}
+{Elastica minimization via graph-cuts}
+{Shape evolution}
+
+\begin{center}
+Stop if elastica increases $(\alpha=1/22^2,\beta=1)$\\[1em]
+
+\begin{tabular}{cc}
+\includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow-always-improve/0.0020661157/triangle.png}\hspace{3em} &
+\includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow-always-improve/0.0020661157/square.png}\\[2em]
+\includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow-always-improve/0.0020661157/flower.png}\hspace{3em} &
+\includegraphics[scale=0.12]{figures/graphcut/no-neighborhood-flow-always-improve/0.0020661157/bean.png}
+\end{tabular}
+
+\end{center}
+
+
+
+
 \end{frame}
 
 \begin{frame}
