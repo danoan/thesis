@@ -27,7 +27,7 @@ The completion effect can be difficult to recover in local approaches.\vspace{1e
 }%
 \vspace{1em}
 
-\onslide<5->{However, a global optimization carries its own bag of issues.}
+\onslide<5->{However, a global optimization come with its own issues.}
 \end{minipage}
 
 \end{frame}
@@ -55,12 +55,12 @@ The completion effect can be difficult to recover in local approaches.\vspace{1e
 \begin{minipage}{0.64\textwidth}
 \onslide<2->{
 \begin{itemize}
-	\item{Center of the estimation disk}
-	\onslide<3->{\item{Pixel counting and estimation of curvature squared}}
-	\onslide<4->{\item{Topological constraints}}	
-	\onslide<5->{\item{Third order non-convex binary}}		
-	\onslide<6->{\item{Level 1 linearization: non semi-definite positive matrix}}
-	\onslide<7->{\item{Level 2 linearization: $O(m^3)$ variables}}
+	\item{Center of the estimation disk.}
+	\onslide<3->{\item{Pixel counting and estimation of curvature squared.}}
+	\onslide<4->{\item{Topological constraints.}}	
+	\onslide<5->{\item{Third order non-convex binary.}}		
+	\onslide<6->{\item{Level 1 linearization: non semi-definite positive matrix.}}
+	\onslide<7->{\item{Level 2 linearization: $O(m^3)$ variables.}}
 \end{itemize}}
 \end{minipage}	
 \end{minipage}
@@ -130,24 +130,121 @@ $\hat{\kappa}(p) = \frac{3}{r^3}\left( \frac{\pi r^2}{2} - | B_r(p) \cap X | \ri
 \begin{frame}
 {Non-submodular elastica}
 {FlipFlow}
+
 \begin{minipage}[t][0.6\textheight][t]{1\textwidth}
 \footnotesize
-\only<1-6>{
+\only<1-3>{
 \begin{align*}
-  E_{(\vec{\theta},m)}^{flip}( \highlight{2}{1,3-5}{ \Ds^{(k)},X^{(k)} } ) =& \sum_{ x_j \in X^{(k)}}{ \alpha s(x_j)} +  \sum_{ p \in \highlight{3}{1-2,4-}{R_m(\Ds^{(k)})}}{\beta \hat{\kappa}(p)^2}\\ 
-  \onslide<5->{=& \sum_{ x_j \in X^{(k)}}{ \alpha \highlight{6}{1-5,7-}{s(x_j)}} \\
+  E_{\vec{\theta}}^{flip}( \highlight{1}{0,2-4}{ \Ds^{(k)},X^{(k)} } ) =& \sum_{ x_j \in X^{(k)}}{ \alpha s(x_j)} +  \sum_{ p \in I^{(k)}}{\beta \hat{\kappa}(p)^2}\\ 
+  \onslide<2->{=& \sum_{ x_j \in X^{(k)}}{ \alpha \highlight{3}{1-2,4-}{s(x_j)}} \\
   +&\sum_{ \substack{p \in \\ R_m(\Ds^{(k)})}}{ 2c_1 \beta  \Big( { (1/2+ |F_{r}^{(k)}(p)|-c_2) \cdot \sum_{ \substack{ x_j \in \\ X_{r}^{(k)}(p)}}{x_j} } + \sum_{ \substack{j<l, \\ x_j,x_l \in \\ X_{r}^{(k)}(p) } }{x_jx_l} \Big) }}
 \end{align*}}
-\only<7->{
+\only<4->{
 \begin{align*}
-  E_{(\vec{\theta},m)}^{flip}( \highlight{2}{1,3-5}{ \Ds^{(k)},{\highlight{7}{8-}{1-X^{(k)}} }} ) =& \sum_{ x_j \in X^{(k)}}{ \alpha s(x_j)} +  \sum_{ p \in \highlight{4}{1-3,5-}{R_m(\Ds^{(k)})}}{\beta \hat{\kappa}(p)^2}\\ 
-  \onslide<5->{=& \sum_{ x_j \in X^{(k)}}{ \alpha \highlight{6}{1-5,7-}{s(x_j)}} \\
-  +&\sum_{ \substack{p \in \\ R_m(\Ds^{(k)})}}{ 2c_1 \beta  \Big( { (1/2+ |F_{r}^{(k)}(p)|-c_2) \cdot \sum_{ \substack{ x_j \in \\ X_{r}^{(k)}(p)}}{x_j} } + \sum_{ \substack{j<l, \\ x_j,x_l \in \\ X_{r}^{(k)}(p) } }{x_jx_l} \Big) }}
+  E_{\vec{\theta}}^{flip}( \Ds^{(k)}, \highlight{4}{1-3,5-}{1-X^{(k)}} ) =& \sum_{ x_j \in X^{(k)}}{ \alpha s(x_j)} +  \sum_{ p \in I^{(k)}}{\beta \hat{\kappa}(p)^2}\\ 
+  =& \sum_{ x_j \in X^{(k)}}{ \alpha s(x_j)} \\
+  +&\sum_{ p \in  I^{(k)}}{ 2c_1 \beta  \Big( { (1/2+ |F_{r}^{(k)}(p)|-c_2) \cdot \sum_{ \substack{ x_j \in \\ X_{r}^{(k)}(p)}}{x_j} } + \sum_{ \substack{j<l, \\ x_j,x_l \in \\ X_{r}^{(k)}(p) } }{x_jx_l} \Big) }
 \end{align*}}
-\end{minipage}
-%
-%
+\end{minipage}%
+
+
+\begin{minipage}[t][0.39\textheight][t]{1\textwidth}
+\only<1>{
+\begin{center}
+$\displaystyle
+D \subset \Omega \subset \mathbb{Z}^2, \quad
+X^{(k)} := \{ \; x_i \in \{0,1\} \; | \; p_i \in I^{(k)} \; \}$
+\end{center}}
+\only<3>{
+\begin{center}
+\[
+  \highlight{3}{1-2,4-}{s(x_j)}=\sum_{q_i \in \mathcal{N}_4(p_j)}{ t(q_i) }, \quad \text{where } t(q_i) = \left\{\begin{array}{ll}
+  (x_j-x_i)^2, & \text{if } q_i \in I^{(k)}\\
+  (x_j-1)^2, & \text{if } q_i \in F^{(k)}\\
+  (x_j-0)^2, & \text{otherwise. }
+  \end{array}\right.
+\]
+\end{center}}
 \only<4>{
+\begin{center}
+\[
+  s(x_j)=\sum_{q_i \in \mathcal{N}_4(p_j)}{ t(q_i) }, \quad \text{where } t(q_i) = \left\{\begin{array}{ll}
+  (x_j-x_i)^2, & \text{if } q_i \in I^{(k)}\\
+  (x_j-{\color{blue}0})^2, & \text{if } q_i \in F^{(k)}\\
+  (x_j-{\color{blue}1})^2, & \text{otherwise. }
+  \end{array}\right.
+\]
+\end{center}}%
+%
+%
+\begin{minipage}{0.49\textwidth}
+\scriptsize
+\only<6->{\transparent{0.4}}
+\only<5->{
+\begin{center}
+Shrink mode (convexities)
+\[
+\begin{array}{rl}
+	a^{(k)} &\leftarrow \displaystyle \argmin_{X^{(k)}} E_{\vec{\theta}}^{flip}(D^{(k)},1-X^{(k)});\\[1.5em]
+	D^{(k+1)} &\leftarrow F^{(k)} + a^{(k)}.
+\end{array}
+\]
+\end{center}}
+\end{minipage}%
+%
+%
+\begin{minipage}{0.49\textwidth}
+\scriptsize
+\only<6->{
+\begin{center}
+Expansion mode (concavities)
+\[
+\begin{array}{rl}
+	a^{(k)} &\leftarrow 	\displaystyle \argmin_{\overline{X}^{(k)}} E_{\vec{\theta}}^{flip}(\overline{D}^{(k)},1-\overline{X}^{(k)});\\[1.5em]
+	D^{(k+1)} &\leftarrow \overline{ \overline{F}^{(k)} + a^{(k)} }.
+\end{array}
+\]
+\end{center}}
+\end{minipage}%
+%
+\end{minipage}
+\end{frame}
+
+\begin{frame}
+{Non-submodular elastica}
+{FlipFlow}
+
+\begin{minipage}{0.49\textwidth}
+\center
+$r=3$\\
+\includegraphics[scale=0.2]{figures/non-submodular-elastica/radius-effect/triangle-r3.png}\\[1em]
+\includegraphics[scale=0.2]{figures/non-submodular-elastica/radius-effect/flower-r3.png}
+\end{minipage}
+\begin{minipage}{0.49\textwidth}
+\center
+$r=5$\\
+\includegraphics[scale=0.2]{figures/non-submodular-elastica/radius-effect/triangle-r5.png}\\[1em]
+\includegraphics[scale=0.2]{figures/non-submodular-elastica/radius-effect/flower-r5.png}
+\end{minipage}
+\end{frame}
+
+\begin{frame}
+{Non-submodular elastica}
+{Evaluation on farther rings}
+
+\footnotesize
+\begin{align*}
+  E_{(\vec{\theta},\highlight{1}{0,2-}{m})}^{flip}( \Ds^{(k)},1-X^{(k)} ) =& \sum_{ x_j \in X^{(k)}}{ \alpha s(x_j)} +  \sum_{ p \in \highlight{1}{0,2-}{R_m(\Ds^{(k)})}}{\beta \hat{\kappa}(p)^2}\\ 
+  =& \sum_{ x_j \in X^{(k)}}{ \alpha s(x_j)} \\
+  +&\sum_{ \substack{p \in \\ \highlight{1}{0,2-}{R_m(\Ds^{(k)})}}}{ 2c_1 \beta  \Big( { (1/2+ |F_{r}^{(k)}(p)|-c_2) \cdot \sum_{ \substack{ x_j \in \\ X_{r}^{(k)}(p)}}{x_j} } + \sum_{ \substack{j<l, \\ x_j,x_l \in \\ X_{r}^{(k)}(p) } }{x_jx_l} \Big) }
+\end{align*}
+
+\begin{center}
+$\displaystyle
+\highlight{1}{0,2-}{R_m(D)} := \{ p \; | \; m-1 < d_D(p) \leq m \} \cup \{ p \; | \; -m+1 > d_D(p) \geq -m \}$
+\end{center}
+
+\onslide<2>{
 	\begin{figure}
 	\begin{tikzpicture}[overlay, remember picture] 
 	\node at (current page.center) 
@@ -163,88 +260,6 @@ $\hat{\kappa}(p) = \frac{3}{r^3}\left( \frac{\pi r^2}{2} - | B_r(p) \cap X | \ri
 	};
 	\end{tikzpicture}	
 	\end{figure}}%
-%
-%
-\begin{minipage}[t][0.39\textheight][t]{1\textwidth}
-\only<2-4>{
-\begin{center}
-$\displaystyle
-D \subset \Omega \subset \mathbb{Z}^2, \quad
-X^{(k)} := \{ \; x_i \in \{0,1\} \; | \; p_i \in I^{(k)} \; \}$
-\end{center}}
-\only<3-4>{
-\begin{center}
-$\displaystyle
-R_m(D) := \{ p \; | \; m-1 < d_D(p) \leq m \} \cup \{ p \; | \; -m+1 > d_D(p) \geq -m \}$
-\end{center}}
-\only<6>{
-\begin{center}
-\[
-  s(x_j)=\sum_{q_i \in \mathcal{N}_4(p_j)}{ t(q_i) }, \quad \text{where } t(q_i) = \left\{\begin{array}{ll}
-  (x_j-x_i)^2, & \text{if } q_i \in I^{(k)}\\
-  (x_j-1)^2, & \text{if } q_i \in F^{(k)}\\
-  (x_j-0)^2, & \text{otherwise. }
-  \end{array}\right.
-\]
-\end{center}}
-\only<7>{
-\begin{center}
-\[
-  s(x_j)=\sum_{q_i \in \mathcal{N}_4(p_j)}{ t(q_i) }, \quad \text{where } t(q_i) = \left\{\begin{array}{ll}
-  (x_j-x_i)^2, & \text{if } q_i \in I^{(k)}\\
-  (x_j-{\color{blue}0})^2, & \text{if } q_i \in F^{(k)}\\
-  (x_j-{\color{blue}1})^2, & \text{otherwise. }
-  \end{array}\right.
-\]
-\end{center}}
-\begin{minipage}{0.49\textwidth}
-\scriptsize
-\only<9->{\transparent{0.4}}
-\only<8->{
-\begin{center}
-Shrink mode (convexities)
-\[
-\begin{array}{rl}
-	a^{(k)} &\leftarrow \displaystyle \argmin_{X^{(k)}} E_{\vec{\Theta},m}^{flip}(D^{(k)},1-X^{(k)});\\[1.5em]
-	D^{(k+1)} &\leftarrow F^{(k)} + a^{(k)}.
-\end{array}
-\]
-\end{center}}
-\end{minipage}
-\begin{minipage}{0.49\textwidth}
-\scriptsize
-\only<9->{
-\begin{center}
-Expansion mode (concavities)
-\[
-\begin{array}{rl}
-	a^{(k)} &\leftarrow 	\displaystyle \argmin_{\overline{X}^{(k)}} E_{\vec{\Theta},m}^{flip}(\overline{D}^{(k)},1-\overline{X}^{(k)});\\[1.5em]
-	D^{(k+1)} &\leftarrow \overline{ \overline{F}^{(k)} + a^{(k)} }.
-\end{array}
-\]
-\end{center}}
-\end{minipage}
-\end{minipage}
-
-\end{frame}
-
-\begin{frame}
-{Non-submodular elastica}
-{Evaluation on farther rings}
-
-\begin{minipage}{0.49\textwidth}
-\center
-$r=3$\\
-\includegraphics[scale=0.2]{figures/non-submodular-elastica/radius-effect/triangle-r3.png}\\[1em]
-\includegraphics[scale=0.2]{figures/non-submodular-elastica/radius-effect/flower-r3.png}
-\end{minipage}
-\begin{minipage}{0.49\textwidth}
-\center
-$r=5$\\
-\includegraphics[scale=0.2]{figures/non-submodular-elastica/radius-effect/triangle-r5.png}\\[1em]
-\includegraphics[scale=0.2]{figures/non-submodular-elastica/radius-effect/flower-r5.png}
-\end{minipage}
-
 \end{frame}
 
 \begin{frame}
@@ -295,7 +310,7 @@ $m=1$ & $m=3$\\[1em]
 {\only<4->{\transparent{0.4}}
 \onslide<3->{\item{Given that we evaluate the curvature estimator on the \emph{initial contour}, how pixels should change with respect this contour to reduce the difference of inner and outer pixels?}}
 }
-\onslide<4->{\item{Given that the shape does not change, where the estimation disks should be centered in order to reduce the difference of inner and outer pixels?}}
+\onslide<4->{\item{Given that the shape pixels are fixed, where the estimation disks should be centered in order to reduce the difference of inner and outer pixels?}}
 \end{itemize}%
 %
 \end{minipage}
@@ -338,7 +353,7 @@ u_r(D,p) &= \left( \frac{\pi r^2}{2} - |B_r(p) \cap D| \right)^2
 
 \textbf{How to explain perturbations?}
 
-\item{Unstable hypothesis: fixing the contour (dimension 1) is more sensitive than fixing the shape (dimension 2).}
+\item{Fixing the evaluation contour (dimension 1) is more unstable than fixing the shape (dimension 2).}
 \item{Make the shape evolve to the zero level set of its balance coefficient.}
 \end{itemize}
 \end{frame}
