@@ -23,51 +23,100 @@ A combinatorial model for elastica
 		\item<2->{\emph{Local search}: set a local neighborhood $\mathcal{W}(D)$ of $D$ and pick the shape $X^{\star} \in \mathcal{W}(D)$ among those of minimum digital elastica value.}
 	\end{itemize}
 \end{frame}
-
-\begin{frame}
-	{Combinatorial Elastica}	
-	{Local search algorithm}
-
-\begin{algorithm}[H]
- \SetKwData{It}{i}
- \SetKwData{MIt}{maxIt}
- \SetKwData{Tol}{tolerance}
- \SetKwData{Delta}{delta}
- \SetKwData{Best}{best} 
- \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
- 
- \Input{A digital set $D$; coefficients  $\vec{\theta}=(\alpha, \beta)$; the maximum number of iterations \MIt; and a stop condition \Tol}
- \BlankLine
- \Delta $\longleftarrow$ \Tol+1\;
- $i \longleftarrow 0$\;
- $D^{(0)} \longleftarrow D$\;
- $X^\star \longleftarrow D$\;
- \While{ \color{black} \It $<$ \MIt \bf{and} \Delta $>$ \Tol  }{
-  	\For{$\color{black} X \in \mathcal{W}(S^{(i)}) $}
-	{
-		\If{\color{black} $\hat{E}_{\vec{\theta}}(D)$ $<$ $\hat{E}_{\vec{\theta}}(X^\star)$ }
-		{
-			$X^\star \longleftarrow X$
-		}
-	}
-	$D^{(i+1)} \longleftarrow X^\star$\;
-	\Delta $\longleftarrow$ $\hat{E}_{\vec{\theta}}(D^{(i)}) - \hat{E}_{\vec{\theta}}(D^{(i+1)})$\;	
-	\It $\longleftarrow$ \It $+1$\;
- }
-\end{algorithm}
-\end{frame}
-
+%
+%
+%
+%\begin{frame}
+%	{Combinatorial Elastica}	
+%	{Local search algorithm}
+%
+%\begin{algorithm}[H]
+% \SetKwData{It}{i}
+% \SetKwData{MIt}{maxIt}
+% \SetKwData{Tol}{tolerance}
+% \SetKwData{Delta}{delta}
+% \SetKwData{Best}{best} 
+% \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+% 
+% \Input{A digital set $D$; coefficients  $\vec{\theta}=(\alpha, \beta)$; the maximum number of iterations \MIt; and a stop condition \Tol}
+% \BlankLine
+% \Delta $\longleftarrow$ \Tol+1\;
+% $i \longleftarrow 0$\;
+% $D^{(0)} \longleftarrow D$\;
+% $X^\star \longleftarrow D$\;
+% \While{ \color{black} \It $<$ \MIt \bf{and} \Delta $>$ \Tol  }{
+%  	\For{$\color{black} X \in \mathcal{W}(S^{(i)}) $}
+%	{
+%		\If{\color{black} $\hat{E}_{\vec{\theta}}(D)$ $<$ $\hat{E}_{\vec{\theta}}(X^\star)$ }
+%		{
+%			$X^\star \longleftarrow X$
+%		}
+%	}
+%	$D^{(i+1)} \longleftarrow X^\star$\;
+%	\Delta $\longleftarrow$ $\hat{E}_{\vec{\theta}}(D^{(i)}) - \hat{E}_{\vec{\theta}}(D^{(i+1)})$\;	
+%	\It $\longleftarrow$ \It $+1$\;
+% }
+%\end{algorithm}
+%\end{frame}
+%
+%
+%
 \begin{frame}
 	{Combinatorial Elastica}	
 	{Neighborhood of shapes}
 	
-\begin{minipage}{0.49\textwidth}
-\center
-\includegraphics[scale=0.25]{figures/combinatorial-elastica/main-inner.png}	
+\begin{itemize}
+\item{Neighbors are constructed by removing or adding a set of connected pixels.}
+\end{itemize}	
+	
+\begin{minipage}[t][0.5\textheight]{1\textwidth}
+\begin{center}
+\begin{tabular}{cc}
+\only<1>{\includegraphics[scale=0.25]{figures/combinatorial-elastica/main-inner.png}}
+\only<2->{\includegraphics[scale=0.25]{figures/combinatorial-elastica/main-inner-block.png}}&
+\only<1>{\includegraphics[scale=0.25]{figures/combinatorial-elastica/main-outer.png}}
+\only<2->{\includegraphics[scale=0.25]{figures/combinatorial-elastica/main-outer-block.png}}
+\end{tabular}
+\end{center}	
 \end{minipage}
-\begin{minipage}{0.49\textwidth}
-\includegraphics[scale=0.25]{figures/combinatorial-elastica/main-outer.png}	
-\end{minipage}	
+
+\onslide<3->{
+\[
+\begin{array}{ll}
+D^{(k+1)} &\longleftarrow \displaystyle \argmin_{X \in \mathcal{W}(D^{(k)})}\hat{E}_{\vec{\theta}}(X).
+\end{array}
+\]
+}
+
+\onslide<4>{
+\begin{itemize}
+\item{We use the integral invariant estimator (II-r) to estimate the curvature.}
+\end{itemize}}
+
+\end{frame}
+
+\begin{frame}
+	{Combinatorial Elastica}	
+	{Shape evolution}
+
+\[
+\begin{array}{ll}
+D^{(k+1)} &\longleftarrow \displaystyle \argmin_{X \in \mathcal{W}(D^{(k)})}\hat{E}_{\vec{\theta}}(X).
+\end{array}
+\]	
+	
+\begin{center}
+\begin{tabular}{ccc}
+\multirow{4}{*}{$D^{(0)}$} & 
+\includegraphics[scale=0.015]{figures/combinatorial-elastica/shapes/triangle.png}&
+\includegraphics[scale=0.015]{figures/combinatorial-elastica/shapes/square.png}\\
+&Triangle & Square\\[1.5em]
+& \includegraphics[scale=0.01]{figures/combinatorial-elastica/shapes/flower.png}&
+\includegraphics[scale=0.01]{figures/combinatorial-elastica/shapes/bean.png}\\
+& Flower & Bean
+\end{tabular}		
+\end{center}
+
 \end{frame}
 
 \begin{frame}
@@ -75,7 +124,7 @@ A combinatorial model for elastica
 	{Shape evolution}
 
 \begin{center}
-$\alpha=0.01, \beta=1$
+II-$5$, $\alpha=0.01, \beta=1$
 \end{center}
 \begin{minipage}{0.49\textwidth}
 \center
@@ -112,6 +161,14 @@ For $\alpha=0.01,\; \beta=1$
 	\min E(X) \approx 1.2566
 \end{align*}
 \end{minipage}
+
+\vspace{1em}
+
+\onslide<2>{
+\begin{itemize}
+\item{What is the influence of the choice of the estimation disk radius?}
+\end{itemize}
+}
 	
 \end{frame}
 
@@ -135,16 +192,23 @@ For $\alpha=0.01,\; \beta=1$
 	{Combinatorial Elastica}
 	{Other experiments}
 \begin{center}
-$\alpha=0.001, \beta=1$	
-\end{center}
-\begin{minipage}{0.49\textwidth}
-\center
-\includegraphics[scale=0.25]{figures/combinatorial-elastica/other-experiments/ii/elastica/len_pen_0.001000/jonctions_1/curve_segs_4/best/gs_0.25000/flower.png}
-\end{minipage}
-\begin{minipage}{0.49\textwidth}
-\center
+II-$10$, $\alpha=0.001, \beta=1$
+
+\vspace{1em}
+	
+\begin{tabular}{cc}
+\includegraphics[scale=0.25]{figures/combinatorial-elastica/other-experiments/ii/elastica/len_pen_0.001000/jonctions_1/curve_segs_4/best/gs_0.25000/flower.png}&
 \includegraphics[scale=0.25]{figures/combinatorial-elastica/other-experiments/ii/elastica/len_pen_0.001000/jonctions_1/curve_segs_4/best/gs_0.25000/curve.png}
-\end{minipage}
+\end{tabular}
+\end{center}
+
+\vspace{1em}
+\pause
+
+\begin{itemize}
+\item{What about running time?}
+\end{itemize}
+
 \end{frame}
 
 \begin{frame}
