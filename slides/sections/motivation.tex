@@ -3,133 +3,66 @@
 \begin{frame}
 	{Motivation}	
 	{Image analysis}
-\only<1-2>{
-\begin{minipage}[t][0.25\textheight][t]{\textwidth}
-	The problems we are interested in come from \emph{Image Analysis}.
-	
-	\pause
-	\vspace{1em}
-	
-\textbf{Segmentation:} Given input image $f_I:\Omega \rightarrow [0,1]$, find natural number $n$ and partition $\mathcal{I}^{\star} = \{ \Omega_i \subset \Omega \; | \; i \leq n \}$ such that $f_{\widehat{\vec{I}}}$
-%
-%
-\begin{align*}
-	\mathcal{I}^{\star} = \argmin_{\mathcal{I}} E_{seg}(\mathcal{I},f_{\vec{I}}) &\quad  \text{subject to } \begin{array}{l}
-	\forall i\neq j:\; \Omega_i \cap \Omega_j = \emptyset\\ 
-	\bigcup_i^{n} \Omega_i = \Omega
-	\end{array}
-\end{align*}
-%
-%
-\begin{minipage}{.3\textwidth}
-\center
-\includegraphics[scale=0.26]{figures/motivation/segmentation-stylised.png}
-\end{minipage}
-\begin{minipage}{.3\textwidth}
-\center
-\includegraphics[scale=0.15]{figures/motivation/pock-sunflower.png}
-\end{minipage}
-\begin{minipage}{.3\textwidth}
-\center
-\includegraphics[scale=0.15]{figures/motivation/pock-segmentation.png}
-\end{minipage}
-\end{minipage}}
-%
-%
-\onslide<3->{
-\begin{minipage}[t][0.2\textheight][t]{\textwidth}
-	The problems we are interested in come from \emph{Image Analysis}.
-	
-	\vspace{1em}
-\begin{tabular}{p{0.6\textwidth}p{0.2\textwidth}}
-\textbf{Segmentation:} $\mathcal{I}^{\star} = \argmin_{\mathcal{I}} E_{seg}(\mathcal{I},f_{\vec{I}})$ & \raisebox{-.5\height}{\includegraphics[scale=0.12]{figures/motivation/segmentation-stylised.png}}
+
+\begin{minipage}[t][0.5\textheight][t]{1\textwidth}
+The problems we are interested in come from \emph{image analysis}.
+\vspace{1em}
+
+\only<1-4>{
+\begin{center}
+\begin{tabular}{ccc}
+\highlight{2}{1,3-}{\textbf{Segmentation}} & 
+\highlight{3}{1-2,4-}{\textbf{Denoising}} & 
+\highlight{4}{1-3,5-}{\textbf{Inpainting}}
 \end{tabular}
-\end{minipage}
-}
-%
-%
-\pause
+\end{center}}
+
+\only<2>{
+\begin{tabular}{cc}
+\includegraphics[scale=0.4]{figures/motivation/image-analysis/segmentation-cars.png} &
+\includegraphics[scale=0.4]{figures/motivation/image-analysis/segmentation-crops.png} \\
+\cite{li2019gff} & \cite{li2015object}
+\end{tabular}}%
 \only<3>{
-\begin{minipage}[t][0.25\textheight][t]{\textwidth}
-\textbf{Denoising:} Given a noisy image $f_{\vec{\widetilde{I}}}$ corrupted, find an estimation $f_{\widehat{\vec{I}}}$ of the original image such that
-%
-%
-\begin{align*}
-	f_{\widehat{\vec{I}}} &= \argmin_f E_{den}(f,f_{\vec{\widetilde{I}}})
-\end{align*}
-%
-%
-\begin{minipage}{.3\textwidth}
-\center
-\includegraphics[scale=0.26]{figures/motivation/denoising-stylised.png}
-\end{minipage}
-\begin{minipage}{.3\textwidth}
-\center
-\includegraphics[scale=0.15]{figures/motivation/pock-sunflower-noisy.png}
-\end{minipage}
-\begin{minipage}{.3\textwidth}
-\center
-\includegraphics[scale=0.15]{figures/motivation/pock-sunflower-fista-denoising-100.png}
-\end{minipage}
-\end{minipage}
-}
-%
-\onslide<4->{
-\begin{minipage}[t][0.13\textheight][t]{\textwidth}
-\begin{tabular}{p{0.6\textwidth}p{0.2\textwidth}}
-\textbf{Denoising:} $f_{\widehat{\vec{I}}} = \argmin_f E_{den}(f,f_{\vec{\widetilde{I}}})$ & \raisebox{-.5\height}{\includegraphics[scale=0.12]{figures/motivation/denoising-stylised.png}}
-\end{tabular}
-\end{minipage}
-}
-%
-\pause
-%
+\begin{tabular}{cc}
+\includegraphics[scale=0.44]{figures/motivation/image-analysis/denoising-airplane.png} &
+\includegraphics[scale=0.22]{figures/motivation/image-analysis/denoising-mri.png} \\
+\cite{xu2018deep} & \cite{jiang2018denoising}
+\end{tabular}}%
 \only<4>{
-\begin{minipage}[t][0.25\textheight][t]{\textwidth}
-\textbf{Inpainting:} Given an image $f_{\widetilde{\vec{I}}}$ and a collection of missing patches $\mathcal{P}$, complete the patches such that
-%
-%
-\begin{align*}
-	f_{\vec{\widehat{I}}} &= \argmin_f E_{inp}(f,f_{\widetilde{\vec{I}}}) \quad \text{subject to}\; f(\Omega \setminus \mathcal{P}) = f_{\widetilde{\vec{I}}}(\Omega \setminus \mathcal{P}).
-\end{align*}
-%
-%
-\begin{minipage}{.3\textwidth}
-\center
-\includegraphics[scale=0.26]{figures/motivation/inpainting-stylised.png}
-\end{minipage}
-\begin{minipage}{.3\textwidth}
-\center
-\includegraphics[scale=0.15]{figures/motivation/pock-sunflower-mask.png}
-\end{minipage}
-\begin{minipage}{.3\textwidth}
-\center
-\includegraphics[scale=0.15]{figures/motivation/pock-sunflower-inpainted.png}
-\end{minipage}
-\end{minipage}
-}
-%
-\pause
-%
-\onslide<5->{
-\begin{minipage}[t][0.13\textheight][t]{\textwidth}
+\begin{tabular}{cc}
+\includegraphics[scale=0.17]{figures/motivation/image-analysis/inpainting-man.png} &
+\includegraphics[scale=0.24]{figures/motivation/image-analysis/inpainting-picture.png} \\
+\cite{yu2018generative} &  \cite{masnou98inpainting}
+\end{tabular}}%
+\only<5->{
 \begin{tabular}{p{0.6\textwidth}p{0.2\textwidth}}
-\textbf{Inpainting:} $f_{\vec{\widehat{I}}} = \argmin_f E_{inp}(f,f_{\widetilde{\vec{I}}})$ & \raisebox{-.5\height}{\includegraphics[scale=0.12]{figures/motivation/inpainting-stylised.png}}
-\end{tabular}
+\textbf{Segmentation:} $\mathcal{I}^{\star} = \argmin_{\mathcal{I}} E_{seg}(\mathcal{I},f_{\vec{I}})$ & \raisebox{-.5\height}{\includegraphics[scale=0.12]{figures/motivation/image-analysis/segmentation-stylised.png}}\\[2em]
+\textbf{Denoising:} $f_{\widehat{\vec{I}}} = \argmin_f E_{den}(f,f_{\vec{\widetilde{I}}})$ & \raisebox{-.5\height}{\includegraphics[scale=0.12]{figures/motivation/image-analysis/denoising-stylised.png}}\\[2em]
+\textbf{Inpainting:} $f_{\vec{\widehat{I}}} = \argmin_f E_{inp}(f,f_{\widetilde{\vec{I}}})$ & \raisebox{-.5\height}{\includegraphics[scale=0.12]{figures/motivation/image-analysis/inpainting-stylised.png}}
+\end{tabular}}
 \end{minipage}
-}
+%6
 %
-%
-\only<5>{
 \begin{minipage}[t][0.27\textheight][t]{\textwidth}
+\only<5->{We focused on \emph{variational approaches} to solve these problems.}
+
+\only<6->{
 Energies are defined according to assumptions made about the solution, e.g.,
 \begin{itemize}
 	\item{ \emph{Data fidelity}. The solution should not differ much from the input. }
 	\item{ \emph{Spatial coherence}. Images are composed of regions with low variability in color. }
 \end{itemize}
-\end{minipage}
 }
+\end{minipage}
+
 \end{frame}
+
+
+
+
+
+
 
 \begin{frame}
 {Motivation}
@@ -138,28 +71,28 @@ The \emph{Mumford Shah}~\cite{mumford89} is a model for segmentation and denoisi
 %
 %
 \begin{align*}
-	\min_{f,\mathcal{K}} \alpha \int_{\Omega} \highlight{2}{1,3-}{\norm{ f_{\vec{I}} - f}^2}dx + \beta \int_{\Omega \setminus \mathcal{K}} \highlight{3}{1,2,4-}{\norm{ \nabla f}^2} dx + \lambda Per(\mathcal{K}).
+	\min_{f,\highlight{4}{1-3,5-}{\mathcal{K}}} \alpha \int_{\Omega} \highlight{2}{1,3-}{\norm{ f_{\vec{I}} - f}^2}dx + \beta \int_{\Omega \setminus \highlight{4}{1-3,5-}{\mathcal{K}}} \highlight{3}{1,2,4-}{\norm{ \nabla f}^2} dx + \lambda Per(\highlight{4}{1-3,5-}{\mathcal{K}}).
 \end{align*}
 %
 %
-\onslide<4->{
-The \emph{ROF}~\cite{rudin92} model uses \emph{Total variation} for image denoising
+\onslide<5->{
+The \emph{ROF}~\cite{rudin92} model uses \emph{total variation} for image denoising
 %
 %
 \begin{align*}
-	\min_{f} \alpha \int_{\Omega} \norm{ f_{\vec{I}} - f}^2dx + \beta \int_{\Omega} \highlight{5}{1-4,6-}{\norm{ \nabla f }}dx
+	\min_{f} \alpha \int_{\Omega} \norm{ f_{\vec{I}} - f}^2dx + \beta \int_{\Omega} \highlight{6}{1-5,7-}{\norm{ \nabla f }}dx.
 \end{align*}}
 %
 %
-\onslide<6->{
+\onslide<7->{
 \begin{itemize}
 	\item{A measure of length is present in both models.}
-	\item{\emph{Geometric priors} as length, area or curvature are useful due to its flexibility and theirs well stablished results.}
+	\item{\emph{Geometric priors} as length, area or curvature are useful due to its flexibility and effect predictability.}
 \end{itemize}}
 %
 %
 \vspace{1em}
-\onslide<7->{
+\onslide<8->{
 In this thesis, we are interested in the combined use of \emph{length} and \emph{squared curvature} as geometric priors.}
 \end{frame}
 
@@ -230,7 +163,7 @@ $\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } \int_{\partial \Omega}{ds} + \i
 \only<6-9>{
 \center
 $\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } \frac{1}{2}\int_{\partial \Omega}{ds} + \int_{\partial \Omega}{ \kappa ^2ds}.$}
-\only<10>{
+\only<10->{
 \center
 \color{blue} $\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } \int_{\partial \Omega}{ \alpha + \beta \kappa ^2ds}. \quad - \quad \text{The elastica energy}$}
 \only<6>{
@@ -245,7 +178,7 @@ $\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } \frac{1}{2}\int_{\partial \Omeg
 \only<9->{
 \includegraphics[scale=0.22]{figures/motivation/completion/elastica-g8a05-3.png}
 }
-\onslide<10>{
+\onslide<11>{
 	\begin{figure}
 	\begin{tikzpicture}[overlay, remember picture] 
 	\node at (current page.center) 
@@ -280,7 +213,7 @@ $\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } \frac{1}{2}\int_{\partial \Omeg
 {Motivation}
 {State-of-art}
 
-\textbf{Continuous world}: Define the energy over the whole domain and minimize the elastica with respect the level-curves~\cite{chan02elasticainpainting}.
+\textbf{Continuous setting}: Define the energy over the whole domain and minimize the elastica with respect the level-curves~\cite{chan02elasticainpainting}.
 %
 \begin{align*}
 \int_{\Omega}{ \left(\alpha + \beta \nabla \cdot \left(\frac{\nabla f_{\vec{I}}}{\norm{\nabla f_{\vec{I}} }}\right) ^2 \right)\norm{\nabla f_{\vec{I}} }d\Omega}.
@@ -289,17 +222,17 @@ $\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } \frac{1}{2}\int_{\partial \Omeg
 \pause
 \begin{itemize}
 \item{Numerical instability: Fourth-order Euler-Lagrange equation.}
-\item{Subject to bad local minimum.}
+\item{Susceptible to bad local minimum.}
 \end{itemize}
 %
 \pause
 \vspace{1em}
-\textbf{Discrete world}:
+\textbf{Discrete setting}:
 
 \begin{itemize}
-\item{T-junctions matching: Fast algorithm, but limited to absolute value of curvature (polygonal solutions) and inpainting application~\cite{masnou98inpainting}.}\pause
-\item{Linear programming formulation: global optimization, but hours of execution using small (thus unprecise) neighborhood~\cite{schoenemann09linear}.}\pause
-\item{Triple cliques: global optimization, non-submodular energy. Limited precision~\cite{nieuwenhuis14efficient}.}
+\item{T-junctions matching~\cite{masnou98inpainting}: Fast algorithm, but limited to absolute value of curvature (polygonal solutions) and inpainting application.}\pause
+\item{Linear programming~\cite{schoenemann09linear}: global optimization, but prohibitive running times even for small (thus unprecise) neighborhoods.}\pause
+\item{Triple cliques~\cite{nieuwenhuis14efficient}: global optimization, non-submodular energy. Limited precision due combinatorial explosion.}
 \end{itemize}
 \end{frame}
 
@@ -307,28 +240,36 @@ $\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } \frac{1}{2}\int_{\partial \Omeg
 {Motivation}
 {Digital set peculiarities}
 
-\textbf{Exact sampling x digitization}
+\begin{minipage}[t][0.35\textheight][t]{1\textwidth}
 
-\begin{minipage}{0.33\textwidth}
-\center
-\includegraphics[scale=0.45]{figures/motivation/exact-sampling/sampling-0.png}
-\end{minipage}%
-\begin{minipage}{0.33\textwidth}
-\center
-\includegraphics[scale=0.45]{figures/motivation/exact-sampling/sampling-1.png}
-\end{minipage}%
-\begin{minipage}{0.33\textwidth}
-\center
-\includegraphics[scale=0.22]{figures/motivation/exact-sampling/digital-ball-perimeter.png}
-\end{minipage}%
+Where do we think we can do better?
+
+\only<2->{
+\begin{itemize}
+\item{Most of models neglect the digital character of digital images and ignore the fact that geometric measurements (mainly those local as tangent and curvature) in such objects should be done with a definition of \emph{convergence} that is specific for digital shapes.}
+\end{itemize}
 \vspace{1em}
+
+}
+\end{minipage}
 %
-\pause
 %
+\begin{minipage}[t][0.65\textheight][t]{1\textwidth}
+\only<3>{
+\textbf{Exact sampling x digitization}
+\center
+\begin{tabular}{ccc}
+\includegraphics[scale=0.45]{figures/motivation/exact-sampling/sampling-0.png}&
+\includegraphics[scale=0.45]{figures/motivation/exact-sampling/sampling-1.png}&
+\includegraphics[scale=0.22]{figures/motivation/exact-sampling/digital-ball-perimeter.png}
+\end{tabular}}%
+\only<4>{
 \textbf{Digitization ambiguity}
+
 \begin{center}
 \includegraphics[scale=1]{figures/motivation/exact-sampling/ambiguity.png}
-\end{center}
+\end{center}}
+\end{minipage}
 \end{frame}
 
 \begin{frame}
@@ -358,15 +299,18 @@ Multigrid convergent estimator of area
 
 \begin{frame}
 	{Motivation}	
-	{Multigrid convergent estimators}
-	
-	Examples of multigrid convergent estimators of perimeter (for piecewise $3$-smooth convex shapes).
-%
-	\vspace{2em}	
+	{Multigrid convergent estimators}	
 %
 	\begin{itemize}
-		\onslide<1->{\item{Minimum Length Polygon (MLP)~\cite{sloboda98approximation}}}
-		\onslide<3->{\item{$\lambda$-Maximal Segment Tangent ($\lambda$-MST)~\cite{lachaud07tangent}}}
+		\onslide<1->{\item{Minimum Length Polygon (MLP)~\cite{sloboda98approximation}}
+		\begin{itemize}
+			\item{Proved multigrid convergent for piecewise $3$-smooth convex shapes.}
+		\end{itemize}}
+		\onslide<3->{\vspace{2em}
+		\item{Integral Invariant (II)~\cite{coeurjolly13integral}}
+		\begin{itemize}
+			\item{Proved multigrid convergent for $C^2$ convex shapes with bounded curvature.}
+		\end{itemize}}		
 	\end{itemize}
 	
 	\onslide<2>{
@@ -398,64 +342,6 @@ Multigrid convergent estimator of area
 	    ] 
 	{
 	
-	\includegraphics[scale=1.0]{figures/motivation/digital-geometric-estimators/tangential-cover.png}
-		
-	};
-	\end{tikzpicture}	
-	\end{figure}	
-	}	
-	
-	
-\end{frame}
-
-\begin{frame}
-	{Motivation}	
-	{Digital geometric estimator}
-	
-	Examples of multigrid convergent estimators of curvature:
-	\begin{itemize}
-		\onslide<1->{\item{$\lambda$-Maximal Digital Circular Arcs ($\lambda$-MDCA)~\cite{roussillon11mdca,schindele17}}
-		\begin{itemize}
-			\item{Proved multigrid convergent for convex shapes with continuous curvature.}
-		\end{itemize}						
-		}
-		\onslide<3->{\vspace{2em}
-		\item{Integral Invariant (II)~\cite{coeurjolly13integral}}
-		\begin{itemize}
-			\item{Proved multigrid convergent for $C^2$ convex shapes with bounded curvature.}
-		\end{itemize}			
-		}
-	\end{itemize}	
-	
-	\onslide<2>{
-	\begin{figure}
-	\begin{tikzpicture}[overlay, remember picture] 
-	\node at (current page.center) 
-	    [
-	    anchor=center,
-	    xshift=0mm,
-	    yshift=0mm
-	    ] 
-	{
-	
-	\includegraphics[scale=1.0]{figures/motivation/digital-geometric-estimators/mdca.png}
-		
-	};
-	\end{tikzpicture}	
-	\end{figure}	
-	}		
-	
-	\onslide<4>{
-	\begin{figure}
-	\begin{tikzpicture}[overlay, remember picture] 
-	\node at (current page.center) 
-	    [
-	    anchor=center,
-	    xshift=0mm,
-	    yshift=0mm
-	    ] 
-	{
-	
 	\includegraphics[scale=1.0]{figures/motivation/digital-geometric-estimators/ii.png}
 		
 	};
@@ -466,7 +352,8 @@ Multigrid convergent estimator of area
 	\onslide<4>{
 	\begin{align*}
 		\hat{\kappa}(p) = \frac{3}{r^3}\left( \frac{\pi r^2}{2} - | B_r(p) \cap X | \right )
-	\end{align*}}	
+	\end{align*}}		
+	
 	
 	
 \end{frame}
