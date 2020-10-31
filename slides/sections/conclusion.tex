@@ -9,12 +9,13 @@
 \footnotesize
 \centering
 \begin{tabular}{r|ccccc}
-Model & Implementation & RT & Free & Constrained & Image\\
+\multirow{2}{*}{Model} & \multirow{2}{*}{Implementation} & Running & Free & Constrained & Image\\
+& & time & elastica & elastica & term\\
 \hline
-LocalSearch (LS) & medium & slow & yes(opt) & yes & no \\
-FlipFlow (FF) & hard & acceptable & yes & no & yes \\
-BalanceFlow (BF) & medium & acceptable & yes & no & yes \\
-GraphFlow (GF) & easy & fast & yes(opt) & yes & yes
+LocalSearch & medium & \negative{slow} & \positive{yes(\textbf{opt})} & \positive{yes} & \negative{no}\\
+FlipFlow  & \negative{hard} & acceptable & \positive{yes} & \negative{no} & \positive{yes}\\
+( BalanceFlow ) & medium & acceptable & \positive{yes} & \negative{no} & \positive{yes}\\
+GraphFlow  & \positive{easy} & \positive{fast} & \positive{yes(\textbf{opt})} & \positive{yes} & \positive{yes}
 \end{tabular}
 \caption{\textbf{Models summary.} The qualitative attributes are relative, e.g., the GraphFlow presents the lowest running time while LocalSearch presents the highest.}
 \end{table}}
@@ -28,14 +29,14 @@ GraphFlow (GF) & easy & fast & yes(opt) & yes & yes
 \hline
 & Pixels & LocalSearch & FlipFlow & BalanceFlow & GraphFlow \\
 \hline
-Triangle & 8315 & 4.8s/it & 0.4s/it & 0.38s/it & 0.14s/it\\
-Square & 12769 & 2s/it & 0.51s/it & 0.47s/it & 0.12s/it\\
-Ellipse  & 10038 & 3.1s/it & 0.64s/it & 0.57s/it & 0.1s/it \\
-Flower & 26321 & 12.3s/it & 1.23s/it & 0.94s/it & 0.14s/it\\
-Bean  & 25130 & 6.4s/it & 1.2s/it & 1.17s/it & 0.16s/it\\
+Triangle & 8315 & \negative{4.8s/it} & 0.4s/it & 0.38s/it & \positive{0.14s/it}\\
+Square & 12769 & \negative{2s/it} & 0.51s/it & 0.47s/it & \positive{0.12s/it}\\
+Ellipse  & 10038 & \negative{3.1s/it} & 0.64s/it & 0.57s/it & \positive{0.1s/it} \\
+Flower & 26321 & \negative{12.3s/it} & 1.23s/it & 0.94s/it & \positive{0.14s/it}\\
+Bean  & 25130 & \negative{6.4s/it} & 1.2s/it & 1.17s/it & \positive{0.16s/it}\\
 \hline
 \end{tabular}
-\caption{\textbf{Exp-General summary.} Running time and input size of Exp-General experiment for the free elastica.}
+\caption{\textbf{Free elastica running times.} Running time and input size for the free elastica experiment.}
 \end{figure}}
 
 \end{frame}
@@ -47,7 +48,7 @@ Bean  & 25130 & 6.4s/it & 1.2s/it & 1.17s/it & 0.16s/it\\
 \begin{itemize}
 \item{Four discrete local models of elastica minimization based on multigrid convergent estimators.}
 \pause
-\item{Extra terms, such as data fidelity, can be attached to FlipFlow/BalanceFlow and GraphFlow models.}
+\item{GraphFlow is extendable (suitable for data terms) and our fastest model.}
 \pause
 \item{Contour completion can be recovered in some cases.}
 \pause
@@ -55,7 +56,7 @@ Bean  & 25130 & 6.4s/it & 1.2s/it & 1.17s/it & 0.16s/it\\
 
 \textbf{Pros}
 \begin{itemize}
-\item{No model of curve.}
+\item{No mathematical model of curve.}
 \pause
 \item{Parellizable.}
 \pause
@@ -66,8 +67,6 @@ Bean  & 25130 & 6.4s/it & 1.2s/it & 1.17s/it & 0.16s/it\\
 \textbf{Cons}
 \begin{itemize}
 \item{Susceptible to bad local minimum.}
-\pause
-\item{Contour completion is difficult to recover and usually more expensive.}
 \end{itemize}
 
 \end{frame}
@@ -77,15 +76,17 @@ Bean  & 25130 & 6.4s/it & 1.2s/it & 1.17s/it & 0.16s/it\\
 {Perspectives}
 
 \begin{itemize}
-\item{GraphFlow and perimeter: enrich the cost function of GraphFlow with the weights defined in~\cite{boykov03geodesics}. }
+\item{\textbf{GraphFlow and perimeter}: enrich the cost function of GraphFlow with the weights defined in~\mycite{boykov03geodesics}. }
 \pause
-\item{Different neighborhoods: random, linear extension.}
+\item{\textbf{Different neighborhoods}: random, linear extension.}
 \pause
-\item{Dynamic radius: use MDCA (parameter free) to adapt the estimation disk radius to use.}
+\item{\textbf{Dynamic radius}: use the parameter free Maximal Digital Circular Arcs estimator of curvature to adapt the estimation disk radius to use.}
 \pause
-\item{Multiresolution: Improve running time; or improve estimator precision.}
+\item{\textbf{Multiresolution}: Improve running time; or improve estimator precision.}
 \pause
-\item{Global optimization and multigrid convergent estimators: Do there exist a practicable model for elastica?}
+\item{\textbf{Image analysis applications}: Make an objective comparison of our method and competitive ones (e.g. study quantitative measurements such as the ratio of inflexion points for the contour correction application) .}
+\pause
+\item{\textbf{Global formulation and multigrid convergent estimators}: Do there exist a practicable model for elastica?}
 \end{itemize}
 
 \end{frame}
