@@ -1,10 +1,21 @@
 \section{Non-submodular elastica}
 
 \begin{frame}
-\begin{center}
+\center
 \huge
 A quadratic non-submodular formulation for elastica
-\end{center}
+
+\vspace{2em}
+
+\begin{minipage}{0.7\textwidth}
+\normalsize
+\begin{itemize}
+\item{Local approaches and contour completion.}
+\item{Difficulties with global formulation.}
+\item{FlipFlow algorithm. Up to $10$x faster than LocalSearch.}
+\end{itemize}
+\end{minipage}
+
 \end{frame}
 
 \begin{frame}
@@ -14,7 +25,7 @@ A quadratic non-submodular formulation for elastica
 \begin{minipage}[t][0.7\textheight][t]{1\textwidth}
 \center
 
-The completion effect can be difficult to recover in local approaches.\vspace{1em}
+The completion effect can be difficult to recover in local formulations.\vspace{1em}
 
 \only<2>{
 \includegraphics[scale=0.5]{figures/non-submodular-elastica/completion/completion-1.png}
@@ -27,14 +38,14 @@ The completion effect can be difficult to recover in local approaches.\vspace{1e
 }%
 \vspace{1em}
 
-\onslide<5->{However, a global optimization come with its own issues.}
+\onslide<5->{However, a global formulation come with its own issues.}
 \end{minipage}
 
 \end{frame}
 
 \begin{frame}
 	{Non-submodular elastica}	
-	{Difficulties with a global model}
+	{Difficulties with a global formulation}
 \begin{minipage}[t][0.6\textheight][t]{1\textwidth}
 \begin{minipage}{0.35\textwidth}
 \only<1>{
@@ -137,7 +148,7 @@ $\hat{\kappa}(p) = \frac{3}{r^3}\left( \frac{\pi r^2}{2} - | B_r(p) \cap X | \ri
 \begin{align*}
   E_{\vec{\theta}}^{flip}( \highlight{1}{0,2-4}{ \Ds^{(k)},X^{(k)} } ) =& \sum_{ x_j \in X^{(k)}}{ \alpha s(x_j)} +  \sum_{ p \in I^{(k)}}{\beta \hat{\kappa}(p)^2}\\ 
   \onslide<2->{=& \sum_{ x_j \in X^{(k)}}{ \alpha \highlight{3}{1-2,4-}{s(x_j)}} \\
-  +&\sum_{ \substack{p \in \\ R_m(\Ds^{(k)})}}{ 2c_1 \beta  \Big( { (1/2+ |F_{r}^{(k)}(p)|-c_2) \cdot \sum_{ \substack{ x_j \in \\ X_{r}^{(k)}(p)}}{x_j} } + \sum_{ \substack{j<l, \\ x_j,x_l \in \\ X_{r}^{(k)}(p) } }{x_jx_l} \Big) }}
+  +&\sum_{ \substack{p \in \\ I^{(k)}}}{ 2c_1 \beta  \Big( { (1/2+ |F_{r}^{(k)}(p)|-c_2) \cdot \sum_{ \substack{ x_j \in \\ X_{r}^{(k)}(p)}}{x_j} } + \sum_{ \substack{j<l, \\ x_j,x_l \in \\ X_{r}^{(k)}(p) } }{x_jx_l} \Big) }}
 \end{align*}}
 \only<4->{
 \begin{align*}
@@ -170,8 +181,8 @@ X^{(k)} := \{ \; x_i \in \{0,1\} \; | \; p_i \in I^{(k)} \; \}$
 \[
   s(x_j)=\sum_{q_i \in \mathcal{N}_4(p_j)}{ t(q_i) }, \quad \text{where } t(q_i) = \left\{\begin{array}{ll}
   (x_j-x_i)^2, & \text{if } q_i \in I^{(k)}\\
-  (x_j-{\color{blue}0})^2, & \text{if } q_i \in F^{(k)}\\
-  (x_j-{\color{blue}1})^2, & \text{otherwise. }
+  (x_j-{\color{highlightcolor}0})^2, & \text{if } q_i \in F^{(k)}\\
+  (x_j-{\color{highlightcolor}1})^2, & \text{otherwise. }
   \end{array}\right.
 \]
 \end{center}}%
@@ -306,48 +317,24 @@ $m=1$ & $m=3$\\[1em]
 \includegraphics[scale=0.13]{figures/non-submodular-elastica/level-effect/triangle-l3.png}
 \end{tabular}}%
 %
+\only<3>{
 \begin{itemize}
-{\only<4->{\transparent{0.4}}
-\onslide<3->{\item{Given that we evaluate the curvature estimator on the \emph{initial contour}, how pixels should change with respect this contour to reduce the difference of inner and outer pixels?}}
-}
-\onslide<4->{\item{Given that the shape pixels are fixed, where the estimation disks should be centered in order to reduce the difference of inner and outer pixels?}}
-\end{itemize}%
+\item{Unlabeled ratio is not sufficient to explain the smoothness at farther rings.}
+\item{We are more confident to use values of $m$  closer to the estimation disk radius value.}
+\end{itemize}}%
 %
 \end{minipage}
-
-
 \end{frame}
 
-\begin{frame}
-{Non-submodular elastica}
-{Balance coefficient}
-\begin{minipage}{0.5\textwidth}
-\center
-\includegraphics[scale=0.2]{figures/non-submodular-elastica/balance-coefficient-zero-level-set.png}
-\end{minipage}
-\begin{minipage}{0.49\textwidth}
-\footnotesize
-\begin{itemize}
-\item{Balance coefficient}
-\begin{align*}
-u_r(D,p) &= \left( \frac{\pi r^2}{2} - |B_r(p) \cap D| \right)^2
-\end{align*}
-\item{White contour: contour of the shape}
-\item{Pink contour: zero level set of the balance coefficient}
-\end{itemize}
-\end{minipage}
-\end{frame}
 
 \begin{frame}
 {Non-submodular elastica}
 {Conclusion}
 
 \begin{itemize}
-\item{Change pixels in current contour to reduce the difference between inner and outer pixels.}
-\item{Quadratic non-submodular energy.}
-\pause
-\item{Farther rings: better results when disks are evaluated farther from the contour. }
-\pause
+\item{Change pixels in current contour to reduce the difference between inner and outer pixels.}\pause
+\item{Quadratic non-submodular energy.}\pause
+\item{Farther rings: better results when disks are evaluated farther from the contour. }\pause
 \item{Pos-processing procedure: contour correction. }
 \pause\vspace{1em}
 
