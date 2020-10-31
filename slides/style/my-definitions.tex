@@ -1,5 +1,10 @@
 %%%%%%%%%%%%%% Commands %%%%%%%%%%%
-\newcommand{\daniel}[1]{{\color{blue}{#1}}}
+\definecolor{citationcolor}{RGB}{179,139,70}
+\definecolor{highlightcolor}{RGB}{81,70,179}
+\definecolor{negativecolor}{RGB}{179,70,70}
+\definecolor{positivecolor}{RGB}{140,178,70}
+
+\newcommand{\daniel}[1]{{\color{highlightcolor}{#1}}}
 
 \newcommand{\transp}{\mathbf{T}}
 \newcommand{\edge}[2]{ ( #1,#2 )}
@@ -8,7 +13,7 @@
 \newcommand{\ol}[1]{{\overline{#1}}}
 \newcommand{\av}[1]{\accentset{\circ}{\vec{#1}}}
 \newcommand{\Ds}{D}
-\newcommand{\highlight}[3]{ { \only<#1>{\color{blue}} \only<#2>{\color{black}} #3 } }
+\newcommand{\highlight}[3]{ { \only<#1>{\color{highlightcolor}} \only<#2>{\color{black}} #3 } }
 
 
 \DeclareMathOperator*{\argmin}{arg\,min}
@@ -22,3 +27,7 @@
 \newcommand{\GGe}{ \mathcal{G}_{\vec{I}+} }
 \newcommand{\GGc}[1]{ \mathcal{G}_C^{(#1)} }
 \newcommand{\GGcc}{ \mathcal{G}_C}
+
+\newcommand{\positive}[1]{ {\color{positivecolor}#1} }
+\newcommand{\negative}[1]{ {\color{negativecolor}#1} }
+\newcommand{\mycite}[1]{ {\color{citationcolor} \footnotesize \cite{#1}}}

@@ -18,22 +18,25 @@ The problems we are interested in come from \emph{image analysis}.
 \end{center}}
 
 \only<2>{
-\begin{tabular}{cc}
-\includegraphics[scale=0.4]{figures/motivation/image-analysis/segmentation-cars.png} &
-\includegraphics[scale=0.4]{figures/motivation/image-analysis/segmentation-crops.png} \\
-\cite{li2019gff} & \cite{li2015object}
+\center
+\begin{tabular}{p{0.4\textwidth}c}
+\includegraphics[scale=0.2]{figures/motivation/image-analysis/segmentation-cars.png} &
+\includegraphics[scale=0.4]{figures/motivation/image-analysis/segmentation-crops.png}\\
+\mycite{li2019gff} & \mycite{li2015object}
 \end{tabular}}%
 \only<3>{
+\center
 \begin{tabular}{cc}
 \includegraphics[scale=0.44]{figures/motivation/image-analysis/denoising-airplane.png} &
 \includegraphics[scale=0.22]{figures/motivation/image-analysis/denoising-mri.png} \\
-\cite{xu2018deep} & \cite{jiang2018denoising}
+\mycite{xu2018deep} & \mycite{jiang2018denoising}
 \end{tabular}}%
 \only<4>{
+\center
 \begin{tabular}{cc}
 \includegraphics[scale=0.17]{figures/motivation/image-analysis/inpainting-man.png} &
 \includegraphics[scale=0.24]{figures/motivation/image-analysis/inpainting-picture.png} \\
-\cite{yu2018generative} &  \cite{masnou98inpainting}
+\mycite{yu2018generative} &  \mycite{masnou98inpainting}
 \end{tabular}}%
 \only<5->{
 \begin{tabular}{p{0.6\textwidth}p{0.2\textwidth}}
@@ -67,7 +70,7 @@ Energies are defined according to assumptions made about the solution, e.g.,
 \begin{frame}
 {Motivation}
 {Geometric priors}
-The \emph{Mumford Shah}~\cite{mumford89} is a model for segmentation and denoising.
+The \emph{Mumford Shah}~(\mycite{mumford89}) is a model for segmentation and denoising.
 %
 %
 \begin{align*}
@@ -76,7 +79,7 @@ The \emph{Mumford Shah}~\cite{mumford89} is a model for segmentation and denoisi
 %
 %
 \onslide<5->{
-The \emph{ROF}~\cite{rudin92} model uses \emph{total variation} for image denoising
+The \emph{ROF}~(\mycite{rudin92}) model uses \emph{total variation} for image denoising
 %
 %
 \begin{align*}
@@ -102,7 +105,7 @@ In this thesis, we are interested in the combined use of \emph{length} and \emph
 \begin{minipage}[t][0.5\textheight][t]{\textwidth}
 \only<1->{
 \center
-$\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } \int_{\partial \Omega}{ds}.$
+$\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } Perimeter(\Omega).$
 }
 \only<1>{
 \includegraphics[scale=0.25]{figures/motivation/completion/perimeter-0.png}
@@ -120,7 +123,7 @@ $\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } \int_{\partial \Omega}{ds}.$
 \begin{minipage}[t][0.5\textheight][t]{\textwidth}
 \only<5->{
 \center
-$\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } \int_{\partial \Omega}{ds} + \int_{\partial \Omega}{ \kappa ^2ds}.$}
+$\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } Perimeter(\Omega) + Squared\;Curvature(\partial \Omega).$}
 \only<5>{
 \includegraphics[scale=0.25]{figures/motivation/completion/elastica-0.png}
 }
@@ -142,7 +145,7 @@ $\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } \int_{\partial \Omega}{ds} + \i
 \begin{minipage}[t][0.5\textheight][t]{\textwidth}
 \only<1->{
 \center
-$\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } \int_{\partial \Omega}{ds} + \int_{\partial \Omega}{ \kappa ^2ds}.$}
+$\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } Perimeter(\Omega) + Squared\;Curvature(\partial \Omega).$}
 \only<1>{
 \includegraphics[scale=0.22]{figures/motivation/completion/elastica-g8a1-0.png}
 }
@@ -162,10 +165,10 @@ $\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } \int_{\partial \Omega}{ds} + \i
 \begin{minipage}[t][0.5\textheight][t]{\textwidth}
 \only<6-9>{
 \center
-$\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } \frac{1}{2}\int_{\partial \Omega}{ds} + \int_{\partial \Omega}{ \kappa ^2ds}.$}
+$\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } \frac{1}{2}Perimeter(\Omega) + Squared\;Curvature(\partial Omega).$}
 \only<10->{
 \center
-\color{blue} $\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } \int_{\partial \Omega}{ \alpha + \beta \kappa ^2ds}. \quad - \quad \text{The elastica energy}$}
+\color{highlightcolor} $\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } \int_{\partial \Omega}{ \alpha + \beta \kappa ^2ds}. \quad - \quad \text{The elastica energy}$}
 \only<6>{
 \includegraphics[scale=0.22]{figures/motivation/completion/elastica-g8a05-0.png}
 }
@@ -211,9 +214,9 @@ $\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } \frac{1}{2}\int_{\partial \Omeg
 
 \begin{frame}
 {Motivation}
-{State-of-art}
-
-\textbf{Continuous setting}: Define the energy over the whole domain and minimize the elastica with respect the level-curves~\cite{chan02elasticainpainting}.
+{State-of-the-art}
+\small
+\textbf{Continuous setting}: Define the energy over the whole domain and minimize the elastica with respect the level-curves~(\mycite{chan02elasticainpainting}).
 %
 \begin{align*}
 \int_{\Omega}{ \left(\alpha + \beta \nabla \cdot \left(\frac{\nabla f_{\vec{I}}}{\norm{\nabla f_{\vec{I}} }}\right) ^2 \right)\norm{\nabla f_{\vec{I}} }d\Omega}.
@@ -226,146 +229,48 @@ $\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } \frac{1}{2}\int_{\partial \Omeg
 \end{itemize}
 %
 \pause
-\vspace{1em}
+\vspace{0.5em}
 \textbf{Discrete setting}:
-
-\begin{itemize}
-\item{T-junctions matching~\cite{masnou98inpainting}: Fast algorithm, but limited to absolute value of curvature (polygonal solutions) and inpainting application.}\pause
-\item{Linear programming~\cite{schoenemann09linear}: global optimization, but prohibitive running times even for small (thus unprecise) neighborhoods.}\pause
-\item{Triple cliques~\cite{nieuwenhuis14efficient}: global optimization, non-submodular energy. Limited precision due combinatorial explosion.}
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-{Motivation}
-{Digital set peculiarities}
-
-\begin{minipage}[t][0.35\textheight][t]{1\textwidth}
-
-Where do we think we can do better?
-
-\only<2->{
-\begin{itemize}
-\item{Most of models neglect the digital character of digital images and ignore the fact that geometric measurements (mainly those local as tangent and curvature) in such objects should be done with a definition of \emph{convergence} that is specific for digital shapes.}
-\end{itemize}
-\vspace{1em}
-
-}
-\end{minipage}
-%
-%
-\begin{minipage}[t][0.65\textheight][t]{1\textwidth}
-\only<3>{
-\textbf{Exact sampling x digitization}
-\center
-\begin{tabular}{ccc}
-\includegraphics[scale=0.45]{figures/motivation/exact-sampling/sampling-0.png}&
-\includegraphics[scale=0.45]{figures/motivation/exact-sampling/sampling-1.png}&
-\includegraphics[scale=0.22]{figures/motivation/exact-sampling/digital-ball-perimeter.png}
-\end{tabular}}%
-\only<4>{
-\textbf{Digitization ambiguity}
-
+\vspace{-1em}
+\setlength\tabcolsep{3pt}
 \begin{center}
-\includegraphics[scale=1]{figures/motivation/exact-sampling/ambiguity.png}
-\end{center}}
-\end{minipage}
-\end{frame}
-
-\begin{frame}
-{Motivation}
-{Multigrid convergent estimators}
-
-\begin{definition}[Multigrid convergence]
-	Let $\mathcal{X}$ be a family of shapes in $\mathbb{R}^n$ and $u$ a geometric quantity that is defined for every shape $X \in \mathcal{X}$. Further, let $D_h(X)$ denote the digitization of $X$ with grid step $h$.%
-%
-\vspace{1em}	
-%	
-	 The estimator $\hat{u}$ is multigrid convergent for $\mathcal{X}$ if and only if, for any $X \in \mathcal{X}$ there exists $h_X > 0$ such that for every $0< h < h_X$
-	
-	\begin{align*}
-		| \hat{u}(D_h(X)) - u(X) | \leq \tau(h), \quad \text{with } \lim_{h\rightarrow 0}{\tau(h)} = 0
-	\end{align*}	
-\end{definition}
-%
-\pause
-%
-Multigrid convergent estimator of area
-\begin{align*}
-	\widehat{Area(X)} = h^2|D_h(X)|
-\end{align*}
-%
-\end{frame}
-
-\begin{frame}
-	{Motivation}	
-	{Multigrid convergent estimators}	
-%
-	\begin{itemize}
-		\onslide<1->{\item{Minimum Length Polygon (MLP)~\cite{sloboda98approximation}}
-		\begin{itemize}
-			\item{Proved multigrid convergent for piecewise $3$-smooth convex shapes.}
-		\end{itemize}}
-		\onslide<3->{\vspace{2em}
-		\item{Integral Invariant (II)~\cite{coeurjolly13integral}}
-		\begin{itemize}
-			\item{Proved multigrid convergent for $C^2$ convex shapes with bounded curvature.}
-		\end{itemize}}		
-	\end{itemize}
-	
-	\onslide<2>{
-	\begin{figure}
-	\begin{tikzpicture}[overlay, remember picture] 
-	\node at (current page.center) 
-	    [
-	    anchor=center,
-	    xshift=0mm,
-	    yshift=0mm
-	    ] 
-	{
-	
-	\includegraphics[scale=1.0]{figures/motivation/digital-geometric-estimators/mlp.png}
-		
-	};
-	\end{tikzpicture}	
-	\end{figure}	
-	}
-	
-	\onslide<4>{
-	\begin{figure}
-	\begin{tikzpicture}[overlay, remember picture] 
-	\node at (current page.center) 
-	    [
-	    anchor=center,
-	    xshift=0mm,
-	    yshift=0mm
-	    ] 
-	{
-	
-	\includegraphics[scale=1.0]{figures/motivation/digital-geometric-estimators/ii.png}
-		
-	};
-	\end{tikzpicture}	
-	\end{figure}	
-	}	
-	
-	\onslide<4>{
-	\begin{align*}
-		\hat{\kappa}(p) = \frac{3}{r^3}\left( \frac{\pi r^2}{2} - | B_r(p) \cap X | \right )
-	\end{align*}}		
-	
-	
-	
+\renewcommand{\arraystretch}{0.5}
+\begin{tabular}{p{0.35\textwidth}p{0.65\textwidth}}
+T-junctions matching & \multirow{2}{0.65\textwidth}{Fast algorithm, but limited to absolute value of curvature (polygonal solutions) and inpainting application.} \\
+\mycite{masnou98inpainting}\pause &\\[2.75em]
+Linear programming & \multirow{2}{0.65\textwidth}{Global optimization, but prohibitive running times even for small (thus unprecise) neighborhoods.} \\
+\mycite{schoenemann09linear} & \\[2.75em]
+Triple cliques & \multirow{2}{0.65\textwidth}{Global optimization, non-submodular energy. Limited precision due combinatorial explosion.} \\
+\mycite{nieuwenhuis14efficient}
+\end{tabular}
+\end{center}
 \end{frame}
 
 \begin{frame}
 {Motivation}
 {Goals}
 
-\begin{itemize}
-\item{Can we define an elastica-based model for image analysis using multigrid convergent estimators? \only<4>{\color{green}Yes!}} \pause
-\item{Can we recover the completion property of elastica? \only<4>{\color{green}Yes!}} \pause
-\item{Can we escape bad local minima? \only<4>{\color{green}Yes!}}
-\end{itemize}
+Models based on the minimization of the elastica energy
+
+\center
+\begin{tabular}{lcc|c|}
+& Continuous & Discrete & \textbf{Digital} \\
+\hline
+Numerical instability & \negative{Yes} & \positive{No} & \positive{No} \\
+Suitable for digital sets & \negative{No} & \negative{No} & \positive{Yes} \\
+Rounding issues & \negative{Yes} & \positive{No} & \positive{No} \\
+Global formulation & \positive{Yes} & \positive{Yes} & \negative{No} \\
+Contour completion & \negative{Partial} & \negative{Partial} & \positive{Extended} \\
+Global optimum (Free elastica) & \negative{-} & \negative{-} & \positive{Yes}
+\end{tabular}
+
+%\vspace{2em}
+%
+%\begin{itemize}
+%\item{Can we define an elastica-based model for image analysis using multigrid convergent estimators? \only<4>{\positive{Yes!}}} \pause
+%\item{Can we recover the completion property of elastica? \only<4>{\positive{Yes!}}} \pause
+%\item{Can we escape bad local minima? \only<4>{\positive{Yes!}}}
+%\end{itemize}
 
 \end{frame}
+
