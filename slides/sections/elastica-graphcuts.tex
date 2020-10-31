@@ -1,8 +1,41 @@
 \section{Elastica minimization via graph-cuts}
 
 \begin{frame}
+\center
 \huge
 Elastica minimization via graph-cuts
+
+\vspace{2em}
+
+\begin{minipage}{0.7\textwidth}
+\normalsize
+\begin{itemize}
+\item{Balance coefficient.}
+\item{Set up a graph which its minimum cut approximates the zero level set of the balance coefficient.}
+\item{GraphFlow algorithm. Up to $10$x faster than FlipFlow.}
+\end{itemize}
+\end{minipage}
+
+\end{frame}
+
+\begin{frame}
+{Non-submodular elastica}
+{Balance coefficient}
+\begin{minipage}{0.5\textwidth}
+\center
+\includegraphics[scale=0.2]{figures/non-submodular-elastica/balance-coefficient-zero-level-set.png}
+\end{minipage}
+\begin{minipage}{0.49\textwidth}
+\footnotesize
+\begin{itemize}
+\item{Balance coefficient}
+\begin{align*}
+u_r(D,p) &= \left( \frac{\pi r^2}{2} - |B_r(p) \cap D| \right)^2
+\end{align*}
+\item{White contour: contour of the shape}
+\item{Pink contour: zero level set of the balance coefficient}
+\end{itemize}
+\end{minipage}
 \end{frame}
 
 \begin{frame}
@@ -17,12 +50,6 @@ Elastica minimization via graph-cuts
 \includegraphics[scale=0.25]{figures/graphcut/cut-3.png}}%
 \end{frame}
 
-\begin{frame}
-{Elastica minimization via graph-cuts}
-{Zero level set of balance coefficient}
-\center
-\includegraphics[scale=0.25]{figures/non-submodular-elastica/balance-coefficient-zero-level-set.png}
-\end{frame}
 
 \begin{frame}
 {Elastica minimization via graph-cuts}
@@ -59,7 +86,7 @@ Elastica minimization via graph-cuts
 \hline
 \textbf{edge} $e$ & $\mathbf{c(e)}$\\
 \hline
-$\{v_p, v_q\}$ & $ u_r(D,p) + u_r(D,q) $\\
+$\{v_p, v_q\}$ & $ \frac{1}{2}{ u_r(D,p) + u_r(D,q)} $\\
 \hline
 $(s,v_p)$ & $M$\\
 \hline
