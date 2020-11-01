@@ -1,42 +1,40 @@
-\section{Digital images and convergent estimators}
+\section{Digital sets and convergent estimators}
 
 \begin{frame}
 \huge
 \center
-Digital images and convergent estimators
+Digital sets and convergent estimators
 \vspace{2em}
 
 \begin{minipage}{0.7\textwidth}
 \normalsize
 \center
 \begin{itemize}
-\item{Digital grid particularities and restrictions}
-\item{Multigrid convergence of geometric estimators}
+\item{Digital grid particularities and restrictions.}
+\item{Multigrid convergence of geometric estimators.}
 \end{itemize}
 \end{minipage}
 
 \end{frame}
 
 \begin{frame}
-{Digital images and convergent estimators}
+{Digital sets and convergent estimators}
 {Digital set peculiarities}
 
 \begin{minipage}[t][0.35\textheight][t]{1\textwidth}
 
-Where do we think we can do better?
+Where can we do better?
 
-\only<2->{
 \begin{itemize}
 \item{Most of models neglect the digital character of digital images and ignore the fact that geometric measurements (mainly those local as tangent and curvature) in such objects should be done with a definition of \emph{convergence} that is specific for digital shapes.}
 \end{itemize}
 \vspace{1em}
 
-}
 \end{minipage}
 %
 %
 \begin{minipage}[t][0.65\textheight][t]{1\textwidth}
-\only<3>{
+\only<2>{
 \textbf{Exact sampling x digitization}
 \center
 \begin{tabular}{ccc}
@@ -44,7 +42,7 @@ Where do we think we can do better?
 \includegraphics[scale=0.45]{figures/motivation/exact-sampling/sampling-1.png}&
 \includegraphics[scale=0.22]{figures/motivation/exact-sampling/digital-ball-perimeter.png}
 \end{tabular}}%
-\only<4>{
+\only<3>{
 \textbf{Digitization ambiguity}
 
 \begin{center}
@@ -54,18 +52,15 @@ Where do we think we can do better?
 \end{frame}
 
 \begin{frame}
-{Digital images and convergent estimators}
+{Digital sets and convergent estimators}
 {Multigrid convergent estimators}
 
 \begin{definition}[Multigrid convergence]
-	Let $\mathcal{X}$ be a family of shapes in $\mathbb{R}^n$ and $u$ a geometric quantity that is defined for every shape $X \in \mathcal{X}$. Further, let $D_h(X)$ denote the digitization of $X$ with grid step $h$.%
-%
-\vspace{1em}	
-%	
+	Let $\mathcal{X}$ be a family of shapes in $\mathbb{R}^n$ and $u$ a geometric quantity that is defined for every shape $X \in \mathcal{X}$. Further, let $D_h(X)$ denote the digitization of $X$ with grid step $h$.\\[1em]
 	 The estimator $\hat{u}$ is multigrid convergent for $\mathcal{X}$ if and only if, for any $X \in \mathcal{X}$ there exists $h_X > 0$ such that for every $0< h < h_X$
 	
 	\begin{align*}
-		| \hat{u}(D_h(X)) - u(X) | \leq \tau(h), \quad \text{with } \lim_{h\rightarrow 0}{\tau(h)} = 0
+		| \hat{u}(D_h(X)) - u(X) | \leq \tau(h), \quad \text{with } \lim_{h\rightarrow 0}{\tau(h)} = 0.
 	\end{align*}	
 \end{definition}
 %
@@ -73,7 +68,7 @@ Where do we think we can do better?
 %
 Multigrid convergent estimator of area
 \begin{align*}
-	\widehat{Area(X)} = h^2|D_h(X)|
+	\widehat{Area(X)} = h^2|D_h(X)|.
 \end{align*}
 %
 \end{frame}
@@ -85,24 +80,24 @@ Multigrid convergent estimator of area
 \footnotesize
 
 \center
-Disk of radius $5 (Area\approx78.54)$ 
+Disk of radius $5 (Area\approx78.54).$ 
 
 \center
 \begin{tabular}{ccc}
 \includegraphics[scale=0.4]{figures/motivation/digital-geometric-estimators/multigrid/h1.png} &
 \includegraphics[scale=0.4]{figures/motivation/digital-geometric-estimators/multigrid/h05.png} &
 \includegraphics[scale=0.4]{figures/motivation/digital-geometric-estimators/multigrid/h025.png} \\
-$h=1.0\; \widehat{A}=81$ & $h=\frac{1}{2}\; \hat{A}=79.25$ & $h=\frac{1}{4}\; \hat{A}=78.56$\\[1em]
+$h=1.0,\; \widehat{A}=81.$ & $h=\frac{1}{2},\; \hat{A}=79.25.$ & $h=\frac{1}{4},\; \hat{A}=78.56.$\\[1em]
 \includegraphics[scale=0.4]{figures/motivation/digital-geometric-estimators/multigrid/h00625.png} &
 \includegraphics[scale=0.4]{figures/motivation/digital-geometric-estimators/multigrid/h003125.png} &
 \includegraphics[scale=0.4]{figures/motivation/digital-geometric-estimators/multigrid/h003125.png} \\
-$h=\frac{1}{16}\; \hat{A}=78.44$ & $h=\frac{1}{32}\; \hat{A}=78.5$ & $h=\frac{1}{64}\; \hat{A}=78.53$
+$h=\frac{1}{16},\; \hat{A}=78.44.$ & $h=\frac{1}{32},\; \hat{A}=78.5.$ & $h=\frac{1}{64},\; \hat{A}=78.53.$
 \end{tabular}
 
 \end{frame}
 
 \begin{frame}
-	{Digital images and convergent estimators}	
+	{Digital sets and convergent estimators}	
 	{Multigrid convergent estimators}	
 %
 	\begin{itemize}
@@ -165,7 +160,7 @@ $h=\frac{1}{16}\; \hat{A}=78.44$ & $h=\frac{1}{32}\; \hat{A}=78.5$ & $h=\frac{1}
 \end{frame}
 
 \begin{frame}
-	{Digital images and convergent estimators}	
+	{Digital sets and convergent estimators}	
 	{Conclusion}	
 
 	\begin{itemize}

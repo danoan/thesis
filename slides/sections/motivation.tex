@@ -40,9 +40,9 @@ The problems we are interested in come from \emph{image analysis}.
 \end{tabular}}%
 \only<5->{
 \begin{tabular}{p{0.6\textwidth}p{0.2\textwidth}}
-\textbf{Segmentation:} $\mathcal{I}^{\star} = \argmin_{\mathcal{I}} E_{seg}(\mathcal{I},f_{\vec{I}})$ & \raisebox{-.5\height}{\includegraphics[scale=0.24]{figures/motivation/image-analysis/segmentation-stylised.png}}\\[2em]
-\textbf{Denoising:} $f_{\widehat{\vec{I}}} = \argmin_f E_{den}(f,f_{\vec{\widetilde{I}}})$ & \raisebox{-.5\height}{\includegraphics[scale=0.24]{figures/motivation/image-analysis/denoising-stylised.png}}\\[2em]
-\textbf{Inpainting:} $f_{\vec{\widehat{I}}} = \argmin_f E_{inp}(f,f_{\widetilde{\vec{I}}})$ & \raisebox{-.5\height}{\includegraphics[scale=0.24]{figures/motivation/image-analysis/inpainting-stylised.png}}
+\textbf{Segmentation:} $\mathcal{I}^{\star} = \argmin_{\mathcal{I}} E_{seg}(\mathcal{I},f_{\vec{I}}).$ & \raisebox{-.5\height}{\includegraphics[scale=0.24]{figures/motivation/image-analysis/segmentation-stylised.png}}\\[2em]
+\textbf{Denoising:} $f_{\widehat{\vec{I}}} = \argmin_f E_{den}(f,f_{\vec{\widetilde{I}}}).$ & \raisebox{-.5\height}{\includegraphics[scale=0.24]{figures/motivation/image-analysis/denoising-stylised.png}}\\[2em]
+\textbf{Inpainting:} $f_{\vec{\widehat{I}}} = \argmin_f E_{inp}(f,f_{\widetilde{\vec{I}}}).$ & \raisebox{-.5\height}{\includegraphics[scale=0.24]{figures/motivation/image-analysis/inpainting-stylised.png}}
 \end{tabular}}
 \end{minipage}
 %6
@@ -79,7 +79,7 @@ The \emph{Mumford Shah}~(\mycite{mumford89}) is a model for segmentation and den
 %
 %
 \onslide<5->{
-The \emph{ROF}~(\mycite{rudin92}) model uses \emph{total variation} for image denoising
+The \emph{ROF}~(\mycite{rudin92}) model uses \emph{total variation} for image denoising.
 %
 %
 \begin{align*}
