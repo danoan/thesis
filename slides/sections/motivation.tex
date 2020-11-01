@@ -51,7 +51,7 @@ The problems we are interested in come from \emph{image analysis}.
 \only<5->{We focused on \emph{variational approaches} to solve these problems.}
 
 \only<6->{
-Energies are defined according to assumptions made about the solution, e.g.,
+Energies are defined by terms that guides the optimization towards solution with special properties e.g.,
 \begin{itemize}
 	\item{ \emph{Data fidelity}. The solution should not differ much from the input. }
 	\item{ \emph{Spatial coherence}. Images are composed of regions with low variability in color. }
@@ -89,14 +89,14 @@ The \emph{ROF}~(\mycite{rudin92}) model uses \emph{total variation} for image de
 %
 \onslide<7->{
 \begin{itemize}
-	\item{A measure of length is present in both models.}
-	\item{\emph{Geometric priors} as length, area or curvature are useful due to its flexibility and effect predictability.}
+	\item{A measure of perimeter is present in both models.}
+	\item{\emph{Geometric priors} as perimeter, area or curvature are useful due to its flexibility and effect predictability.}
 \end{itemize}}
 %
 %
 \vspace{1em}
 \onslide<8->{
-In this thesis, we are interested in the combined use of \emph{length} and \emph{squared curvature} as geometric priors.}
+In this thesis, we are interested in the combined use of \emph{perimeter} and \emph{squared curvature} as geometric priors.}
 \end{frame}
 
 \begin{frame}
@@ -234,14 +234,14 @@ $\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } \frac{1}{2}Perimeter(\Omega) + 
 \vspace{-1em}
 \setlength\tabcolsep{3pt}
 \begin{center}
-\renewcommand{\arraystretch}{0.5}
-\begin{tabular}{p{0.35\textwidth}p{0.65\textwidth}}
-T-junctions matching & \multirow{2}{0.65\textwidth}{Fast algorithm, but limited to absolute value of curvature (polygonal solutions) and inpainting application.} \\
-\mycite{masnou98inpainting}\pause &\\[2.75em]
-Linear programming & \multirow{2}{0.65\textwidth}{Global optimization, but prohibitive running times even for small (thus unprecise) neighborhoods.} \\
-\mycite{schoenemann09linear} & \\[2.75em]
-Triple cliques & \multirow{2}{0.65\textwidth}{Global optimization, non-submodular energy. Limited precision due combinatorial explosion.} \\
-\mycite{nieuwenhuis14efficient}
+\renewcommand{\arraystretch}{0.25}
+\begin{tabular}{p{0.4\textwidth}p{0.6\textwidth}}
+T-junctions matching & \multirow{2}{0.6\textwidth}{\footnotesize Fast algorithm, but limited to absolute value of curvature (polygonal solutions) and inpainting application.} \\
+\mycite{masnou98inpainting} &\pause\\[3em]
+Linear programming & \multirow{2}{0.6\textwidth}{\footnotesize Global formulation, but prohibitive running times even for small (thus unprecise) neighborhoods. Not suitable for digital sets.} \\
+\mycite{schoenemann09linear} &\pause\\[3em]
+Triple cliques & \multirow{2}{0.6\textwidth}{\footnotesize Global formulation, quadratic non-submodular energy. Limited precision due combinatorial explosion.} \\
+\mycite{nieuwenhuis14efficient} &
 \end{tabular}
 \end{center}
 \end{frame}
