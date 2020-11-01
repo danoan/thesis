@@ -22,6 +22,9 @@ A combinatorial model for elastica
 \begin{frame}
 	{Combinatorial Elastica}	
 	{Digital elastica}
+
+Continuous elastica:\hspace{1em} $\displaystyle \int_{\partial S}{ \alpha + \beta \kappa ^2ds}.$
+
 %	
 		\begin{definition}[Digital elastica energy]
 		Let $\hat{\kappa}$ and $\hat{s}$ multigrid convergent estimators of curvature and local length. The digital elastica energy of a digital shape $D \subset \Omega \subset \mathbb{Z}^2$ of parameters $\vec{\theta} = (\alpha \geq 0, \beta \geq 0)$ is defined as
@@ -32,7 +35,8 @@ A combinatorial model for elastica
 	\end{definition}
 %	
 	\begin{itemize}
-		\item<2->{\emph{Local search}: set a local neighborhood $\mathcal{W}(D)$ of $D$ and pick the shape $X^{\star} \in \mathcal{W}(D)$ among those of minimum digital elastica value.}
+		\item<2->{The digital elastica energy converges (multigrid) to the continuous elastica.}\\[2em]
+		\item<3->{\emph{Local search}: set a local neighborhood $\mathcal{W}(D)$ of $D$ and pick the shape $X^{\star} \in \mathcal{W}(D)$ among those of minimum digital elastica value.}
 	\end{itemize}
 \end{frame}
 %
@@ -78,7 +82,7 @@ A combinatorial model for elastica
 	{Neighborhood of shapes}
 	
 \begin{itemize}
-\item{Neighbors are constructed by removing or adding a set of connected pixels.}
+\item{Members of $\mathcal{W}(D)$ are constructed by removing or adding a set of connected pixels to $D$.}
 \end{itemize}	
 	
 \begin{minipage}[t][0.5\textheight]{1\textwidth}
@@ -165,12 +169,13 @@ II-$5$, $\alpha=0.01, \beta=1.$
 \center
 \includegraphics[scale=0.3]{figures/combinatorial-elastica/flow/ii/elastica/len_pen_0.01000/jonctions_1/curve_segs_4/best/gs_0.25000/summary-ii5.png}
 \end{minipage}
-\begin{minipage}{0.49\textwidth}
+\begin{minipage}{0.5\textwidth}
+\small
 \begin{align*}
 	\min E(X) &= \int_{\partial X}{ \alpha + \beta \kappa^2 ds}\\
-	 &= 4\pi \beta \frac{1}{r} = 4\pi \beta \left(\frac{\alpha}{\beta}\right)^{1/2}
+	 &= 4\pi \beta \frac{1}{r} = 4\pi \beta \left(\frac{\alpha}{\beta}\right)^{1/2},
 \end{align*}
-, where $\frac{\partial }{\partial r} 2\pi(\alpha r + \frac{\beta}{r}) = 0.$\\ 
+where $\frac{\partial }{\partial r} 2\pi(\alpha r + \frac{\beta}{r}) = 0.$\\ 
 
 %
 For $\alpha=0.01,\; \beta=1,$
@@ -184,7 +189,7 @@ For $\alpha=0.01,\; \beta=1,$
 
 \onslide<2>{
 \begin{itemize}
-\item{What is the influence of the choice of the estimation disk radius?}
+\item{What is the influence of the radius of the estimation disk?}
 \end{itemize}
 }
 	
@@ -273,7 +278,7 @@ Bean  & 1574 & 7s (0.16s/it) & 6278 & 88s (1.08s/it) & 25130 & 1131s (6.4s/it)\\
 Ellipse  & 626 & 1s (0.14s/it) & 2506 & 16s (0.44s/it) & 10038 & 286s (3.1s/it)\\
 \hline
 \end{tabular}
-\caption{\textbf{Running time of LocalSearch.} The running times for the free elastica problem are displayed. Notice that even having a similar number of pixels, the square (bean) shape evolves much faster than the triangle (flower).}
+\caption{\textbf{Running time for the free elastica problem.} Quite high running times. The geometry of the shape influences in the total running time.}
 \end{center}
 \end{frame}
 

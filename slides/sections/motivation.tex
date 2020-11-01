@@ -51,7 +51,7 @@ The problems we are interested in come from \emph{image analysis}.
 \only<5->{We focused on \emph{variational approaches} to solve these problems.}
 
 \only<6->{
-Energies are defined by terms that guides the optimization towards solution with special properties e.g.,
+Energies are defined by terms that guides the optimization towards solution of interest, e.g.,
 \begin{itemize}
 	\item{ \emph{Data fidelity}. The solution should not differ much from the input. }
 	\item{ \emph{Spatial coherence}. Images are composed of regions with low variability in color. }
@@ -90,7 +90,7 @@ The \emph{ROF}~(\mycite{rudin92}) model uses \emph{total variation} for image de
 \onslide<7->{
 \begin{itemize}
 	\item{A measure of perimeter is present in both models.}
-	\item{\emph{Geometric priors} as perimeter, area or curvature are useful due to its flexibility and effect predictability.}
+	\item{\emph{Geometric priors} as perimeter, area or curvature are useful due to their flexibility and predictability.}
 \end{itemize}}
 %
 %
@@ -105,7 +105,7 @@ In this thesis, we are interested in the combined use of \emph{perimeter} and \e
 \begin{minipage}[t][0.5\textheight][t]{\textwidth}
 \only<1->{
 \center
-$\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } Perimeter(\Omega).$
+$\min_{ X \subset \Omega } Data(X) + Perimeter(\partial X).$
 }
 \only<1>{
 \includegraphics[scale=0.25]{figures/motivation/completion/perimeter-0.png}
@@ -123,7 +123,7 @@ $\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } Perimeter(\Omega).$
 \begin{minipage}[t][0.5\textheight][t]{\textwidth}
 \only<5->{
 \center
-$\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } Perimeter(\Omega) + Squared\;Curvature(\partial \Omega).$}
+$\min_{ X \subset \Omega } Data(X) + Perimeter(\partial X) + Curvature^2(\partial X).$}
 \only<5>{
 \includegraphics[scale=0.25]{figures/motivation/completion/elastica-0.png}
 }
@@ -145,30 +145,41 @@ $\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } Perimeter(\Omega) + Squared\;Cu
 \begin{minipage}[t][0.5\textheight][t]{\textwidth}
 \only<1->{
 \center
-$\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } Perimeter(\Omega) + Squared\;Curvature(\partial \Omega).$}
+$\min_{ X \subset \Omega } Data(X) + Perimeter(\partial X) + Curvature^2(\partial X).$}
 \only<1>{
 \includegraphics[scale=0.22]{figures/motivation/completion/elastica-g8a1-0.png}
-}
+}%
 \only<2>{
 \includegraphics[scale=0.22]{figures/motivation/completion/elastica-g8a1-1.png}
-}
+}%
 \only<3>{
 \includegraphics[scale=0.22]{figures/motivation/completion/elastica-g8a1-2.png}
-}
+}%
 \only<4>{
 \includegraphics[scale=0.22]{figures/motivation/completion/elastica-g8a1-3.png}
-}
+}%
 \only<5->{
 \includegraphics[scale=0.22]{figures/motivation/completion/elastica-g8a1-4.png}
-}
+}%
+%
+\begin{tikzpicture}
+    \node at (current page.north east)
+        {%
+        \begin{tikzpicture}[remember picture, overlay]
+		\draw [xshift=0.6cm,yshift=1.2cm,decorate,decoration={brace,amplitude=5pt,mirror,raise=4ex}]
+		  (1,0) -- (2.5,0) node[midway,yshift=-3em]{Larger gap};
+	  \end{tikzpicture}
+	  };%
+\end{tikzpicture}
+%
 \end{minipage}
 \begin{minipage}[t][0.5\textheight][t]{\textwidth}
 \only<6-9>{
 \center
-$\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } \frac{1}{2}Perimeter(\Omega) + Squared\;Curvature(\partial \Omega).$}
+$\min_{ X \subset \Omega } Data(X) + {\color{highlightcolor} \frac{1}{2}} Perimeter(\partial X) + Curvature^2(\partial X).$}
 \only<10->{
 \center
-\color{highlightcolor} $\min_{ \Omega \in \{\Omega_{c}, \Omega_{d} \} } \int_{\partial \Omega}{ \alpha + \beta \kappa ^2ds}. \quad - \quad \text{The elastica energy}$}
+\color{highlightcolor} $\min_{ X \in \Omega } \int_{\partial X}{ \alpha + \beta \kappa ^2ds}. \quad - \quad \text{The elastica energy}$}
 \only<6>{
 \includegraphics[scale=0.22]{figures/motivation/completion/elastica-g8a05-0.png}
 }
@@ -259,8 +270,8 @@ Models based on the minimization of the elastica energy
 Numerical instability & \negative{Yes} & \positive{No} & \positive{No} \\
 Suitable for digital sets & \negative{No} & \negative{No} & \positive{Yes} \\
 Rounding issues & \negative{Yes} & \positive{No} & \positive{No} \\
-Global formulation & \positive{Yes} & \positive{Yes} & \negative{No} \\
 Contour completion & \negative{Partial} & \negative{Partial} & \positive{Extended} \\
+Global formulation & \positive{Yes} & \positive{Yes} & \negative{No} \\
 Global optimum (Free elastica) & \negative{-} & \negative{-} & \positive{Yes}
 \end{tabular}
 

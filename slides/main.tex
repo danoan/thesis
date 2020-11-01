@@ -19,6 +19,7 @@
 \usepackage{amstext,amsmath,amssymb,bm,bbm,graphicx,mathtools,accents}
 \usepackage{beamerleanprogress}
 \usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
 \usepackage{transparent}
 
 \include{style/my-definitions}  
@@ -59,34 +60,13 @@
   \maketitle
   \captionsetup[subfigure]{labelformat=empty}
 
-\begin{frame}
-	{Presentation plan}
-
-\begin{enumerate}
-	{
-	\item{Motivation}
-	\begin{itemize}
-		\item{Image analysis and geometric priors}
-		\item{Elastica and completion property}		
-		\item{State-of-the-art}							
-	\end{itemize}}
-	\vspace{1em}
-	\item{Contribution}
-	\begin{itemize}
-		\item{Digital sets and convergent estimators}		
-		\item{A combinatorial model for elastica}
-		\item{A quadratic non-submodular formulation for elastica}	
-		\item{Elastica minimization via graph-cuts}	
-	\end{itemize}
-	\vspace{1em}
-	\item{Conclusion and perspectives}
-\end{enumerate}
-
-\end{frame}
+\include{sections/outline}
 
 \include{sections/motivation}
-\include{sections/digital-images-and-convergence}
 
+\include{sections/outline-2}
+
+\include{sections/digital-images-and-convergence}
 \include{sections/combinatorial-elastica}
 \include{sections/non-submodular-elastica}
 \include{sections/elastica-graphcuts}

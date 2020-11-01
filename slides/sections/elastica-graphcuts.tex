@@ -10,8 +10,8 @@ Elastica minimization via graph-cuts
 \begin{minipage}{0.7\textwidth}
 \normalsize
 \begin{itemize}
-\item{Balance coefficient.}
-\item{Set up a graph which its minimum cut approximates the zero level set of the balance coefficient.}
+\item{Balance coefficient to estabilize curvature estimation.}
+\item{Set up a graph whose minimum cut approximates the zero level set of the balance coefficient.}
 \item{GraphFlow algorithm. Up to $10$x faster than FlipFlow.}
 \end{itemize}
 \end{minipage}
@@ -33,7 +33,7 @@ Elastica minimization via graph-cuts
 u_r(D,p) &= \left( \frac{\pi r^2}{2} - |B_r(p) \cap D| \right)^2
 \end{align*}
 \item{White contour: contour of the shape}
-\item{Pink contour: zero level set of the balance coefficient}
+\item{Pink contour: $\epsilon$-level set of the balance coefficient}
 \end{itemize}
 \end{minipage}
 \end{frame}
@@ -86,7 +86,7 @@ u_r(D,p) &= \left( \frac{\pi r^2}{2} - |B_r(p) \cap D| \right)^2
 \hline
 \textbf{edge} $e$ & $\mathbf{c(e)}$\\
 \hline
-$\{v_p, v_q\}$ & $ \frac{1}{2}{ u_r(D,p) + u_r(D,q)} $\\
+$\{v_p, v_q\}$ & $ \frac{1}{2}\left( u_r(D,p) + u_r(D,q)\right) $\\
 \hline
 $(s,v_p)$ & $M$\\
 \hline
