@@ -58,9 +58,9 @@ u_r(D,p) &= \left( \frac{\pi r^2}{2} - |B_r(p) \cap D| \right)^2
 \begin{minipage}{0.3\textwidth}
 \only<1>{
 \includegraphics[scale=0.5]{figures/graphcut/graph-model-1.png}}%
-\only<2-4>{
+\only<2-3>{
 \includegraphics[scale=0.5]{figures/graphcut/graph-model-2.png}}%
-\only<5->{
+\only<4->{
 \includegraphics[scale=0.5]{figures/graphcut/graph-model-3.png}}%
 \end{minipage}
 %
@@ -70,17 +70,17 @@ u_r(D,p) &= \left( \frac{\pi r^2}{2} - |B_r(p) \cap D| \right)^2
 \begin{itemize}
 \onslide<2->{\item{Optimization band
 \begin{align*}
-\only<2>{O_n(D) :=& \{ p \in D \; | \; -n \leq d_D(p) \leq n \} \\}
-\only<3->{O(D) :=& \{ p \in D \; | \; -n \leq d_D(p) \leq n \} \\}
-\onslide<4->{F(D) :=& D \setminus O(D)}
+%\only<2>{O_n(D) :=& \{ p \in D \; | \; -n \leq d_D(p) \leq n \} \\}
+\only<2->{O(D) :=& \{ p \in D \; | \; -n \leq d_D(p) \leq n \} \\}
+\onslide<3->{F(D) :=& D \setminus O(D)}
 \end{align*}}}
-\onslide<5->{\item{Graph $\mathcal{G}_D(\mathcal{V},\mathcal{E},c)$
+\onslide<4->{\item{Graph $\mathcal{G}_D(\mathcal{V},\mathcal{E},c)$
 \begin{align*}
 \mathcal{V} &= \{ v_p \; | \; p \in O(D) \} \cup \{s,t\} \\
-\highlight{7}{5,6,8-}{\mathcal{E}} &= \highlight{7}{5,6,8-}{\{ \{v_p,v_q\} \; | \; p,q \in O(D) \text{ and } q \in \mathcal{N}_4(p) \}} \cup \highlight{6}{5,7-}{\mathcal{E}_{st}} \\
-\highlight{6}{5,7-}{\mathcal{E}_{st}} &= \highlight{6}{5,7-}{\{ (s,v_p), (v_p,t) \; | \; p \in O(D) \}}
+\highlight{6}{4,5,7-}{\mathcal{E}} &= \highlight{6}{4,5,7-}{\{ \{v_p,v_q\} \; | \; p,q \in O(D) \text{ and } q \in \mathcal{N}_4(p) \}} \cup \highlight{5}{4,6-}{\mathcal{E}_{st}} \\
+\highlight{5}{4,6-}{\mathcal{E}_{st}} &= \highlight{5}{4,6-}{\{ (s,v_p), (v_p,t) \; | \; p \in O(D) \}}
 \end{align*}}}
-\onslide<8->{\item{Edge's weight
+\onslide<7->{\item{Edge's weight
 \begin{center}
 \begin{tabular}{|c|c|}
 \hline
@@ -95,7 +95,7 @@ $(v_p, t)$ & $M$\\
 \end{tabular}
 \end{center}
 }}
-\onslide<9->{\item{Digital shape update
+\onslide<8->{\item{Digital shape update
 \begin{align*}
 D^{(k+1)} &= F(D^{(k)}) + S^{(k)}
 \end{align*}}}

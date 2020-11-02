@@ -51,7 +51,7 @@ The problems we are interested in come from \emph{image analysis}.
 \only<5->{We focused on \emph{variational approaches} to solve these problems.}
 
 \only<6->{
-Energies are defined by terms that guides the optimization towards solution of interest, e.g.,
+Energies are defined by terms that guide the optimization towards the solution of interest, e.g.,
 \begin{itemize}
 	\item{ \emph{Data fidelity}. The solution should not differ much from the input. }
 	\item{ \emph{Spatial coherence}. Images are composed of regions with low variability in color. }
@@ -74,20 +74,20 @@ The \emph{Mumford Shah}~(\mycite{mumford89}) is a model for segmentation and den
 %
 %
 \begin{align*}
-	\min_{f,\highlight{4}{1-3,5-}{\mathcal{K}}} \alpha \int_{\Omega} \highlight{2}{1,3-}{\norm{ f_{\vec{I}} - f}^2}dx + \beta \int_{\Omega \setminus \highlight{4}{1-3,5-}{\mathcal{K}}} \highlight{3}{1,2,4-}{\norm{ \nabla f}^2} dx + \lambda Per(\highlight{4}{1-3,5-}{\mathcal{K}}).
+	\min_{f,\mathcal{K}} \alpha \int_{\Omega} \highlight{2}{1,3-}{\norm{ f_{\vec{I}} - f}^2}dx + \beta \int_{\Omega \setminus \mathcal{K}} \highlight{3}{1,2,4-}{\norm{ \nabla f}^2} dx + \lambda Per(\mathcal{K}).
 \end{align*}
 %
 %
-\onslide<5->{
+\onslide<4->{
 The \emph{ROF}~(\mycite{rudin92}) model uses \emph{total variation} for image denoising.
 %
 %
 \begin{align*}
-	\min_{f} \alpha \int_{\Omega} \norm{ f_{\vec{I}} - f}^2dx + \beta \int_{\Omega} \highlight{6}{1-5,7-}{\norm{ \nabla f }}dx.
+	\min_{f} \alpha \int_{\Omega} \norm{ f_{\vec{I}} - f}^2dx + \beta \int_{\Omega} \highlight{5}{1-4,6-}{\norm{ \nabla f }}dx.
 \end{align*}}
 %
 %
-\onslide<7->{
+\onslide<6->{
 \begin{itemize}
 	\item{A measure of perimeter is present in both models.}
 	\item{\emph{Geometric priors} as perimeter, area or curvature are useful due to their flexibility and predictability.}
@@ -95,7 +95,7 @@ The \emph{ROF}~(\mycite{rudin92}) model uses \emph{total variation} for image de
 %
 %
 \vspace{1em}
-\onslide<8->{
+\onslide<7->{
 In this thesis, we are interested in the combined use of \emph{perimeter} and \emph{squared curvature} as geometric priors.}
 \end{frame}
 
@@ -271,7 +271,7 @@ Numerical instability & \negative{Yes} & \positive{No} & \positive{No} \\
 Suitable for digital sets & \negative{No} & \negative{No} & \positive{Yes} \\
 Rounding issues & \negative{Yes} & \positive{No} & \positive{No} \\
 Contour completion & \negative{Partial} & \negative{Partial} & \positive{Extended} \\
-Global formulation & \positive{Yes} & \positive{Yes} & \negative{No} \\
+%Global formulation & \positive{Yes} & \positive{Yes} & \negative{No} \\
 Global optimum (Free elastica) & \negative{-} & \negative{-} & \positive{Yes}
 \end{tabular}
 
