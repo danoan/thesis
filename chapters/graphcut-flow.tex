@@ -5,7 +5,7 @@ In the previous chapter we have defined the concept of balance coefficient that 
 
 \section{GraphFlow model}
 
-\daniel{The model presented in this chapter is highly influenced by the graph cut model described in~\cref{ch2:sec:graph-cut-models}~\cite{boykov01graphcut}. We recall that this model constructs a cost function on the edges of the image grid graph such that the minimum cut of the graph minimizes the segmentation energy. The model is very attractive as minimum cuts are quickly computed for sparse graphs. }
+\daniel{The model presented in this chapter is highly influenced by the graph cut model described in~\cref{ch2:sec:graph-cut-models}~\cite{boykov01graphcut}. We recall that this model constructs a cost function on the edges of the image grid graph such that the minimum cut of the graph minimizes the segmentation energy. The model is very attractive because minimum cuts are quickly computed for sparse graphs. }
 
 \daniel{Let $\vec{I} \in \mathbb{F}^{m \times n}$ a discrete image and its capacitated grid graph $\GGe (\mathcal{V}^+,\mathcal{E}^+,c)$ as defined in~\cref{ch2:sec:graph-cut-models}. Given a cut $\mathcal{E}'$ of $\GGe$ that partitions the graph in disjoint sets $S$ and $T$, we recall that the energy minimized by the graph cut model is written as
 \begin{align*}
@@ -26,12 +26,12 @@ where $\gamma_r \geq 0$ and $\gamma_b \geq 0$ are parameters controlling the inf
 \begin{itemize}
 	\item[]{\textbf{Candidate selection:} We associate to $D^{(k)}$ a set of neighbor shapes $\mathcal{P}(D^{(k)})$. For each $D' \in \mathcal{P}(D^{(k)})$ we construct its \emph{candidate graph} $\mathcal{G}_{D'}$ and we compute its minimum cut $Q$ according to energy
 \begin{align}
-E^{gflow}_{ \vec{\gamma} }(\mathcal{G}_{D'},Q,D^{(k)}) =& \sum_{ (v_p,v_q) \in Q}{\big(u(D^{(k)},p) + u(D^{(k)},q) \big)} + E^{gcut}_{ \vec{\gamma} }(\mathcal{G}_{D'}, Q).
+E^{gflow}_{ \vec{\gamma} }(\mathcal{G}_{D'},Q,D') =& \sum_{ (v_p,v_q) \in Q}{\big(u(D',p) + u(D',q) \big)} + E^{gcut}_{ \vec{\gamma} }(\mathcal{G}_{D'}, Q).
 \label{ch8:eq:graphflow-candidate}
 \end{align}}
 \item[]{\textbf{Validation:} Each minimum cut $Q$ computed in the previous step induces a solution candidate $D_{Q}$. We group minimum cuts and solution candidates in the \emph{solution candidates set} $sol(D^{(k)})$. We choose among the solution candidates the one that minimizes 
 \begin{align}
-	E^{val}_{ (\vec{\theta},\vec{\gamma}) }(\GG,Q,D_Q) &= \hat{E}_{\vec{\theta} }({D_Q}) + E^{gcut}_{ \vec{\gamma} }(\mathcal{G}_{\vec{I}},Q).
+	E^{val}_{ (\vec{\theta},\vec{\gamma}) }(\GG,Q,D_Q) &= \hat{E}_{\vec{\theta} }({D_Q}) + E^{gcut}_{ \vec{\gamma} }(\GGe,Q).
 	\label{ch8:eq:graphflow-energy}
 \end{align}
 }	
@@ -50,7 +50,7 @@ The set of candidate graphs of $D$ are derived from some neighborhood of shapes 
 	\begin{align*}
 		\mathcal{P}_a(\Ds) &= \Ds \cup \bigcup_{a' < a}{\Ds^{+a'} \cup \Ds^{-a'}},
 	\end{align*}
-	where $\Ds^{+a}$($\Ds^{-a}$) denotes a dilation(erosion) by a circle of radius $a$.
+	where $\Ds^{+a}$($\Ds^{-a}$) denotes a dilation(erosion) by a disk of radius $a$.
 \end{definition}
 %
 %
@@ -109,7 +109,7 @@ M &= 1 + \max_{p \in O_n(D')}{ \beta \cdot \big(u(D',p) + u(D',q)\big) + \gamma_
 %
 Let $mincut(Q,\mathcal{G})$ a predicate indicating that $Q$ is a minimum cut set of some capacited graph $\mathcal{G}(\mathcal{V},\mathcal{E},c)$. We define the solution candidates set of digital set $D$ as
 \begin{align*}
-	sol(D) &= \bigcup_{D' \in \mathcal{P}_a(D)} \Big\{ \big( Q,D(Q) \big) \; | \; mincut(Q,\mathcal{G}_{D'}) \Big\}.
+	sol(D) &= \bigcup_{D' \in \mathcal{P}_a(D)} \Big\{ \big( Q,D_Q \big) \; | \; mincut(Q,\mathcal{G}_{D'}) \Big\}.
 \end{align*}}
 %
 %
@@ -134,14 +134,14 @@ The GraphFlow algorithm implements a local-search strategy to minimize~\cref{ch8
 	 $(\gamma_r,\gamma_b) \longleftarrow (0,0)$\; 	 
  }
  \BlankLine
- $k \longleftarrow 1$\;
+ $k \longleftarrow 0$\;
  \While{ \It $<$ \MIt  }{ 	
 	\comment{Candidate selection} 
-	$sol(D^{(k)}) \longleftarrow \bigcup_{D' \in \mathcal{P}_a(D^{(k)})} \Big\{ \big( Q,D(Q) \big) \; | \; mincut(Q,\mathcal{G}_{D'}) \Big\}$ \;
+	$sol(D^{(k)}) \longleftarrow \bigcup_{D' \in \mathcal{P}_a(D^{(k)})} \Big\{ \big( Q,D_Q \big) \; | \; mincut(Q,\mathcal{G}_{D'}) \Big\}$ \;
 
 	\BlankLine
 	\comment{Candidate validation}
-	$( Q^{(k)}, \Ds^{(k)} ) \longleftarrow \displaystyle \argmin_{ (Q,S) \in sol(D^{(k)}) }{ \hat{E}_{\vec{\theta}}(S) + E^{gcut}_{\vec{\gamma} }{( \mathcal{G}_{\vec{I}},Q) }}$\; 	
+	$( Q^{(k+1)}, \Ds^{(k+1)} ) \longleftarrow \displaystyle \argmin_{ (Q,S) \in sol(D^{(k)}) }{ \hat{E}_{\vec{\theta}}(S) + E^{gcut}_{\vec{\gamma} }{( \mathcal{G}_{\vec{I}},Q) }}$\; 	
 	\It $\longleftarrow$ \It $+1$\;
 	
  }
@@ -152,7 +152,7 @@ The GraphFlow algorithm implements a local-search strategy to minimize~\cref{ch8
 \daniel{We remark that the GraphFlow algorithm has two fundamental steps. In the candidate selection, we build the solution candidates set from the minimum cuts of the candidate graphs. Next, in the validation step, we choose the digital set with minimum value for~\cref{ch8:eq:graphflow-energy}. If we interpret the balance coefficient minimization as the best move one can make towards digital elastica minimization, the solution candidates set can be seen as the neighboring shapes with highest potential to minimize the elastica energy for the given $a$-probe set.}
 
 
-The GraphFlow algorithm produces a flow that is much more in accordance with our expectations for a flow guided by the elastica energy than the previous models. We recall that both FlipFlow and BalanceFlow have a shrinking bias that let them behave in a similar fashion to the curvature flow. On the other hand, the GraphFlow grows and shrinks in accordance with the $\alpha$ coefficient in the digital elastica (see~\cref{ch8:fig:graph-flow-neigh2-results}). If we use a $0$-probe set, we recover the convergence to a single point behavior, confirming the linking between the previous models. 
+The GraphFlow algorithm produces a flow that is much more in accordance with our expectations for a flow guided by the elastica energy than the previous models. We recall that both FlipFlow and BalanceFlow have a shrinking bias that let them behave in a similar fashion to the curve-shortening flow. On the other hand, the GraphFlow grows and shrinks in accordance with the $\alpha$ coefficient in the digital elastica (see~\cref{ch8:fig:graph-flow-neigh2-results}). If we use a $0$-probe set, we recover the convergence to a single point behavior, confirming the linking between the previous models. 
 
 In fact, the solution for the free elastica problem is very similar to those given by the enumerative process of~\cref{chapter:digital-elastica}, i.e., the shapes converge to the expected global optimum, but with the advantage of producing smoother flows and much faster than the LocalSearch algorithm (up to $100 \times$ faster). However, for the constrained elastica problem, the GraphFlow encounters some difficulties to evolve (see~\cref{ch8:fig:graph-flow-neigh2-results}), in particular for the fixed endpoints' orientation instances. We believe that a larger neighborhood, possibly random, could solve this issue. The results are explored in more details in~\cref{chapter:results-analysis}.
 

@@ -3,7 +3,7 @@
 \label{chapter:balance-flow}
 
 
-In this chapter we introduce the balance coefficient, a value that indicates how far the intersection of some ball and a digital shape is from half of the ball area. This value motivates the definition of a new family of energies to regularize the squared curvature: the $m$-BalanceFlow. We are going to show that the BalanceFlow is closely related to the FlipFlow energy, but the former has an easier interpretation and leads to a simpler algorithm to implement.
+In this chapter we introduce the balance coefficient, a value that indicates how far the intersection of some disk and a digital shape is from half of the disk area. This value motivates the definition of a new family of energies to regularize the squared curvature: the \emph{$m$-BalanceFlow}. We are going to show that the BalanceFlow is closely related to the FlipFlow energy, but the former has an easier interpretation and leads to a simpler algorithm.
 
 
 \section{BalanceFlow model}
@@ -11,7 +11,7 @@ In~\cref{ch6:subsec:flipflow-algorithm-discussion}, we have argued that invertin
 
 \subsection{Definitions}
 
-In the FlipFlow model no contour information is given, and the strategy there were to label the pixels such that the next shape has a boundary in which the estimation balls were more balanced than in the previous shape, i.e., the difference $|B_r(p) \cap \Ds| - |B_r(p) \cap \overline{\Ds}|$ is closer to zero for every pixel $p \in \partial \Ds$.  We formalize this idea by defining the balance coefficient.
+In the FlipFlow model, no contour information is given and the strategy was to label the pixels such that the next shape has a boundary in which the estimation disks were more balanced than in the previous shape, i.e., the difference $|B_r(p) \cap \Ds| - |B_r(p) \cap \overline{\Ds}|$ is closer to zero for every pixel $p \in \partial \Ds$.  We formalize this idea by defining the balance coefficient.
 
 \begin{definition}{Balance coefficent}
 Given digital shape $\Ds \in \Omega$, positive number $r$ and point $p \in \Omega$, the \emph{balance coefficient} of $\Ds$ at $p$ is defined as
@@ -21,12 +21,12 @@ Given digital shape $\Ds \in \Omega$, positive number $r$ and point $p \in \Omeg
 %
 \end{definition}
 
-The balance coefficient definition is very similar to the II squared curvature estimator. Nonetheless, we have decided to make a new definition since we do not have the scaling factor $\frac{9}{R^6}$ and that the balance coefficient can be computed everywhere and not only in the digital boundary of the shape. Let $F=B_r(p) \cap \Ds$ and $G=B_r(p) \setminus F$. The balance coefficient is symmetric with respect to $F$ and $G$. 
+The balance coefficient definition is very similar to the II squared curvature estimator. Nonetheless, we have decided to make a new definition since we do not have the scaling factor $\frac{9}{r^6}$ and that the balance coefficient is defined everywhere and not only in the digital boundary of the shape. Let $F=B_r(p) \cap \Ds$ and $G=B_r(p) \setminus F$. The balance coefficient is symmetric with respect to $F$ and $G$. 
 \begin{align*}
 	u_r(\Ds,p) &= \left( \frac{\pi r^2}{2} - |F| \right)^2 = \left( -\frac{\pi r^2}{2} + |G| \right)^2 = \left( \frac{\pi r^2}{2} - |G| \right)^2.
 \end{align*}
 %
-The balance coefficient is used to estimate the effect of moving the estimation ball center towards the interior or the exterior of the shape. For example, consider~\cref{ch7:fig:balance-plot} in which we plot the balance coefficients of points along the diagonal of a square shape. 
+The balance coefficient is used to estimate the effect of moving the estimation disk center towards the interior or the exterior of the shape. For example, consider~\cref{ch7:fig:balance-plot} in which we plot the balance coefficients of points along the diagonal of a square shape. 
 
 \begin{figure}
 \center
@@ -41,12 +41,12 @@ The balance coefficient is used to estimate the effect of moving the estimation 
 \begin{minipage}{0.75\textwidth}
 \includegraphics[scale=0.75]{figures/chapter7/balance-coefficient-p2-with-sum-2.png}
 \end{minipage}
-\caption{\daniel{\textbf{The balance coefficient $(r=5)$ of equidistant points from the corner of a square shape contour.}} The balance coefficient for the outer (inner) disk is colored in blue (orange). The red curve indicates the difference between the blue and the orange curve. The inflexion point in the red curve indicates the point $p$ in which a ball centered at $p$ has balance coefficient equal to zero. The green point marks the point $p$ in which the difference between the balance coefficients is the greatest. }
+\caption{\daniel{\textbf{The balance coefficient $(r=5)$ of equidistant points from the corner of a square shape contour.}} The balance coefficient for the outer (inner) disk is colored in blue (orange). The red curve indicates the difference between the blue and the orange curve. The green point marks the point $p$ in which the difference between the balance coefficients is the greatest. }
 \label{ch7:fig:balance-plot}
 \end{figure}
 
 
-The balance coefficient grows if the estimation ball is moved towards the exterior and decreases if the estimation ball is moved towards the interior of the shape. That is an indication that we should remove point $p$ from $\Ds$ to decrease the squared curvature of the shape at point $p \in \partial \Ds$. The same point $p$ may be touched by several balls, each of them contributing with some value for the ultimate decision of keeping or removing point $p$ of $\Ds$. 
+The balance coefficient grows if the estimation disk is moved towards the exterior and decreases if the estimation disk is moved towards the interior of the shape. That is an indication that we should remove point $p$ from $\Ds$ to decrease the squared curvature of the shape at point $p \in \partial \Ds$. The same point $p$ may be touched by several disks, each of them contributing with some value for the ultimate decision of keeping or removing point $p$ of $\Ds$. 
 %The $m$-balance is defined as the sum of these contributions
 
 
@@ -98,21 +98,21 @@ We recall that an assignment of variables $X(\Omega)$ is denoted $x(\Omega)$. In
 %
 \subsection{Algorithm}
 
-Let $p_i, p_o \in \mathcal{R}_m(\Ds)$ the inner and outer ball centers in the $m$-ring of $\Ds$, respectively. We assume $k=0$ if omitted, i.e., $\Ds=\Ds^{(0)}$. We define the term $T_{m}^{bal}(\Ds)$ as
+Let $p_i, p_o \in R_m(\Ds)$ the inner and outer disk centers in the $m$-ring of $\Ds$, respectively. We assume $k=0$ if omitted, i.e., $\Ds=\Ds^{(0)}$. We define the term $T_{m}^{bal}(\Ds)$ as
 \begin{align}
 	\footnotesize
-	T_{m}^{bal}(\Ds,X) =& \sum_{p_i,p_o \in \mathcal{R}_m(\Ds)}{u_r(F,1-X,p_o) - u_r(F,X,p_i)} \nonumber \\
-	=&  \sum_{p_i,p_o \in \mathcal{R}_m(\Ds)}{\Bigg( \frac{\pi R^2}{2} - \Big(\; |F_o| + \sum_{ x_j \in X_o}{1-x_j} \; \Big) \Bigg)^2} - \nonumber \\
-	& \sum_{p_i,p_o \in \mathcal{R}_m(\Ds)}{
-	\Bigg(\frac{\pi R^2}{2} - \Big(\; |F_i| + \sum_{x_j \in X_i}{x_j}\;\Big)\Bigg)^2},
+	T_{m}^{bal}(\Ds,X) =& \sum_{p_i,p_o \in R_m(\Ds)}{u_r(F,1-X,p_o) - u_r(F,X,p_i)} \nonumber \\
+	=&  \sum_{p_i,p_o \in R_m(\Ds)}{\Bigg( \frac{\pi r^2}{2} - \Big(\; |F_o| + \sum_{ x_j \in X_o}{1-x_j} \; \Big) \Bigg)^2} - \nonumber \\
+	& \sum_{p_i,p_o \in R_m(\Ds)}{
+	\Bigg(\frac{\pi r^2}{2} - \Big(\; |F_i| + \sum_{x_j \in X_i}{x_j}\;\Big)\Bigg)^2},
 	\label{eq:balance-term}
 \end{align}
 %
 where $X_o=X_r(p_o), X_i=X_r(p_i), F_o=F_r(p_o), F_i=F_r(p_i)$.
 
-\daniel{~\cref{eq:balance-term} is conceived to implement the reasoning described in~\cref{ch6:subsec:flipflow-algorithm-discussion}. In convex regions, the outer ball has a higher balance coefficient than the inner ball, and minimization of~\cref{eq:balance-term} tends to set $x_j=0$, i.e., the shape shrinks.  On the other hand, if we have a concave region, the inner ball has a higher balance coefficient, and minimization of~\cref{eq:balance-term} tends to set $x_j=1$ (the shape dilates).}
+\daniel{~\cref{eq:balance-term} is conceived to implement the reasoning described in~\cref{ch6:subsec:flipflow-algorithm-discussion}. In convex regions, the outer disk has a higher balance coefficient than the inner disk, and minimization of~\cref{eq:balance-term} tends to set $x_j=0$, i.e., the shape shrinks.  On the other hand, if we have a concave region, the inner disk has a higher balance coefficient, and minimization of~\cref{eq:balance-term} tends to set $x_j=1$ (the shape dilates).}
 
-%\cref{eq:balance-term} favors configurations of zero difference between the outer and inner ball coeficients, i.e., regions of zero curvature. In regions of positive curvature, \daniel{the outer ball has fewer intersecting pixels than the inner ball, and minimization of~\cref{eq:balance-term} tends to label variables in these regions to zero.}
+%\cref{eq:balance-term} favors configurations of zero difference between the outer and inner disk coeficients, i.e., regions of zero curvature. In regions of positive curvature, \daniel{the outer disk has fewer intersecting pixels than the inner disk, and minimization of~\cref{eq:balance-term} tends to label variables in these regions to zero.}
 
 The $m$-balance energy family is defined as
 \begin{align}
@@ -166,14 +166,14 @@ We follow the same notation as in~\cref{chapter:flip-flow} to denote the data te
 \section{Relation with FlipFlow}
 	The BalanceFlow returns similar solutions to the FlipFlow algorithm, as the experiments in~\cref{chapter:results-analysis} illustrates. Indeed, they are closely related. We recall the curvature regularization term of the FlipFlow~\cref{eq:energy-family} for some digital shape $\Ds$ before proving \daniel{the proposition that establishes this link.}
 \begin{align}
-T_{m}^{flip}(D,X) &= \sum_{ p_i,p_o \in R_m(\Ds)}{ \Big( \frac{\pi R^2}{2} - |F_o| - \sum_{x_j \in X_o}{x_j}\Big)^2 + \Big(\frac{\pi R^2}{2} - |F_i| - \sum_{x_j \in X_i}{x_j}\Big)^2 }
+T_{m}^{flip}(D,X) &= \sum_{ p_i,p_o \in R_m(\Ds)}{ \Big( \frac{\pi r^2}{2} - |F_o| - \sum_{x_j \in X_o}{x_j}\Big)^2 + \Big(\frac{\pi r^2}{2} - |F_i| - \sum_{x_j \in X_i}{x_j}\Big)^2 }
 \label{eq:curvature-term}
 \end{align}
 %
 \begin{proposition}{FlipFlow and BalanceFlow relation}
 The curvature terms of FlipFlow and BalanceFlow are related by the equality
 \begin{align*}
-T_{m}^{flip}(\Ds,1-X) &= T_{m}^{bal}(\Ds) + P_1(X_i) + c,
+T_{m}^{flip}(\Ds,1-X) &= T_{m}^{bal}(\Ds,X) + P_1(X_i) + c,
 \end{align*}
 where $P_1(X_i) = (\sum_{X_i}{ 1-x_j})^2 + (\sum_{X_i}{x_j})^2$ and $c$ is a constant.
 \label{prop:flipflow-balanceflow-relation}
@@ -183,11 +183,11 @@ where $P_1(X_i) = (\sum_{X_i}{ 1-x_j})^2 + (\sum_{X_i}{x_j})^2$ and $c$ is a con
 
 We replace $x_j$ by $(1-x_j)$ in~\cref{eq:curvature-term}, which corresponds to the complement of the solution in the FlipFlow model. To simplify notation, we are going to omit the radius $r$ and replace points $p_i,p_o$ by underscored $i,o$, i.e., $F_i := F_r(p_i)$. We rewrite~\cref{eq:curvature-term} as
 \begin{align}
-T_{m}^{flip}(\Ds,1-X) &= \sum_{ p_i,p_o \in R_m(\Ds)}{ \Big( \frac{\pi R^2}{2} - |F_o| - \sum_{x_j \in X_o}{1-x_j}\Big)^2 + \Big(\frac{\pi R^2}{2} - |F_i| - \sum_{x_j \in X_i}{1-x_j}\Big)^2 }
+T_{m}^{flip}(\Ds,1-X) &= \sum_{ p_i,p_o \in R_m(\Ds)}{ \Big( \frac{\pi r^2}{2} - |F_o| - \sum_{x_j \in X_o}{1-x_j}\Big)^2 + \Big(\frac{\pi r^2}{2} - |F_i| - \sum_{x_j \in X_i}{1-x_j}\Big)^2 }
 \label{eq:curvature-term-simplification}
 \end{align}
 %
-Next, let $A_i = \pi R^2/2 - |F_i|$. We rewrite  the second term of~\cref{eq:curvature-term-simplification} as
+Next, let $A_i = \pi r^2/2 - |F_i|$. We rewrite  the second term of~\cref{eq:curvature-term-simplification} as
 \begin{align*}
 	\Big(A_i - \sum_{x_j \in X_i}{ (1-x_j) } \Big)^2 &= \Big( A_i - |X_i| + \sum_{x_j \in X_i}{ x_j } \Big)^2 \\
 	&= (A_i - |X_i|)^2 + 2(A_i - |X_i|)\sum_{x_j \in X_i}{x_j} + \Big( \sum_{x_j \in X_i}{x_j} \Big)^2\\	
@@ -201,33 +201,33 @@ Next, let $A_i = \pi R^2/2 - |F_i|$. We rewrite  the second term of~\cref{eq:cur
 \begin{align}
 		\Big(A_i - \sum_{x_j \in X_i}{ (1-x_j) }\Big)^2 &= - \Big(A_i - \sum_{}{x_j}\Big)^2 + \Big(|X_i| - \sum_{x_j \in X_i}{x_j}\Big)^2 + \Big(\sum_{x_j \in X_i}{x_j}\Big)^2 + c \nonumber \\
 	&= - \Big(A_i - \sum_{x_j \in X_i}{x_j}\Big)^2 + P_1(X_i) + c \nonumber \\
-	&= - \Big(\frac{\pi R^2}{2} - (|F_i| + \sum_{x_j \in X_i}{x_j}) \Big)^2 + P_1(X_i) + c \nonumber 	
+	&= - \Big(\frac{\pi r^2}{2} - (|F_i| + \sum_{x_j \in X_i}{x_j}) \Big)^2 + P_1(X_i) + c 	
 	\label{eq:second-term}
 \end{align}
 %
-Finnaly, we  replace~\cref{eq:second-term} in~\cref{eq:curvature-term-simplification} to obtain
+Finally, we  replace~\cref{eq:second-term} in~\cref{eq:curvature-term-simplification} to obtain
 \begin{align}
-T_{m}^{flip}(\Ds,1-X) &= \Bigg( \frac{\pi R^2}{2} - \Big(\; |F_o| + \sum_{ x_j \in X_o}{1-x_j} \; \Big) \Bigg)^2 \nonumber \\
-& - \Bigg(\frac{\pi R^2}{2} - \Big(\; |F_i| + \sum_{x_j \in X_i}{x_j}\;\Big) \Bigg)^2  + P_1(X_i) + c \nonumber \\
+T_{m}^{flip}(\Ds,1-X) &= \Bigg( \frac{\pi r^2}{2} - \Big(\; |F_o| + \sum_{ x_j \in X_o}{1-x_j} \; \Big) \Bigg)^2 \nonumber \\
+& - \Bigg(\frac{\pi r^2}{2} - \Big(\; |F_i| + \sum_{x_j \in X_i}{x_j}\;\Big) \Bigg)^2  + P_1(X_i) + c \nonumber \\
 &= T_{m}^{bal}(\Ds) + P_1(X_i) + c.
 \end{align}
 %
 \end{proof}
 
-~\cref{prop:flipflow-balanceflow-relation} tell us that, apart  from a constant, the two energies differ in the penalty term $P_1(X_i)$. Locally, such term favors solutions in which half of the variables touched by the inner ball are labeled one. Indeed, the FlipFlow and BalanceFlow behave similarly. In the next chapter we make extensive comparisons between them.
+~\cref{prop:flipflow-balanceflow-relation} tell us that, apart  from a constant, the two energies differ in the penalty term $P_1(X_i)$. Locally, such term favors solutions in which half of the variables touched by the inner disk are labeled one. Indeed, the FlipFlow and BalanceFlow behave similarly. In~\cref{chapter:results-analysis} we make extensive comparisons between them.
 
 %\begin{figure}
 %\begin{tabular}{cccc}
 %$7$-BalanceFlow & \includegraphics[scale=0.25]{figures/chapter7/balance-flow/triangle/summary.pdf} & \includegraphics[scale=0.25]{figures/chapter7/balance-flow/flower/summary.pdf} & \includegraphics[scale=0.25]{figures/chapter7/balance-flow/bean/summary.pdf} \\
 %$7$-FlipFlow & \includegraphics[scale=0.25]{figures/chapter7/flip-flow/triangle/summary.pdf} & \includegraphics[scale=0.25]{figures/chapter7/flip-flow/flower/summary.pdf} & \includegraphics[scale=0.25]{figures/chapter7/flip-flow/bean/summary.pdf} \\
 %\end{tabular}
-%\caption{Evolutions of three shapes for the $7$-BalanceFlow and $7$-FlipFlow using a estimation ball radius of $9$. The models present similiar behaviour. Shapes are displayed at every $10$ iterations.}
+%\caption{Evolutions of three shapes for the $7$-BalanceFlow and $7$-FlipFlow using a estimation disk radius of $9$. The models present similiar behaviour. Shapes are displayed at every $10$ iterations.}
 %\label{fig:balance-flow-flip-flow-comparison}
 %\end{figure}
 
 %\section{Towards a graph-based formulation}
 
-%Let $A_o = \pi R^2 / 2 - |F_o|$ and $A_i = \pi R^2/2 - |F_i|$. We rewrite~\cref{eq:balance-term} as
+%Let $A_o = \pi r^2 / 2 - |F_o|$ and $A_i = \pi r^2/2 - |F_i|$. We rewrite~\cref{eq:balance-term} as
 %
 %\begin{align*}
 %	T_{m}^{bal}(\Ds) &= \Big(A_o - |X_o| + \sum_{x_j \in X_o}{x_j} \Big)^2 - \Big(A_i - \sum_{x_j \in X_i}{x_j}\Big)^2 \\
@@ -254,7 +254,7 @@ T_{m}^{flip}(\Ds,1-X) &= \Bigg( \frac{\pi R^2}{2} - \Big(\; |F_o| + \sum_{ x_j \
 
 We proposed the BalanceFlow model for digital elastica minimization, which was inspired by the definition of the balance coefficient, and we proved a link between the BalanceFlow and FlipFlow algorithm. The models present similar results, but the BalanceFlow has an easier implementation.  
 
-Looking at~\cref{ch7:fig:balance-plot}, it would be interesting to find the point in which the inner or outer ball reaches the zero balance. In~\cref{ch7:fig:flower-balance-coefficient-zero-set} each color represents the balance coefficient $u_{12}$ of the closed shape with contour colored in white. We highlighted in magenta the pixels $p$ for which $u_{12}(\Ds,p) \leq 169$. ~\cref{ch7:fig:flower-balance-coefficient-zero-set} suggests that an evolution based on the zero level set of the balance coefficient may decrease the digital Elastica energy. In the next chapter we describe a graph-cut model in which the cost function is given by a function of the balance coefficients.
+Looking at~\cref{ch7:fig:balance-plot}, it would be interesting to find the point in which the inner or outer disk reaches the zero balance. In~\cref{ch7:fig:flower-balance-coefficient-zero-set} each color represents the balance coefficient $u_{12}$ of the closed shape with contour colored in white. We highlighted in magenta the pixels $p$ for which $u_{12}(\Ds,p) \leq 169$. ~\cref{ch7:fig:flower-balance-coefficient-zero-set} suggests that an evolution based on the zero level set of the balance coefficient may decrease the digital Elastica energy. In the next chapter we describe a graph cut model in which the cost function is given by a function of the balance coefficients.
 
 
 

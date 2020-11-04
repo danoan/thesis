@@ -31,9 +31,9 @@ rescaled by $1/h$ and we set $h=1$).
 \label{ch5:sec:local-combinatorial-scheme}
 
 Given a digital shape $\Ds^{(0)}$ we describe a process that generates a
-sequence $\Ds^{(i)}$ of shapes with non-increasing elastica energy. The
-idea is to define a neighborhood of shapes $\mathcal{W}^{(i)}$ to the
-shape $\Ds^{(i)}$ and choose the element of $\mathcal{W}^{(i)}$ with
+sequence $\Ds^{(k)}$ of shapes with non-increasing elastica energy. The
+idea is to define a neighborhood of shapes $\mathcal{W}^{(k)}$ to the
+shape $\Ds^{(k)}$ and choose the element of $\mathcal{W}^{(k)}$ with
 lowest energy.  
 
 Let $\Ds$ be a $2$-dimensional digital shape embedded in a domain $\Omega \subset \mathbb{Z}^2$. We adopt the cellular-grid model to represent $\Ds$, i.e., pixels and its lower dimensional counterparts, linels and pointels, are part of $\Ds$ (see~\cref{ch5:fig:cellular-grid-model}). In particular, we denote by $\partial \Ds$ the topological boundary of $\Ds$, i.e., the connected sequence of linels such that for each linel we have one of its incident pixels in $\Ds$ and the other not in $\Ds$.
@@ -78,12 +78,12 @@ where
 \end{definition}
 \daniel{Thus, the $m$-ring is composed of two sets of pixels with positive and negative distances to the shape $D$ if $m > 0$~(see~\cref{ch5:fig:ring-set}), and equal to the inner pixel boundary in the case $m=0$.} Consider the following set of neighbor candidates to $\Ds$:
 \begin{align*}
-\{ Q \; | \; Q \subset R_1(\Ds) \cup \Ds \; \text{and} \; \text{$Q$ is connected} \}.
+\{ Q \; | \; Q \subset \left( R_1(\Ds) \cup \Ds \right) \; \text{and} \; \text{$Q$ is connected} \}.
 \end{align*}
 Such set can be extremely large and its complete exhaustion is prohibitively expensive.  Instead, we are going to use a subset of it.
 \begin{definition}{$n$-neighborhood}
 
-	Given a digital shape $\Ds \subset \Omega$, its $n$-neigh\-bor\-hood $\mathcal{W}_n(\Ds)$ is defined as the set of digital shapes that can be built from $\Ds$ by adding or removing a sequence of $k \in [0,n]$ connected pixels in $R_1(\Ds)$.
+	Given a digital shape $\Ds \subset \Omega$, its $n$-neigh\-bor\-hood $\mathcal{W}_n(\Ds)$ is defined as the set of digital shapes that can be built from $\Ds$ by adding or removing a sequence of $n$ connected pixels in $R_1(\Ds)$.
 
 \end{definition}
 
@@ -102,7 +102,7 @@ Such set can be extremely large and its complete exhaustion is prohibitively exp
 
 \daniel{In~\cref{ch5:fig:n12-neighborhood} it is shown two members of the $\mathcal{W}_{12}$ neighborhood.} At first glance, we may be tempted to set the local-search neighborhood at the $k$-th iteration as the union of all $n$-neighborhood for $1<n<|\partial \Ds^{(k)}|$. However, that is often unnecessary and time consuming, as the greatest reduction in digital elastica for a member of $\mathcal{W}_n$ is likely very close to the greatest reduction for a member of $\mathcal{W}_{n-1}$. Moreover, we can improve running time by implementing a multiscale approach, i.e., we look for reductions in digital elastica for larger values of $n$ first, and in case of a negative answer we refine our search by choosing a smaller $n$.
 
-The \emph{LocalSearch}~\cref{ch5:alg:local-search} describes the local combinatorial process and is suitable for \daniel{any combination of multigrid convergent estimators of perimeter and curvature. In our experiments, we set the $\lambda$-MST~\cite{lachaud07tangent} to estimate elementary length and perimeter. We compare our results for two curvature estimators: the MDCA~\cite{roussillon11mdca} and the integral invariant (II-$r$) estimator~\cite{coeurjolly13integral} ($r$ denoting the radius of the estimation ball).} 
+The \emph{LocalSearch}~\cref{ch5:alg:local-search} describes the local combinatorial process and is suitable for \daniel{any combination of multigrid convergent estimators of perimeter and curvature. In our experiments, we set the $\lambda$-MST~\cite{lachaud07tangent} to estimate elementary length and perimeter. We compare our results for two curvature estimators: the MDCA~\cite{roussillon11mdca} and the integral invariant (II-$r$) estimator~\cite{coeurjolly13integral} ($r$ denoting the radius of the estimation disk).} 
 
 % type of digital estimator. To estimate length we use MDSS and to estimate curvature we execute~\cref{alg:local-search} with the MDCA and II-$r$ estimators  to solve the free and constrained elastica problems. 
 	
@@ -200,7 +200,7 @@ In~\cref{fig:local-comb-estimators-plots-lp001} we present the digital elastica 
 
 
 
-We have executed the same experiments for different parameters $\alpha$ to confirm the effectiveness of our approach. We observe that the plots for $\alpha=0.001$ in~\cref{fig:local-comb-estimators-plots-lp0001} follows a pattern similar to those in~\cref{fig:local-comb-estimators-plots-lp001} for $\alpha=0.01$. In particular, the remarks for the II-$3$ and MDCA estimator are the same. Further, we point out that II-$5$ values are slightly farther from the optimum for $\alpha=0.001$. The reason being that the shapes evolve to a ball of higher radius compared to the case $\alpha=0.01$. At some point of the evolution for $\alpha=0.001$, the sensibility of II-$5$ is not sufficient to escape from local minimum. We remark that the adoption of an automatic selection of the estimation ball radius may attenuate this problem.
+We have executed the same experiments for different parameters $\alpha$ to confirm the effectiveness of our approach. We observe that the plots for $\alpha=0.001$ in~\cref{fig:local-comb-estimators-plots-lp0001} follows a pattern similar to those in~\cref{fig:local-comb-estimators-plots-lp001} for $\alpha=0.01$. In particular, the remarks for the II-$3$ and MDCA estimator are the same. Further, we point out that II-$5$ values are slightly farther from the optimum for $\alpha=0.001$. The reason being that the shapes evolve to a disk of higher radius compared to the case $\alpha=0.01$. At some point of the evolution for $\alpha=0.001$, the sensibility of II-$5$ is not sufficient to escape from local minimum. We remark that the adoption of an automatic selection of the estimation disk radius may attenuate this problem.
 
 
 
@@ -449,37 +449,37 @@ We argue that~\cref{eq:simplified-digital-elastica} is a reasonable approximatio
 \label{ch5:subsec:optimization-model-simplified-digital-elastica}
 
 In contrast with the previous section, the model described here is designed for the integral invariant estimator only. Let $\Ds \subset \left( \mathbb{Z} + \frac{1}{2} \right)^2$ be the digitization of some shape $S \subset \mathbb{R}^2$ %using grid step $h$
- in half-integer coordinates space. We assume that $\Ds$ has $m$ pixels (located at integer coordinates) and $n$ linels (one and only one of its coordinates is $\frac{1}{2}$). Optimization variables are represented as column vectors $\vec{x} \in \daniel{\{0,1\}}^{m},\, \vec{y} \in \daniel{\{0,1\}}^{n}$ and its $i$-th coefficients are denoted  $\vec{x}_i,\vec{y}_i$.  Further, let $\vec{A} \in \daniel{\{0,1\}}^{m\times n}$ the matrix defined as
+ in half-integer coordinates space. We assume that $\Ds$ has $m$ pixels (located at integer coordinates denoted $p_j$) and $n$ linels (one and only one of its coordinates is $\frac{1}{2}$ denoted $\ell_i$). Optimization variables are represented as column vectors $\vec{x} \in \daniel{\{0,1\}}^{m},\, \vec{y} \in \daniel{\{0,1\}}^{n}$ and its $i$-th coefficients are denoted  $\vec{x}_i,\vec{y}_i$.  Further, let $\vec{A} \in \daniel{\{0,1\}}^{m\times n}$ the matrix defined as
 \begin{align*}
 	\vec{A}_{i,j} = \left\{ \begin{array}{ll}
-		1,\; \vec{x}_j \in B_{r}(\vec{y}_i)\\
+		1,\; p_j \in B_{r}(\ell_i)\\
 		0,\; \text{otherwise}.
 	\end{array}\right.
 \end{align*}
 %
-In other words, the column vector $\vec{A}_i$ represents the pixels that are in the interior of the disk $B_{r}(y_i)$ of radius $r$ centered at $\vec{y}_i$. 
+In other words, the column vector $\vec{A}_i$ represents the pixels that are in the interior of the disk $B_{r}(\ell_i)$ of radius $r$ centered at $\vec{y}_i$. 
 \begin{align}
 	E_{\vec{\theta}}^{simp}(\vec{x},\vec{y}) =& \sum_{\vec{y}_i \in \vec{y}}{ \vec{y}_i \left(\; \alpha + \beta \hat{\kappa}_{r}^2(D,\vec{y}_i) \; \right)}\\\nonumber
-			   =& \sum_{\vec{y}_i \in \vec{y}}{ \vec{y}_i \left(\; \alpha  + \beta \big( \frac{3}{r^3}(\frac{\pi}{r^2} - |B_r(\vec{y}_i)|)\big)^2\right)}\\\nonumber
+			   =& \sum_{\vec{y}_i \in \vec{y}}{ \vec{y}_i \left(\; \alpha  + \beta \big( \frac{3}{r^3}(\frac{\pi}{r^2} - |B_r(\ell_i)|)\big)^2\right)}\\\nonumber
 			   =& \sum_{\vec{y}_i \in \vec{y}}{ \vec{y}_i \left(\; \alpha + \frac{9}{r^6}\beta \big(c^2 - 2c\vec{A}_i^T\vec{x} + \vec{x}^T\vec{A}_i\vec{A}_i^T\vec{x}\big)\right)},			   
 	\end{align}
 %	
 where $c =  \pi r^2/2$. We remark that linels and pixels in the solution must be topologically consistent, i.e., linels must form connected closed curves and the pixels must lie in the interior of those curves. This restriction is encoded in a set of topological constraints $T(\vec{x},\vec{y})$ detailed later. So far we have
 \begin{align*}
-	\min_{\vec{x} \in \daniel{\{0,1\}}^{|X|}, \vec{y} \in \daniel{\{0,1\}}^{|Y|}}{E_{\vec{\theta}}^{simp}(\vec{x},\vec{y})}, \quad \text{subject to } T(\vec{x},\vec{y}). \quad (P0)
+	\min_{\vec{x} \in \daniel{\{0,1\}}^{m}, \vec{y} \in \daniel{\{0,1\}}^{n}}{E_{\vec{\theta}}^{simp}(\vec{x},\vec{y})}, \quad \text{subject to } T(\vec{x},\vec{y}). \quad (P0)
 \end{align*}
 %
 Additionaly, in real applications involving the minimization of elastica, we have a set of constraints $R$ that plays the role of regularization. For example, we may force some of the pixels in the original shape to be part of the solution; for imaging problems, we may add a data attachment term, and so on. Finally, we can write the general optimization problem as
 \begin{align*}
-	\min_{\vec{x} \in \daniel{\{0,1\}}^{|X|}, \vec{y} \in \daniel{\{0,1\}}^{|Y|}}{E_{\vec{\theta}}^{simp}(\vec{x},\vec{y})}, \quad \text{subject to } T(\vec{x},\vec{y}), R(\vec{x}) \quad (P1)
+	\min_{\vec{x} \in \daniel{\{0,1\}}^{m}, \vec{y} \in \daniel{\{0,1\}}^{n}}{E_{\vec{\theta}}^{simp}(\vec{x},\vec{y})}, \quad \text{subject to } T(\vec{x},\vec{y}), R(\vec{x}) \quad (P1)
 \end{align*}
 %
-	Formulation $P1$ is a constrained binary non-convex third order problem and likely difficult to be solved optimally. Nonetheless, we can use standard optimization techniques to acquire some intuition on the model. 	
+	Formulation $P1$ is a constrained binary non-convex third order problem and likely difficult to be solved optimally. Nonetheless, we can use standard optimization techniques in the hope to obtain a good approximation.
 	
 \subsection{Topological constraints}
 \label{ch5:subsec:topological-constraints}
 
-The estimation ball should be applied in the \daniel{digital contour} of the shape, which obliges us to impose topological constraints in the model to avoid inconsistent solutions. In order to accomplish that, we set an arbitrary orientation for the faces and another for the edges. We choose counter-clockwise for faces; left-to-right for horizontal edges; and bottom-to-up for vertical edges. \daniel{The topological constraints are essentially the same as those implemented in the linear programming model of~\cite{schoenemann09linear} and described in~\cref{ch3:sec:discrete-methods-squared-curvature}.}
+The estimation disk should be applied in the \daniel{digital contour} of the shape, which obliges us to impose topological constraints in the model to avoid inconsistent solutions. In order to accomplish that, we set an arbitrary orientation for the faces and another for the edges. We choose counter-clockwise for faces; left-to-right for horizontal edges; and bottom-to-up for vertical edges. \daniel{The topological constraints are essentially the same as those implemented in the linear programming model of~\cite{schoenemann09linear} and described in~\cref{ch3:sec:discrete-methods-squared-curvature}.}
 
 
 We create the vector $\vec{z} \in \daniel{\{0,1\}}^{2n}$. We map each linel identified by variable $\vec{y}_i$ to components $\vec{z}_{2i},\vec{z}_{2i+1}$, one for each possible orientation the linel may assume. Next, we extend the linel incidence matrix defined in~\cref{app2:pixel-incidence-matrix} to hold incidence with respect to oriented edges. The new matrix $\vec{T} \in \daniel{\{0,1\}}^{n \times m + 2n}$ is defined as
@@ -520,7 +520,7 @@ We observe that for a linel identified by variable $\vec{y}_i$, constraints $\ve
 
 	The simplest model we can derive from (P1) consists in the relaxation of the optimization variables, i.e., we impose $\vec{x} \in \daniel{[0,1]}^m$ and $\vec{z} \in \daniel{[0,1]}^{2n}$, and we linearize all second and third order terms. 
 	
-	Consider the summation in (P1). An opt-term is an ordered sequence of optimization variables, e.g., the opt-term $\vec{z}_1\vec{x}_2\vec{x}_4$ is encoded as the sequence $(\vec{z}_1,\vec{x}_2,\vec{x}_4)$. Let $\mathcal{T}$ the collection of opt-terms of order two or higher in (P1). To linearize (P1), we associate a variable $\vec{u_i} \in \daniel{[0,1]}$ for each \daniel{$\mathcal{T}_i \in \mathcal{T}$} and we enforce $|\mathcal{T}_i|+1$ new constraints. In other words, we add the following set of linearization constraints.
+	Consider the summation in (P1). An opt-term is an ordered sequence of optimization variables, e.g., the opt-term $\vec{z}_1\vec{x}_2\vec{x}_4$ is encoded as the sequence $(\vec{z}_1,\vec{x}_2,\vec{x}_4)$. Let $\mathcal{T}$ the collection of opt-terms of order two or higher in (P1). To linearize (P1), we associate a variable $\vec{u}_i \in \daniel{[0,1]}$ for each \daniel{$\mathcal{T}_i \in \mathcal{T}$} and we enforce $|\mathcal{T}_i|+1$ new constraints. In other words, we add the following set of linearization constraints.
 \begin{align*}
 	L(\vec{u}) = \left\{ \Big\{ \vec{u}_i \leq t, \quad \forall t \in \mathcal{T}_i \Big\} \cup \Big\{ \vec{u}_i \geq \displaystyle \sum_{t \in \mathcal{T}_i}{t} - |\mathcal{T}_i| + 1 \Big\} \; \Big| \; \forall \mathcal{T}_i \in \mathcal{T} \right\}
 \end{align*}
@@ -550,14 +550,14 @@ The linearization of (P1) is written as
 \end{array}
 \end{align*}
 %
-	Finally, to obtain a binary vector we round the partial solution vector $\vec{x^{\star}} \in \mathbb{U}^m$. For an instance with $m$ pixels we have about $2m$ linels. After linearization, we can expect to have up to $O(m^3)$ variables, dampening our attempts to solve it globally even for low resolution images. One can also try quadratic formulations by linearizing only the third order terms. Unfortunately, the matrix of quadratic terms is not semi-definite positive, a fundamental condition for efficient optimization of the model.
+	Finally, to obtain a binary vector we round the partial solution vector $\vec{x^{\star}} \in \revision{[0,1]^m}$. For an instance with $m$ pixels we have about $2m$ linels. After linearization, we can expect to have up to $O(m^3)$ variables, dampening our attempts to solve it globally even for low resolution images. One can also try quadratic formulations by linearizing only the third order terms. Unfortunately, the matrix of quadratic terms is not semi-definite positive, a fundamental condition for efficient optimization of the model.
 	
 
 
 \subsection{Unconstrained version of P1}
 \label{ch5:subsec:unconstrained-version}
 
-We can use the pixel incidence matrix defined in~\cref{app2:pixel-incidence-matrix} to define an unconstrained version of P1. The pixel incidence vector $\vec{q} \in \mathbb{Z}^m$ for pixels $\vec{x} \in \mathbb{B}^{m}$ is 
+We can use the pixel incidence matrix defined in~\cref{app2:pixel-incidence-matrix} to define an unconstrained version of P1. The pixel incidence vector $\vec{q} \in \mathbb{Z}^m$ for pixels $\vec{x} \in \{0,1\}^{m}$ is 
 	\begin{align*}
 		\vec{q} &= \vec{P}^T\vec{P} \vec{x}
 	\end{align*}
@@ -567,7 +567,7 @@ In order to suppress the sign, we define diagonal matrix $\vec{Q} \in \mathbb{R}
 	\vec{Q} = diag(\vec{q})diag(\vec{q})
 \end{align*}
 %
-Let $\vec{B} \in \mathbb{B}^{m\times m}$ such that column vector $\vec{B}_j$ represents the pixels in the interior of a disk of radius $R$ centered at pixel $i$. Finally, we search for solutions of
+Let $\vec{B} \in \{0,1\}^{m\times m}$ such that column vector $\vec{B}_j$ represents the pixels in the interior of a disk of radius $R$ centered at pixel $j$. Finally, we search for solutions of
 \begin{align}
 	\min_{\vec{x}} \frac{9}{R^6}\sum_{j}^{m}{\left( \frac{\pi R^2}{2} - \frac{1}{2}\boldsymbol{\mathbf{1}}^T{\vec{Q}}\vec{B}_j \right)^2},
 	\label{eq:unconstrained-digital-elastica}

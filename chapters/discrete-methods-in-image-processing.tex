@@ -1,7 +1,7 @@
 \chapter{Discrete methods in Image Processing}
 \label{chapter:discrete-methods-in-image-processing}
 
-In the beginning of the last chapter we described the Bayesian rational for the denoising problem. We turn once again to probability thinking, but restricting our analysis to discrete probabilistic models. Markov Random Fields are in the foundations of the methods discussed in this chapter, and an inspiration for many others. Image pixels are naturally interpreted as Markov states, and image properties, as spatial coherence, are encoded as potentials stored in the edges of the image grid graph. The MAP inference boils down to minimize the challenging class of pseudo-boolean functions. 
+In the last chapter, we described the Bayesian rational for the denoising problem. We turn once again to probability thinking, but restricting our analysis to discrete probabilistic models. \emph{Markov Random Fields} (MRF) are in the foundations of the methods discussed in this chapter, and an inspiration for many others. Image pixels are naturally interpreted as Markov states, and image properties, such as spatial coherence, are encoded as potentials stored in the edges of the image grid graph. \revision{Problems are solved by computing the solution of \emph{maximum a posteriori probability} (MAP)}. The MAP inference itself boils down to minimize the challenging class of pseudo-boolean functions. 
 
 In some fortunate cases, the functions can be minimized exactly and efficiently by a reduction to a max-flow (min-cut) problem, and it happens that such cases model imaging problems, as segmentation, nicely well. In fact, the minimum cut defines a partition, and one can interpret the cut as the contour separating two objects. It is the key for fruitful research that has followed. One can abstract the MRF machinery and define potentials on vertices and edges of the grid graph such that its minimum cut answers the problem being posed. Moreover, the potentials can model geometric properties of objects embedded in the grid graph, and one can use cuts to estimate the objects perimeters, for example.
 
@@ -15,12 +15,14 @@ Let $\mathcal{G}=(\mathcal{V},\mathcal{E})$ an undirected graph with vertices se
 
 For each vertex $v \in \mathcal{V}$ we associate a discrete random variable $X_v$ that take values from a label set $\Gamma_v$ according with some distribution $P$. We group all random variables in vector $\vec{X}$ and we write $\vec{X}_S$ to refer to the set of associated variables with vertex set $S \subset \mathcal{V}$. We also group all the label sets in the collection $\Gamma$. We denote $W_{\vec{X}}$ the set of all configurations for the random vector $\vec{X}$. We say that $\mathcal{H} =(\mathcal{G},\vec{X},\Gamma,P)$ is a \emph{Markov Random Field} (MRF) if for any non-adjacent states $X_u$ and $X_v$, the probability distribution $P$  satisfies the independence conditions below
 \begin{align}
-	\textbf{Pairwise independencies:}&\quad \Big\{ X_u \perp X_v \;|\; \big\{X_i,\; \forall i \in \mathcal{V}\setminus\{u,v\} \big\}  \Big\} \label{ch2:eq:markov-pairwise-independencies}   \\
-	\textbf{Local independencies:}&\quad \Big\{ X_u \perp X_v \;|\; \big\{X_i, \; \forall i \in \mathcal{N}(u)  \big\} \Big\} \label{ch2:eq:markov-local-independencies} \\
-	\textbf{Global independencies:}& \quad \Big\{ \vec{X}_S \perp \vec{X}_Q \;|\; \vec{X}_Z,\; \text{where } \vec{X}_Z \in cut(S,Q) \Big\} \label{ch2:eq:markov-global-independencies},
+	\textbf{Pairwise independencies:}&\; \Big\{ X_u \perp X_v \;|\; \big\{X_i,\; \forall i \in \mathcal{V}\setminus\{u,v\} \big\}  \Big\} \label{ch2:eq:markov-pairwise-independencies}   \\
+	\textbf{Local independencies:}&\; \Big\{ X_u \perp X_v \;|\; \big\{X_i, \; \forall i \in \mathcal{N}(u)  \big\} \Big\} \label{ch2:eq:markov-local-independencies} \\
+	\textbf{Global independencies:}&\; \Big\{ \vec{X}_S \perp \vec{X}_Q \;|\; \vec{X}_Z,\; \revision{Z \in vertices\big( \; cut(S,Q)\; \big)} \Big\} \label{ch2:eq:markov-global-independencies},
 \end{align}
 %
-where $X_u  \perp  X_v \;|\; \vec{X}_S$ means that variable $X_u$ is independent of $X_v$ given an assignment of variables in $\vec{X}_S$.  For example, the MRF in~\cref{ch2:fig:example-mrf} respects the following expressions 
+where $X_u  \perp  X_v \;|\; \vec{X}_S$ means that variable $X_u$ is independent of $X_v$ given an assignment of variables in $\vec{X}_S$; \revision{and $vertices(E)$ is the set of all vertices present in the set of edge's collection $E$.}
+
+For example, the MRF in~\cref{ch2:fig:example-mrf} respects the following expressions 
 \begin{align*}
 		P\Big(X_1=w_1 \; | \big\{X_i=w_i, \, i \neq 1 \big\} \Big) &= P\Big(X_1=w_1 \; | \; X_2=w_2,X_3=w_3 \Big) \\
 		P\Big(X_3=w_3 \; | \big\{X_i=w_i, \, i \neq 3 \big\} \Big) &= P\Big(X_3=w_3 \; | \; X_1=w_1,X_2=w_2, X_4=w_4 \Big) \\
@@ -163,7 +165,7 @@ A Hidden Markov Model is a MRF $\mathcal{H} = (\mathcal{G},\vec{X} \cup \vec{Y},
 \end{align*}
 \end{definition}
 %
-We are going to be interested in problems arising from the setting in which the states of random variables in $\vec{Y}$ are known, and one wishes to infer the states of random variables in $\vec{X}$. In other words, we are interest to find $\vec{X}^{\star}$ such that
+We are going to be interested in problems arising from the setting in which the states of random variables in $\vec{Y}$ are known, and one wishes to infer the states of random variables in $\vec{X}$. In other words, we are interested to find \revision{$\vec{w}^{\star}$} such that
 \begin{align}
 	\vec{w}^{\star} &= \argmax_{\vec{w}} = P(\vec{X} = \vec{w} \; | \; \vec{Y}).
 %	&= \argmin_{\vec{w}}{E(\vec{w})} \nonumber \\
@@ -198,13 +200,13 @@ where $\mathcal{N}_k(p)$ is the $k$-neighborhood of pixel $p$. Common values for
 	\mathcal{N}_8(p) &= \{ p + (i,j) \; | \; |i| \leq=1, |j| \leq 1 \}.
 \end{align*}
 %
-In the grid graph $\mathcal{G}_I$ we have $1$ and $2$-cliques only. We attach to $\mathcal{G}_I$ the HMM $\mathcal{H} = (\mathcal{G}_I,\vec{X} \cup \vec{Y},\Gamma_{\vec{X}},\Gamma_{\vec{Y}},P)$ in which the random variables take values over the grayscale levels of the image, grouped in $\Gamma_{\vec{X}} = \Gamma_{\vec{Y}} = \{i \; | \; 0 \leq i \leq 255 \}$. The Gibbs distribution $P$ is given by~\cref{ch2:eq:gibbs-distribution,ch2:eq:gibbs-constant} with clique potentials defined as
+In the grid graph $\mathcal{G}_I$, we have $1$ and $2$-cliques only. We attach to $\mathcal{G}_I$ the HMM $\mathcal{H} = (\mathcal{G}_I,\vec{X} \cup \vec{Y},\Gamma_{\vec{X}},\Gamma_{\vec{Y}},P)$ in which the random variables take values over the grayscale levels of the image, grouped in $\Gamma_{\vec{X}} = \Gamma_{\vec{Y}} = \{ \revision{\frac{i}{255}} \; | \; 0 \leq i \leq 255 \}$. The Gibbs distribution $P$ is given by~\cref{ch2:eq:gibbs-distribution,ch2:eq:gibbs-constant} with clique potentials defined as
 \begin{equation*}
 	\begin{array}{rll}
 	\psi_{p}(\gamma_p) &=  \frac{\lambda}{2} \left( f_{\widetilde{\vec{I}}}(p) - \gamma _p \right) ^2. & \\
 	\psi_{pq}(\gamma_p, \gamma_q) &= ( \gamma _p - \gamma _q )^2. &\\[1em]
-	\phi_p(\vec{x}_p=\gamma _p) &= \exp\big( - \psi_1(\gamma_p) \big),& \quad \forall p \in \vec{I} \\
-	\phi_{pq}(\vec{x}_p=\gamma_p, \vec{x}_q=\gamma _q) &= \exp\big( - \psi_{2}(\gamma_p,\gamma_q) \big),& \quad \forall p \in \vec{I} \text{ and }  q \in \mathcal{N}_k(p). \\
+	\phi_p(x_p=\gamma _p) &= \exp\big( - \psi_1(\gamma_p) \big),& \quad \forall p \in \vec{I} \\
+	\phi_{pq}(x_p=\gamma_p, x_q=\gamma _q) &= \exp\big( - \psi_{2}(\gamma_p,\gamma_q) \big),& \quad \forall p \in \vec{I} \text{ and }  q \in \mathcal{N}_k(p). \\
 	\end{array}
 \end{equation*}
 %
@@ -236,13 +238,13 @@ Let $\vec{I} \in \mathbb{F}^{m \times n}$ a grayscale image to which we associat
 	\label{ch2:eq:anisotropic-tv-model-denoising}
 \end{align}
 %
-The term in the right of~\cref{ch2:eq:anisotropic-tv-model-denoising} is called the discrete anisotropic total variation. As its continuous version, the discrete total variation performs better than Tikhonov for imaging problems, but it still not considered a discontinuity preserving function and it presents some undesirable side effects (see~\cref{ch2:fig:comparison-convex-truncated}). On the other hand, truncated functions are discontinuity preserving. For some $K>0$, consider the following Gibbs energy
+The \revision{rightmost term in}~\cref{ch2:eq:anisotropic-tv-model-denoising} is called the discrete anisotropic total variation. As its continuous version, the discrete total variation performs better than Tikhonov for imaging problems, but it still not considered a discontinuity preserving function and it presents some undesirable side effects (see~\cref{ch2:fig:comparison-convex-truncated}). On the other hand, truncated functions are discontinuity preserving. For some $K>0$, consider the following Gibbs energy
 \begin{align}
-	\phi_{pq}(x_p,x_q) &= \left\{ \begin{array}{rl}
+	\psi_{pq}(x_p,x_q) &= \left\{ \begin{array}{rl}
 		K,& \text{if } x_p \neq x_q \\
 		0,& \text{otherwise}.
 	\end{array}\right. \label{ch2:eq:potts-model-denoising-1} \\[1em]
-	E(\vec{x}) &= \sum_{p \in \vec{I} }{\phi_p(x_p)} + \sum_{\substack{ p \in \vec{I}, \\ q \in \mathcal{N}(p) }}{\phi_{pq}(x_p,x_q)}.	
+	E(\vec{x}) &= \sum_{p \in \vec{I} }{\psi_p(x_p)} + \sum_{\substack{ p \in \vec{I}, \\ q \in \mathcal{N}(p) }}{\psi_{pq}(x_p,x_q)}.	
 	\label{ch2:eq:potts-model-denoising-2}
 \end{align}
 %
@@ -321,7 +323,7 @@ Pseudo-boolean functions (PBF) can be interpreted as \emph{set functions}, i.e.,
 %
 where $c_S \in \mathbb{R}$ is a coefficient associated to each subset $S$. ~\cref{ch2:eq:pbf-polynomial-form} is denoted the \emph{polynomial form} of PBF $f$. The \emph{order} of a PBF is defined as the cardinality of the largest subset $S$ in which $c_S>0$. The polynomial form is \textbf{unique}. 
 
-Sometimes it is convenient to express $f$ in its so called \emph{posiform} representation, usually denoted by $\phi$ instead of $f$. In its posiform representation we use literals $x_i,\bar{x}_i \in L$  to represent states $1,0$ of indexed variable $i$ and all coefficients are positive except the one associated to the empty set.
+Sometimes it is convenient to express $f$ in its so called \emph{posiform} representation, usually denoted by $\phi$ instead of $f$. In its posiform representation we use literals $\bar{x}_i,x_i \in L$  to represent states $0,1$ of indexed variable $i$ and all coefficients are positive except the one associated to the empty set \revision{(which is also called the constant term of the posiform and denoted $a_{\emptyset}$).}
 \begin{align}
 	\phi(f) = \phi(x_1,\cdots,x_n) &= \sum_{T \subset 2^{L}}a_T{\prod_{p \in T}{p}},
 \end{align}
@@ -396,9 +398,9 @@ Finally, the relaxation of~\cref{ch2:eq:qpbf-lp-formulation} gives
 	\end{array}\right.
 \end{align*}
 %
-Clearly, formulation $G$ is a lower bound of $f$, i.e.,  $g(\vec{x},\vec{z}) \leq f(\vec{x})$. Such lower bound is called the \emph{roof dual} (it was originally defined for a maximization problem) and it is shown~\cite{hammer84} to be equivalent to
+Clearly, formulation \revision{$g$} is a lower bound of $f$, i.e.,  $g(\vec{x},\vec{z}) \leq f(\vec{x})$. Such lower bound is called the \emph{roof dual} (it was originally defined for a maximization problem) and it is shown~\cite{hammer84} to be equivalent to
 \begin{align*}
-	g(\vec{x},\vec{z}) &= C_{\phi^{\star}(f)},
+	g(\vec{x},\vec{z}) &= \revision{ C\big(\;{\phi^{\star}(f)}\;\big) },
 \end{align*}
 %
 i.e., the constant in the max-constant posiform representation of $f$. In this same work, the so called \emph{strong persistency} theorem is proven. It says that for every unary term $a_pp$ ($p$ a literal) in a max-constant posiform representation of $f$, we have that $p=0$ in every solution of $\min f$.
@@ -422,44 +424,45 @@ According with the strong persistency theorem, $x_1=0,\bar{x}_2=0$ for every sol
 \end{align*}
 \end{example}
 %
-The strong persistency theorem allow us to fix some variables of the quadratic PBF, which could possibly result in a simpler optimization problem. Clearly, the main difficult is to find the max-constant posiform $\phi^{\star}(f)$ that results in a maximum number of variable elimination. Such posiform, called the \emph{master posiform}, can be found by computing the maximum flow in some capacitated graph.
+The strong persistency theorem allow us to fix some variables of the quadratic PBF, which could possibly result in a simpler optimization problem. Clearly, the main difficult is to find the max-constant posiform $\phi^{\star}(f)$ that results in a maximum number of variable elimination. Such posiform, called the \emph{master posiform}, can be found by computing the maximum flow \revision{of} some capacitated graph.
 
 \subsubsection{Master posiform and max-flow reduction}
 
-We present a construction given in~\cite{boros91,boros02pseudo} of a capacitated graph $G_{\phi}(\mathcal{V},\mathcal{E},c)$ that encodes some posiform $\phi$ with constant $C(\phi)=0$. The authors showed how to derive the max-constant posiform from the computation of the maximum flow of $G_{\phi}$. Let $\phi$ be a posiform of the form
+We present a construction given in~\cite{boros91,boros02pseudo} of a capacitated graph $G_{\phi}(\mathcal{V},\mathcal{E},c)$ that encodes some posiform $\phi$ with constant $C(\phi)=0$. The authors showed how to derive \revision{its} max-constant posiform from the computation of the maximum flow of $G_{\phi}$. Let $\phi$ be a posiform of the form
 	\begin{align*}
 		\phi &= \sum_{p \in L}{a_pp} + \sum_{p,q \in L}{a_{pq}pq},
 	\end{align*}
 %
-with $a_p >0, a_{pq}>0\; \forall p,q \in L$	. We  construct the capacitated graph $G_{\phi}(\mathcal{V},\mathcal{E},c)$ such that each term in the sum is encoded by two edges. Each unary term with literal $p$ have one edge from the source $s$ to its negated literal vertex $v_{\bar{p}}$ and one edge from $v_p$ to the target vertex $\bar{s}$. The source and target vertices are identified with the $1$ and $0$ constants, respectively. 
+with $a_p >0, a_{pq}>0\; \forall p,q \in L$	. We  construct the capacitated graph $G_{\phi}(\mathcal{V},\mathcal{E},c)$ such that each term in the sum is encoded by two edges. Each unary term with literal $p$ have one edge from the source \revision{$v_s$} to its negated literal vertex $v_{\bar{p}}$ and one edge from $v_p$ to the target vertex \revision{$v_{\bar{s}}$}. The source and target vertices are identified with the constants $1$ and $0$, respectively. 
 
 \begin{center}
 \begin{tikzpicture}[shorten >=1pt,->]
   \tikzstyle{vertex}=[circle,fill=black!25,minimum size=17pt,inner sep=0pt]
 
-  \node[vertex] (G-s) at (0,0) {$s$};
-  \node[vertex] (G-np) at (3,0) {$v_{\bar{p}}$};  
-  \draw (G-s) -- (G-np) node[midway,above] {$\frac{a_u}{2}$};
+  \node[vertex] (G-s) at (0,0) {$v_s$};
+  \node[vertex] (G-np) at (3,0) {$v_{\bar{q}}$};  
+  \draw (G-s) -- (G-np) node[midway,above] {$\frac{a_q}{2}$};
     
   \node[vertex] (G-p) at (5,0) {$v_{p}$};    
-  \node[vertex] (G-ns) at (8,0) {$\bar{s}$};      
-  \draw (G-p) -- (G-ns) node[midway,above] {$\frac{a_u}{2}$};
+  \node[vertex] (G-ns) at (8,0) {$v_{\bar{s}}$};      
+  \draw (G-p) -- (G-ns) node[midway,above] {$\frac{a_p}{2}$};
   
 \end{tikzpicture}
 \end{center}
 
 Similarly, pairwise terms with literals $p,q$ have edges $\edge{v_p}{v_{\bar{q}}} $ and $\edge{v_q}{v_{\bar{p}}}$. The full graph is given by
 \begin{align*}
-	\mathcal{V} =& \{ v_p \; | \; p \in L \} \cup \{s,\bar{s}\} \\[1em]
-	\mathcal{E} =& \big\{ \edge{s}{v_{\bar{p}}},\edge{v_p}{t} \; | \; \forall a_p>0 \big\} \cup \big\{ \edge{v_p}{v_{\bar{q}}}, \edge{v_q}{v_{\bar{p}}} \; | \; \forall a_{pq} > 0 \big\}  \\[1em]
+	\mathcal{V} =& \{ v_p \; | \; p \in L \} \cup \revision{ \{v_s,v_{\bar{s}}\}} \\[1em]
+	\mathcal{E} =& \big\{ \edge{ \revision{v_s}}{v_{\bar{p}}},\edge{v_p}{\revision{v_{\bar{s}}}} \; | \; \forall a_p>0 \big\} \cup \big\{ \edge{v_p}{v_{\bar{q}}}, \edge{v_q}{v_{\bar{p}}} \; | \; \forall a_{pq} > 0 \big\}  \\[1em]
 	c(\, (v_p,v_q)\, ) = c_{pq} =& \left\{ \begin{array}{rl}
-		a_{p}/2, & \text{if } v_p \notin \{s,\bar{s}\} \text{ or } v_q \notin \{s,\bar{s}\} \\
-		a_{pq}/2, & \text{if } v_p,v_q \notin \{s,\bar{s}\}\\ 
+		a_{q}/2, & \text{if } v_p = \revision{v_s} \text{ and } v_q \neq \revision{ \{v_s, v_{\bar{s}} \} } \\
+		a_{p}/2, & \text{if } v_p \neq \revision{ \{v_s, v_{\bar{s}} \} } \text{ and } v_q = \revision{v_{\bar{s}}} \\
+		a_{pq}/2, & \text{if } v_p,v_q \notin \revision{ \{v_s,v_{\bar{s}}\} }\\ 
 		0,& \text{otherwise}.
 	\end{array}\right.
 \end{align*}
 %
-A construction of graph $G_{\phi}$ is illustrated in~\cref{ch2:fig:posiform-capacitated-graph-a}. Therefore, the posiform $\phi$ can also be written as $\phi = \sum_{ \edge{v_p}{v_q} \in \mathcal{E}}{ c_{p\bar{q}} }$. In fact, it is possible to show that there is a bijection between the posiform with zero constant $\phi$ and the graph $G_{\phi}$.
+A construction of graph $G_{\phi}$ is illustrated in~\cref{ch2:fig:posiform-capacitated-graph-a}. Therefore, the posiform $\phi$ can also be written as $\phi = \sum_{ \edge{v_p}{v_q}\in \mathcal{E}}{ c_{p\bar{q}}\revision{pq } }$. In fact, it is possible to show that there is a bijection between the posiform with zero constant $\phi$ and the graph $G_{\phi}$.
 
 
 A flow is a function $\varphi:\mathcal{E}\rightarrow \mathbb{R}_{+}$ that satisfies
@@ -472,12 +475,18 @@ A flow is a function $\varphi:\mathcal{E}\rightarrow \mathbb{R}_{+}$ that satisf
 	\end{array}
 \end{equation*}
 %
-A flow $\varphi ^{\star}$ is said to be maximum if 
+\revision{The value of some flow $\varphi$ is denoted as $\nu(\varphi)$ and is given by
+%
 \begin{align*}
-	\varphi ^{\star} &= \argmax_{\varphi} \sum_{v_p \in \mathcal{V}}{\varphi(s,v_p)},
+	\nu(\varphi) &= \sum_{v_p \in \mathcal{V}}{\varphi(s,v_p)},
 \end{align*}
 %
-i.e., if the flow leaving the source is maximum. The residual graph of $G_{\phi}$ with respect to some flow $\varphi$ is denoted $G_{ \phi [ \varphi ] }(\mathcal{V},\mathcal{E}^+,r)$ and owns the same set of vertices of $G_{\phi}$. The set of edges is extended to include returning edges as well, i.e.,
+i.e., the flow value equals to the sum of the flow leaving the source. A flow $\varphi ^{\star}$ is said to be maximum if 
+\begin{align*}
+	\varphi ^{\star} &= \argmax_{\varphi} \nu(\varphi).
+\end{align*}}
+%
+The residual graph of $G_{\phi}$ with respect to some flow $\varphi$ is denoted $G_{ \phi [ \varphi ] }(\mathcal{V},\mathcal{E}^+,r)$ and owns the same set of vertices of $G_{\phi}$. The set of edges is extended to include returning edges as well, i.e.,
 \begin{align*}
 	\mathcal{E}^+ &= \mathcal{E} \cup \{ \edge{v_q}{v_p} \; | \; \edge{v_p}{v_q} \in \mathcal{E} \}.
 \end{align*}
@@ -490,7 +499,7 @@ The edges cost is given by the residual function $r$
 \end{array}\right.	 
 \end{align*}
 %
-One can also construct a posiform from the residual graph $G_{ \phi [ \varphi ] }$. In this case, the posiform is denoted $\phi_{G_{ \phi [ \varphi ] }}$. We remark that edges arriving in the source or leaving the target are all mapped to $0$, as the source and the target are identified with the constants $1,0$ respectively. For example, $\edge{p}{s}$ is encoded as $p\bar{s}=0$.
+One can also construct a posiform from the residual graph $G_{ \phi [ \varphi ] }$. In this case, the posiform is denoted \revision{$\phi [ \varphi ]$}. We remark that edges arriving in the source or leaving the target are all mapped to $0$, as the source and the target are identified with the constants $1,0$ respectively. For example, $\edge{p}{s}$ is encoded as $p\bar{s}=0$.
 
 The \emph{Ford-Fulkerson} algorithm computes the maximum flow by incrementing an initial zero flow function $\varphi_0=0$ every time an \emph{augmenting path} is found. The $k$-th augmenting path is a path $\pi_k = (p_0=s,p_1,p_2,\cdots,p_n,p_{n+1}=\bar{s})$ in the residual graph $G_{ \phi [\varphi_{k-1}] }$ in which all edges of $\pi_k$ have a positive residual value. We say that $\pi_k$ is an $\epsilon$-augmenting path if 
 \begin{align*}
@@ -529,7 +538,7 @@ The \emph{Ford-Fulkerson} algorithm computes the maximum flow by incrementing an
 	
 	construct its corresponding capacitated graph $G_{\phi}$ and compute its maximum flow executing the Ford Fulkerson algorithm. Then, for every step $k$ of the algorithm we have that
 	\begin{align*}
-		\phi &= C(\phi) + \nu(\varphi_k) + \phi_{ G_{ \phi [\varphi_k]}}.
+		\phi &= C(\phi) + \nu(\varphi_k) + \revision{\phi [\varphi_k]}.
 	\end{align*}
 \end{proposition}
 %
@@ -555,13 +564,14 @@ By observing that
 %
 we can rewrite the alternating sum as
 \begin{align*}
-	\phi_{\pi} &= \epsilon + \epsilon( \bar{p}_1p_2 + \bar{p}_2p_3 + \cdots + \bar{p}_{n-1}p_n ) + \phi ' \\
-	&= \psi + \phi ',	
+	\phi_{\pi_k} &= \epsilon + \epsilon( \bar{p}_1p_2 + \bar{p}_2p_3 + \cdots + \bar{p}_{n-1}p_n ) + \phi ' \\
+	&= \epsilon + \psi + \phi ' \\
+	&= \epsilon + \revision{\phi[\varphi_k]}
 \end{align*}
 %
 Note that $\phi '$ and $\psi$ corresponds, respectively, to the update of the residual costs for the edges of $\pi_k$ and the updates of its returning edges. Therefore, we can write
 \begin{align*}
-	\phi &= C(\phi) + \nu(\varphi_k) + \phi_{ G_{ \phi [\varphi_k] }},
+	\phi &= C(\phi) + \nu(\varphi_k) + \revision{\phi [\varphi_k] },
 \end{align*}
 %
 i.e., the initial posiform $\phi$ can be rewritten as a constant plus the posiform corresponding to the residual graph at step $k$ of  the Ford Fulkerson algorithm. 
@@ -569,16 +579,16 @@ i.e., the initial posiform $\phi$ can be rewritten as a constant plus the posifo
 %
 It follows that the master posiform is given by
 \begin{align*}
-	\phi^{\star} &= C(\phi) + \nu(\varphi^{\star}) + \phi_{ G_{ \phi [ \varphi^{\star}] }}.
+	\phi^{\star} &= C(\phi) + \nu(\varphi^{\star}) + \revision{ \phi [ \varphi^{\star}] }.
 \end{align*}
 %
 \begin{example}
-The posiform $\phi = 2x + 8z + 2x\bar{z} + 4\bar{x}y + 6\bar{y}\bar{z}$ is represented by the graph $G_{\phi}$ in~\cref{ch2:fig:posiform-capacitated-graph}. Its maximum flow value  equals to $4$ and the master posiform is given by $\phi^{\star} = \nu(\varphi ^{\star}) + \phi_{G_{\phi {[\varphi^{\star}}]}} = 4 + 2z + 2\bar{z}\bar{y} + 4zy + 4\bar{y}x + 2z\bar{x}$.
+The posiform $\phi = 2x + 8z + 2x\bar{z} + 4\bar{x}y + 6\bar{y}\bar{z}$ is represented by the graph $G_{\phi}$ in~\cref{ch2:fig:posiform-capacitated-graph}. Its maximum flow value  equals to $4$ and the master posiform is given by $\phi^{\star} = \nu(\varphi ^{\star}) + \revision{\phi {[\varphi^{\star}}]} = 4 + 2z + 2\bar{z}\bar{y} + 4zy + 4\bar{y}x + 2z\bar{x}$.
 \end{example}
 %
 From the strong persistency theorem we conclude that $z=0$, and we have
 \begin{align*}
-	\min \phi = \min \phi^{\star}(z=0) = \min 2\bar{y} + 4\bar{y}x.
+	\min \phi = \min \phi^{\star}(z=0) = \min \revision{4} + 2\bar{y} + 4\bar{y}x.
 \end{align*}
 %
 We can say more. Let $U$ be the set of literals that are reached from the source by a path of positive residual in the final residual graph. Then, a solution $\vec x \in \argmin f$ must agree with $x(U=1)$~\cite{boros02pseudo}. Therefore,
@@ -605,7 +615,7 @@ $x$ & $y$ & $z$ & $f$\\
 \end{tabular}
 \end{center}
 
-The construction above is the core of the \emph{QPBO} algorithm~\cite{boros91} that finds partial solutions of general quadratic PBF. \daniel{The labeled variables by QPBO are guaranteed to belong to an optimum solution. This last property is usually referred as the \emph{partial optimality property} of QPBO, and it is a consequence of the strong persistency theorem.} In the most cases, the master posiform allows us to eliminate only few variables, but if the function $f$ is a \emph{submodular} function, QPBO finds the minimum of $f$.
+The construction above is the core of the \emph{QPBO} algorithm~\cite{boros91} that finds partial solutions of general quadratic PBF. \daniel{The labeled variables by QPBO are guaranteed to belong to an optimum solution. This last property is usually referred as the \emph{partial optimality property} of QPBO, and it is a consequence of the strong persistency theorem.} In the most cases, the master posiform allows us to eliminate only few variables, but if the function $f$ is a \emph{submodular} function, QPBO \revision{is guaranteed} to find the minimum of $f$.
 
 %The master posiform $\phi^{\star}(f)$ gives us a lower bound for the PBF $f$, which is called the roof dual. In some fortunate occasions, the master posiform allows us to simplify the original optimization problem in a trivial one. That is the case for the class of \emph{submodular} functions.
 
@@ -656,23 +666,34 @@ An equivalent local definition is given by
 		\frac{\partial^2f}{\partial x_i\partial x_j} &= f_{ij}(0,0) + f_{ij}(1,1) - f_{ij}(0,1) - f_{ij}(1,0) \leq 0.
 	\end{align*}
 %	
+%
+\revision{	
 	\begin{tabular}{rl}
-		$\mathbf{(iii\rightarrow i)}$:& We define
+		$\mathbf{(iii\rightarrow i)}$:& From $\mathbf{iii}$
 	\end{tabular}		
-		\begin{align*}
-			\Delta_{x_i} &= f(x_1,\cdots,x_{i-1},x_i=1,x_{i+1},\cdots,x_n) - f(x_1,\cdots,x_{i-1},x_i=0,x_{i+1},\cdots,x_n) \\
-			&= f(X \cup \{x_i\}) - f(X), \quad \text{ where } x_i \notin X.
-		\end{align*}		 		
-		Therefore
-		\begin{align*}
-			f( X \cup \{x_1,x_2\}) &= f(X) + \Delta_{x_1} + \Delta_{x_2} + \frac{ \partial^2 f}{\partial x_i \partial x_j} \\
-			f( X \cup \{x_1,x_2\}) &= -f(X) + f(X \cup \{x_1\}) + f(X \cup \{x_2\}) + \frac{ \partial^2 f}{\partial x_i \partial x_j}.
-		\end{align*}	
+	\begin{align*}
+		f_{ij}(0,1) + f_{ij}(1,0) \geq f_{ij}(0,0) + f_{ij}(1,1).
+	\end{align*}
+	That is equivalent to~\cref{ch2:eq:submodular-local}, therefore it is submodular.}
 %		
-		Finally,
-		\begin{align*}
-			f( X \cup \{x_1,x_2\}) +f(X) - f(X \cup \{x_1\}) - f(X \cup \{x_2\}) &\leq 0.	
-		\end{align*}
+%		
+%	\begin{tabular}{rl}
+%		$\mathbf{(iii\rightarrow i)}$:& We define
+%	\end{tabular}		
+%		\begin{align*}
+%			\Delta_{x_i} &= f(x_1,\cdots,x_{i-1},x_i=1,x_{i+1},\cdots,x_n) - f(x_1,\cdots,x_{i-1},x_i=0,x_{i+1},\cdots,x_n) \\
+%			&= f(X \cup \{x_i\}) - f(X), \quad \text{ where } x_i \notin X.
+%		\end{align*}		 		
+%		Therefore
+%		\begin{align*}
+%			f( X \cup \{x_1,x_2\}) &= f(X) + \Delta_{x_1} + \Delta_{x_2} + \frac{ \partial^2 f}{\partial x_i \partial x_j} \\
+%			f( X \cup \{x_1,x_2\}) &= -f(X) + f(X \cup \{x_1\}) + f(X \cup \{x_2\}) + \frac{ \partial^2 f}{\partial x_i \partial x_j}.
+%		\end{align*}	
+%%		
+%		Finally,
+%		\begin{align*}
+%			f( X \cup \{x_1,x_2\}) +f(X) - f(X \cup \{x_1\}) - f(X \cup \{x_2\}) &\leq 0.	
+%		\end{align*}
 %		
 	\end{proof}
 
@@ -707,7 +728,7 @@ Let $\vec{I} \in \mathbb{F}^{m\times n}$ a discrete grayscale image and $\GG (\m
 	\mathcal{V}^+ &= \mathcal{V} \cup \{s,t\} \\
 	\mathcal{E}^+ &= \mathcal{E} \cup \big\{ \{s,v_p\}, \{v_p,t\} \; | \; p \in \vec{I} \big\}.
 \end{align*}
-The cost function $c$ is defined later. The members of the additional set of edges are referred to as terminal edges. Next, let sets $\mathcal{V}_{fg}, \mathcal{V}_{bg} \subset \mathcal{V}$ to represent foreground and background seeds furnished by the user. A $(s,t)$-cut set of $\GGe$ partitions the graph in connected components $S,T$. The first connected to the source and the other to the target vertex. Vertices in $\mathcal{V}_{fg}$ ($\mathcal{V}_{bg}$) will be forced to be in the source (target) component after the removal of a $(s,t)$-cut set.
+The cost function $c$ is defined later. \revision{Edges starting from $s$ or ending at $t$ are called terminal edges.} Next, let sets $\mathcal{V}_{fg}, \mathcal{V}_{bg} \subset \mathcal{V}$ to represent foreground and background seeds furnished by the user. A $(s,t)$-cut set of $\GGe$ partitions the graph in connected components $S,T$. The first \revision{component is} connected to the source and the other to the target vertex. Vertices in $\mathcal{V}_{fg}$ ($\mathcal{V}_{bg}$) will be forced to be in the source (target) component.
 
 The data term is modeled by
 \begin{align*}
@@ -716,7 +737,7 @@ The data term is modeled by
 	-\ln  H_{fg}\big( I(p) \big), & \text{if } x_p=1,
 	\end{array}\right.
 \end{align*}
-where $H_{bg},H_{fg}$ are mixed Gaussian distributions derived from foreground and background seeds. We associate the $0$ value to the background label and the $1$ value to the foreground label. The space coherence term is expressed as
+where $H_{bg},H_{fg}$ are mixed Gaussian distributions derived from foreground and background seeds. We associate the \revision{value $0$} to the background label and the \revision{value $1$} to the foreground label. The space coherence term is expressed as
 \begin{align*}
 	\psi_{2}(x_p,x_q) &= \left\{ \begin{array}{ll}
 	\displaystyle \exp{ \left(- \frac{1}{d_E(p,q)}\frac{(I(p) - I(q))^2}{2\sigma^2} \right) }, & q \in \mathcal{N}_k(p) \\[1em]
@@ -752,9 +773,9 @@ Finally, given weights $\gamma_r \geq 0$ and $\gamma_b \geq 0$, we define the co
 \end{align*}
 \end{table}
 
-Notice that each vertex in $\mathcal{V}$ must have one and only one of its terminal edges in a cut set. Let $\mathcal{E}'$ be a cut set partitioning $G_{I+}$ in connected components $(S,T)$, the first connected to the source and the other connected to target. Its cut value is written as 
+Notice that each vertex in $\mathcal{V}$ must have one and only one of its terminal edges in a cut set. Let $\mathcal{E}'$ be a cut set partitioning $\GGe$ in connected components $(S,T)$, the first connected to the source and the other connected to target. Its cut value is written as 
 \begin{align}
-	E^{gcut}(\GGe,\mathcal{E}') &= \gamma_r \left( \sum_{v_p \in S}{ \psi_1(1) } +\sum_{v_p \in T}{\psi_1(0)} \right) + \gamma_b \sum_{(v_p,v_q) \in \mathcal{E}'}{\psi_2(0,1)}.
+	E^{gcut}(\GGe,\mathcal{E}') &= \gamma_r \left( \sum_{v_p \in S}{ \psi_1(1) } +\sum_{v_p \in T}{\psi_1(0)} \right) + \gamma_b \sum_{ \substack{ (v_p,v_q) \in \mathcal{E}' \\ \revision{v_p,v_q \notin \{s,t\}}}}{\psi_2(0,1)}.
 \label{ch2:eq:graphcut-cut-value}
 \end{align}
 %
@@ -790,12 +811,12 @@ Given the particular topology of grid graphs, specific versions of max-flow algo
 
 In the previous section, we have seen the natural connection between graph cuts and binary segmentation. The removal of a cut $\mathcal{E}'$ set partitions the grid graph in two disjoint connected components, one connected to the source and associated to the foreground and the other connected to the target and associated to the background. The cut $\mathcal{E}'$ itself can be related with the contour $\partial S$ of the foreground shape (see~\cref{ch2:fig:geodesic-grid-graph-shape-intersection}). In~\cite{boykov03geodesics} it was shown that one can define a cost function for the edge set $\mathcal{E}$ such that the cost of $\mathcal{E}'$ is arbitrarily close to the length of $\partial S$.
 
-The key idea is to use the Cauchy-Crofton formula from integral geometry. In $2D$, let $\mathcal{L}$ be the set of all straight lines in the plane and $d\mathcal{L}$ a Lebesgue measure on this set. Then, the perimeter of a shape $S$ is given by
+The key idea is to use the \revision{Cauchy-Crofton~\cite{sors2004integral}} formula from integral geometry. In $2D$, let $\mathcal{L}$ be the set of all straight lines in the plane and $d\mathcal{L}$ a Lebesgue measure on this set. Then, the perimeter of a shape $S$ is given by
 \begin{align*}
 \int_{}{n_c}d{\mathcal{L}} = 2|\partial S|,
 \end{align*}
 %
-where $n_c$ is the number of intersections of some line in $\mathcal{L}$ with the shape contour. To compute the Euclidean length, the cost function should be set as
+where $n_c$ is the number of intersections of some line in $\mathcal{L}$ with the shape contour. \revision{In~\cite{boykov03geodesics}, the set $\mathcal{L}$ is approximated by a collection of families of lines defined by some standard adjacency relation in the digital grid. For example, in a $4$-neighborhood, we have two family of lines (horizontal and vertical) covering the digital domain.} To compute the Euclidean length, the cost function should be set as
 \begin{align*}
 	w_k &= \frac{ \delta^2 \Delta \phi_k }{2 |e_k|},
 \end{align*}
