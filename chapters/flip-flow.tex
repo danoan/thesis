@@ -5,7 +5,7 @@
 In the previous chapter we have presented a local combinatorial model using multigrid convergent estimator that proved to be very successful in optimizing the digital elastica but too slow to be used in practice. We have also attempted to derive a global optimization model, but unfortunately such model is unlikely to be solved in the current state of art of binary optimization techniques. In this chapter we present a second local optimization model that is much faster than~\cref{ch5:alg:local-search} but with fewer guarantees of optimality.
 
 \daniel{
-We describe the binary non-submodular FlipFlow energy and discuss some curious aspects of it in~\cref{ch6:sec:flipflow-model}. Optimization strategies are presented in~\cref{ch6:sec:optimization-method,ch6:sec:evaluation-across-rings}. Finally, we describe an application of the FlipFlow model to image segmentation in~\cref{ch6:sec:data-term-image-segmentation}.
+We describe the non-submodular binary energy \emph{FlipFlow} and we discuss some curious aspects of it in~\cref{ch6:sec:flipflow-model}. Optimization strategies are presented in~\cref{ch6:sec:optimization-method,ch6:sec:evaluation-across-rings}. Finally, we describe an application of the FlipFlow model to image segmentation in~\cref{ch6:sec:data-term-image-segmentation}.
 }
 
 
@@ -56,7 +56,7 @@ We recall the definition of the II digital curvature estimator \daniel{(see~\cre
 	\hat{\kappa}^2(p) &= c_1\Big( c_2 - | B_r(p) \cap \Ds^{(k)} | \Big)^2, 
 	\label{eq:curvature-estimator-pixels}
 \end{align}
-where $c_1=3/r^6$ and $c_2=\pi r^2/2$. 
+where $c_1=9/r^6$ and $c_2=\pi r^2/2$. 
 %
 The following sets are important in the expansion of $~\cref{eq:curvature-estimator-pixels}$.
 \begin{align*}
@@ -103,7 +103,7 @@ We recall that $R_m$ refers to the $m$-ring defined in~\cref{ch5:sec:local-combi
  \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
  \SetKwComment{comment}{//}{}
  
- \Input{A digital set $\Ds$; The ring number $m$; Length($\alpha$), curvature($\beta$) grouped in parameter vector $\vec{\theta}$; the maximum number of iterations \MIt;}
+ \Input{A digital set $\Ds$; The ring number $m$; Length($\alpha$), curvature($\beta$) grouped in parameter vector $\vec{\theta}$; the maximum number of iterations \MIt;estimation disk radius $r$}
  \BlankLine
  $\Ds^{(0)} \longleftarrow \Ds$\;
  $k \longleftarrow 1$\;
@@ -149,14 +149,14 @@ We recall that $R_m$ refers to the $m$-ring defined in~\cref{ch5:sec:local-combi
 \end{align*}
 %
 Recall that the integral invariant estimator approaches curvature by computing the difference between half of the area
-of a chosen ball and the area of the intersection of this ball with the shape.  In particular, regions of positive
-curvature have fewer pixels in their intersection set than on its complement w.r.t the estimation ball. This implies
+of a chosen disk and the area of the intersection of this disk with the shape.  In particular, regions of positive
+curvature have fewer pixels in their intersection set than on its complement w.r.t the estimation disk. This implies
 that variables in such regions are labeled with 1, as the unbalance grows otherwise. We attenuate curvature if we shift
-the center of the estimation ball towards the interior of the shape, which means to remove the 1-labeled pixels. That is
+the center of the estimation disk towards the interior of the shape, which means to remove the 1-labeled pixels. That is
 why we take the complement of the optimization solution.
 
 
-The explanation above covers the treatment of convex parts, but the way to treat concavities is not much different. Indeed, concave regions are convex in the shape complement. The FlipFlow~\cref{ch6:alg:evolution-model} is made of two modes: shrink and expansion. The shrink mode handles convexities and its reasoning is explained in the previous paragraph. The expansion mode operates exactly in the same way, but on the image complement, and by doing this we are able to handle
+The explanation above covers the treatment of convex parts, but the way to treat concavities is not much different. Indeed, concave regions are convex in the shape complement. The FlipFlow~\cref{ch6:alg:evolution-model} is made of two modes: \emph{shrink} and \emph{expansion}. The shrink mode handles convexities and its reasoning is explained in the previous paragraph. The expansion mode operates exactly in the same way, but on the image complement, and by doing this we are able to handle
 concavities. It is called expansion mode because the optimization region, in this case, is the outer pixel boundary of
 the original shape. Table~\cref{tab:flow-summary} sums up these arguments.
 
@@ -190,7 +190,7 @@ the original shape. Table~\cref{tab:flow-summary} sums up these arguments.
 \end{table}
 
 
-In~\cref{ch6:fig:m1-square-flow} we show the results of the FlipFlow algorithm for $( \daniel{m=0}, \alpha=\{0, 0.5\}, \beta=1 )$. We observe a global evolution towards rounder shapes, but several artifacts are formed along the boundary. An estimation ball of higher radius evolves the shapes faster, but the contours become noisier. Setting $\alpha >0$ attenuates the problem for lower radius but the produced shapes does not match with our intuition of what a flow driven by the squared curvature must be like. In the next section we investigate how the energy properties and optimization method used can explain this behavior.
+In~\cref{ch6:fig:m1-square-flow} we show the results of the FlipFlow algorithm for $( \daniel{m=0}, \alpha=\{0, 0.5\}, \beta=1 )$. We observe a global evolution towards rounder shapes, but several artifacts are formed along the boundary. An estimation disk of higher radius evolves the shapes faster, but the contours become noisier. Setting $\alpha >0$ attenuates the problem for lower radius but the produced shapes does not match with our intuition of what a flow driven by the squared curvature must be like. In the next section we investigate how the energy properties and optimization method used can explain this behavior.
 
 \begin{figure}
 \center
@@ -211,7 +211,7 @@ In~\cref{ch6:fig:m1-square-flow} we show the results of the FlipFlow algorithm f
 \includegraphics[scale=0.23]{figures/chapter6/radius-effect/flower/improve/len_pen0.5/radius-9/summary.pdf}
 \end{tabular}
 
-\caption{\daniel{\textbf{FlipFlow results for $m=0,\beta=1$.}} The algorithm is very sensitive to the little variations of the estimator, which are particularly important in regions of low squared curvature. Artifacts are somewhat reduced with a length penalization but increases if we use a higher ball radius. For better visualization, curves are displayed every $1/10$ of the number of iterations. }
+\caption{\daniel{\textbf{FlipFlow results for $m=0,\beta=1$.}} The algorithm is very sensitive to the little variations of the estimator, which are particularly important in regions of low squared curvature. Artifacts are somewhat reduced with a length penalization but increases if we use a higher disk radius. For better visualization, curves are displayed every $1/10$ of the number of iterations. }
 \label{ch6:fig:m1-square-flow}
 \end{figure}
 
@@ -251,12 +251,12 @@ but loses the property of partial optimality. The second is an exact method whic
 than QPBO.
 
 The percentage of unlabeled pixels by QPBOP for $E_{(\vec{\theta},m)}^{flip}$ is quite high, but the percentage decreases to zero as we set $m$
-to a value closer to $r$, the estimation ball radius. Therefore, we are more confident in taking the solution for values of $m$ close to $r$. However, the way it
+to a value closer to $r$, the estimation disk radius. Therefore, we are more confident in taking the solution for values of $m$ close to $r$. However, the way it
 varies across values of $m$ differs from shape to shape, as is illustrated in~\cref{ch6:fig:unlabeled-versus-iterations}. We also noticed that, for $m=r$, all the pixels were labeled, which
   indicates that $E_{(\vec{\theta},r)}^{flip}$ is an easy instance of the general non-submodular energy $E_{(\vec{\theta},m)}^{flip}$, but this remains to be
   proved. The number of pairwise terms in $E_{(\vec{\theta},r)}^{flip}$ is roughly half of those in $E_{(\vec{\theta},1)}^{flip}$ (see~\cref{ch6:fig:ratio-pairwise-terms}), which also explains the higher number of labeled variables.
 
-  We have used QPBOI to solve $E_{(\vec{\theta},m)}^{flip}$. Naturally, in the case where all pixels are labeled by QPBOP, QPBOI returns the same labeling as QPBOP. In the next section we show that by evaluating the estimation ball at outer rings, we eliminate the artifacts and we produce smoother flows while preserving a qualitative measure of curvature.
+  We have used QPBOI to solve $E_{(\vec{\theta},m)}^{flip}$. Naturally, in the case where all pixels are labeled by QPBOP, QPBOI returns the same labeling as QPBOP. In the next section we show that by evaluating the estimation disk at outer rings, we eliminate the artifacts and we produce smoother flows while preserving a qualitative measure of curvature.
   
   \daniel{We postpone the comparison of the proposed methods in this thesis to~\cref{chapter:results-analysis}. At this point, we observe that the FlipFlow performs up to 10x faster than the LocalSearch algorithm.} 
 
@@ -347,7 +347,7 @@ $m=1$ & $m=4$ & $m=5$\\
 \includegraphics[scale=0.22]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level4/summary.pdf} &
 \includegraphics[scale=0.22]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-5/level5/summary.pdf} 
 \end{tabular}
-\caption{\daniel{\textbf{FlipFlow results for $\mathbf{r=5}$.}} By positioning the estimation ball on outer rings, we minimize the apparition of sharp artifacts. %The radius of the estimation ball used here equals to $5$ and the curves are displayed every $10$ iterations.
+\caption{\daniel{\textbf{FlipFlow results for $\mathbf{r=5}$.}} By positioning the estimation disk on outer rings, we minimize the apparition of sharp artifacts. %The radius of the estimation disk used here equals to $5$ and the curves are displayed every $10$ iterations.
 }
 \label{ch6:fig:mrings-r5-evolution}
 \end{figure}
@@ -364,7 +364,7 @@ $m=1$ & $m=6$ & $m=9$\\
 \includegraphics[scale=0.22]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level6/summary.pdf} &
 \includegraphics[scale=0.22]{figures/chapter6/level-effect/flower/improve/len_pen0/radius-9/level9/summary.pdf}
 \end{tabular}
-\caption{\daniel{\textbf{FlipFlow results for $\mathbf{r=9}$.}} By positioning the estimation ball on outer rings, we minimize the apparition of sharp artifacts. %The radius of the estimation ball used here equals to $9$ and the curves are displayed every $10$ iterations.
+\caption{\daniel{\textbf{FlipFlow results for $\mathbf{r=9}$.}} By positioning the estimation disk on outer rings, we minimize the apparition of sharp artifacts. %The radius of the estimation disk used here equals to $9$ and the curves are displayed every $10$ iterations.
 }
 \label{ch6:fig:mrings-r9-evolution}
 \end{figure}
@@ -412,13 +412,13 @@ In the left column, we use FlipFlow radius $5$ and in the right column we use Fl
 \label{ch6:fig:segmentation}
 \end{figure}
 
-The QPBOP method leaves many pixels unlabeled for $m=0$, \daniel{but in some occasions, the ratio of unlabeled pixels decreases as we take values of $m$ closer to $r$}. In this section, we argue that by evaluating the estimation ball along outer rings we obtain smoother evolutions by focusing the optimization process only on regions of high squared curvature value.
+The QPBOP method leaves many pixels unlabeled for $m=0$, \daniel{but in some occasions, the ratio of unlabeled pixels decreases as we take values of $m$ closer to $r$}. In this section, we argue that by evaluating the estimation disk along outer rings we obtain smoother evolutions by focusing the optimization process only on regions of high squared curvature value.
 
 In~\cref{ch6:fig:mrings-r5-evolution,ch6:fig:mrings-r9-evolution} we evaluate several flows for different energies $E_{(\vec{\theta},m)}^{flip}$. As expected, the number of artifacts decrease as the value of $m$ increases, while the process still tends to shrink the shape to a single point, resembling the \daniel{curve shortening flow discussed in~\cref{ch3:sec:curvature-curve-shortening-flow}}. 
 
 We confirm the stability of the model by looking at the plots of the digital elastica energy values for the produced shapes. Moreover, the produced flow has no difficulties in handling changes on topology, and it presents different speeds for regions with low and high curvature values, as illustrated in~\cref{ch6:fig:handle-topology-different-speed}.
 
-The computation of estimation balls at outer rings raises the question about its validity as a curvature estimator. In fact, one can estimate the curvature using outer balls (see~\cref{app:curvature-and-distant-disks}), but we were not able to prove its multigrid convergence. However, this relation suggests that curvature information is at least qualitatively present in the outer balls computation, and this computation is preferred, as it is easier to optimize accordingly to the experiments illustrated in~\cref{ch6:fig:mrings-r5-evolution,ch6:fig:mrings-r9-evolution,ch6:fig:unlabeled-versus-iterations,ch6:fig:mrings-plots-r5-r9}.
+The computation of estimation disks at outer rings raises the question about its validity as a curvature estimator. In fact, one can estimate the curvature using outer disks (see~\cref{app:curvature-and-distant-disks}), but we were not able to prove its multigrid convergence. However, this relation suggests that curvature information is at least qualitatively present in the outer disks computation, and this computation is preferred, as it is easier to optimize accordingly to the experiments illustrated in~\cref{ch6:fig:mrings-r5-evolution,ch6:fig:mrings-r9-evolution,ch6:fig:unlabeled-versus-iterations,ch6:fig:mrings-plots-r5-r9}.
 
 
 
@@ -443,7 +443,8 @@ is set to the data fidelity term~\cref{eq:data-fidelity}.
  \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
  \SetKwComment{comment}{//}{}
  
- \Input{An image $I$; seeds mask $M$; the estimation ball radius $r$; parameter vector $\vec{\theta}=(\alpha, \beta)$; data term weight $(\gamma)$ ; initial dilation $d$; stop condition value \Tol; the maximum number of iterations \MIt;}
+ \Input{An image $I$; seeds mask $M$; the estimation disk
+ radius $r$; parameter vector $\vec{\theta}=(\alpha, \beta)$; data term weight $(\gamma)$ ; initial dilation $d$; stop condition value \Tol; the maximum number of iterations \MIt;}
  \BlankLine
 
  $\Ds \longleftarrow$ Graph cut($I,M$)\;
@@ -485,7 +486,7 @@ We proposed the FlipFlow algorithm, an evolution process based on the minimizati
 
 The FlipFlow algorithm operates in two distinct modes: the shrink and the expansion modes. They are responsible for the treatment of convex and concave regions, respectively. The model handles changes in topology and can be extended to include extra terms as data regularization term. In particular, we described an application of the FlipFlow model to image segmentation.
 
-It is remarkable that curvature regularization is achieved by evaluating the estimation disks at outer rings. Another surprising fact is that we are using a quite non-standard operation of taking the solution complement. We have developed an heuristic reasoning to explain the latter and we argue in~\cref{app:curvature-and-distant-disks} that curvature can still be measured evaluating disks at outer rings. Nonetheless, we may have taken an unnecessary tortuous path and missed the fundamental concept behind it. In the next chapter we identify the key concept behind the FlipFlow model to define a variant of this algorithm which is easier to implement.
+It is remarkable that curvature regularization is achieved by evaluating the estimation disks at outer rings. Another surprising fact is that we are using a quite non-standard operation of taking the solution complement. We have developed an heuristic reasoning to explain the latter and we argue in~\cref{app:curvature-and-distant-disks} that curvature can still be measured evaluating disks at outer rings. Nonetheless, we may have taken an unnecessary tortuous path and missed the fundamental concept behind it. In the next chapter, we identify the key concept behind the FlipFlow model to define a variant of this algorithm which is easier to implement.
 }
 
 %We presented the FlipFlow model in~\cref{ch6:sec:flipflow-model}, an evolution process that produces shapes of decreasing digital elastica until a certain inflexion point.~\cref{ch6:alg:evolution-model} operates in two distinct modes: the shrink and the expansion modes. They are responsible for the treatment of convexities and concavities regions, respectively. 
