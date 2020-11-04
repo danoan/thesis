@@ -1,0 +1,81 @@
+\documentclass[10pt,xcolor=svgnames]{beamer}
+\usefonttheme{professionalfonts}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french,english]{babel}
+\usepackage{graphicx}
+\usepackage{caption,subcaption}
+\usepackage{multirow}
+\captionsetup{compatibility=false}
+
+\usepackage[style=authoryear,maxbibnames=99,maxcitenames=5,backref=true,backend=biber,citestyle=authoryear]{biblatex}
+\AtBeginBibliography{\footnotesize}
+\addbibresource{main.bib}
+
+\usepackage[linesnumbered,commentsnumbered,ruled,vlined]{algorithm2e}
+\usepackage[linewidth=2.5pt,linecolor=black,nobreak=true]{mdframed}
+\mdfsetup{frametitlealignment=\center}
+
+\usepackage{amstext,amsmath,amssymb,bm,bbm,graphicx,mathtools,accents}
+\usepackage{beamerleanprogress}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
+\usepackage{transparent}
+
+\include{style/my-definitions}  
+
+\setbeamertemplate{bibliography entry title}{}
+\setbeamertemplate{bibliography entry location}{}
+\setbeamertemplate{bibliography entry note}{}
+
+\tikzset{
+  invisible/.style={opacity=0},
+  visible on/.style={alt={#1{}{invisible}}},
+  alt/.code args={<#1>#2#3}{%
+    \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+  },
+}
+
+\title
+  [Geometric Constraints and Variational Approaches to Image Analysis]
+  {Geometric Constraints and Variational Approaches to Image Analysis}
+
+\author[Daniel Martins Antunes]{  
+  {Daniel Martins Antunes\textsuperscript{1}\\[1em]
+  Supervised by: Jacques-Olivier Lachaud\textsuperscript{1} and Hugues Talbot\textsuperscript{2}}
+}
+  
+  
+\date
+  {Le Bourget-du-Lac, 3 November 2020}
+
+
+\institute
+  {
+	\textsuperscript{1}LAMA, Université Savoie Mont Blanc \\ 
+	\textsuperscript{2}CentraleSupélec, Université Paris-Saclay
+  }
+ 
+\begin{document}
+  \maketitle
+  \captionsetup[subfigure]{labelformat=empty}
+
+\include{sections/outline}
+
+\include{sections/motivation}
+
+\include{sections/outline-2}
+
+\include{sections/digital-images-and-convergence}
+\include{sections/combinatorial-elastica}
+\include{sections/non-submodular-elastica}
+\include{sections/elastica-graphcuts}
+\include{sections/conclusion}
+
+\begin{frame}[allowframebreaks]
+    \frametitle{References}	
+    \printbibliography
+\end{frame}
+
+
+\end{document}
