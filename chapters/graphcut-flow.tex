@@ -45,7 +45,8 @@ The GraphFlow model is suitable for the free, constrained elastica and image seg
 
 The set of candidate graphs of $D$ are derived from some neighborhood of shapes with respect to $D$. We define the $a$-probe set as an example of such neighborhood.
 
-\begin{definition}{$a$-probe set}
+\begin{definition}{($a$-probe set)}
+ 
 	Let $\Ds \subset \Omega \subset \mathbb{Z}^2$ a digital set and $a$ a natural number. The $a$-probe set of $\Ds$ is defined as
 	\begin{align*}
 		\mathcal{P}_a(\Ds) &= \Ds \cup \bigcup_{a' < a}{\Ds^{+a'} \cup \Ds^{-a'}},
@@ -58,6 +59,7 @@ We are going to construct a candidate graph for each member of $\mathcal{P}_a(D)
 %
 %
 \begin{definition}{Optimization band}
+ 
 Let $\Ds \subset \Omega \subset \mathbb{Z}^2$ a digital set and $n>0$. The optimization band $O_n(\Ds)$ is defined as
 \begin{align*}
 	O_n(\Ds) &:=\left\{ p \in \Omega \; | \; -n \leq d_{\Ds}(p) \leq n \right\}.
