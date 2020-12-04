@@ -243,22 +243,22 @@ We are going to evolve the initial contour $\partial D$ of some digital shape $D
 %
 \begin{definition}{Candidate graph}
 Let $D \subset \Omega \subset \mathbb{Z}^2$ a digital set and natural number $n>0$. We define $\mathcal{G}_D(\mathcal{V},\mathcal{E},c)$ as the candidate graph of $D$ with optimization band $n$ such that
-
+%
 \begin{align*}
 \mathcal{V} &= \big\{\; v_p \; | \; p \in O_n(D) \;\} \cup \{s,t \big\} \\
 \mathcal{E} &= \big\{ \; \{v_p,v_q\} \; | \; p \in O_n(D) \text{ and } q \in \mathcal{N}_4(p) \; \big\} \cup \mathcal{E}_{st}\\
 \mathcal{E}_{st} &= \big\{\; \{s,v_p\} \; | \; d_D(p)=-n \; \big\} \cup \big\{\; \{v_p,t\} \; | \; d_D(p)=n \; \big\}.
 \end{align*}
-
+%
 \end{definition}
 
 The vertices $s,t$ are virtual vertices representing the source and target vertices as it is usual in a minimum cut framework. In particular, after the minimum cut is computed, vertices connected to the source will define the new digital shape. The inner (outer) most pixels of the optimization band are connected to the source (target), and we identify such vertices as
-
+%
 \begin{align*}
 	\mathcal{V}_s &:=\left\{ v_p \in \Omega \; | \; d_{D}(p) = -n \right\} \\
 	\mathcal{V}_t &:=\left\{ v_p \in \Omega \; | \; d_{D}(p) = n \right\}.
 \end{align*}
-
+%
 The set $\mathcal{E}_{st}$ comprises all the edges having the source as their starting point or the target as their endpoint. Next, we describe how to set the edges' capacities.
 
 \begin{center}
@@ -300,15 +300,16 @@ where $\gamma_r \geq 0$ and $\gamma_b \geq 0$ are parameters controlling the inf
 	\end{array}\right.
 \end{align*}
 %
-\daniel{The terms $H_{bg}$ and $H_{fg}$ are mixed Gaussian distribution constructed from foreground and background seeds given by the user. Therefore, the GraphFlow model can be seen as an extension of the BJ graph cut segmentation model with a regularization term based on squared curvature. However, the GraphFlow model needs an initial solution, which is given by the BJ model (no curvature regularization).}
+\daniel{The terms $H_{bg}$ and $H_{fg}$ are mixed Gaussian distribution constructed from foreground and background seeds given by the user. }
+%Therefore, the GraphFlow model can be seen as an extension of the BJ graph cut segmentation model with a regularization term based on squared curvature. However, the GraphFlow model needs an initial solution, which is given by the BJ model (no curvature regularization).
 %
-
+%
 \subsection{Elastica GraphFlow algorithm}
 The GraphFlow algorithm implements a local-search strategy to minimize~\eqref{eq:validation-function} with a search
 space given by the solution candidates set defined in the previous section. We opted to not stop the method in the case
 where shape $D^{(k+1)}$ has higher energy than $D^{(k)}$, as a strategy to escape local minima. In the implementation
 presented here, the ony stopping condition is the number of iterations. This strategy can be adapted to the application.
-
+%
 \begin{algorithm}
  \SetKwData{It}{k}
  \SetKwData{MIt}{maxIt}
@@ -341,7 +342,7 @@ presented here, the ony stopping condition is the number of iterations. This str
  \caption{GraphFlow algorithm.}
  \label{ch8:alg:graphflow-algorithm}  
 \end{algorithm}
-
+%
 The Elastica GraphFlow algorithm has two fundamental steps. In the candidate selection, we build the solution candidates
 set from the minimum cuts of the candidate graphs. Next, in the validation step, we choose the digital set with minimum
 value for~\eqref{eq:validation-function}. If we interpret the balance coefficient minimization as the best move one can
@@ -370,8 +371,8 @@ $(n=2, a=0,\alpha=0.01)$ & $(n=2, a=2,\alpha=0.01)$ & $(n=2, a=2, \alpha=0.001)$
 \caption{\textbf{GraphFlow results.} The GraphFlow algorithm can shrink and grow in accordance with length penalization
   and it converges to a shape close to the theoretical global optimum (green curve) in the free elastica problem. We are using $n=2,a=2$ and shapes are displayed every $10$ iterations.\label{ch8:fig:graph-flow-neigh2-results}}
 \end{figure}
-
-
+%
+%
 \begin{figure}
 \center
 \begin{tabular}{cccc}
@@ -387,7 +388,7 @@ $(n=2, a=0,\alpha=0.01)$ & $(n=2, a=2,\alpha=0.01)$ & $(n=2, a=2, \alpha=0.001)$
   of our Elastica GraphFlow algorithm with and without the squared curvature term in the regularization. }
 \label{ch8:fig:segmentation}
 \end{figure}
-
+%
 \begin{figure}
 \center
 \begin{tabular}{cc}
@@ -399,7 +400,7 @@ $\gamma_r = 3, \gamma_b = 3$ & $\gamma_r = 3, \gamma_b = 3$\\
 \caption{\textbf{GraphFlow and completion property}. The oversegmented picture on the left was obtained with no squared curvature regularization, while the picture on the right was obtained by setting $\beta=1.0$. }
 \label{ch8:fig:segmentation-curvature-completion}
 \end{figure}
-
+%
 The solutions are very similar to those achieved in~\cite{antunes2020elastica}, but with the advantage of producing
 smoother flows and up to $100 \times$ faster.  In Fig.~\ref{ch8:fig:segmentation}, we show that our algorithm can easily
 be used for segmentation, and that it produces results that are parametrically smoother than those of the BJ model.
@@ -411,7 +412,7 @@ property, i.e., it tends to return a segmentation with fewer disconnected compon
 In this section we compare our proposed results for segmentation with several state-of-the-art results in
 Fig~\ref{ch9:fig:exp-comparison-image-segmentation-1}: the reference BJ segmentation method; the linear relaxation
 methods by Schoeneman \emph{et al.}; and our previous results.
-
+%
 \begin{figure}
 	\centering
 	\setlength{\tabcolsep}{1pt}
@@ -440,7 +441,7 @@ methods by Schoeneman \emph{et al.}; and our previous results.
             results; third row: previous results from~\cite{antunes2020elastica}; last row: proposed method. }}
 	\label{ch9:fig:exp-comparison-image-segmentation-1}
       \end{figure}
-
+%
  We observe that our results are smoother than BJ, as in the previous figure. They are very similar to our previous
  results, and much better than the reference SCLR method from literature.
 
@@ -520,14 +521,14 @@ x + y = z
 Please try to avoid rasterized images for line-art diagrams and
 schemas. Whenever possible, use vector graphics instead (see
 Fig.~\ref{fig1}).
-
+%
 \begin{figure}
 \includegraphics[width=\textwidth]{fig1.eps}
 \caption{A figure caption is always placed below the illustration.
 Please note that short captions are centered, while long ones are
 justified by the macro package automatically.} \label{fig1}
 \end{figure}
-
+%
 \begin{theorem}
 This is a sample theorem. The run-in heading is set in bold, while
 the following text appears in italics. Definitions, lemmas,
