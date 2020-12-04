@@ -9,6 +9,7 @@
 \usepackage{array,multirow}
 \usepackage{algorithm2e}
 
+\newcommand{\daniel}[1]{ {\color{blue}#1} }
 
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}%
 \DeclareMathOperator*{\argmin}{arg\,min}
@@ -151,10 +152,7 @@ Similarly, the digital elastica $\hat{E}_{\vec{\theta}}$ of some digitization $D
 	\label{ch5:digital-elastica}
 	\end{align}
 where $\dot{\vec{e}}$ denotes the center of the linel $\vec{e}$ and the estimators of length $\hat{s}$ and
-curvature $\hat{\kappa}$ are multigrid convergent. In the expression above, we will substitute an arbitrary
-subset $\Ds$ of $\mathbb{Z}^2$ to $D_h(S)$ since the continuous shape $S$ is unknown.  In the following we omit
-the grid step $h$ to simplify expressions (or, putting it differently, we assume that the shape of interest is
-rescaled by $1/h$ and we set $h=1$).
+curvature $\hat{\kappa}$ are multigrid convergent.
 
 
 \subsection{A multigrid-convergent estimation of curvature}    
@@ -163,77 +161,73 @@ Let $S$ be an arbitrary shape. The following definition yields a curvature estim
 \begin{definition}{(Integral Invariant Curvature Estimator)}
   Let $D_h(S)$ a digitization of $S \subset \mathbb{R}^2$. The integral invariant curvature estimator is defined for
   every point $p \in \partial_h S$ as
-  \begin{align*}
+  \begin{align}
     \hat{\kappa}_{r}(D_h(S),p,h) \coloneqq \frac{3}{r^3} \left( \frac{\pi r^2}{2} - \widehat{\text{Area}} \left( D_h\big( B_{r} ( p ) \big) \cap D_h(S), h \right) \right).
     %% \hat{\kappa}_{r}(D,x,h) \coloneqq \frac{3}{r^3} \left( \frac{\pi r^2}{2} - \widehat{Area} \left( B_{r/h} ( \frac{1}{h} \cdot x ) \cap D, h \right) \right),
-  \end{align*}
+    \label{eq:curvature_approximation}
+  \end{align}
 \end{definition}
 %
 where $\widehat{\text{Area}}( D,h )$ estimates the area of $D$ by counting its grid points and then scaling them by
 $h^2$. This estimator is multigrid convergent for the family of compact shapes in the plane with $3$-smooth boundary. It
 converges with speed $O(h^\frac{1}{3})$ for radii chosen as $r=\Theta(h^\frac{1}{3})$~\cite{lachaud17robust}.
 
+In the expression above, we will substitute an arbitrary
+subset $\Ds$ of $\mathbb{Z}^2$ to $D_h(S)$ since the continuous shape $S$ is unknown.  In the following we omit
+the grid step $h$ to simplify expressions (or, putting it differently, we assume that the shape of interest is
+rescaled by $1/h$ and we set $h=1$).
+
 
 \section{Digital elastica minimization via graph cuts}
 In this section we present a graph cut model that converges to the optimum digital shape under digital elastica
-regularization. Moreover, the model is easily adapted to image segmentation tasks.
+regularization. Moreover, the model is easily adapted to image segmentation tasks. 
 
-
-\subsection{Elastica GraphFlow model}
-The model presented in this chapter is highly influenced by the Boykov-Jolly (BJ) graph cut model described in~\cite{boykov01graphcut}.
-That model constructs a cost function on the edges of the image grid graph such that the minimum cut of the graph
-minimizes a segmentation energy. The model is very attractive because minimum cuts are quickly computed on sparse
-graphs.
-
-Let $\vec{I} \in \mathbb{F}^{m \times n}$ a discrete image and its associated capacitated grid graph $\GGe (\mathcal{V}^+,\mathcal{E}^+,c)$. Given a cut $\mathcal{E}'$ of $\GGe$ that partitions the graph in disjoint sets $S$ and $T$, the energy minimized by the graph cut model is written as
+\daniel{\subsection{Balance Coefficient}
+In the core of the model is the notion of balance coefficient. We are going to extend equation~\ref{eq:curvature_approximation} to the whole digital domain. In fact, since we are more interested in the  balance of intersected and non-intersected points, we slightly change equation~\ref{eq:curvature_approximation} and give it another name. We define the \emph{balance coefficient} as
+%
 \begin{align*}
-	E^{gcut}_{\vec{\gamma}}(\GGe,\mathcal{E}') &= \gamma_r \left( \sum_{v_p \in S}{ \psi_1(1) } +\sum_{v_p \in T}{\psi_1(0)} \right) + \gamma_b \sum_{(v_p,v_q) \in \mathcal{E}'}{\psi_2(0,1)},
+	u_r(D,p) &= \left( \frac{\pi r^2}{2} - \widehat{\text{Area}}(D(B_r(p)) \cap D) \right)^2.
 \end{align*}
-where $\gamma_r \geq 0$ and $\gamma_b \geq 0$ are parameters controlling the influence of the data and space coherence terms, respectively. Given a neighborhood cardinality $k$ (e.g. $8$), data and space coherence terms are defined as
-\begin{align*}
-	\psi_1(x_p) &= \left\{ \begin{array}{ll}
-	-\ln  H_{bg}\big( I(p) \big), & \text{if } x_p=0  \\[1em]	
-	-\ln  H_{fg}\big( I(p) \big), & \text{if } x_p=1,
-	\end{array}\right.\\[1em]
-	\psi_{2}(x_p,x_q) &= \left\{ \begin{array}{ll}
-	\displaystyle \exp{ \left(- \frac{1}{d_E(p,q)}\frac{(I(p) - I(q))^2}{2\sigma^2} \right) }, & q \in \mathcal{N}_k(p) \\[1em]
-	0, & \text{otherwise}.
-	\end{array}\right.
-\end{align*}
+%
+ The balance coefficient at $p$ gives us as an \emph{approximation} of the new squared curvature value were the shape perturbed a little around $p$. Therefore, it is reasonable to evolve the shape towards the zero level set of the balance coefficient function (see figure~\ref{fig:balance-coefficient-zero-level-set}).
+ %
+\begin{figure}
+ \center
+ \includegraphics[scale=0.32]{figures/zero-level-set/balance-coefficient-zero-level-set.png}
+ \caption{\textbf{Balance coefficient zero level set}. We notice that evolving the initial contour (colored in white) to the zero level set of the balance coefficient (colored in magenta) regularizes the shape with respect to the squared curvature.}
+ \label{fig:balance-coefficient-zero-level-set}
+ \end{figure}}
+%
 
-Let $D^{(0)}$ be the digital set induced from the foreground component computed by the standard graph cut algorithm.
-The GraphFlow model produces a sequence of digital shapes $D^{(k)}$ and is composed of two steps
-
+\subsection{Model overview}
+Let $D^{(0)}$ be the initial digital set. The GraphFlow model produces a sequence of digital shapes $D^{(k)}$ by executing two main steps:
+%
 \begin{itemize}
 \item[]{\textbf{Candidate selection:} We associate to $D^{(k)}$ a set of neighbor shapes $\mathcal{P}(D^{(k)})$. For
-    each $D' \in \mathcal{P}(D^{(k)})$ we construct its \emph{candidate graph} $\mathcal{G}_{D'}$ and we compute its
-    minimum cut $Q$ according to energy
+    each $D' \in \mathcal{P}(D^{(k)})$ we construct the capacitated graph $\mathcal{G}_{D'}$ such that its minimum cut $Q$ minimizes the candidate function.
 \begin{align}
-E^{gflow}_{ \vec{\gamma} }(\mathcal{G}_{D'},Q,D') =& \sum_{ (v_p,v_q) \in Q}{\big(u(D',p) + u(D',q) \big)} + E^{gcut}_{ \vec{\gamma} }(\mathcal{G}_{D'}, Q).
-\label{ch8:eq:graphflow-candidate}
-\end{align}}
-
-\item[]{\textbf{Validation:} Each minimum cut $Q$ computed in the previous step induces a solution candidate $D_{Q}$. We
-    group minimum cuts and solution candidates in the \emph{solution candidates set} $sol(D^{(k)})$. We choose among the
-    solution candidates the one that minimizes
+	cand(D) &= data(D) + \sum_{p \in D'}\sum_{q \in \mathcal{N}_{4}(p)}{ u_r(D,p) +u_r(D,q) }. \label{eq:candidate-function}
+\end{align}
+The proposition $mincut(Q,G)$ indicates that $Q$ is a minimum cut of $G$.}
+\vspace{1em}
+\item[]{\textbf{Validation:} Each minimum cut $Q$ computed in the previous step induces a solution candidate $D_{Q}$. We group the solution candidates in the set $sol(D^{(k)})$ and we choose the one that minimizes the validation energy
 \begin{align}
-	E^{val}_{ (\vec{\theta},\vec{\gamma}) }(\GG,Q,D_Q) &= \hat{E}_{\vec{\theta} }({D_Q}) + E^{gcut}_{ \vec{\gamma} }(\GGe,Q).
-	\label{ch8:eq:graphflow-energy}
+	val(D) &= data(D) + \hat{E}_{\vec{\theta}}( D ). \label{eq:validation-function}
 \end{align}
 }
-
 \end{itemize}
-Here, $\hat{E}_\theta$ stands for the digital elastica energy~\eqref{ch5:digital-elastica}. We observe that, in the
-validation step, we consider the image grid graph and not the candidate graph. The validation step plays an important
-role in the emulation of the completion property associated with the squared curvature term. 
-
-The GraphFlow model can be seen as an extension of the BJ graph cut segmentation model with a regularization term
-based on squared curvature.
-
-\subsection{Candidate graphs and solution candidates set}
-The set of candidate graphs of $D$ are derived from some neighborhood of shapes with respect to $D$. We define the
-$a$-probe set as an example of such neighborhood.
-
+%
+The candidate function is computed on a band around the contour of $D^{(k)}$. Let $d_{D}:\Omega \rightarrow \mathbb{R}$ be the signed Euclidean distance transformation with respect to shape $D$. The value $d_{D}(p)$ gives the Euclidean distance between $p \notin D$ and the closest point in $D$. For points $p \in D$, $d_{D}(p)$ gives the negative of the distance between $p$ and the closest point not in $D$.
+%
+\begin{definition}{(Optimization band)}
+Let $D \subset \Omega \subset \mathbb{Z}^2$ a digital set and natural number $n>0$. The optimization band $O_n(D)$ is defined as
+\begin{align*}
+	O_n(D) &:=\left\{ p \in \Omega \; | \; -n \leq d_{D}(p) \leq n \right\}.
+\end{align*}
+\end{definition}
+%
+We use as the neighborhood of shapes the $a$-probe set
+%
 \begin{definition}{($a$-probe set)}
 	Let $\Ds \subset \Omega \subset \mathbb{Z}^2$ a digital set and $a$ a natural number. The $a$-probe set of $\Ds$ is defined as
 	\begin{align*}
@@ -242,67 +236,75 @@ $a$-probe set as an example of such neighborhood.
 	where $\Ds^{+a}$($\Ds^{-a}$) denotes a dilation(erosion) by a disk of radius $a$.
 \end{definition}
 %
+
+\daniel{
+\subsection{Shape evolution}
+We are going to evolve the initial contour $\partial D$ of some digital shape $D$ to the zero level set of its balance coeficient by computing the minimum cut the candidate graphs. In this experiment, the data term in both candidate and validation functions equal to zero.}
 %
-We are going to construct a candidate graph for each member of $\mathcal{P}_a(D)$, but we are going to consider only the
-pixels of $D$ contained in a band around its contour.
-%
-%
-\begin{definition}{(Optimization band)}
-Let $\Ds \subset \Omega \subset \mathbb{Z}^2$ a digital set and $n>0$. The optimization band $O_n(\Ds)$ is defined as
+\begin{definition}{Candidate graph}
+Let $D \subset \Omega \subset \mathbb{Z}^2$ a digital set and natural number $n>0$. We define $\mathcal{G}_D(\mathcal{V},\mathcal{E},c)$ as the candidate graph of $D$ with optimization band $n$ such that
+
 \begin{align*}
-	O_n(\Ds) &:=\left\{ p \in \Omega \; | \; -n \leq d_{\Ds}(p) \leq n \right\}.
+\mathcal{V} &= \big\{\; v_p \; | \; p \in O_n(D) \;\} \cup \{s,t \big\} \\
+\mathcal{E} &= \big\{ \; \{v_p,v_q\} \; | \; p \in O_n(D) \text{ and } q \in \mathcal{N}_4(p) \; \big\} \cup \mathcal{E}_{st}\\
+\mathcal{E}_{st} &= \big\{\; \{s,v_p\} \; | \; d_D(p)=-n \; \big\} \cup \big\{\; \{v_p,t\} \; | \; d_D(p)=n \; \big\}.
 \end{align*}
+
 \end{definition}
-%
-%
-For each $D' \in \mathcal{P}_a(D)$ we construct the capacited graph $\mathcal{G}_{D'}(\mathcal{V},\mathcal{E},c)$ with
-vertex and edge sets defined as
+
+The vertices $s,t$ are virtual vertices representing the source and target vertices as it is usual in a minimum cut framework. In particular, after the minimum cut is computed, vertices connected to the source will define the new digital shape. The inner (outer) most pixels of the optimization band are connected to the source (target), and we identify such vertices as
+
 \begin{align*}
-	\mathcal{V} &= \{ v_p \; | \; p \in O_n(D') \} \cup \{s,t\} \\
-	\mathcal{E} &= \mathcal{E}_{st} \cup \mathcal{E}_\mathcal{N},
-\end{align*}
-where $s,t$ are the source and target vertices, respectively, and
-\begin{align*}
-	\mathcal{E}_{st} &= \{ (s,v_p), (v_p,t) \; | \; p \in O_n(D') \} \\
-	\mathcal{E}_{\mathcal{N}_k} &= \{ \{v_p, v_q\} \; | \; p \in O_n(D') \text{ and } q \in \mathcal{N}_k(p) \}.	
+	\mathcal{V}_s &:=\left\{ v_p \in \Omega \; | \; d_{D}(p) = -n \right\} \\
+	\mathcal{V}_t &:=\left\{ v_p \in \Omega \; | \; d_{D}(p) = n \right\}.
 \end{align*}
 
-In the image segmentation case, we make the standard assumption that there exist sets $\mathcal{V}_{fg},\mathcal{V}_{bg} \subset \mathcal{V}$
-corresponding to foreground and background seeds provided by the user. The cost function edge capacities
-$c:\mathcal{E}\rightarrow \mathbb{R}$ are defined in Table~\ref{tab:capacities}.
+The set $\mathcal{E}_{st}$ comprises all the edges having the source as their starting point or the target as their endpoint. Next, we describe how to set the edges' capacities.
 
-\begin{table}[htb]
-  \centering
-  \caption{Edge capacities\label{tab:capacities}}
-\setlength{\extrarowheight}{0.75em}
+\begin{center}
 \begin{tabular}{|c|c|c|}
 \hline
 \textbf{edge} $e$ & $\mathbf{c(e)}$ & \textbf{for}\\
 \hline
-$\{v_p, v_q\}$ & $\beta \cdot \big(u(D',p) + u(D',q)\big) + \gamma_b \cdot \psi_2(0,1)$ & $\{v_p,v_q\} \in \mathcal{E}_{\mathcal{N}}$\\
+$\{v_p, v_q\}$ & $ u_r(D,p) + u_r(D,q) $ & $\{v_p,v_q\} \in \mathcal{E}_{u}$\\
 \hline
-\multirow{3}{*}{$\{v_p, s\}$} & $\gamma_r \cdot \psi_1(0)$ & $p \in O_n(D'), v_p \notin \mathcal{V}_{fg} \cup \mathcal{V}_{bg}$\\
-& $M$ & $v_p \in \mathcal{V}_{fg}$ \\ 
-& 0 & $v_p \in \mathcal{V}_{bg}$\\
+$\{v_p, s\}$ & $M$ & $v_p \in \mathcal{V}_{s}$ \\
 \hline
-\multirow{3}{*}{$\{v_p, t\}$} & $\gamma_r \cdot \psi_1(1)$ & $p \in O_n(D'), v_p \notin \mathcal{V}_{fg} \cup \mathcal{V}_{bg}$ \\
-& 0 & $v_p \in \mathcal{V}_{fg}$ \\
-& $M$ & $v_p \in \mathcal{V}_{bg}$ \\
-  \hline
+$\{v_p, t\}$ & $M$ & $v_p \in \mathcal{V}_{t}$ \\
+\hline
 \end{tabular}
-\end{table}
+\end{center}
 
-In this table, the constant $M$ is given by
+
+,where $M$ is set as twice the highest value of the balance coefficient plus one, i.e.,
 \begin{align*}
-M &= 1 + \max_{p \in O_n(D')}{ \beta \cdot \big(u(D',p) + u(D',q)\big) + \gamma_b \cdot \psi_2(0,1) }.
+	M &= 1+\max_{p \in O_n(D)} 2*u_r(D,p).
 \end{align*}
-Let $mincut(Q,\mathcal{G})$ a predicate indicating that $Q$ is a minimum cut set of some capacited graph $\mathcal{G}(\mathcal{V},\mathcal{E},c)$. We define the solution candidates set of digital set $D$ as
+%
+
+\daniel{\subsection{Image segmentation}
+The GraphFlow model is suitable for image processing tasks. We present our experiments using the data term employed by Boykov-Jolly (BJ) graph cut model described in~\cite{boykov01graphcut}. Let $\vec{x} \in [0,1]^{|D|}$ to represent the label of each pixel ($0$ for background and $1$ for foreground). Then, we define the data term as
+%
 \begin{align*}
-	sol(D) &= \bigcup_{D' \in \mathcal{P}_a(D)} \Big\{ \big( Q,D_Q \big) \; | \; mincut(Q,\mathcal{G}_{D'}) \Big\}.
+	data(D) &= \gamma_r \sum_{p \in D}{ \psi_p(x_p) } + \gamma_b \sum_{p \in D'}\sum_{q \in \mathcal{N}_{4}(p)}{\psi_{p,q}(x_p,x_q)},
 \end{align*}
+where $\gamma_r \geq 0$ and $\gamma_b \geq 0$ are parameters controlling the influence of the data and space coherence terms, respectively. Given the image $I:\Omega \rightarrow [0,1]^3$, the unary and pairwise terms are defined as}
+\begin{align*}
+	\psi_p(x_p) &= \left\{ \begin{array}{ll}
+	-\ln  H_{bg}\big( I(p) \big), & \text{if } x_p=0  \\[1em]	
+	-\ln  H_{fg}\big( I(p) \big), & \text{if } x_p=1,
+	\end{array}\right.\\[1em]
+	\psi_{p,q}(x_p,x_q) &= \left\{ \begin{array}{ll}
+	\displaystyle \exp{ \left(- \frac{1}{ |(p,q)| }\frac{(I(p) - I(q))^2}{2\sigma^2} \right) }, & q \in \mathcal{N}_4(p) \\[1em]
+	0, & \text{otherwise}.
+	\end{array}\right.
+\end{align*}
+%
+\daniel{The terms $H_{bg}$ and $H_{fg}$ are mixed Gaussian distribution constructed from foreground and background seeds given by the user. Therefore, the GraphFlow model can be seen as an extension of the BJ graph cut segmentation model with a regularization term based on squared curvature. However, the GraphFlow model needs an initial solution, which is given by the BJ model (no curvature regularization).}
+%
 
 \subsection{Elastica GraphFlow algorithm}
-The GraphFlow algorithm implements a local-search strategy to minimize~\eqref{ch8:eq:graphflow-energy} with a search
+The GraphFlow algorithm implements a local-search strategy to minimize~\eqref{eq:validation-function} with a search
 space given by the solution candidates set defined in the previous section. We opted to not stop the method in the case
 where shape $D^{(k+1)}$ has higher energy than $D^{(k)}$, as a strategy to escape local minima. In the implementation
 presented here, the ony stopping condition is the number of iterations. This strategy can be adapted to the application.
@@ -314,11 +316,11 @@ presented here, the ony stopping condition is the number of iterations. This str
  \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
  \SetKwComment{comment}{//}{}
  
- \Input{An image $\vec{I}$ or a digital set $D$; the optimization band $n$; the probe set parameter $a$; parameter vector $\vec{\theta}=(\alpha,\beta)$; parameter vector $\vec{\gamma} = (\gamma_r,\gamma_b)$; the maximum number of iterations \MIt;} 
+ \Input{An image $I$ or a digital set $D$; the optimization band $n$; the probe set parameter $a$; parameter vector $\vec{\theta}=(\alpha,\beta)$; parameter vector $\vec{\gamma} = (\gamma_r,\gamma_b)$; the maximum number of iterations \MIt;} 
  \BlankLine
- \If{ Image $\vec{I}$ is given }
+ \If{ Image $I$ is given }
  {
-	 $\Ds^{(0)} \longleftarrow graphcut(\vec{I})$\;  
+	 $\Ds^{(0)} \longleftarrow graphcut_BJ(I)$\;  
  }
  \Else{
 	 $\Ds^{(0)} \longleftarrow \Ds$\; 
@@ -332,7 +334,7 @@ presented here, the ony stopping condition is the number of iterations. This str
 
 	\BlankLine
 	\comment{Candidate validation}
-	$( Q^{(k+1)}, \Ds^{(k+1)} ) \longleftarrow \displaystyle \argmin_{ (Q,S) \in sol(D^{(k)}) }{ \hat{E}_{\vec{\theta}}(S) + E^{gcut}_{\vec{\gamma} }{( \mathcal{G}_{\vec{I}},Q) }}$\; 	
+	$\Ds^{(k+1)} \longleftarrow \displaystyle \argmin_{ (Q,S) \in sol(D^{(k)}) }{ data(S) + \hat{E}_{\vec{\theta}}(S) }$\; 	
 	\It $\longleftarrow$ \It $+1$\;
 	
  }
@@ -342,7 +344,7 @@ presented here, the ony stopping condition is the number of iterations. This str
 
 The Elastica GraphFlow algorithm has two fundamental steps. In the candidate selection, we build the solution candidates
 set from the minimum cuts of the candidate graphs. Next, in the validation step, we choose the digital set with minimum
-value for~\eqref{ch8:eq:graphflow-energy}. If we interpret the balance coefficient minimization as the best move one can
+value for~\eqref{eq:validation-function}. If we interpret the balance coefficient minimization as the best move one can
 make towards digital elastica minimization, the solution candidates set can be seen as the neighboring shapes with
 highest potential to minimize the elastica energy for the given $a$-probe set.
 
