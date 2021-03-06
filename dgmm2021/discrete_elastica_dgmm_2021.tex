@@ -238,7 +238,7 @@ We use as the neighborhood of shapes the $a$-probe set
 %
 
 \daniel{
-\subsection{Shape evolution}
+\subsection{Shape optimization}
 We are going to evolve the initial contour $\partial D$ of some digital shape $D$ to the zero level set of its balance coeficient by computing the minimum cut the candidate graphs. In this experiment, the data term in both candidate and validation functions equal to zero.}
 %
 \begin{definition}{Candidate graph}
@@ -308,7 +308,7 @@ where $\gamma_r \geq 0$ and $\gamma_b \geq 0$ are parameters controlling the inf
 The GraphFlow algorithm implements a local-search strategy to minimize~\eqref{eq:validation-function} with a search
 space given by the solution candidates set defined in the previous section. We opted to not stop the method in the case
 where shape $D^{(k+1)}$ has higher energy than $D^{(k)}$, as a strategy to escape local minima. In the implementation
-presented here, the ony stopping condition is the number of iterations. This strategy can be adapted to the application.
+presented here, the only stopping condition is the number of iterations. This strategy can be adapted to the application.
 %
 \begin{algorithm}
  \SetKwData{It}{k}
@@ -353,14 +353,12 @@ Some results of Algorithm~\ref{ch8:alg:graphflow-algorithm} are shown in the nex
 
 \section{Results and discussion}
 We first present some of our own results, then some comparison with our previous work and with the reference
-implementation of~\cite{schoenemann09linear}. None of the other Elastica energy minimization algorithms have
-publicly-available implementations.
+implementation of~\cite{schoenemann09linear}.
 
 \subsection{Results}
 The GraphFlow algorithm produces a flow that is in accordance with expectations for a flow guided by the elastica
 energy. In particular, it grows and shrinks in accordance with the $\alpha$ coefficient in the digital elastica
-(see Fig.~\ref{ch8:fig:graph-flow-neigh2-results}). If we use a $0$-probe set, we recover the convergence to a single point
-behavior.
+(see Fig.~\ref{ch8:fig:graph-flow-neigh2-results}) \daniel{for $a$-probe sets such that $a>0$}. \daniel{If we use a $0$-probe set, we recover a flow similar to the curve-shortening flow~\cite{huisken84flow}.}
 \begin{figure}
 \center
 \subfloat[]{
@@ -463,7 +461,7 @@ This work  & 11s & 150s & 75s\\
 \end{tabular}
 \end{table}
 
-According to Table~\ref{ch9:tab:rtime-image-segmentation-general}, our proposed method is signifiantly faster than
+\daniel{All the experiments were executed on a 32-core 2.4Ghz CPU}. According to Table~\ref{ch9:tab:rtime-image-segmentation-general}, our proposed method is signifiantly faster than
 our previous work, and much faster than the reference SLCR method.
 
 \section{Conclusion}
