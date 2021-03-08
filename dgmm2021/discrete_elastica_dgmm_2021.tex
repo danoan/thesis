@@ -57,11 +57,11 @@ CentraleSupelec, Universit\'e Paris-Saclay, Inria\\
   elements.
 
   In this article, we propose a graph-cut based model for optimizing the discrete Elastica energy using a fast and
-  efficient graph-cut model.  Even thought the Elastica energy is neither convex nor sub-modular, we show that the final
-  shape we achieve is often the indeed close to the globally optimal one.
+  efficient graph-cut model.  Even though the Elastica energy is neither convex nor sub-modular, we show that the final
+  shape we achieve is often very close to the globally optimal one.
 
-  Our model easily adapts to image segmentation tasks. We show that compared to previous work and state-of-the-art
-  algorithm, our proposal is simpler to implement, faster, and yields comparable or better results.
+  Our model easily adapts to image segmentation tasks. We show that compared to previous works and state-of-the-art
+  algorithms, our proposal is simpler to implement, faster, and yields comparable or better results.
 
   \keywords{multigrid  convergence \and digital estimators \and curvature \and discrete optimization}
 \end{abstract}
@@ -76,73 +76,81 @@ vision in~\cite{mumford94elastica} as a means to regularize edges or segmentatio
 component. Being associated with second-order derivatives, the notion of curvature is difficult to compute and optimize
 in a regularisation framework.
 
-Multiple attempts have been made by prominent researchers to introduce an explicit curvature term in curve regularizers
-using various methods and approaches. Even early active contour models~\cite{kass88} had an elasticity component
-equivalent to a notion of curvature. Similarly, with level-set methods, local curvature can readily be estimated as
-in~\cite{malladi1995shape}. However these approches typically optimise a non-convex local energy by gradient descent,
-and most were non-geometric, i.e discretization-dependent. In contrast~\cite{caselles97} proposed a geometric level-set
-segmentation method, but using only the perimeter as a regularizer, and was still non-convex. All the numerous
-approaches based on total-variation minimization for image restoration or segmentation~\cite{rudin1992nonlinear} and
-even the Mumford-Shah functional~\cite{mumford89} use this regularization, in part because optimizing it exactly was
-already a challenge for a long time~\cite{boykov01fast,chambolle04,appleton2005globally}, either in the discrete or
-continuous cases.
+Multiple attempts have been made by prominent researchers to introduce
+an explicit curvature term in curve regularizers using various methods
+and approaches. Even early active contour models~\cite{kass88} had an
+elasticity component equivalent to a notion of curvature. Similarly,
+with level-set methods, local curvature can readily be estimated as
+in~\cite{malladi1995shape}. However these approaches typically
+optimise a non-convex local energy by gradient descent, and most were
+non-geometric, i.e discretization-dependent. In
+contrast~\cite{caselles97} proposed a geometric level-set segmentation
+method, but using only the perimeter as a regularizer, and was still
+non-convex. All the numerous approaches based on total-variation
+minimization for image restoration or
+segmentation~\cite{rudin1992nonlinear} and even the Mumford-Shah
+functional~\cite{mumford89} use this quite elementary regularizer,
+probably because optimizing it in an exact manner was already a
+challenge for a long
+time~\cite{boykov01fast,chambolle04,appleton2005globally}, whether in
+the discrete or continuous cases.
 
-In more recent work, optimizing the Elastica, which is a geometric regularizer, has seeen renewed
+In more recent works, optimizing the Elastica, which is a geometric regularizer, has seen renewed
 interest. In~\cite{masnou98inpainting}, authors successfully use a computational geometry approach to perform image
 restoration with the Elastica as regularizer. In~\cite{zehiry10fast}, authors compute an approximate discrete version of
 the Elastica and optimize it with discrete calculus. In~\cite{nieuwenhuis14efficient}, an efficient, discrete
 approximation of curvature is optimized with a specific solver using local submodular
-approximations~\cite{gorelick14local}. However, in these works, the quality of the curvature approximation may limit
-performance.
+approximations~\cite{gorelick14local}. However, in these works, the poor quality of the curvature approximation may limit accuracy and hence the quality of the result.
 
-In previous work~\cite{antunes2020elastica} we proposed to formulate a digital flow that approximates an
+In a previous work~\cite{antunes2020elastica} we proposed to formulate a digital flow that approximates an
 Elastica-related flow using a multigrid-convergent curvature estimator, within a discrete variational
 framework. We also presented an application of this model as a post-processing step to a segmentation framework.
 
-In this work, we propose a novel approach that still uses a multigrid-convergent estimation of curvature, that we
-optimize using a maximal flow algorithm.
+In this work, we propose a novel approach that still uses a
+multigrid-convergent estimation of curvature, but we optimize using a
+maximal flow algorithm.
 
 \subsection{Multigrid convergent estimators}
 Geometric measurements in digital objects can be tricky.  Intuitively, a good estimator should converge to its
-continuous counterpart value as the grid resolution is refined. The criteria that formalizes this intuition is the
+continuous counterpart value as the grid resolution is refined. The criterion that formalizes this intuition is the
 multigrid convergence property.
 
 \begin{definition}{(Multigrid convergence)}
-
   Let $\mathcal{F}$ a family of shapes in the plane and $Q$ a global measurement (e.g., perimeter, area) on members of
   $\mathcal{F}$. Additionally, denote $D_h(S)$ a digitization of shape $S$ in a digital grid of resolution $h$. The
-  estimator $\hat{Q}$ of $Q$ is multigrid convergent for the family $\mathcal{F}$ if and only if for every shape
+  estimator $\hat{Q}$ of $Q$ is {\em multigrid convergent} for the family $\mathcal{F}$ if and only if for every shape
   $S \in \mathcal{F}$, there exists $h_S > 0$ such that
 \begin{align*}
 \forall h \leq h_S, \quad |\hat{Q}(D_h(S),h) - Q(S)| \leq \tau_S(h),
 \end{align*}
 %
-where $\tau_S:\mathbb{R}_+\setminus \{0\} \rightarrow \mathbb{R}_+$ is the speed of convergence of $\hat{Q}$ towards $Q$
+where $\tau_S:\mathbb{R}_+\setminus \{0\} \rightarrow \mathbb{R}_+$ tends to zero as $h$ tends to zero and is the {\em speed of convergence} of $\hat{Q}$ towards $Q$
 for $S$.
 \end{definition}
 
 Tangent and curvature are examples of local properties computed along the boundary of some shape $S$ in the plane. We
-need a slight different definition of multigrid convergence in order to map points of the Euclidean boundary to those in
+need a slightly different definition of multigrid convergence in order to map points of the Euclidean boundary to those in
 the digital contour.
 
 \begin{definition}{(Multigrid convergence for local geometric quantities)}
   Let $\mathcal{F}$ a family of shapes in the plane and $Q$ a local measurement along the boundary $\partial S$ of
   $S \in \mathcal{F}$. Additionally, denote $D_h(S)$ a digitization of $S$ in a digital grid of resolution $h$ and
-  $\partial_h S$ its digital contour. The estimator $\hat{Q}$ of $Q$ is multigrid convergent for the family
+  $\partial_h S$ its digital contour. The estimator $\hat{Q}$ of $Q$ is {\em multigrid convergent} for the family
   $\mathcal{F}$ if and only if for every shape $S \in \mathcal{F}$, there exists $h_S > 0$ such that the estimate
   $\hat{Q}(D_h(S),p,h)$ is defined for all $p \in \partial_h S$ with $0 < h < h_S$, and for any $x \in \partial S$,
 \begin{align*}
 	\forall p \in \partial_h S \text{ with } \norm{p-x}_{\infty} \leq h,\quad | \hat{Q}(D_h(S),p,h) - Q(S,x) | \leq \tau_S(h),	
 \end{align*}
 where $\tau_S:\mathbb{R}_+\setminus \{0\} \rightarrow \mathbb{R}_+$ has null limit at $0$. This function defines the
-speed of convergence of $\hat{Q}$ towards $Q$ for $S$.
+{\em speed of convergence} of $\hat{Q}$ towards $Q$ for $S$.
 \end{definition}
 
-We now define the notion of Elastica, particularly in the digital context.
+We now recall the notion of Elastica, as well as its digital counterpart.
 
 \subsection{Digital Elastica}
-The elastica energy of parameters $\vec{\theta}=(\alpha \geq 0, \beta \geq 0)$ for some Euclidean shape
-$S \subset \mathbb{R}^2$ is defined as
+Letting $\kappa$ be the curvature function along some Euclidean shape
+$S \subset \mathbb{R}^2$. The elastica energy of $S$ with parameters
+$\vec{\theta}=(\alpha \geq 0, \beta \geq 0)$ is defined as
 	\begin{align*}
 	E_{\vec{\theta}}(S) &= \int_{\partial S}{ \alpha + \beta \kappa(s)^2 ds}.
 	\end{align*}
@@ -186,7 +194,9 @@ regularization. Moreover, the model is easily adapted to image segmentation task
 In the core of the model is the notion of balance coefficient. We are going to extend equation~\ref{eq:curvature_approximation} to the whole digital domain. In fact, since we are more interested in the  balance of intersected and non-intersected points, we slightly change equation~\ref{eq:curvature_approximation} and give it another name. We define the \emph{balance coefficient} as
 %
 \begin{align*}
-	u_r(D,p) &= \left( \frac{\pi r^2}{2} - \widehat{\text{Area}}(D(B_r(p)) \cap D) \right)^2.
+%% JACO: attention j'ai change D en dessous.
+  u_r(D,p) &= \left( \frac{\pi r^2}{2} - \widehat{\text{Area}}(B_r(p) \cap D) \right)^2.
+	%% u_r(D,p) &= \left( \frac{\pi r^2}{2} - \widehat{\text{Area}}(D(B_r(p)) \cap D) \right)^2.
 \end{align*}
 %
  The balance coefficient at $p$ gives us as an \emph{approximation} of the new squared curvature value were the shape perturbed a little around $p$. Therefore, it is reasonable to evolve the shape towards the zero level set of the balance coefficient function (see figure~\ref{fig:balance-coefficient-zero-level-set}).
