@@ -199,7 +199,7 @@ In the core of the model is the notion of balance coefficient. We are going to e
 	%% u_r(D,p) &= \left( \frac{\pi r^2}{2} - \widehat{\text{Area}}(D(B_r(p)) \cap D) \right)^2.
 \end{align*}
 %
- The balance coefficient at $p$ gives us as an \emph{approximation} of the new squared curvature value were the shape perturbed a little around $p$. Therefore, it is reasonable to evolve the shape towards the zero level set of the balance coefficient function (see figure~\ref{fig:balance-coefficient-zero-level-set}).
+ The balance coefficient at $p$ gives us as an \emph{approximation} of the new squared curvature value when the shape is perturbed a little around $p$. Therefore, it is reasonable to evolve the shape towards the zero level set of the balance coefficient function (see figure~\ref{fig:balance-coefficient-zero-level-set}).
  %
 \begin{figure}
  \center
@@ -239,7 +239,7 @@ Let $D \subset \Omega \subset \mathbb{Z}^2$ a digital set and natural number $n>
 We use as the neighborhood of shapes the $a$-probe set
 %
 \begin{definition}{($a$-probe set)}
-	Let $\Ds \subset \Omega \subset \mathbb{Z}^2$ a digital set and $a$ a natural number. The $a$-probe set of $\Ds$ is defined as
+	Let $\Ds \subset \Omega \subset \mathbb{Z}^2$ a digital set and $a$ some natural number. The $a$-probe set of $\Ds$ is defined as
 	\begin{align*}
 		\mathcal{P}_a(\Ds) &= \Ds \cup \bigcup_{a' < a}{\Ds^{+a'} \cup \Ds^{-a'}},
 	\end{align*}
@@ -249,7 +249,7 @@ We use as the neighborhood of shapes the $a$-probe set
 
 \daniel{
 \subsection{Shape evolution}
-We are going to evolve the initial contour $\partial D$ of some digital shape $D$ to the zero level set of its balance coeficient by computing the minimum cut the candidate graphs. In this experiment, the data term in both candidate and validation functions equal to zero.}
+We are going to evolve the initial contour $\partial D$ of some digital shape $D$ to the zero level set of its balance coefficient by computing the minimum cut of the candidate graphs. In this experiment, the data term in both candidate and validation functions is equal to zero.}
 %
 \begin{definition}{Candidate graph}
 Let $D \subset \Omega \subset \mathbb{Z}^2$ a digital set and natural number $n>0$. We define $\mathcal{G}_D(\mathcal{V},\mathcal{E},c)$ as the candidate graph of $D$ with optimization band $n$ such that
@@ -262,7 +262,7 @@ Let $D \subset \Omega \subset \mathbb{Z}^2$ a digital set and natural number $n>
 %
 \end{definition}
 
-The vertices $s,t$ are virtual vertices representing the source and target vertices as it is usual in a minimum cut framework. In particular, after the minimum cut is computed, vertices connected to the source will define the new digital shape. The inner (outer) most pixels of the optimization band are connected to the source (target), and we identify such vertices as
+The vertices $s,t$ are virtual vertices representing the source and target vertices as it is usual in a minimum cut framework. In particular, after the minimum cut is computed, vertices connected to the source will define the new digital shape. The innermost (resp. outermost) pixels of the optimization band are connected to the source (resp. target), and we identify such vertices as
 %
 \begin{align*}
 	\mathcal{V}_s &:=\left\{ v_p \in \Omega \; | \; d_{D}(p) = -n \right\} \\
@@ -286,14 +286,14 @@ $\{v_p, t\}$ & $M$ & $v_p \in \mathcal{V}_{t}$ \\
 \end{center}
 
 
-,where $M$ is set as twice the highest value of the balance coefficient plus one, i.e.,
+Here $M$ is twice the highest value of the balance coefficient plus one, i.e.
 \begin{align*}
 	M &= 1+\max_{p \in O_n(D)} 2*u_r(D,p).
 \end{align*}
 %
 
 \daniel{\subsection{Image segmentation}
-The GraphFlow model is suitable for image processing tasks. We present our experiments using the data term employed by Boykov-Jolly (BJ) graph cut model described in~\cite{boykov01graphcut}. Let $\vec{x} \in [0,1]^{|D|}$ to represent the label of each pixel ($0$ for background and $1$ for foreground). Then, we define the data term as
+The GraphFlow model is suitable for image processing tasks. We present our experiments using the data term employed by Boykov-Jolly (BJ) graph cut model described in~\cite{boykov01graphcut}. Let $\vec{x} \in [0,1]^{|D|}$ represent the label of each pixel ($0$ for background and $1$ for foreground). Then, we define the data term as
 %
 \begin{align*}
 	data(D) &= \gamma_r \sum_{p \in D}{ \psi_p(x_p) } + \gamma_b \sum_{p \in D'}\sum_{q \in \mathcal{N}_{4}(p)}{\psi_{p,q}(x_p,x_q)},
@@ -316,9 +316,10 @@ where $\gamma_r \geq 0$ and $\gamma_b \geq 0$ are parameters controlling the inf
 %
 \subsection{Elastica GraphFlow algorithm}
 The GraphFlow algorithm implements a local-search strategy to minimize~\eqref{eq:validation-function} with a search
-space given by the solution candidates set defined in the previous section. We opted to not stop the method in the case
-where shape $D^{(k+1)}$ has higher energy than $D^{(k)}$, as a strategy to escape local minima. In the implementation
-presented here, the ony stopping condition is the number of iterations. This strategy can be adapted to the application.
+space given by the solution of the candidates set defined in the previous section. We choose to let the model flow even in the case
+where the next shape $D^{(k+1)}$ has a higher energy than the previous shape $D^{(k)}$. It is a simple strategy to escape local minima. In the implementation
+presented here, the only stopping condition is the number of iterations. This strategy could be tailored to a specific application.
+
 %
 \begin{algorithm}
  \SetKwData{It}{k}
@@ -353,10 +354,10 @@ presented here, the ony stopping condition is the number of iterations. This str
  \label{ch8:alg:graphflow-algorithm}  
 \end{algorithm}
 %
-The Elastica GraphFlow algorithm has two fundamental steps. In the candidate selection, we build the solution candidates
+The Elastica GraphFlow algorithm has two fundamental steps. In the candidate selection, we build the solution of the candidates
 set from the minimum cuts of the candidate graphs. Next, in the validation step, we choose the digital set with minimum
 value for~\eqref{eq:validation-function}. If we interpret the balance coefficient minimization as the best move one can
-make towards digital elastica minimization, the solution candidates set can be seen as the neighboring shapes with
+make towards digital elastica minimization, the solution of the candidates set can be seen as the neighboring shapes with
 highest potential to minimize the elastica energy for the given $a$-probe set.
 
 Some results of Algorithm~\ref{ch8:alg:graphflow-algorithm} are shown in the next section.
@@ -455,7 +456,7 @@ methods by Schoeneman \emph{et al.}; and our previous results.
  We observe that our results are smoother than BJ, as in the previous figure. They are very similar to our previous
  results, and much better than the reference SCLR method from literature.
 
-\begin{table}
+\begin{table}[t]
   \centering
  \caption{Running time for the image segmentation problem.}
 \label{ch9:tab:rtime-image-segmentation-general} 
@@ -477,11 +478,16 @@ According to Table~\ref{ch9:tab:rtime-image-segmentation-general}, our proposed 
 our previous work, and much faster than the reference SLCR method.
 
 \section{Conclusion}
-In this article, we described a graph cut model for optimizing the Elastica energy that is suitable for both discrete curve evolution and
-image segmentation. The evolution produced by the Elastica GraphFlow responds to the length penalization term $\alpha$,
-i.e., the shape tends to grow (shrink) for lower (higher) values of $\alpha$ and we observe a convergence to a shape
-that appears close to the expected, theoretical global optimum in the cases where this globally optimal curve can be
-computed. Our Elastica GraphFlow algorithm is significantly faster and simpler to implement than the previous models
+In this article, we described a graph cut model for optimizing the
+Elastica energy that is suitable for both discrete curve evolution and
+image segmentation. The evolution produced by the Elastica GraphFlow
+responds to the length penalization term $\alpha$, i.e., the shape
+tends to grow (shrink) for lower (higher) values of $\alpha$ and to
+the curvature penalization $\beta$. Furthermore we observe a
+convergence to a shape that appears close to the expected, theoretical
+global optimum of the Elastica model in the cases where this globally
+optimal curve can be computed. Our Elastica GraphFlow algorithm is
+significantly faster and simpler to implement than the previous models
 presented in the literature.
 
 In our method, we need to use a family of shapes ($a$-probes). In future work, we plan to use a dynamic family with the
