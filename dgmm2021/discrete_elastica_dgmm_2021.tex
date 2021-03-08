@@ -57,11 +57,11 @@ CentraleSupelec, Universit\'e Paris-Saclay, Inria\\
   elements.
 
   In this article, we propose a graph-cut based model for optimizing the discrete Elastica energy using a fast and
-  efficient graph-cut model.  Even thought the Elastica energy is neither convex nor sub-modular, we show that the final
-  shape we achieve is often the indeed close to the globally optimal one.
+  efficient graph-cut model.  Even though the Elastica energy is neither convex nor sub-modular, we show that the final
+  shape we achieve is often very close to the globally optimal one.
 
-  Our model easily adapts to image segmentation tasks. We show that compared to previous work and state-of-the-art
-  algorithm, our proposal is simpler to implement, faster, and yields comparable or better results.
+  Our model easily adapts to image segmentation tasks. We show that compared to previous works and state-of-the-art
+  algorithms, our proposal is simpler to implement, faster, and yields comparable or better results.
 
   \keywords{multigrid  convergence \and digital estimators \and curvature \and discrete optimization}
 \end{abstract}
@@ -76,73 +76,81 @@ vision in~\cite{mumford94elastica} as a means to regularize edges or segmentatio
 component. Being associated with second-order derivatives, the notion of curvature is difficult to compute and optimize
 in a regularisation framework.
 
-Multiple attempts have been made by prominent researchers to introduce an explicit curvature term in curve regularizers
-using various methods and approaches. Even early active contour models~\cite{kass88} had an elasticity component
-equivalent to a notion of curvature. Similarly, with level-set methods, local curvature can readily be estimated as
-in~\cite{malladi1995shape}. However these approches typically optimise a non-convex local energy by gradient descent,
-and most were non-geometric, i.e discretization-dependent. In contrast~\cite{caselles97} proposed a geometric level-set
-segmentation method, but using only the perimeter as a regularizer, and was still non-convex. All the numerous
-approaches based on total-variation minimization for image restoration or segmentation~\cite{rudin1992nonlinear} and
-even the Mumford-Shah functional~\cite{mumford89} use this regularization, in part because optimizing it exactly was
-already a challenge for a long time~\cite{boykov01fast,chambolle04,appleton2005globally}, either in the discrete or
-continuous cases.
+Multiple attempts have been made by prominent researchers to introduce
+an explicit curvature term in curve regularizers using various methods
+and approaches. Even early active contour models~\cite{kass88} had an
+elasticity component equivalent to a notion of curvature. Similarly,
+with level-set methods, local curvature can readily be estimated as
+in~\cite{malladi1995shape}. However these approaches typically
+optimise a non-convex local energy by gradient descent, and most were
+non-geometric, i.e discretization-dependent. In
+contrast~\cite{caselles97} proposed a geometric level-set segmentation
+method, but using only the perimeter as a regularizer, and was still
+non-convex. All the numerous approaches based on total-variation
+minimization for image restoration or
+segmentation~\cite{rudin1992nonlinear} and even the Mumford-Shah
+functional~\cite{mumford89} use this quite elementary regularizer,
+probably because optimizing it in an exact manner was already a
+challenge for a long
+time~\cite{boykov01fast,chambolle04,appleton2005globally}, whether in
+the discrete or continuous cases.
 
-In more recent work, optimizing the Elastica, which is a geometric regularizer, has seeen renewed
+In more recent works, optimizing the Elastica, which is a geometric regularizer, has seen renewed
 interest. In~\cite{masnou98inpainting}, authors successfully use a computational geometry approach to perform image
 restoration with the Elastica as regularizer. In~\cite{zehiry10fast}, authors compute an approximate discrete version of
 the Elastica and optimize it with discrete calculus. In~\cite{nieuwenhuis14efficient}, an efficient, discrete
 approximation of curvature is optimized with a specific solver using local submodular
-approximations~\cite{gorelick14local}. However, in these works, the quality of the curvature approximation may limit
-performance.
+approximations~\cite{gorelick14local}. However, in these works, the poor quality of the curvature approximation may limit accuracy and hence the quality of the result.
 
-In previous work~\cite{antunes2020elastica} we proposed to formulate a digital flow that approximates an
+In a previous work~\cite{antunes2020elastica} we proposed to formulate a digital flow that approximates an
 Elastica-related flow using a multigrid-convergent curvature estimator, within a discrete variational
 framework. We also presented an application of this model as a post-processing step to a segmentation framework.
 
-In this work, we propose a novel approach that still uses a multigrid-convergent estimation of curvature, that we
-optimize using a maximal flow algorithm.
+In this work, we propose a novel approach that still uses a
+multigrid-convergent estimation of curvature, but we optimize using a
+maximal flow algorithm.
 
 \subsection{Multigrid convergent estimators}
 Geometric measurements in digital objects can be tricky.  Intuitively, a good estimator should converge to its
-continuous counterpart value as the grid resolution is refined. The criteria that formalizes this intuition is the
+continuous counterpart value as the grid resolution is refined. The criterion that formalizes this intuition is the
 multigrid convergence property.
 
 \begin{definition}{(Multigrid convergence)}
-
   Let $\mathcal{F}$ a family of shapes in the plane and $Q$ a global measurement (e.g., perimeter, area) on members of
   $\mathcal{F}$. Additionally, denote $D_h(S)$ a digitization of shape $S$ in a digital grid of resolution $h$. The
-  estimator $\hat{Q}$ of $Q$ is multigrid convergent for the family $\mathcal{F}$ if and only if for every shape
+  estimator $\hat{Q}$ of $Q$ is {\em multigrid convergent} for the family $\mathcal{F}$ if and only if for every shape
   $S \in \mathcal{F}$, there exists $h_S > 0$ such that
 \begin{align*}
 \forall h \leq h_S, \quad |\hat{Q}(D_h(S),h) - Q(S)| \leq \tau_S(h),
 \end{align*}
 %
-where $\tau_S:\mathbb{R}_+\setminus \{0\} \rightarrow \mathbb{R}_+$ is the speed of convergence of $\hat{Q}$ towards $Q$
+where $\tau_S:\mathbb{R}_+\setminus \{0\} \rightarrow \mathbb{R}_+$ tends to zero as $h$ tends to zero and is the {\em speed of convergence} of $\hat{Q}$ towards $Q$
 for $S$.
 \end{definition}
 
 Tangent and curvature are examples of local properties computed along the boundary of some shape $S$ in the plane. We
-need a slight different definition of multigrid convergence in order to map points of the Euclidean boundary to those in
+need a slightly different definition of multigrid convergence in order to map points of the Euclidean boundary to those in
 the digital contour.
 
 \begin{definition}{(Multigrid convergence for local geometric quantities)}
   Let $\mathcal{F}$ a family of shapes in the plane and $Q$ a local measurement along the boundary $\partial S$ of
   $S \in \mathcal{F}$. Additionally, denote $D_h(S)$ a digitization of $S$ in a digital grid of resolution $h$ and
-  $\partial_h S$ its digital contour. The estimator $\hat{Q}$ of $Q$ is multigrid convergent for the family
+  $\partial_h S$ its digital contour. The estimator $\hat{Q}$ of $Q$ is {\em multigrid convergent} for the family
   $\mathcal{F}$ if and only if for every shape $S \in \mathcal{F}$, there exists $h_S > 0$ such that the estimate
   $\hat{Q}(D_h(S),p,h)$ is defined for all $p \in \partial_h S$ with $0 < h < h_S$, and for any $x \in \partial S$,
 \begin{align*}
 	\forall p \in \partial_h S \text{ with } \norm{p-x}_{\infty} \leq h,\quad | \hat{Q}(D_h(S),p,h) - Q(S,x) | \leq \tau_S(h),	
 \end{align*}
 where $\tau_S:\mathbb{R}_+\setminus \{0\} \rightarrow \mathbb{R}_+$ has null limit at $0$. This function defines the
-speed of convergence of $\hat{Q}$ towards $Q$ for $S$.
+{\em speed of convergence} of $\hat{Q}$ towards $Q$ for $S$.
 \end{definition}
 
-We now define the notion of Elastica, particularly in the digital context.
+We now recall the notion of Elastica, as well as its digital counterpart.
 
 \subsection{Digital Elastica}
-The elastica energy of parameters $\vec{\theta}=(\alpha \geq 0, \beta \geq 0)$ for some Euclidean shape
-$S \subset \mathbb{R}^2$ is defined as
+Letting $\kappa$ be the curvature function along some Euclidean shape
+$S \subset \mathbb{R}^2$. The elastica energy of $S$ with parameters
+$\vec{\theta}=(\alpha \geq 0, \beta \geq 0)$ is defined as
 	\begin{align*}
 	E_{\vec{\theta}}(S) &= \int_{\partial S}{ \alpha + \beta \kappa(s)^2 ds}.
 	\end{align*}
@@ -159,7 +167,7 @@ curvature $\hat{\kappa}$ are multigrid convergent.
 Let $S$ be an arbitrary shape. The following definition yields a curvature estimation at every point of its boundary.
 
 \begin{definition}{(Integral Invariant Curvature Estimator)}
-  Let $D_h(S)$ a digitization of $S \subset \mathbb{R}^2$. The integral invariant curvature estimator is defined for
+  Let $D_h(S)$ a digitization of $S \subset \mathbb{R}^2$ \daniel{and $B_r(p)$ the Euclidean disk of radius $r$ centered at $p$}. The integral invariant curvature estimator is defined for
   every point $p \in \partial_h S$ as
   \begin{align}
     \hat{\kappa}_{r}(D_h(S),p,h) \coloneqq \frac{3}{r^3} \left( \frac{\pi r^2}{2} - \widehat{\text{Area}} \left( D_h\big( B_{r} ( p ) \big) \cap D_h(S), h \right) \right).
@@ -186,10 +194,12 @@ regularization. Moreover, the model is easily adapted to image segmentation task
 In the core of the model is the notion of balance coefficient. We are going to extend equation~\ref{eq:curvature_approximation} to the whole digital domain. In fact, since we are more interested in the  balance of intersected and non-intersected points, we slightly change equation~\ref{eq:curvature_approximation} and give it another name. We define the \emph{balance coefficient} as
 %
 \begin{align*}
-	u_r(D,p) &= \left( \frac{\pi r^2}{2} - \widehat{\text{Area}}(D(B_r(p)) \cap D) \right)^2.
+%% JACO: attention j'ai change D en dessous.
+  u_r(D,p) &= \left( \frac{\pi r^2}{2} - \widehat{\text{Area}}(B_r(p) \cap D) \right)^2.
+	%% u_r(D,p) &= \left( \frac{\pi r^2}{2} - \widehat{\text{Area}}(D(B_r(p)) \cap D) \right)^2.
 \end{align*}
 %
- The balance coefficient at $p$ gives us as an \emph{approximation} of the new squared curvature value were the shape perturbed a little around $p$. Therefore, it is reasonable to evolve the shape towards the zero level set of the balance coefficient function (see figure~\ref{fig:balance-coefficient-zero-level-set}).
+ The balance coefficient at $p$ gives us as an \emph{approximation} of the new squared curvature value when the shape is perturbed a little around $p$. Therefore, it is reasonable to evolve the shape towards the zero level set of the balance coefficient function (see figure~\ref{fig:balance-coefficient-zero-level-set}).
  %
 \begin{figure}
  \center
@@ -229,7 +239,7 @@ Let $D \subset \Omega \subset \mathbb{Z}^2$ a digital set and natural number $n>
 We use as the neighborhood of shapes the $a$-probe set
 %
 \begin{definition}{($a$-probe set)}
-	Let $\Ds \subset \Omega \subset \mathbb{Z}^2$ a digital set and $a$ a natural number. The $a$-probe set of $\Ds$ is defined as
+	Let $\Ds \subset \Omega \subset \mathbb{Z}^2$ a digital set and $a$ some natural number. The $a$-probe set of $\Ds$ is defined as
 	\begin{align*}
 		\mathcal{P}_a(\Ds) &= \Ds \cup \bigcup_{a' < a}{\Ds^{+a'} \cup \Ds^{-a'}},
 	\end{align*}
@@ -239,7 +249,7 @@ We use as the neighborhood of shapes the $a$-probe set
 
 \daniel{
 \subsection{Shape optimization}
-We are going to evolve the initial contour $\partial D$ of some digital shape $D$ to the zero level set of its balance coeficient by computing the minimum cut the candidate graphs. In this experiment, the data term in both candidate and validation functions equal to zero.}
+We are going to evolve the initial contour $\partial D$ of some digital shape $D$ to the zero level set of its balance coeficient by computing the minimum cut of the candidate graphs. In this experiment, the data term in both candidate and validation functions equal to zero.}
 %
 \begin{definition}{Candidate graph}
 Let $D \subset \Omega \subset \mathbb{Z}^2$ a digital set and natural number $n>0$. We define $\mathcal{G}_D(\mathcal{V},\mathcal{E},c)$ as the candidate graph of $D$ with optimization band $n$ such that
@@ -252,7 +262,7 @@ Let $D \subset \Omega \subset \mathbb{Z}^2$ a digital set and natural number $n>
 %
 \end{definition}
 
-The vertices $s,t$ are virtual vertices representing the source and target vertices as it is usual in a minimum cut framework. In particular, after the minimum cut is computed, vertices connected to the source will define the new digital shape. The inner (outer) most pixels of the optimization band are connected to the source (target), and we identify such vertices as
+The vertices $s,t$ are virtual vertices representing the source and target vertices as it is usual in a minimum cut framework. In particular, after the minimum cut is computed, vertices connected to the source will define the new digital shape. The innermost (resp. outermost) pixels of the optimization band are connected to the source (resp. target), and we identify such vertices as
 %
 \begin{align*}
 	\mathcal{V}_s &:=\left\{ v_p \in \Omega \; | \; d_{D}(p) = -n \right\} \\
@@ -276,14 +286,14 @@ $\{v_p, t\}$ & $M$ & $v_p \in \mathcal{V}_{t}$ \\
 \end{center}
 
 
-,where $M$ is set as twice the highest value of the balance coefficient plus one, i.e.,
+Here $M$ is twice the highest value of the balance coefficient plus one, i.e.
 \begin{align*}
 	M &= 1+\max_{p \in O_n(D)} 2*u_r(D,p).
 \end{align*}
 %
 
 \daniel{\subsection{Image segmentation}
-The GraphFlow model is suitable for image processing tasks. We present our experiments using the data term employed by Boykov-Jolly (BJ) graph cut model described in~\cite{boykov01graphcut}. Let $\vec{x} \in [0,1]^{|D|}$ to represent the label of each pixel ($0$ for background and $1$ for foreground). Then, we define the data term as
+The GraphFlow model is suitable for image processing tasks. We present our experiments using the data term employed by Boykov-Jolly (BJ) graph cut model described in~\cite{boykov01graphcut}. Let $\vec{x} \in [0,1]^{|D|}$ represent the label of each pixel ($0$ for background and $1$ for foreground). Then, we define the data term as
 %
 \begin{align*}
 	data(D) &= \gamma_r \sum_{p \in D}{ \psi_p(x_p) } + \gamma_b \sum_{p \in D'}\sum_{q \in \mathcal{N}_{4}(p)}{\psi_{p,q}(x_p,x_q)},
@@ -306,9 +316,10 @@ where $\gamma_r \geq 0$ and $\gamma_b \geq 0$ are parameters controlling the inf
 %
 \subsection{Elastica GraphFlow algorithm}
 The GraphFlow algorithm implements a local-search strategy to minimize~\eqref{eq:validation-function} with a search
-space given by the solution candidates set defined in the previous section. We opted to not stop the method in the case
-where shape $D^{(k+1)}$ has higher energy than $D^{(k)}$, as a strategy to escape local minima. In the implementation
-presented here, the only stopping condition is the number of iterations. This strategy can be adapted to the application.
+space given by the solution of the candidates set defined in the previous section. We choose to let the model flow even in the case
+where the next shape $D^{(k+1)}$ has a higher energy than the previous shape $D^{(k)}$. It is a simple strategy to escape local minima. In the implementation
+presented here, the only stopping condition is the number of iterations. This strategy could be tailored to a specific application.
+
 %
 \begin{algorithm}
  \SetKwData{It}{k}
@@ -343,10 +354,10 @@ presented here, the only stopping condition is the number of iterations. This st
  \label{ch8:alg:graphflow-algorithm}  
 \end{algorithm}
 %
-The Elastica GraphFlow algorithm has two fundamental steps. In the candidate selection, we build the solution candidates
+The Elastica GraphFlow algorithm has two fundamental steps. In the candidate selection, we build the solution of the candidates
 set from the minimum cuts of the candidate graphs. Next, in the validation step, we choose the digital set with minimum
 value for~\eqref{eq:validation-function}. If we interpret the balance coefficient minimization as the best move one can
-make towards digital elastica minimization, the solution candidates set can be seen as the neighboring shapes with
+make towards digital elastica minimization, the solution of the candidates set can be seen as the neighboring shapes with
 highest potential to minimize the elastica energy for the given $a$-probe set.
 
 Some results of Algorithm~\ref{ch8:alg:graphflow-algorithm} are shown in the next section.
@@ -376,10 +387,10 @@ $(n=2, a=0,\alpha=0.01)$ & $(n=2, a=2,\alpha=0.01)$ & $(n=2, a=2, \alpha=0.001)$
 \begin{tabular}{cccc}
 \multirow{2}{*}{Seeds} & \multirow{2}{*}{Graph cut} & $\alpha=0.05, \boldsymbol{\beta=0},$ & $\alpha=0.05, \boldsymbol{\beta=0.5},$\\
 & & $\gamma_r=\gamma_b=1.0$ & $\gamma_r=\gamma_b=1.0$\\
- 	\includegraphics[scale=0.25]{figures/segmentation/coala/k-0.0/seeds.png} & 
- 	\includegraphics[scale=0.25]{figures/segmentation/coala/k-0.0/gc-seg.png} &  	
- 	\includegraphics[scale=0.25]{figures/segmentation/coala/k-0.0/corrected-seg.png} &  	
- 	\includegraphics[scale=0.25]{figures/segmentation/coala/k-0.5/corrected-seg.png}
+ 	\includegraphics[scale=0.25]{figures/segmentation/coala/k-0.0-seeds.png} & 
+ 	\includegraphics[scale=0.25]{figures/segmentation/coala/k-0.0-gc-seg.png} &  	
+ 	\includegraphics[scale=0.25]{figures/segmentation/coala/k-0.0-corrected-seg.png} &  	
+ 	\includegraphics[scale=0.25]{figures/segmentation/coala/k-0.5-corrected-seg.png}
 \end{tabular}	
 \caption{\textbf{GraphFlow segmentation.} Given foreground (green) and background (gray) seeds in picture (a); Graph cut
   produces picture (b) which is used as input of the GraphFlow algorithm; in pictures (c) and (d) we display the output
@@ -443,7 +454,7 @@ methods by Schoeneman \emph{et al.}; and our previous results.
  We observe that our results are smoother than BJ, as in the previous figure. They are very similar to our previous
  results, and much better than the reference SCLR method from literature.
 
-\begin{table}
+\begin{table}[t]
   \centering
  \caption{Running time for the image segmentation problem.}
 \label{ch9:tab:rtime-image-segmentation-general} 
@@ -465,11 +476,16 @@ This work  & 11s & 150s & 75s\\
 our previous work, and much faster than the reference SLCR method.
 
 \section{Conclusion}
-In this article, we described a graph cut model for optimizing the Elastica energy that is suitable for both discrete curve evolution and
-image segmentation. The evolution produced by the Elastica GraphFlow responds to the length penalization term $\alpha$,
-i.e., the shape tends to grow (shrink) for lower (higher) values of $\alpha$ and we observe a convergence to a shape
-that appears close to the expected, theoretical global optimum in the cases where this globally optimal curve can be
-computed. Our Elastica GraphFlow algorithm is significantly faster and simpler to implement than the previous models
+In this article, we described a graph cut model for optimizing the
+Elastica energy that is suitable for both discrete curve evolution and
+image segmentation. The evolution produced by the Elastica GraphFlow
+responds to the length penalization term $\alpha$, i.e., the shape
+tends to grow (shrink) for lower (higher) values of $\alpha$ and to
+the curvature penalization $\beta$. Furthermore we observe a
+convergence to a shape that appears close to the expected, theoretical
+global optimum of the Elastica model in the cases where this globally
+optimal curve can be computed. Our Elastica GraphFlow algorithm is
+significantly faster and simpler to implement than the previous models
 presented in the literature.
 
 In our method, we need to use a family of shapes ($a$-probes). In future work, we plan to use a dynamic family with the
