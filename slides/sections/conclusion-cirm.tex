@@ -46,27 +46,21 @@ Bean  & 25130 & \negative{6.4s/it} & 1.2s/it & 1.17s/it & \positive{0.16s/it}\\
 {Summary of models}
 
 \begin{itemize}
-\item{We achieved global optimum elastica with a digital model.}
-\pause
+\item{We proposed a digital elastica optimization model.}
 \item{GraphFlow is extendable (suitable for data terms) and our fastest model.}
-\pause
 \item{Contour completion is achieved in some cases.}
-\pause
 \end{itemize}
 
 \textbf{Pros}
 \begin{itemize}
 \item{Topology is flexible.}
-\pause
 \item{Easily parallelizable.}
-\pause
-\item{Flexibility of neighborhood of shapes.}
-\pause
+\item{Neighborhood flexibility.}
 \end{itemize}
 
 \textbf{Cons}
 \begin{itemize}
-\item{Susceptible to bad local minimum (we can escape it with a proper definition of the neighborhood).}
+\item{Susceptible to bad local minimum (we can ameliorate with a better definition of the neighborhood).}
 \end{itemize}
 
 \end{frame}
@@ -77,16 +71,17 @@ Bean  & 25130 & \negative{6.4s/it} & 1.2s/it & 1.17s/it & \positive{0.16s/it}\\
 
 \begin{itemize}
 \item{\textbf{GraphFlow and perimeter}: enrich the cost function of GraphFlow with the weights defined in~\mycite{boykov03geodesics}. }
-\pause
+
 \item{\textbf{Different neighborhoods}: random, linear extension.}
-\pause
+
 \item{\textbf{Dynamic radius}: use the parameter free Maximal Digital Circular Arcs estimator of curvature to adapt the estimation disk radius to use.}
-\pause
+
 \item{\textbf{Multiresolution}: Improve running time; or improve estimator precision.}
-\pause
-\item{\textbf{Image analysis applications}: Make an objective comparison of our method and competitive ones (e.g. study quantitative measurements such as the ratio of inflexion points for the contour correction application) .}
-\pause
-\item{\textbf{Global formulation and multigrid convergent estimators}: Do there exist a practicable model for elastica?}
+
+\item{\textbf{Image analysis applications}: Objective comparison of our method and competitive ones (e.g. study quantitative measurements such as the ratio of inflexion points for the contour correction application) .}
+
+\item{\textbf{Global formulation and multigrid convergent estimators}:
+    Does a practical model for elastica exist?}
 \end{itemize}
 
 \end{frame}
