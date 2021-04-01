@@ -96,68 +96,110 @@ $h=\frac{1}{16},\; \hat{A}=78.44.$ & $h=\frac{1}{32},\; \hat{A}=78.5.$ & $h=\fra
 
 \end{frame}
 
-\begin{frame}
+% HT this frame does not compile
+% \begin{frame}
+% 	{Digital sets and convergent estimators}	
+% 	{Multigrid convergent estimators}	
+% %
+% 	\begin{itemize}
+% 		\onslide<1->{\item{Minimum Length Polygon (MLP)~\mycite{sloboda98approximation}}
+% 		\begin{itemize}
+% 			\item{Proved multigrid convergent for piecewise $3$-smooth convex shapes.}
+% 		\end{itemize}}
+% 		\onslide<3->{\vspace{2em}
+% 		\item{Integral Invariant (II)~\mycite{coeurjolly13integral}}
+% 		\begin{itemize}
+% 			\item{Proved multigrid convergent for $C^2$ convex shapes with bounded curvature.}
+% 		\end{itemize}}		
+% 	\end{itemize}
+	
+% 	\onslide<2>{
+% 	\begin{figure}
+% 	\begin{tikzpicture}[overlay, remember picture] 
+% 	\node at (current page.center) 
+% 	    [
+% 	    anchor=center,
+% 	    xshift=0mm,
+% 	    yshift=0mm
+% 	    ] 
+% 	{
+	
+% 	\includegraphics[scale=1.0]{figures/motivation/digital-geometric-estimators/mlp.png}
+		
+% 	};
+% 	\end{tikzpicture}	
+% 	\end{figure}	
+% 	}
+	
+% 	\onslide<4->{
+% 	\begin{figure}
+% 	\begin{tikzpicture}[overlay, remember picture] 
+% 	\node at (current page.center) 
+% 	    [
+% 	    anchor=center,
+% 	    xshift=0mm,
+% 	    yshift=0mm
+% 	    ] 
+% 	{
+% 	\only<4>{
+% 	\includegraphics[scale=0.5]{figures/motivation/digital-geometric-estimators/ii/zoom/fr3-zoom.png}}%
+% 	\only<5>{
+% 	\includegraphics[scale=0.5]{figures/motivation/digital-geometric-estimators/ii/zoom/fr5-zoom.png}}%
+		
+% 	};
+% 	\end{tikzpicture}	
+% 	\end{figure}	
+% 	}	
+
+% 	\vspace{1.5em}
+
+% 	\onslide<4->{
+% 	\begin{align*}
+% 		\hat{\kappa}(p) = \frac{3}{r^3}\left( \frac{\pi r^2}{2} - | B_r(p) \cap X | \right )
+% 	\end{align*}}		
+	
+%     \end{frame}
+
+ \begin{frame}
 	{Digital sets and convergent estimators}	
 	{Multigrid convergent estimators}	
 %
 	\begin{itemize}
-		\onslide<1->{\item{Minimum Length Polygon (MLP)~\mycite{sloboda98approximation}}
+        \item{Minimum Length Polygon (MLP)~\mycite{sloboda98approximation}}
 		\begin{itemize}
 			\item{Proved multigrid convergent for piecewise $3$-smooth convex shapes.}
-		\end{itemize}}
-		\onslide<3->{\vspace{2em}
+		\end{itemize}	
+	\end{itemize}
+	
+	\begin{figure}
+	\includegraphics[scale=1]{figures/motivation/digital-geometric-estimators/mlp.png}	
+	\end{figure}	
+	
+      \end{frame}
+
+ \begin{frame}
+	{Digital sets and convergent estimators}	
+	{Multigrid convergent estimators}	
+%
+	\begin{itemize}
 		\item{Integral Invariant (II)~\mycite{coeurjolly13integral}}
 		\begin{itemize}
 			\item{Proved multigrid convergent for $C^2$ convex shapes with bounded curvature.}
-		\end{itemize}}		
+		\end{itemize}		
 	\end{itemize}
 	
-	\onslide<2>{
-	\begin{figure}
-	\begin{tikzpicture}[overlay, remember picture] 
-	\node at (current page.center) 
-	    [
-	    anchor=center,
-	    xshift=0mm,
-	    yshift=0mm
-	    ] 
-	{
 	
-	\includegraphics[scale=1.0]{figures/motivation/digital-geometric-estimators/mlp.png}
-		
-	};
-	\end{tikzpicture}	
-	\end{figure}	
-	}
-	
-	\onslide<4->{
 	\begin{figure}
-	\begin{tikzpicture}[overlay, remember picture] 
-	\node at (current page.center) 
-	    [
-	    anchor=center,
-	    xshift=0mm,
-	    yshift=0mm
-	    ] 
-	{
-	\only<4>{
-	\includegraphics[scale=0.5]{figures/motivation/digital-geometric-estimators/ii/zoom/fr3-zoom.png}}%
-	\only<5>{
-	\includegraphics[scale=0.5]{figures/motivation/digital-geometric-estimators/ii/zoom/fr5-zoom.png}}%
-		
-	};
-	\end{tikzpicture}	
-	\end{figure}	
-	}	
+	\includegraphics[scale=0.4]{figures/motivation/digital-geometric-estimators/ii/zoom/fr3-zoom.png}%		
+	\end{figure}		
 
 	\vspace{1.5em}
 
-	\onslide<4->{
 	\begin{align*}
 		\hat{\kappa}(p) = \frac{3}{r^3}\left( \frac{\pi r^2}{2} - | B_r(p) \cap X | \right )
-	\end{align*}}		
+	\end{align*}
 	
-\end{frame}
+      \end{frame}
 
 \begin{frame}
 	{Digital sets and convergent estimators}	
