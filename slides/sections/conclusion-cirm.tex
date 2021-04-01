@@ -1,0 +1,98 @@
+\section{Conclusion}
+
+\begin{frame}
+{Conclusion}
+{Summary of models}
+
+\onslide<1->{
+\begin{table}[H]
+\footnotesize
+\centering
+\begin{tabular}{r|ccccc}
+\multirow{2}{*}{Model} & \multirow{2}{*}{Implementation} & Running & Free & Constrained & Image\\
+& & time & elastica & elastica & term\\
+\hline
+LocalSearch & medium & \negative{slow} & \positive{yes(\textbf{opt})} & \positive{yes} & \negative{no}\\
+FlipFlow  & \negative{hard} & acceptable & \positive{yes} & \negative{no} & \positive{yes}\\
+( BalanceFlow ) & medium & acceptable & \positive{yes} & \negative{no} & \positive{yes}\\
+GraphFlow  & \positive{easy} & \positive{fast} & \positive{yes(\textbf{opt})} & \negative{no} & \positive{yes}
+\end{tabular}
+\caption{\textbf{Models summary.} The qualitative attributes are relative, e.g., the GraphFlow presents the lowest running time while LocalSearch presents the highest.}
+\end{table}}
+
+\onslide<2->{
+\begin{figure}
+\center
+\captionsetup{type=table}
+\footnotesize
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+& Pixels & LocalSearch & FlipFlow & BalanceFlow & GraphFlow \\
+\hline
+Triangle & 8315 & \negative{4.8s/it} & 0.4s/it & 0.38s/it & \positive{0.14s/it}\\
+Square & 12769 & \negative{2s/it} & 0.51s/it & 0.47s/it & \positive{0.12s/it}\\
+Ellipse  & 10038 & \negative{3.1s/it} & 0.64s/it & 0.57s/it & \positive{0.1s/it} \\
+Flower & 26321 & \negative{12.3s/it} & 1.23s/it & 0.94s/it & \positive{0.14s/it}\\
+Bean  & 25130 & \negative{6.4s/it} & 1.2s/it & 1.17s/it & \positive{0.16s/it}\\
+\hline
+\end{tabular}
+\caption{\textbf{Free elastica running times.} Running time and input size for the free elastica experiment.}
+\end{figure}}
+
+\end{frame}
+
+\begin{frame}
+{Conclusion}
+{Summary of models}
+
+\begin{itemize}
+\item{We achieved global optimum elastica with a digital model.}
+\pause
+\item{GraphFlow is extendable (suitable for data terms) and our fastest model.}
+\pause
+\item{Contour completion is achieved in some cases.}
+\pause
+\end{itemize}
+
+\textbf{Pros}
+\begin{itemize}
+\item{Topology is flexible.}
+\pause
+\item{Easily parallelizable.}
+\pause
+\item{Flexibility of neighborhood of shapes.}
+\pause
+\end{itemize}
+
+\textbf{Cons}
+\begin{itemize}
+\item{Susceptible to bad local minimum (we can escape it with a proper definition of the neighborhood).}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+{Conclusion}
+{Perspectives}
+
+\begin{itemize}
+\item{\textbf{GraphFlow and perimeter}: enrich the cost function of GraphFlow with the weights defined in~\mycite{boykov03geodesics}. }
+\pause
+\item{\textbf{Different neighborhoods}: random, linear extension.}
+\pause
+\item{\textbf{Dynamic radius}: use the parameter free Maximal Digital Circular Arcs estimator of curvature to adapt the estimation disk radius to use.}
+\pause
+\item{\textbf{Multiresolution}: Improve running time; or improve estimator precision.}
+\pause
+\item{\textbf{Image analysis applications}: Make an objective comparison of our method and competitive ones (e.g. study quantitative measurements such as the ratio of inflexion points for the contour correction application) .}
+\pause
+\item{\textbf{Global formulation and multigrid convergent estimators}: Do there exist a practicable model for elastica?}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\huge
+\center
+Thank you!
+\end{frame}
