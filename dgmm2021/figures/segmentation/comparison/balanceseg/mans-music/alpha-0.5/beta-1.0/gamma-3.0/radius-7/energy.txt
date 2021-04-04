@@ -1,0 +1,3 @@
+GrabCut Segmentation Elastica Energy: 0
+Boundary Correction Elastica Energy: 0
+#Execution time: 13s 13731ms 13731434us 

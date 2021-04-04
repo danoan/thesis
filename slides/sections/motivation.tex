@@ -8,40 +8,40 @@
 The problems we are interested in come from \emph{image analysis}.
 \vspace{1em}
 
-\only<1-4>{
+\only<1-3>{
 \begin{center}
 \begin{tabular}{ccc}
-\highlight{2}{1,3-}{\textbf{Segmentation}} & 
-\highlight{3}{1-2,4-}{\textbf{Denoising}} & 
-\highlight{4}{1-3,5-}{\textbf{Inpainting}}
+\highlight{1}{2,3}{\textbf{Segmentation}} & 
+\highlight{2}{1,3}{\textbf{Restoration}} & 
+\highlight{3}{1,2}{\textbf{Inpainting}}
 \end{tabular}
 \end{center}}
 
-\only<2>{
+\only<1>{
 \center
 \begin{tabular}{p{0.4\textwidth}c}
 \includegraphics[scale=0.4]{figures/motivation/image-analysis/segmentation-cars.png} &
 \includegraphics[scale=0.4]{figures/motivation/image-analysis/segmentation-crops.png}\\
 \mycite{li2019gff} & \mycite{li2015object}
 \end{tabular}}%
-\only<3>{
+\only<2>{
 \center
 \begin{tabular}{cc}
 \includegraphics[scale=0.44]{figures/motivation/image-analysis/denoising-airplane.png} &
 \includegraphics[scale=0.22]{figures/motivation/image-analysis/denoising-mri.png} \\
 \mycite{xu2018deep} & \mycite{jiang2018denoising}
 \end{tabular}}%
-\only<4>{
+\only<3>{
 \center
 \begin{tabular}{cc}
 \includegraphics[scale=0.3]{figures/motivation/image-analysis/inpainting-man.png} &
 \includegraphics[scale=0.24]{figures/motivation/image-analysis/inpainting-picture.png} \\
 \mycite{yu2018generative} &  \mycite{masnou98inpainting}
 \end{tabular}}%
-\only<5->{
+\only<4->{
 \begin{tabular}{p{0.6\textwidth}p{0.2\textwidth}}
 \textbf{Segmentation:} $\mathcal{I}^{\star} = \argmin_{\mathcal{I}} E_{seg}(\mathcal{I},f_{\vec{I}}).$ & \raisebox{-.5\height}{\includegraphics[scale=0.24]{figures/motivation/image-analysis/segmentation-stylised.png}}\\[2em]
-\textbf{Denoising:} $f_{\widehat{\vec{I}}} = \argmin_f E_{den}(f,f_{\vec{\widetilde{I}}}).$ & \raisebox{-.5\height}{\includegraphics[scale=0.24]{figures/motivation/image-analysis/denoising-stylised.png}}\\[2em]
+\textbf{Restoration:} $f_{\widehat{\vec{I}}} = \argmin_f E_{den}(f,f_{\vec{\widetilde{I}}}).$ & \raisebox{-.5\height}{\includegraphics[scale=0.24]{figures/motivation/image-analysis/denoising-stylised.png}}\\[2em]
 \textbf{Inpainting:} $f_{\vec{\widehat{I}}} = \argmin_f E_{inp}(f,f_{\widetilde{\vec{I}}}).$ & \raisebox{-.5\height}{\includegraphics[scale=0.24]{figures/motivation/image-analysis/inpainting-stylised.png}}
 \end{tabular}}
 \end{minipage}
@@ -96,7 +96,7 @@ The \emph{ROF}~(\mycite{rudin92}) model uses \emph{total variation} for image de
 %
 \vspace{1em}
 \onslide<7->{
-In this thesis, we are interested in the combined use of \emph{perimeter} and \emph{squared curvature} as geometric priors.}
+In this work, we are interested in the combined use of \emph{perimeter} and \emph{squared curvature} as geometric priors.}
 \end{frame}
 
 \begin{frame}
@@ -251,7 +251,7 @@ T-junctions matching & \multirow{2}{0.6\textwidth}{\footnotesize Fast algorithm,
 \mycite{masnou98inpainting} &\pause\\[3em]
 Linear programming & \multirow{2}{0.6\textwidth}{\footnotesize Global formulation, but prohibitive running times even for small (thus unprecise) neighborhoods. Not suitable for digital sets.} \\
 \mycite{schoenemann09linear} &\pause\\[3em]
-Triple cliques & \multirow{2}{0.6\textwidth}{\footnotesize Global formulation, quadratic non-submodular energy. Limited precision due combinatorial explosion.} \\
+Triple cliques & \multirow{2}{0.6\textwidth}{\footnotesize Global formulation, quadratic non-submodular energy. Limited precision.} \\
 \mycite{nieuwenhuis14efficient} &
 \end{tabular}
 \end{center}
