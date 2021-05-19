@@ -1,0 +1,145 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Focus Beamer Presentation
+% LaTeX Template
+% Version 1.0 (8/8/18)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Pasquale Africa (https://github.com/elauksap/focus-beamertheme) with modifications by 
+% Vel (vel@LaTeXTemplates.com)
+%
+% Template license:
+% GNU GPL v3.0 License
+%
+% Important note:
+% The bibliography/references need to be compiled with bibtex.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\usetheme[numbering=fullbar]{focus} % Use the Focus theme supplied with the template
+% Add option [numbering=none] to disable the footer progress bar
+% Add option [numbering=fullbar] to show the footer progress bar as always full with a slide count
+
+% Uncomment to enable the ice-blue theme
+%\definecolor{main}{RGB}{92, 138, 168}
+%\definecolor{background}{RGB}{240, 247, 255}
+
+%------------------------------------------------
+
+\usepackage{booktabs} % Required for better table rules
+
+%----------------------------------------------------------------------------------------
+%	 TITLE SLIDE
+%----------------------------------------------------------------------------------------
+
+
+\title{A maximum-flow model for digital elastica shape optimization}
+\subtitle{DGMM 2021}
+
+\author{  
+  {Daniel Antunes\textsuperscript{1} \\ Jacques-Olivier Lachaud\textsuperscript{1} and \\ Hugues Talbot\textsuperscript{2}}
+}
+  
+  
+\date
+  {25 May 2021}
+
+
+\institute
+  {
+	\textsuperscript{1}LAMA, Université Savoie Mont Blanc \\ 
+	\textsuperscript{2}CentraleSupélec, Université Paris-Saclay
+  }
+
+%\title{Focus: \\ A Minimalist Beamer Theme}
+%
+%\subtitle{Subtitle}
+%
+%\author{Author 1 \\ Author 2}
+
+%\titlegraphic{\includegraphics[scale=1.25]{Images/focuslogo.pdf}} % Optional title page image, comment this line to remove it
+
+%\institute{Institute Name \\ Institute Address}
+%
+%\date{dd mm yyyy}
+
+
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french,english]{babel}
+\usepackage{graphicx}
+\usepackage{caption,subcaption}
+\usepackage{multirow}
+\captionsetup{compatibility=false}
+
+\usepackage[linesnumbered,commentsnumbered,ruled,vlined]{algorithm2e}
+\usepackage[linewidth=2.5pt,linecolor=black,nobreak=true]{mdframed}
+\mdfsetup{frametitlealignment=\center}
+
+\usepackage{amstext,amsmath,amssymb,bm,bbm,graphicx,mathtools,accents}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
+\usepackage{transparent}
+
+\usepackage[style=authoryear,maxbibnames=99,maxcitenames=5,backref=true,backend=biber,citestyle=authoryear]{biblatex}
+\AtBeginBibliography{\footnotesize}
+\addbibresource{main.bib}
+
+\include{style/my-definitions}  
+
+\setbeamertemplate{bibliography entry title}{}
+\setbeamertemplate{bibliography entry location}{}
+\setbeamertemplate{bibliography entry note}{}
+
+\tikzset{
+  invisible/.style={opacity=0},
+  visible on/.style={alt={#1{}{invisible}}},
+  alt/.code args={<#1>#2#3}{%
+    \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+  },
+}
+ 
+\begin{document}
+\captionsetup[subfigure]{labelformat=empty}
+
+\begin{frame}
+	\maketitle
+\end{frame}
+
+\include{sections/outline}
+
+\section*{Motivation}
+\subsection{Image analysis tasks \\[1em] Elastica energy and the completion property \\[1em] Related works}
+\include{sections/image-analysis-tasks}
+\include{sections/elastica-energy-and-the-completion-property}
+\include{sections/related-works}
+
+
+\section*{Proposed model}
+\subsection{Digital estimators \\[1em]Curve-shortening flow \\[1em]Elastica shape optimization \\[1em] Applications in imaging}
+
+\include{sections/digital-estimators}
+\include{sections/curve-shortening-flow}
+\include{sections/elastica-shape-optimization}
+\include{sections/applications-in-imaging}
+
+
+\include{sections/conclusion}
+
+\begin{frame}[allowframebreaks]
+    \frametitle{References}	
+    \printbibliography
+\end{frame}
+
+
+\end{document}
